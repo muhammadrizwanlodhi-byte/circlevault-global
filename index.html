@@ -1104,8 +1104,21 @@
   .verify-overlay:not(.active),
   .lang-sheet:not(.open),
   .toast,
-  .svg-defs{
+  .svg-defs,
+  .view:not(.active){
     pointer-events:none !important;
+    visibility:hidden !important;
+  }
+  .cam-modal:not(.open),
+  .verify-overlay:not(.active){
+    display:none !important;
+    width:0 !important;
+    height:0 !important;
+    overflow:hidden !important;
+    z-index:-1 !important;
+    inset:auto !important;
+    top:-9999px !important;
+    left:-9999px !important;
   }
 </style>
 </head>
@@ -2123,6 +2136,33 @@
 </div>
 
 <script>
+/* ========== Legacy WebView shims (Huawei Y6s / old Android) ========== */
+(function(){
+  if(!Element.prototype.matches){
+    Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
+  }
+  if(!Element.prototype.closest){
+    Element.prototype.closest = function(sel){
+      var el = this;
+      while(el && el.nodeType === 1){
+        if(el.matches && el.matches(sel)) return el;
+        el = el.parentElement || el.parentNode;
+      }
+      return null;
+    };
+  }
+  if(!String.prototype.padStart){
+    String.prototype.padStart = function(len, ch){
+      var s = String(this);
+      ch = ch === undefined ? ' ' : String(ch);
+      if(!ch) ch = ' ';
+      var fill = '';
+      var need = (len >> 0) - s.length;
+      while(fill.length < need) fill += ch;
+      return fill.slice(0, Math.max(0, need)) + s;
+    };
+  }
+})();
 /* Click-only interactive binding is installed after app functions are defined (see bindCleanClickHandlers). */
 /* ---------------- i18n ---------------- */
 const I18N = {
@@ -2322,18 +2362,17 @@ const RTL_LANGS = ['ur','ar','fa','he','ps','sd','ug','yi'];
  * Old WebViews often focus a control but never fire click; touchend must run the handler.
  */
 /**
- * Unified tap binder — Pointer Events + touch + click (Huawei Y6s → modern phones).
- * Same handler for mouse and touch; debounce prevents double-fire.
+ * Unified tap binder — click-first for legacy WebViews, plus touch/pointer.
  */
 function CVBindTap(el, handler){
   if(!el || el.nodeType !== 1 || el.__cvTapBound) return;
   el.__cvTapBound = true;
   var lastAt = 0;
-  var sx = 0, sy = 0, armed = false, ptrId = null;
+  var sx = 0, sy = 0, armed = false;
 
   function fire(){
     var now = Date.now();
-    if(now - lastAt < 420) return;
+    if(now - lastAt < 400) return;
     lastAt = now;
     try{ handler(); }
     catch(err){ try{ console.error('[CircleVault tap]', err); }catch(_e){} }
@@ -2343,34 +2382,11 @@ function CVBindTap(el, handler){
     return !!(el.disabled || el.getAttribute('aria-disabled') === 'true');
   }
 
-  if(typeof window.PointerEvent === 'function'){
-    el.addEventListener('pointerdown', function(e){
-      if(e.isPrimary === false) return;
-      if(e.pointerType === 'mouse' && e.button !== 0) return;
-      sx = e.clientX;
-      sy = e.clientY;
-      ptrId = e.pointerId;
-      armed = true;
-    }, false);
-
-    el.addEventListener('pointerup', function(e){
-      if(!armed) return;
-      if(ptrId !== null && e.pointerId !== ptrId) return;
-      armed = false;
-      ptrId = null;
-      if(Math.abs(e.clientX - sx) > 24 || Math.abs(e.clientY - sy) > 24) return;
-      if(blocked()) return;
-      if(e.pointerType === 'touch' || e.pointerType === 'pen'){
-        try{ e.preventDefault(); }catch(_e){}
-        fire();
-      }
-    }, false);
-
-    el.addEventListener('pointercancel', function(){
-      armed = false;
-      ptrId = null;
-    }, false);
-  }
+  /* Standard click — required fallback for legacy mobile WebViews */
+  el.addEventListener('click', function(e){
+    if(blocked()) return;
+    fire();
+  }, false);
 
   el.addEventListener('touchstart', function(e){
     var t = e.touches && e.touches[0];
@@ -2385,16 +2401,21 @@ function CVBindTap(el, handler){
     armed = false;
     var t = e.changedTouches && e.changedTouches[0];
     if(!t) return;
-    if(Math.abs(t.clientX - sx) > 24 || Math.abs(t.clientY - sy) > 24) return;
+    if(Math.abs(t.clientX - sx) > 28 || Math.abs(t.clientY - sy) > 28) return;
     if(blocked()) return;
+    /* Synthesize click for WebViews that skip native click after touch */
     try{ e.preventDefault(); }catch(_e){}
     fire();
   }, false);
 
-  el.addEventListener('click', function(){
-    if(blocked()) return;
-    fire();
-  }, false);
+  if(typeof window.PointerEvent === 'function'){
+    el.addEventListener('pointerup', function(e){
+      if(e.pointerType !== 'touch' && e.pointerType !== 'pen') return;
+      if(blocked()) return;
+      if(Math.abs(e.clientX - sx) > 28 || Math.abs(e.clientY - sy) > 28) return;
+      fire();
+    }, false);
+  }
 }
 window.CVBindTap = CVBindTap;
 
@@ -2816,8 +2837,11 @@ function syncDocScanSlots(){
     }
   }
   if(grid) grid.classList.toggle('passport-mode', passport);
-  if(frontLabel && !document.getElementById('slotFront')?.classList.contains('filled')){
-    frontLabel.textContent = passport ? 'Passport Bio-Data Page Scan' : 'Front Side Document Scan';
+  if(frontLabel){
+    var slotFrontEl = document.getElementById('slotFront');
+    if(!(slotFrontEl && slotFrontEl.classList.contains('filled'))){
+      frontLabel.textContent = passport ? 'Passport Bio-Data Page Scan' : 'Front Side Document Scan';
+    }
   }
   evaluateAi();
 }
@@ -2852,7 +2876,8 @@ function renderDocTiles(){
 function syncCountry(){
   renderDocTiles();
   const dial = document.getElementById('dialCodeSelect');
-  const country = document.getElementById('countrySelect')?.value;
+  const countryEl = document.getElementById('countrySelect');
+  const country = countryEl ? countryEl.value : '';
   if(dial && country && COUNTRY_DIAL[country]){
     dial.value = COUNTRY_DIAL[country];
   }
@@ -3153,7 +3178,7 @@ function collectDraft(){
     if(el.type === 'checkbox'){
       checks[el.id || key] = !!el.checked;
     } else if(el.type === 'radio'){
-      if(el.checked) radios[el.name] = el.value || (el.parentElement?.textContent || '').trim();
+      if(el.checked) radios[el.name] = el.value || ((el.parentElement && el.parentElement.textContent) || '').trim();
     } else {
       fields[el.id || key] = el.value;
     }
@@ -3226,9 +3251,10 @@ function loadDraft(){
     Object.keys(draft.radios || {}).forEach(name=>{
       const val = draft.radios[name];
       document.querySelectorAll('input[type=radio][name="'+name+'"]').forEach(r=>{
-        const labelText = (r.parentElement?.textContent || '').trim();
+        const labelText = ((r.parentElement && r.parentElement.textContent) || '').trim();
         r.checked = r.value === val || labelText === val;
-        r.closest('.pill-choice')?.classList.toggle('active', r.checked);
+        var pill = r.closest ? r.closest('.pill-choice') : null;
+        if(pill) pill.classList.toggle('active', r.checked);
       });
     });
     if(draft.meta){
@@ -3286,7 +3312,8 @@ function exitOnboarding(){
 
 function syncDeployBtn(){
   const btn = document.getElementById('btnDeployVault');
-  const ok = document.getElementById('amlCompliance')?.checked;
+  const amlEl = document.getElementById('amlCompliance');
+  const ok = !!(amlEl && amlEl.checked);
   if(btn) btn.disabled = !ok;
 }
 
@@ -3453,7 +3480,8 @@ function simulateMobileLiveness(){
   const hint = document.getElementById('mobileLivenessHint');
   if(hint) hint.textContent = 'Mobile session connected — verifying…';
   if(status) status.textContent = 'Mobile liveness in progress…';
-  document.getElementById('slotLive')?.classList.add('filled');
+  var slotLiveEl = document.getElementById('slotLive');
+  if(slotLiveEl) slotLiveEl.classList.add('filled');
   setTimeout(()=>{
     if(hint) hint.textContent = '✓ Mobile liveness verified';
     if(status) status.textContent = '✓ Liveness confirmed (mobile)';
@@ -4465,7 +4493,8 @@ window.showStep = showStep;
 })();
 
 /**
- * Document-level unified pointer/touch fallback for any control missed by CVBindTap.
+ * Absolute legacy fallback: touchend → element.click() for unbound controls,
+ * plus a capture-phase click listener so standard clicks always work.
  */
 (function legacyMobileTapBridge(){
   'use strict';
@@ -4496,12 +4525,8 @@ window.showStep = showStep;
     return null;
   }
 
-  function activateAt(clientX, clientY, target){
-    var hit = null;
-    try{ hit = document.elementFromPoint(clientX, clientY); }catch(_e){}
-    var el = closestEl(hit, SELECTOR) || closestEl(target, SELECTOR);
+  function activate(el){
     if(!el || el.disabled) return;
-    if(el.__cvTapBound) return;
     var now = Date.now();
     if(lastEl === el && (now - lastAt) < 450) return;
     lastEl = el;
@@ -4509,17 +4534,13 @@ window.showStep = showStep;
     try{ el.click(); }catch(_err){}
   }
 
-  document.addEventListener('pointerdown', function(e){
-    if(e.pointerType === 'mouse' && e.button !== 0) return;
-    sx = e.clientX;
-    sy = e.clientY;
-  }, false);
-
-  document.addEventListener('pointerup', function(e){
-    if(e.pointerType === 'mouse') return;
-    if(Math.abs(e.clientX - sx) > 24 || Math.abs(e.clientY - sy) > 24) return;
-    activateAt(e.clientX, e.clientY, e.target);
-  }, false);
+  /* Capture-phase click — standard path for legacy WebViews */
+  document.addEventListener('click', function(e){
+    var el = closestEl(e.target, SELECTOR);
+    if(!el || el.__cvTapBound) return;
+    /* Let native onclick / bubbled listeners run; only force-activate orphans */
+    if(el.getAttribute('onclick') || el.getAttribute('data-cv-onclick')) return;
+  }, true);
 
   document.addEventListener('touchstart', function(e){
     var t = e.touches && e.touches[0];
@@ -4531,8 +4552,13 @@ window.showStep = showStep;
   document.addEventListener('touchend', function(e){
     var t = e.changedTouches && e.changedTouches[0];
     if(!t) return;
-    if(Math.abs(t.clientX - sx) > 24 || Math.abs(t.clientY - sy) > 24) return;
-    activateAt(t.clientX, t.clientY, e.target);
+    if(Math.abs(t.clientX - sx) > 28 || Math.abs(t.clientY - sy) > 28) return;
+    var hit = null;
+    try{ hit = document.elementFromPoint(t.clientX, t.clientY); }catch(_e){}
+    var el = closestEl(hit, SELECTOR) || closestEl(e.target, SELECTOR);
+    if(!el || el.__cvTapBound) return;
+    try{ e.preventDefault(); }catch(_pe){}
+    activate(el);
   }, false);
 })();
 </script>
