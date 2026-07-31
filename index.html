@@ -1049,8 +1049,7 @@
   .muted{color:var(--muted);}
 
   /* =====================================================================
-     Mobile touch hygiene ONLY — non-destructive additive layer.
-     Does not change colors, fonts, spacing, layout geometry, or JS.
+     Mobile touch hygiene — NO invisible overlays (those block Huawei taps).
      ===================================================================== */
   button,
   a[href],
@@ -1087,57 +1086,26 @@
   input[type="checkbox"],
   input[type="radio"],
   label[for],
-  select{
+  select,
+  .upload-slot{
     cursor:pointer;
-    touch-action:manipulation;
+    touch-action:manipulation !important;
     -ms-touch-action:manipulation;
-    pointer-events:auto;
+    pointer-events:auto !important;
     position:relative;
     z-index:10;
-    -webkit-tap-highlight-color:transparent;
+    -webkit-tap-highlight-color:rgba(212,175,70,.25);
+    -webkit-user-select:none;
+    user-select:none;
   }
 
-  /* Invisible ≥44px hit pad — absolute, so painted box / layout stay unchanged */
-  @media (hover:none), (pointer:coarse){
-    button:not(:disabled)::after,
-    a[href]::after,
-    [role="button"]::after,
-    .tab::after,
-    .tab-btn::after,
-    .btn::after,
-    .theme-toggle::after,
-    .lang-touch-btn::after,
-    .lang-sheet-item::after,
-    .lang-sheet-close::after,
-    .doc-tile::after,
-    .toggle-choice::after,
-    .action-btn::after,
-    .module-head::after,
-    .btn-nav-primary::after,
-    .btn-nav-secondary::after,
-    .btn-nav-danger::after,
-    .btn-deploy::after,
-    .btn-cam::after,
-    .btn-file::after,
-    .btn-add-settlement::after,
-    .btn-doc-save::after,
-    .btn-doc-retake::after,
-    .btn-doc-remove::after{
-      content:"";
-      position:absolute;
-      left:50%;
-      top:50%;
-      width:100%;
-      height:100%;
-      min-width:44px;
-      min-height:44px;
-      transform:translate(-50%,-50%);
-      pointer-events:auto;
-      background:transparent;
-      border:0;
-      box-shadow:none;
-      z-index:0;
-    }
+  /* Closed overlays must never intercept taps (Huawei / old WebViews) */
+  .cam-modal:not(.open),
+  .verify-overlay:not(.active),
+  .lang-sheet:not(.open),
+  .toast,
+  .svg-defs{
+    pointer-events:none !important;
   }
 </style>
 </head>
@@ -2353,18 +2321,55 @@ const RTL_LANGS = ['ur','ar','fa','he','ps','sd','ug','yi'];
  * Universal tap binder — Huawei Y6s / old Android WebViews + new Android + iOS + desktop.
  * Old WebViews often focus a control but never fire click; touchend must run the handler.
  */
+/**
+ * Unified tap binder — Pointer Events + touch + click (Huawei Y6s → modern phones).
+ * Same handler for mouse and touch; debounce prevents double-fire.
+ */
 function CVBindTap(el, handler){
   if(!el || el.nodeType !== 1 || el.__cvTapBound) return;
   el.__cvTapBound = true;
   var lastAt = 0;
-  var sx = 0, sy = 0, armed = false;
+  var sx = 0, sy = 0, armed = false, ptrId = null;
 
   function fire(){
     var now = Date.now();
-    if(now - lastAt < 480) return;
+    if(now - lastAt < 420) return;
     lastAt = now;
     try{ handler(); }
     catch(err){ try{ console.error('[CircleVault tap]', err); }catch(_e){} }
+  }
+
+  function blocked(){
+    return !!(el.disabled || el.getAttribute('aria-disabled') === 'true');
+  }
+
+  if(typeof window.PointerEvent === 'function'){
+    el.addEventListener('pointerdown', function(e){
+      if(e.isPrimary === false) return;
+      if(e.pointerType === 'mouse' && e.button !== 0) return;
+      sx = e.clientX;
+      sy = e.clientY;
+      ptrId = e.pointerId;
+      armed = true;
+    }, false);
+
+    el.addEventListener('pointerup', function(e){
+      if(!armed) return;
+      if(ptrId !== null && e.pointerId !== ptrId) return;
+      armed = false;
+      ptrId = null;
+      if(Math.abs(e.clientX - sx) > 24 || Math.abs(e.clientY - sy) > 24) return;
+      if(blocked()) return;
+      if(e.pointerType === 'touch' || e.pointerType === 'pen'){
+        try{ e.preventDefault(); }catch(_e){}
+        fire();
+      }
+    }, false);
+
+    el.addEventListener('pointercancel', function(){
+      armed = false;
+      ptrId = null;
+    }, false);
   }
 
   el.addEventListener('touchstart', function(e){
@@ -2380,14 +2385,14 @@ function CVBindTap(el, handler){
     armed = false;
     var t = e.changedTouches && e.changedTouches[0];
     if(!t) return;
-    if(Math.abs(t.clientX - sx) > 20 || Math.abs(t.clientY - sy) > 20) return;
-    if(el.disabled || el.getAttribute('aria-disabled') === 'true') return;
+    if(Math.abs(t.clientX - sx) > 24 || Math.abs(t.clientY - sy) > 24) return;
+    if(blocked()) return;
     try{ e.preventDefault(); }catch(_e){}
     fire();
   }, false);
 
   el.addEventListener('click', function(){
-    if(el.disabled || el.getAttribute('aria-disabled') === 'true') return;
+    if(blocked()) return;
     fire();
   }, false);
 }
@@ -3764,18 +3769,20 @@ function enhanceUploadSlots(){
       '<button type="button" class="btn-cam" data-cam="'+slotId+'">📷 Capture via Camera</button>';
     wrap.appendChild(actions);
 
-    actions.querySelector('[data-pick]').addEventListener('click', function(e){
-      e.preventDefault(); e.stopPropagation();
-      const inp = document.querySelector('#'+slotId+' input[type=file]');
-      if(inp){
-        inp.removeAttribute('capture');
-        inp.click();
-      }
-    });
-    actions.querySelector('[data-cam]').addEventListener('click', function(e){
-      e.preventDefault(); e.stopPropagation();
-      openCameraCapture(slotId);
-    });
+    var pickBtn = actions.querySelector('[data-pick]');
+    var camBtn = actions.querySelector('[data-cam]');
+    if(pickBtn){
+      CVBindTap(pickBtn, function(){
+        var inp = document.querySelector('#'+slotId+' input[type=file]');
+        if(inp){
+          inp.removeAttribute('capture');
+          inp.click();
+        }
+      });
+    }
+    if(camBtn){
+      CVBindTap(camBtn, function(){ openCameraCapture(slotId); });
+    }
 
     if(!wrap.querySelector('.slot-controls')){
       const controls = document.createElement('div');
@@ -3786,18 +3793,12 @@ function enhanceUploadSlots(){
         '<button type="button" class="btn-doc-remove" data-remove="'+slotId+'">🗑️ Remove</button>';
       wrap.appendChild(controls);
 
-      controls.querySelector('[data-save]').addEventListener('click', function(e){
-        e.preventDefault(); e.stopPropagation();
-        saveUploadSlot(slotId);
-      });
-      controls.querySelector('[data-retake]').addEventListener('click', function(e){
-        e.preventDefault(); e.stopPropagation();
-        retakeUploadSlot(slotId);
-      });
-      controls.querySelector('[data-remove]').addEventListener('click', function(e){
-        e.preventDefault(); e.stopPropagation();
-        removeUploadSlot(slotId);
-      });
+      var saveB = controls.querySelector('[data-save]');
+      var retakeB = controls.querySelector('[data-retake]');
+      var removeB = controls.querySelector('[data-remove]');
+      if(saveB) CVBindTap(saveB, function(){ saveUploadSlot(slotId); });
+      if(retakeB) CVBindTap(retakeB, function(){ retakeUploadSlot(slotId); });
+      if(removeB) CVBindTap(removeB, function(){ removeUploadSlot(slotId); });
     }
   });
 }
@@ -4464,8 +4465,7 @@ window.showStep = showStep;
 })();
 
 /**
- * Document-level legacy tap fallback for any interactive control missed by per-element binds.
- * Fires the element's own click() after a short debounce — safe on new phones; critical on Huawei.
+ * Document-level unified pointer/touch fallback for any control missed by CVBindTap.
  */
 (function legacyMobileTapBridge(){
   'use strict';
@@ -4478,7 +4478,7 @@ window.showStep = showStep;
     '.doc-tile', '.toggle-choice', '.action-btn', '.module-head', '.brand',
     '.btn-nav-primary', '.btn-nav-secondary', '.btn-nav-danger', '.btn-deploy',
     '.btn-cam', '.btn-file', '.btn-doc-save', '.btn-doc-retake', '.btn-doc-remove',
-    '[data-cv-onclick]', '[onclick]'
+    '.btn-add-settlement', '[data-cv-onclick]', '[onclick]'
   ].join(',');
 
   var sx = 0, sy = 0, lastAt = 0, lastEl = null;
@@ -4496,6 +4496,31 @@ window.showStep = showStep;
     return null;
   }
 
+  function activateAt(clientX, clientY, target){
+    var hit = null;
+    try{ hit = document.elementFromPoint(clientX, clientY); }catch(_e){}
+    var el = closestEl(hit, SELECTOR) || closestEl(target, SELECTOR);
+    if(!el || el.disabled) return;
+    if(el.__cvTapBound) return;
+    var now = Date.now();
+    if(lastEl === el && (now - lastAt) < 450) return;
+    lastEl = el;
+    lastAt = now;
+    try{ el.click(); }catch(_err){}
+  }
+
+  document.addEventListener('pointerdown', function(e){
+    if(e.pointerType === 'mouse' && e.button !== 0) return;
+    sx = e.clientX;
+    sy = e.clientY;
+  }, false);
+
+  document.addEventListener('pointerup', function(e){
+    if(e.pointerType === 'mouse') return;
+    if(Math.abs(e.clientX - sx) > 24 || Math.abs(e.clientY - sy) > 24) return;
+    activateAt(e.clientX, e.clientY, e.target);
+  }, false);
+
   document.addEventListener('touchstart', function(e){
     var t = e.touches && e.touches[0];
     if(!t) return;
@@ -4506,18 +4531,8 @@ window.showStep = showStep;
   document.addEventListener('touchend', function(e){
     var t = e.changedTouches && e.changedTouches[0];
     if(!t) return;
-    if(Math.abs(t.clientX - sx) > 22 || Math.abs(t.clientY - sy) > 22) return;
-    /* If a dedicated CVBindTap already handled this target, skip */
-    var hit = null;
-    try{ hit = document.elementFromPoint(t.clientX, t.clientY); }catch(_e){}
-    var el = closestEl(hit, SELECTOR) || closestEl(e.target, SELECTOR);
-    if(!el || el.disabled) return;
-    if(el.__cvTapBound) return;
-    var now = Date.now();
-    if(lastEl === el && (now - lastAt) < 450) return;
-    lastEl = el;
-    lastAt = now;
-    try{ el.click(); }catch(_err){}
+    if(Math.abs(t.clientX - sx) > 24 || Math.abs(t.clientY - sy) > 24) return;
+    activateAt(t.clientX, t.clientY, e.target);
   }, false);
 })();
 </script>
