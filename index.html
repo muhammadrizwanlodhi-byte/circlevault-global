@@ -1055,6 +1055,33 @@
   .dash-flow .module{margin-block-end:0;}
   .dash-flow .module-body{max-height:none;overflow:visible;padding:18px 20px 20px;}
   #dashPanelLedger .module.open .module-body{max-height:none;overflow:visible;padding:18px 20px 20px;}
+
+  /* Transactions sub-category detail panel — typography / spacing only */
+  #dashPanelTransactions .dash-flow .module-body{
+    padding:1.5rem;
+  }
+  #dashPanelTransactions .tx-subcat-head{
+    display:flex;flex-direction:column;align-items:flex-start;gap:6px;
+    margin:0 0 1.25rem;padding:0;
+  }
+  #dashPanelTransactions .tx-subcat-title{
+    margin:0;padding:0;
+    font-family:var(--font-display);
+    font-size:1.5rem;font-weight:700;line-height:1.25;
+    color:#FFFFFF;
+  }
+  #dashPanelTransactions .tx-subcat-sub{
+    margin:0;padding:0;
+    font-size:0.875rem;font-weight:400;line-height:1.45;
+    color:#94A3B8;
+  }
+  #dashPanelTransactions .tx-subcat-actions{
+    display:flex;justify-content:flex-end;margin-block-start:1rem;
+  }
+  #dashPanelTransactions .tx-subcat-actions .btn{
+    border:1px solid var(--line-strong);
+    background:transparent;
+  }
   .dash-overview-cta{display:flex;justify-content:center;margin-block-start:8px;margin-block-end:12px;}
   #dashTabbar{margin-block-start:18px;margin-block-end:22px;}
   #dashTabbar .tab span:not(.num){max-width:none;overflow:visible;text-overflow:clip;white-space:nowrap;}
@@ -1073,6 +1100,22 @@
   }
 
   footer.site{border-block-start:1px solid var(--line);padding-block:26px;color:var(--muted-2);font-size:12px;text-align:center;}
+
+  /* Temporary Dev Mode bypass — onboarding / registration only */
+  #devModeSkip{
+    position:fixed;top:12px;right:12px;z-index:50;
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:var(--font-mono);font-size:11px;font-weight:600;
+    padding:7px 11px;border-radius:999px;cursor:pointer;
+    color:var(--amber);background:var(--amber-soft);
+    border:1px solid rgba(245,166,35,.45);
+    box-shadow:0 6px 18px rgba(0,0,0,.28);
+    touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+  }
+  #devModeSkip:hover{border-color:var(--amber);}
+  #devModeSkip[hidden],
+  body.is-dashboard #devModeSkip{display:none !important;}
+  @media print{#devModeSkip{display:none !important;}}
 
   /* Utility */
   .center{text-align:center;}
@@ -1208,6 +1251,8 @@
     </div>
   </div>
 </div>
+
+<button type="button" id="devModeSkip" title="Temporary: skip onboarding to Dashboard">🛠️ Dev Mode: Skip to Dashboard</button>
 
 <!-- ================= LANDING ================= -->
 <section id="view-landing" class="view active">
@@ -2076,79 +2121,181 @@
       </div>
     </div>
 
-    <!-- TAB 2: Transactions Hub — 4 command cards + dedicated flows -->
+    <!-- TAB 2: Transactions Hub — 7-category CircleVault Transaction Taxonomy -->
     <div class="dash-tab-panel" id="dashPanelTransactions" role="tabpanel" aria-labelledby="dashTabTransactions">
-      <div class="dash-cmd-grid" id="dashCmdGrid">
-        <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="remit">
-          <div class="ic">💸</div>
-          <h4>Send &amp; Remit (PK/UAE Corridor)</h4>
-          <p>Direct P2P transfers with local bank or mobile wallet payout across the corridor.</p>
-        </div>
+      <div class="grid-3 dash-cmd-grid" id="dashCmdGrid">
         <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="deposit">
           <div class="ic">💳</div>
-          <h4>Deposit &amp; Yield (USDC/USYC)</h4>
-          <p>Place USDC into yield-bearing savings or lock into RWA project investments.</p>
+          <h4>Deposits &amp; Inflows</h4>
+          <p>Fiat On-Ramp Deposit, Direct Stablecoin Inflow, Cross-Border CCTP Mint</p>
+        </div>
+        <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="yield">
+          <div class="ic">📈</div>
+          <h4>Yield &amp; Treasury Management (USYC)</h4>
+          <p>USYC Yield Subscription, USYC Yield Liquidation / Redemption, Auto-Yield Sweep, Yield Payout Distribution</p>
         </div>
         <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="escrow">
           <div class="ic">🤝</div>
-          <h4>SME Trade Escrow</h4>
-          <p>Lock funds against a conditional contract for goods and services.</p>
+          <h4>SME Trade &amp; Escrow Services</h4>
+          <p>Escrow Fund Lock, Milestone Performance Release, Escrow Dispute Refund, Yield-Bearing Escrow Staking</p>
+        </div>
+        <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="remit">
+          <div class="ic">💸</div>
+          <h4>Remittances &amp; Payouts (PK/UAE)</h4>
+          <p>Cross-Border Corridors (PK/UAE), Batch Payroll Disbursement, Merchant B2B Settlement</p>
+        </div>
+        <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="rwa">
+          <div class="ic">🏢</div>
+          <h4>Real World Asset (RWA) Investments</h4>
+          <p>RWA Tokenized Asset Purchase, RWA Principal &amp; Return Redemption</p>
         </div>
         <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="loan">
           <div class="ic">🏦</div>
-          <h4>Loan &amp; Credit Request ($10k Line)</h4>
-          <p>Collateralize vault balances for an instant, compliance-cleared credit line.</p>
+          <h4>Credit &amp; Liquidity Lines</h4>
+          <p>USYC / Asset Collateralized Borrow, Credit Line Repayment</p>
+        </div>
+        <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="withdraw">
+          <div class="ic">🏧</div>
+          <h4>Withdrawals &amp; Fiat Off-Ramping</h4>
+          <p>Fiat Off-Ramp Withdrawal, External Crypto Outflow</p>
         </div>
       </div>
 
-      <div class="dash-flow" id="flow-remit" data-flow="remit">
-        <div class="module open" id="moduleD">
-          <div class="module-body">
-            <p>Move money across borders on the PK/UAE corridor with local bank or mobile wallet payout.</p>
-            <div class="opt-row">
-              <div class="opt-card"><h4>Remittance Engine</h4><p>Direct P2P transfers with local bank or mobile wallet payout — PKR, INR, AED and more.</p></div>
-              <div class="opt-card"><h4>Corridor Settlement</h4><p>Compliance-cleared payout rails for Pakistan ↔ UAE remittance corridors.</p></div>
-            </div>
-            <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
-          </div>
-        </div>
-      </div>
-
+      <!-- Category 1: Deposits & Inflows -->
       <div class="dash-flow" id="flow-deposit" data-flow="deposit">
         <div class="module open" id="moduleA">
           <div class="module-body">
-            <p>Choose where new USDC deposits go — flexible yield, or a locked project investment.</p>
+            <header class="tx-subcat-head">
+              <h3 class="tx-subcat-title">Deposits &amp; Inflows</h3>
+              <p class="tx-subcat-sub">Select a sub-category to continue.</p>
+            </header>
             <div class="opt-row">
-              <div class="opt-card"><h4>Yield-Bearing Savings (USYC Vault)</h4><p>Capital-protected, US Treasury-backed yield. Withdraw anytime.</p></div>
-              <div class="opt-card"><h4>Direct Project Investment (RWA Vault)</h4><p>Lock capital into a chosen project — tokenized real estate, energy sukuk, or SME trade pools.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><h4>Fiat On-Ramp Deposit</h4><p>Deposit fiat currency (PKR/AED/USD) converted seamlessly into USDC via Circle Mint.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><h4>Direct Stablecoin Inflow</h4><p>Receive native USDC or EURC directly from external Web3/exchange wallets.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><h4>Cross-Border CCTP Mint</h4><p>Native cross-chain transfer burned on source chain and minted into CircleVault.</p></div>
             </div>
-            <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
+            <div class="tx-subcat-actions">
+              <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
+            </div>
           </div>
         </div>
       </div>
 
+      <!-- Category 2: Yield & Treasury -->
+      <div class="dash-flow" id="flow-yield" data-flow="yield">
+        <div class="module open" id="moduleYield">
+          <div class="module-body">
+            <header class="tx-subcat-head">
+              <h3 class="tx-subcat-title">Yield &amp; Treasury Management (USYC)</h3>
+              <p class="tx-subcat-sub">Select a sub-category to continue.</p>
+            </header>
+            <div class="opt-row">
+              <div class="opt-card" role="button" tabindex="0"><h4>USYC Yield Subscription</h4><p>Transfer idle USDC into USYC Yield Vault backed by Short-Term US Treasuries (~5.1% APY).</p></div>
+              <div class="opt-card" role="button" tabindex="0"><h4>USYC Yield Liquidation / Redemption</h4><p>Redeem USYC principal or accumulated earnings back into instantly spendable USDC.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><h4>Auto-Yield Sweep</h4><p>Automated smart contract rule sweeping excess treasury funds (&gt;Threshold) into USYC.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><h4>Yield Payout Distribution</h4><p>Periodic yield distribution directly credited to Liquid Cash or reinvested into USYC.</p></div>
+            </div>
+            <div class="tx-subcat-actions">
+              <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category 3: SME Trade Escrow -->
       <div class="dash-flow" id="flow-escrow" data-flow="escrow">
         <div class="module open" id="moduleEscrow">
           <div class="module-body">
-            <p>Hold funds safely until agreed trade conditions are met.</p>
+            <header class="tx-subcat-head">
+              <h3 class="tx-subcat-title">SME Trade &amp; Escrow Services</h3>
+              <p class="tx-subcat-sub">Select a sub-category to continue.</p>
+            </header>
             <div class="opt-row">
-              <div class="opt-card"><h4>Smart Escrow Payments</h4><p>Lock funds against a conditional contract for goods and services.</p></div>
-              <div class="opt-card"><h4>Trade Release</h4><p>Release or dispute escrow once delivery milestones are confirmed.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><h4>Escrow Fund Lock</h4><p>Lock buyer funds in smart escrow contract for B2B cross-border goods/services order.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><h4>Milestone Performance Release</h4><p>Release funds to seller upon verification of shipping/trade milestone execution.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><h4>Escrow Dispute Refund</h4><p>Return locked escrow funds to buyer in case of trade cancellation or contract breach.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><h4>Yield-Bearing Escrow Staking</h4><p>Generate ~5.1% yield on locked escrow funds while trade milestone verification is pending.</p></div>
             </div>
-            <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
+            <div class="tx-subcat-actions">
+              <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
+            </div>
           </div>
         </div>
       </div>
 
+      <!-- Category 4: Remittances -->
+      <div class="dash-flow" id="flow-remit" data-flow="remit">
+        <div class="module open" id="moduleD">
+          <div class="module-body">
+            <header class="tx-subcat-head">
+              <h3 class="tx-subcat-title">Remittances &amp; Payouts (PK/UAE)</h3>
+              <p class="tx-subcat-sub">Select a sub-category to continue.</p>
+            </header>
+            <div class="opt-row">
+              <div class="opt-card" role="button" tabindex="0"><h4>Cross-Border Corridors (PK/UAE)</h4><p>Instant low-cost cross-border transfer between UAE (AED) and Pakistan (PKR) via USDC.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><h4>Batch Payroll Disbursement</h4><p>Single-click bulk distribution of salaries/vendor payouts in USDC to multiple addresses.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><h4>Merchant B2B Settlement</h4><p>Instant commercial settlement to international supplier accounts with instant finality.</p></div>
+            </div>
+            <div class="tx-subcat-actions">
+              <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category 5: RWA Investments -->
+      <div class="dash-flow" id="flow-rwa" data-flow="rwa">
+        <div class="module open" id="moduleRwa">
+          <div class="module-body">
+            <header class="tx-subcat-head">
+              <h3 class="tx-subcat-title">Real World Asset (RWA) Investments</h3>
+              <p class="tx-subcat-sub">Select a sub-category to continue.</p>
+            </header>
+            <div class="opt-row">
+              <div class="opt-card" role="button" tabindex="0"><h4>RWA Tokenized Asset Purchase</h4><p>Invest USDC into tokenized Real-World Assets (e.g. Export Invoice, Tokenized Real Estate).</p></div>
+              <div class="opt-card" role="button" tabindex="0"><h4>RWA Principal &amp; Return Redemption</h4><p>Redeem matured RWA tokens along with accrued interest back into liquid USDC.</p></div>
+            </div>
+            <div class="tx-subcat-actions">
+              <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category 6: Credit & Liquidity -->
       <div class="dash-flow" id="flow-loan" data-flow="loan">
         <div class="module open" id="moduleB">
           <div class="module-body">
-            <p>Collateralize your Yield Vault balance or RWA tokens for an instant, compliance-cleared loan of up to 70% of value.</p>
+            <header class="tx-subcat-head">
+              <h3 class="tx-subcat-title">Credit &amp; Liquidity Lines</h3>
+              <p class="tx-subcat-sub">Select a sub-category to continue.</p>
+            </header>
             <div class="opt-row">
-              <div class="opt-card"><h4>Loan Request</h4><p>Choose amount, a 3 / 6 / 12 month tenure, and preview the profit rate before confirming.</p></div>
-              <div class="opt-card"><h4>Smart Contract Approval</h4><p>Once identity and AML score are verified, funds move to your liquid wallet in moments.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><h4>USYC / Asset Collateralized Borrow</h4><p>Drawdown instant USDC credit line against deposited USYC or RWA collateral.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><h4>Credit Line Repayment</h4><p>Repay principal plus low borrowing interest to restore available credit limit.</p></div>
             </div>
-            <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
+            <div class="tx-subcat-actions">
+              <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category 7: Withdrawals & Off-Ramp -->
+      <div class="dash-flow" id="flow-withdraw" data-flow="withdraw">
+        <div class="module open" id="moduleWithdraw">
+          <div class="module-body">
+            <header class="tx-subcat-head">
+              <h3 class="tx-subcat-title">Withdrawals &amp; Fiat Off-Ramping</h3>
+              <p class="tx-subcat-sub">Select a sub-category to continue.</p>
+            </header>
+            <div class="opt-row">
+              <div class="opt-card" role="button" tabindex="0"><h4>Fiat Off-Ramp Withdrawal</h4><p>Convert USDC directly to local fiat (PKR, AED, USD) into linked bank accounts.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><h4>External Crypto Outflow</h4><p>Transfer USDC/EURC to external institutional or exchange Web3 wallet.</p></div>
+            </div>
+            <div class="tx-subcat-actions">
+              <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
+            </div>
           </div>
         </div>
       </div>
@@ -2706,6 +2853,7 @@ function goBack(){
     document.querySelectorAll('.view').forEach(v=>{ v.classList.remove('active'); resetFitStyles(v); });
     document.getElementById('view-'+prev).classList.add('active');
     window.scrollTo({top:0, behavior:'smooth'});
+    syncDevModeSkipBtn();
     requestAnimationFrame(applyFitScale);
   } else {
     exitApp();
@@ -2717,6 +2865,7 @@ function exitApp(){
   document.getElementById('view-landing').classList.add('active');
   showStep(1);
   window.scrollTo({top:0, behavior:'smooth'});
+  syncDevModeSkipBtn();
   requestAnimationFrame(applyFitScale);
 }
 
@@ -2962,6 +3111,25 @@ function syncCountry(){
 }
 
 /* ---------------- view routing ---------------- */
+function syncDevModeSkipBtn(){
+  var btn = document.getElementById('devModeSkip');
+  var onDash = currentViewName() === 'dashboard';
+  if(onDash) document.body.classList.add('is-dashboard');
+  else document.body.classList.remove('is-dashboard');
+  if(btn){
+    if(onDash) btn.setAttribute('hidden', '');
+    else btn.removeAttribute('hidden');
+  }
+}
+
+function skipToDashboardDev(){
+  try{
+    var overlay = document.getElementById('verifyOverlay');
+    if(overlay) overlay.classList.remove('active');
+  }catch(_e){}
+  goTo('dashboard');
+}
+
 function goTo(view){
   try{
     const target = document.getElementById('view-'+view);
@@ -2987,6 +3155,7 @@ function goTo(view){
     if(view === 'dashboard' && typeof switchDashTab === 'function'){
       switchDashTab('overview');
     }
+    syncDevModeSkipBtn();
     requestAnimationFrame(applyFitScale);
   }catch(err){
     console.error('goTo failed', err);
@@ -4546,11 +4715,21 @@ ensureCredentialSettlementNeverBlank();
 paintCredentialSettlement(resolveActiveSettlementCredentials());
 ensureCredentialSettlementNeverBlank();
 switchDashTab('overview');
+syncDevModeSkipBtn();
+(function bindDevModeSkip(){
+  var btn = document.getElementById('devModeSkip');
+  if(!btn || btn.dataset.boundDev === '1') return;
+  btn.dataset.boundDev = '1';
+  if(typeof CVBindTap === 'function') CVBindTap(btn, skipToDashboardDev);
+  else btn.addEventListener('click', skipToDashboardDev);
+})();
 
 /* Expose navigation helpers on window (guards against scope / minify issues on mobile WebViews) */
 window.goTo = goTo;
 window.goBack = goBack;
 window.exitApp = exitApp;
+window.skipToDashboardDev = skipToDashboardDev;
+window.syncDevModeSkipBtn = syncDevModeSkipBtn;
 window.toggleTheme = toggleTheme;
 window.openLangSheet = openLangSheet;
 window.closeLangSheet = closeLangSheet;
@@ -4591,7 +4770,8 @@ window.showStep = showStep;
     var id = el.id || '';
     if(id === 'btnContinue' || id === 'btnBack' || id === 'btnSaveDraft' ||
        id === 'btnExit' || id === 'btnEdit' || id === 'btnDeployVault' ||
-       id === 'langTouchBtn' || id === 'langSheetClose' || id === 'btnProceedTransactions') return true;
+       id === 'langTouchBtn' || id === 'langSheetClose' || id === 'btnProceedTransactions' ||
+       id === 'devModeSkip') return true;
     if(el.classList && (
       el.classList.contains('btn-step-continue') ||
       el.classList.contains('btn-step-back') ||
