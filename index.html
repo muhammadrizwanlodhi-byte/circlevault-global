@@ -1056,23 +1056,23 @@
   .dash-flow .module-body{max-height:none;overflow:visible;padding:18px 20px 20px;}
   #dashPanelLedger .module.open .module-body{max-height:none;overflow:visible;padding:18px 20px 20px;}
 
-  /* Transactions sub-category — centered floating modal + backdrop */
+  /* Transactions sub-category — centered floating modal + glassmorphic backdrop */
   #dashPanelTransactions .dash-flow{
     display:none;
     position:fixed;inset:0;z-index:1000;margin:0;
-    background:rgba(10,15,30,.75);
-    backdrop-filter:blur(8px);
-    -webkit-backdrop-filter:blur(8px);
+    background:rgba(8,12,24,.82);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
   }
   #dashPanelTransactions .dash-flow.open{display:block;}
   #dashPanelTransactions .dash-flow .module{
     position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
     z-index:1001;margin:0;
-    width:min(720px,calc(100vw - 32px));
-    max-height:min(85vh,900px);
-    overflow:auto;
+    width:min(780px,calc(100vw - 32px));
+    max-height:85vh;
+    overflow-y:auto;
     border:1px solid var(--line-strong);
-    box-shadow:0 24px 64px rgba(0,0,0,.5),0 0 0 1px rgba(212,175,70,.12);
+    box-shadow:0 24px 64px rgba(0,0,0,.55),0 0 0 1px rgba(212,175,70,.12);
     background:linear-gradient(180deg,var(--panel-2),var(--panel));
   }
   #dashPanelTransactions .dash-flow .module-body{
@@ -1111,27 +1111,45 @@
     border:1px solid var(--line-strong);
     background:transparent;
   }
-  #dashPanelTransactions .ref-badge{
+  #dashPanelTransactions .ref-badge,
+  #dashPanelTransactions .asset-badge{
     font-family:var(--font-mono);font-size:10px;font-weight:600;
     letter-spacing:.04em;line-height:1.2;
     padding:3px 8px;border-radius:999px;
+    display:inline-flex;align-items:center;white-space:nowrap;
+  }
+  #dashPanelTransactions .ref-badge{
     color:var(--gold);background:var(--gold-soft);
     border:1px solid rgba(212,175,70,.35);
-    display:inline-flex;align-items:center;white-space:nowrap;
+  }
+  #dashPanelTransactions .asset-badge{
+    color:var(--emerald);background:var(--emerald-soft);
+    border:1px solid rgba(40,184,150,.35);
   }
   #dashPanelTransactions .dash-cmd-card .ref-badge{
     margin:0 4px 6px 0;vertical-align:middle;
   }
   #dashPanelTransactions .dash-cmd-card p .ref-badge{margin-block-end:0;}
-  #dashPanelTransactions .opt-card{position:relative;padding-top:34px;}
-  #dashPanelTransactions .opt-card > .ref-badge{
-    position:absolute;top:10px;right:10px;
+  #dashPanelTransactions .opt-card{
+    display:flex;flex-direction:column;gap:8px;
+    padding:14px;min-height:100%;
+  }
+  #dashPanelTransactions .opt-card-meta{
+    display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;
+  }
+  #dashPanelTransactions .opt-card h4{margin:0;padding-inline-end:0;}
+  #dashPanelTransactions .opt-card p{margin:0;flex:1;}
+  #dashPanelTransactions .rail-tag{
+    margin-block-start:auto;padding-block-start:10px;
+    border-block-start:1px solid var(--line);
+    font-family:var(--font-mono);font-size:10.5px;font-weight:500;
+    color:var(--muted);letter-spacing:.02em;line-height:1.4;
   }
   body.tx-modal-open{overflow:hidden;}
   @media (max-width:640px){
     #dashPanelTransactions .dash-flow .module{
       width:calc(100vw - 20px);
-      max-height:min(88vh,900px);
+      max-height:85vh;
     }
     #dashPanelTransactions .tx-subcat-title{font-size:1.25rem;}
   }
@@ -2224,9 +2242,24 @@
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
             </header>
             <div class="opt-row">
-              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-DEP-01</span><h4>Fiat On-Ramp Deposit</h4><p>Deposit fiat currency (PKR/AED/USD) converted seamlessly into USDC via Circle Mint.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-DEP-02</span><h4>Direct Stablecoin Inflow</h4><p>Receive native USDC or EURC directly from external Web3/exchange wallets.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-DEP-03</span><h4>Cross-Border CCTP Mint</h4><p>Native cross-chain transfer burned on source chain and minted into CircleVault.</p></div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-DEP-01</span><span class="asset-badge">Asset: USDC</span></div>
+                <h4>Fiat On-Ramp Deposit</h4>
+                <p>Deposit fiat currency (PKR/AED/USD) converted seamlessly into USDC via Circle Mint.</p>
+                <div class="rail-tag">⚙️ Rail: Circle Mint / Local Payment Rails</div>
+              </div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-DEP-02</span><span class="asset-badge">Asset: USDC / EURC</span></div>
+                <h4>Direct Stablecoin Inflow</h4>
+                <p>Receive native USDC or EURC directly from external Web3/exchange wallets.</p>
+                <div class="rail-tag">⚙️ Rail: Circle Programmable Wallets</div>
+              </div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-DEP-03</span><span class="asset-badge">Asset: USDC</span></div>
+                <h4>Cross-Border CCTP Mint</h4>
+                <p>Native cross-chain transfer burned on source chain and minted into CircleVault.</p>
+                <div class="rail-tag">⚙️ Rail: Circle CCTP (Cross-Chain)</div>
+              </div>
             </div>
             <div class="tx-subcat-actions">
               <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
@@ -2245,10 +2278,30 @@
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
             </header>
             <div class="opt-row">
-              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-YLD-01</span><h4>USYC Yield Subscription</h4><p>Transfer idle USDC into USYC Yield Vault backed by Short-Term US Treasuries (~5.1% APY).</p></div>
-              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-YLD-02</span><h4>USYC Yield Liquidation / Redemption</h4><p>Redeem USYC principal or accumulated earnings back into instantly spendable USDC.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-YLD-03</span><h4>Auto-Yield Sweep</h4><p>Automated smart contract rule sweeping excess treasury funds (&gt;Threshold) into USYC.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-YLD-04</span><h4>Yield Payout Distribution</h4><p>Periodic yield distribution directly credited to Liquid Cash or reinvested into USYC.</p></div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-YLD-01</span><span class="asset-badge">Asset: USDC -&gt; USYC</span></div>
+                <h4>USYC Yield Subscription</h4>
+                <p>Transfer idle USDC into USYC Yield Vault backed by Short-Term US Treasuries (~5.1% APY).</p>
+                <div class="rail-tag">⚙️ Rail: Circle USYC Contract / Hashnote</div>
+              </div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-YLD-02</span><span class="asset-badge">Asset: USYC -&gt; USDC</span></div>
+                <h4>USYC Yield Liquidation / Redemption</h4>
+                <p>Redeem USYC principal or accumulated earnings back into instantly spendable USDC.</p>
+                <div class="rail-tag">⚙️ Rail: Circle USYC Redemption Engine</div>
+              </div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-YLD-03</span><span class="asset-badge">Asset: USDC -&gt; USYC</span></div>
+                <h4>Auto-Yield Sweep</h4>
+                <p>Automated smart contract rule sweeping excess treasury funds (&gt;Threshold) into USYC.</p>
+                <div class="rail-tag">⚙️ Rail: Circle Programmable Wallets Automation</div>
+              </div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-YLD-04</span><span class="asset-badge">Asset: USDC</span></div>
+                <h4>Yield Payout Distribution</h4>
+                <p>Periodic yield distribution directly credited to Liquid Cash or reinvested into USYC.</p>
+                <div class="rail-tag">⚙️ Rail: Circle Vault Internal Ledger</div>
+              </div>
             </div>
             <div class="tx-subcat-actions">
               <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
@@ -2267,10 +2320,30 @@
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
             </header>
             <div class="opt-row">
-              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-ESC-01</span><h4>Escrow Fund Lock</h4><p>Lock buyer funds in smart escrow contract for B2B cross-border goods/services order.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-ESC-02</span><h4>Milestone Performance Release</h4><p>Release funds to seller upon verification of shipping/trade milestone execution.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-ESC-03</span><h4>Escrow Dispute Refund</h4><p>Return locked escrow funds to buyer in case of trade cancellation or contract breach.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-ESC-04</span><h4>Yield-Bearing Escrow Staking</h4><p>Generate ~5.1% yield on locked escrow funds while trade milestone verification is pending.</p></div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-ESC-01</span><span class="asset-badge">Asset: USDC</span></div>
+                <h4>Escrow Fund Lock</h4>
+                <p>Lock buyer funds in smart escrow contract for B2B cross-border goods/services order.</p>
+                <div class="rail-tag">⚙️ Rail: Circle Smart Contract Escrow</div>
+              </div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-ESC-02</span><span class="asset-badge">Asset: USDC</span></div>
+                <h4>Milestone Performance Release</h4>
+                <p>Release funds to seller upon verification of shipping/trade milestone execution.</p>
+                <div class="rail-tag">⚙️ Rail: Circle Arc Identity + Multisig</div>
+              </div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-ESC-03</span><span class="asset-badge">Asset: USDC</span></div>
+                <h4>Escrow Dispute Refund</h4>
+                <p>Return locked escrow funds to buyer in case of trade cancellation or contract breach.</p>
+                <div class="rail-tag">⚙️ Rail: Arc AML/CFT Arbitration Rail</div>
+              </div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-ESC-04</span><span class="asset-badge">Asset: USDC / USYC</span></div>
+                <h4>Yield-Bearing Escrow Staking</h4>
+                <p>Generate ~5.1% yield on locked escrow funds while trade milestone verification is pending.</p>
+                <div class="rail-tag">⚙️ Rail: USYC + Escrow Integration</div>
+              </div>
             </div>
             <div class="tx-subcat-actions">
               <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
@@ -2289,9 +2362,24 @@
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
             </header>
             <div class="opt-row">
-              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-REM-01</span><h4>Cross-Border Corridors (PK/UAE)</h4><p>Instant low-cost cross-border transfer between UAE (AED) and Pakistan (PKR) via USDC.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-REM-02</span><h4>Batch Payroll Disbursement</h4><p>Single-click bulk distribution of salaries/vendor payouts in USDC to multiple addresses.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-REM-03</span><h4>Merchant B2B Settlement</h4><p>Instant commercial settlement to international supplier accounts with instant finality.</p></div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-REM-01</span><span class="asset-badge">Asset: USDC / Local FX</span></div>
+                <h4>Cross-Border Corridors (PK/UAE)</h4>
+                <p>Instant low-cost cross-border transfer between UAE (AED) and Pakistan (PKR) via USDC.</p>
+                <div class="rail-tag">⚙️ Rail: Circle Arc Rails + StableFX</div>
+              </div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-REM-02</span><span class="asset-badge">Asset: USDC</span></div>
+                <h4>Batch Payroll Disbursement</h4>
+                <p>Single-click bulk distribution of salaries/vendor payouts in USDC to multiple addresses.</p>
+                <div class="rail-tag">⚙️ Rail: Circle Mass Payments API</div>
+              </div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-REM-03</span><span class="asset-badge">Asset: USDC / EURC</span></div>
+                <h4>Merchant B2B Settlement</h4>
+                <p>Instant commercial settlement to international supplier accounts with instant finality.</p>
+                <div class="rail-tag">⚙️ Rail: Circle Programmable Wallets</div>
+              </div>
             </div>
             <div class="tx-subcat-actions">
               <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
@@ -2310,8 +2398,18 @@
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
             </header>
             <div class="opt-row">
-              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-RWA-01</span><h4>RWA Tokenized Asset Purchase</h4><p>Invest USDC into tokenized Real-World Assets (e.g. Export Invoice, Tokenized Real Estate).</p></div>
-              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-RWA-02</span><h4>RWA Principal &amp; Return Redemption</h4><p>Redeem matured RWA tokens along with accrued interest back into liquid USDC.</p></div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-RWA-01</span><span class="asset-badge">Asset: USDC -&gt; Tokenized RWA</span></div>
+                <h4>RWA Tokenized Asset Purchase</h4>
+                <p>Invest USDC into tokenized Real-World Assets (e.g. Export Invoice, Tokenized Real Estate).</p>
+                <div class="rail-tag">⚙️ Rail: Circle Arc Regulated Vaults</div>
+              </div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-RWA-02</span><span class="asset-badge">Asset: Tokenized RWA -&gt; USDC</span></div>
+                <h4>RWA Principal &amp; Return Redemption</h4>
+                <p>Redeem matured RWA tokens along with accrued interest back into liquid USDC.</p>
+                <div class="rail-tag">⚙️ Rail: Circle Settlement Engine</div>
+              </div>
             </div>
             <div class="tx-subcat-actions">
               <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
@@ -2330,8 +2428,18 @@
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
             </header>
             <div class="opt-row">
-              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-CRD-01</span><h4>USYC / Asset Collateralized Borrow</h4><p>Drawdown instant USDC credit line against deposited USYC or RWA collateral.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-CRD-02</span><h4>Credit Line Repayment</h4><p>Repay principal plus low borrowing interest to restore available credit limit.</p></div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-CRD-01</span><span class="asset-badge">Asset: USDC</span></div>
+                <h4>USYC / Asset Collateralized Borrow</h4>
+                <p>Drawdown instant USDC credit line against deposited USYC or RWA collateral.</p>
+                <div class="rail-tag">⚙️ Rail: Circle Arc Credit Protocols</div>
+              </div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-CRD-02</span><span class="asset-badge">Asset: USDC</span></div>
+                <h4>Credit Line Repayment</h4>
+                <p>Repay principal plus low borrowing interest to restore available credit limit.</p>
+                <div class="rail-tag">⚙️ Rail: Circle Arc Credit Protocols</div>
+              </div>
             </div>
             <div class="tx-subcat-actions">
               <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
@@ -2350,8 +2458,18 @@
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
             </header>
             <div class="opt-row">
-              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-WTH-01</span><h4>Fiat Off-Ramp Withdrawal</h4><p>Convert USDC directly to local fiat (PKR, AED, USD) into linked bank accounts.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-WTH-02</span><h4>External Crypto Outflow</h4><p>Transfer USDC/EURC to external institutional or exchange Web3 wallet.</p></div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-WTH-01</span><span class="asset-badge">Asset: USDC -&gt; Fiat</span></div>
+                <h4>Fiat Off-Ramp Withdrawal</h4>
+                <p>Convert USDC directly to local fiat (PKR, AED, USD) into linked bank accounts.</p>
+                <div class="rail-tag">⚙️ Rail: Circle Mint / Bank Transfer</div>
+              </div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-WTH-02</span><span class="asset-badge">Asset: USDC / EURC</span></div>
+                <h4>External Crypto Outflow</h4>
+                <p>Transfer USDC/EURC to external institutional or exchange Web3 wallet.</p>
+                <div class="rail-tag">⚙️ Rail: Circle CCTP / Web3 Transfer</div>
+              </div>
             </div>
             <div class="tx-subcat-actions">
               <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
