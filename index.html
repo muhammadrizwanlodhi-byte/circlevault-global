@@ -1041,6 +1041,37 @@
   .status-pill.pending{background:var(--amber-soft);color:var(--amber);}
   .amt-cell{font-family:var(--font-mono);}
 
+  /* Dashboard 3-tab structure only (reuses existing .tabbar/.tab/.card tokens) */
+  .dash-tab-panel{display:none;}
+  .dash-tab-panel.active{display:block;}
+  .dash-cmd-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-block-end:18px;}
+  @media (max-width:640px){.dash-cmd-grid{grid-template-columns:1fr;}}
+  .dash-cmd-card{cursor:pointer;text-align:start;}
+  .dash-cmd-card .ic{font-size:22px;margin-block-end:8px;}
+  .dash-cmd-card h4{font-family:var(--font-display);font-size:15.5px;font-weight:600;margin:0 0 6px;color:var(--text);}
+  .dash-cmd-card p{color:var(--muted);font-size:13px;margin:0;line-height:1.45;}
+  .dash-flow{display:none;margin-block-start:8px;}
+  .dash-flow.open{display:block;}
+  .dash-flow .module{margin-block-end:0;}
+  .dash-flow .module-body{max-height:none;overflow:visible;padding:18px 20px 20px;}
+  #dashPanelLedger .module.open .module-body{max-height:none;overflow:visible;padding:18px 20px 20px;}
+  .dash-overview-cta{display:flex;justify-content:center;margin-block-start:8px;margin-block-end:12px;}
+  #dashTabbar{margin-block-start:18px;margin-block-end:22px;}
+  #dashTabbar .tab span:not(.num){max-width:none;overflow:visible;text-overflow:clip;white-space:nowrap;}
+
+  /* Overview: only needed gap/padding trim — headings, nav, identity, footer line unchanged */
+  #view-dashboard .dash-shell{padding-block:22px 28px;}
+  #dashPanelOverview .grid-3,
+  #dashPanelOverview .grid-2{
+    gap:12px;
+    margin-block-end:12px;
+  }
+  #dashPanelOverview .card.subvault{padding:14px 18px;}
+  #dashPanelOverview .dash-overview-cta{
+    margin-block-start:16px;
+    margin-block-end:8px;
+  }
+
   footer.site{border-block-start:1px solid var(--line);padding-block:26px;color:var(--muted-2);font-size:12px;text-align:center;}
 
   /* Utility */
@@ -1065,6 +1096,7 @@
   .toggle-choice,
   .pill-choice,
   .action-btn,
+  .dash-cmd-card,
   .module-head,
   .brand,
   .btn-nav-primary,
@@ -2005,119 +2037,165 @@
       </div>
     </div>
 
-    <div class="equity-card">
-      <div class="equity-top">
-        <div>
-          <div class="equity-label" data-i18n="totalEquityLabel">Total Vault Equity</div>
-          <div class="equity-value">$15,450.00<span class="unit">USDC</span></div>
-        </div>
-        <div class="muted" style="font-family:var(--font-mono);font-size:12px;">1 USDC ≈ <span id="equityRateEcho">$1.0000</span></div>
-      </div>
+    <div class="tabbar" id="dashTabbar" role="tablist" aria-label="Dashboard sections">
+      <button class="tab active" type="button" role="tab" data-dash-tab="overview" aria-selected="true" id="dashTabOverview">
+        <span class="num">1</span><span>Overview</span>
+      </button>
+      <button class="tab" type="button" role="tab" data-dash-tab="transactions" aria-selected="false" id="dashTabTransactions">
+        <span class="num">2</span><span>Transactions</span>
+      </button>
+      <button class="tab" type="button" role="tab" data-dash-tab="ledger" aria-selected="false" id="dashTabLedger">
+        <span class="num">3</span><span>Activity &amp; Ledger</span>
+      </button>
     </div>
 
-    <div class="grid-3" style="margin-block-end:12px;">
-      <div class="card subvault"><div><div class="ic">💵</div><div class="lbl" data-i18n="subLiquid">Liquid Cash (Spending &amp; Remittances)</div></div><div class="amt">$2,100.00</div></div>
-      <div class="card subvault"><div><div class="ic">📈</div><div class="lbl" data-i18n="subYield">Yield Vault (USYC Earnings)</div><div class="apy">APY ~5.1%</div></div><div class="amt">$5,350.00</div></div>
-      <div class="card subvault"><div><div class="ic">🏢</div><div class="lbl" data-i18n="subRwa">RWA Project Investments</div></div><div class="amt">$5,000.00</div></div>
-    </div>
-    <div class="grid-2" style="margin-block-end:34px;">
-      <div class="card subvault"><div><div class="ic">🤝</div><div class="lbl" data-i18n="subEscrow">SME Trade Escrow (Locked)</div></div><div class="amt">$3,000.00</div></div>
-      <div class="card subvault"><div><div class="ic">🏦</div><div class="lbl" data-i18n="subCredit">Active Credit Line Available</div></div><div class="amt">$10,000.00</div></div>
-    </div>
-
-    <div class="action-bar">
-      <div class="action-btn" onclick="toggleModule('moduleD')"><div class="ic">💸</div><div class="lbl" data-i18n="actionSend">Send Money</div></div>
-      <div class="action-btn" onclick="toggleModule('moduleA')"><div class="ic">💳</div><div class="lbl" data-i18n="actionDeposit">Deposit USDC</div></div>
-      <div class="action-btn" onclick="toggleModule('moduleA')"><div class="ic">🏢</div><div class="lbl" data-i18n="actionInvest">Invest in Projects</div></div>
-      <div class="action-btn" onclick="toggleModule('moduleB')"><div class="ic">🏛️</div><div class="lbl" data-i18n="actionLoan">Request Loan / Credit</div></div>
-      <div class="action-btn" onclick="toggleModule('moduleC')"><div class="ic">📊</div><div class="lbl" data-i18n="actionStatements">Financial Statements</div></div>
-    </div>
-
-    <div class="module" id="moduleA">
-      <div class="module-head" onclick="toggleModule('moduleA')">
-        <div class="m-title"><span class="mod-badge" aria-hidden="true">A</span> <span data-i18n="moduleATitle">Deposit &amp; Wealth Deployment Hub</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><span class="m-tag">USDC Deposit</span><span class="chevron">⌄</span></div>
-      </div>
-      <div class="module-body">
-        <p>Choose where new USDC deposits go — flexible yield, or a locked project investment.</p>
-        <div class="opt-row">
-          <div class="opt-card"><h4>Yield-Bearing Savings (USYC Vault)</h4><p>Capital-protected, US Treasury-backed yield. Withdraw anytime.</p></div>
-          <div class="opt-card"><h4>Direct Project Investment (RWA Vault)</h4><p>Lock capital into a chosen project — tokenized real estate, energy sukuk, or SME trade pools.</p></div>
+    <!-- TAB 1: Overview — financial snapshot only -->
+    <div class="dash-tab-panel active" id="dashPanelOverview" role="tabpanel" aria-labelledby="dashTabOverview">
+      <div class="equity-card">
+        <div class="equity-top">
+          <div>
+            <div class="equity-label" data-i18n="totalEquityLabel">Total Vault Equity</div>
+            <div class="equity-value">$15,450.00<span class="unit">USDC</span></div>
+          </div>
+          <div class="muted" style="font-family:var(--font-mono);font-size:12px;">1 USDC ≈ <span id="equityRateEcho">$1.0000</span></div>
         </div>
       </div>
+
+      <div class="grid-3 overview-snap-row">
+        <div class="card subvault"><div><div class="ic">💵</div><div class="lbl" data-i18n="subLiquid">Liquid Cash (Spending &amp; Remittances)</div></div><div class="amt">$2,100.00</div></div>
+        <div class="card subvault"><div><div class="ic">📈</div><div class="lbl" data-i18n="subYield">Yield Vault (USYC Earnings)</div><div class="apy">APY ~5.1%</div></div><div class="amt">$5,350.00</div></div>
+        <div class="card subvault"><div><div class="ic">🏢</div><div class="lbl" data-i18n="subRwa">RWA Project Investments</div></div><div class="amt">$5,000.00</div></div>
+      </div>
+      <div class="grid-2 overview-snap-row">
+        <div class="card subvault"><div><div class="ic">🤝</div><div class="lbl" data-i18n="subEscrow">SME Trade Escrow (Locked)</div></div><div class="amt">$3,000.00</div></div>
+        <div class="card subvault"><div><div class="ic">🏦</div><div class="lbl" data-i18n="subCredit">Active Credit Line Available</div></div><div class="amt">$10,000.00</div></div>
+      </div>
+
+      <div class="dash-overview-cta">
+        <button class="btn btn-gold" type="button" id="btnProceedTransactions">Proceed to Transactions &amp; Remittance →</button>
+      </div>
     </div>
 
-    <div class="module" id="moduleB">
-      <div class="module-head" onclick="toggleModule('moduleB')">
-        <div class="m-title"><span class="mod-badge" aria-hidden="true">B</span> <span data-i18n="moduleBTitle">Loan &amp; Credit Request Vault</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><span class="m-tag">DeFi Lending</span><span class="chevron">⌄</span></div>
+    <!-- TAB 2: Transactions Hub — 4 command cards + dedicated flows -->
+    <div class="dash-tab-panel" id="dashPanelTransactions" role="tabpanel" aria-labelledby="dashTabTransactions">
+      <div class="dash-cmd-grid" id="dashCmdGrid">
+        <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="remit">
+          <div class="ic">💸</div>
+          <h4>Send &amp; Remit (PK/UAE Corridor)</h4>
+          <p>Direct P2P transfers with local bank or mobile wallet payout across the corridor.</p>
+        </div>
+        <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="deposit">
+          <div class="ic">💳</div>
+          <h4>Deposit &amp; Yield (USDC/USYC)</h4>
+          <p>Place USDC into yield-bearing savings or lock into RWA project investments.</p>
+        </div>
+        <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="escrow">
+          <div class="ic">🤝</div>
+          <h4>SME Trade Escrow</h4>
+          <p>Lock funds against a conditional contract for goods and services.</p>
+        </div>
+        <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="loan">
+          <div class="ic">🏦</div>
+          <h4>Loan &amp; Credit Request ($10k Line)</h4>
+          <p>Collateralize vault balances for an instant, compliance-cleared credit line.</p>
+        </div>
       </div>
-      <div class="module-body">
-        <p>Collateralize your Yield Vault balance or RWA tokens for an instant, compliance-cleared loan of up to 70% of value.</p>
-        <div class="opt-row">
-          <div class="opt-card"><h4>Loan Request</h4><p>Choose amount, a 3 / 6 / 12 month tenure, and preview the profit rate before confirming.</p></div>
-          <div class="opt-card"><h4>Smart Contract Approval</h4><p>Once identity and AML score are verified, funds move to your liquid wallet in moments.</p></div>
+
+      <div class="dash-flow" id="flow-remit" data-flow="remit">
+        <div class="module open" id="moduleD">
+          <div class="module-body">
+            <p>Move money across borders on the PK/UAE corridor with local bank or mobile wallet payout.</p>
+            <div class="opt-row">
+              <div class="opt-card"><h4>Remittance Engine</h4><p>Direct P2P transfers with local bank or mobile wallet payout — PKR, INR, AED and more.</p></div>
+              <div class="opt-card"><h4>Corridor Settlement</h4><p>Compliance-cleared payout rails for Pakistan ↔ UAE remittance corridors.</p></div>
+            </div>
+            <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-flow" id="flow-deposit" data-flow="deposit">
+        <div class="module open" id="moduleA">
+          <div class="module-body">
+            <p>Choose where new USDC deposits go — flexible yield, or a locked project investment.</p>
+            <div class="opt-row">
+              <div class="opt-card"><h4>Yield-Bearing Savings (USYC Vault)</h4><p>Capital-protected, US Treasury-backed yield. Withdraw anytime.</p></div>
+              <div class="opt-card"><h4>Direct Project Investment (RWA Vault)</h4><p>Lock capital into a chosen project — tokenized real estate, energy sukuk, or SME trade pools.</p></div>
+            </div>
+            <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-flow" id="flow-escrow" data-flow="escrow">
+        <div class="module open" id="moduleEscrow">
+          <div class="module-body">
+            <p>Hold funds safely until agreed trade conditions are met.</p>
+            <div class="opt-row">
+              <div class="opt-card"><h4>Smart Escrow Payments</h4><p>Lock funds against a conditional contract for goods and services.</p></div>
+              <div class="opt-card"><h4>Trade Release</h4><p>Release or dispute escrow once delivery milestones are confirmed.</p></div>
+            </div>
+            <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-flow" id="flow-loan" data-flow="loan">
+        <div class="module open" id="moduleB">
+          <div class="module-body">
+            <p>Collateralize your Yield Vault balance or RWA tokens for an instant, compliance-cleared loan of up to 70% of value.</p>
+            <div class="opt-row">
+              <div class="opt-card"><h4>Loan Request</h4><p>Choose amount, a 3 / 6 / 12 month tenure, and preview the profit rate before confirming.</p></div>
+              <div class="opt-card"><h4>Smart Contract Approval</h4><p>Once identity and AML score are verified, funds move to your liquid wallet in moments.</p></div>
+            </div>
+            <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="module" id="moduleC">
-      <div class="module-head" onclick="toggleModule('moduleC')">
-        <div class="m-title"><span class="mod-badge" aria-hidden="true">C</span> <span data-i18n="moduleCTitle">Financial Statements &amp; Health Center</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><span class="m-tag">Audit</span><span class="chevron">⌄</span></div>
-      </div>
-      <div class="module-body">
-        <p>Download transparent, verifiable records whenever you need proof of funds or a compliance trail.</p>
-        <div class="opt-row">
-          <div class="opt-card"><h4>Proof of Funds</h4><p>An official CircleVault certificate for visa, business or bank verification.</p></div>
-          <div class="opt-card"><h4>Statements &amp; Audit Trail</h4><p>Multi-currency monthly / annual statements with an on-chain cryptographic proof (Arc Hash), plus tax and AML audit reports.</p></div>
+    <!-- TAB 3: Activity & Ledger -->
+    <div class="dash-tab-panel" id="dashPanelLedger" role="tabpanel" aria-labelledby="dashTabLedger">
+      <div class="module open" id="moduleC" style="margin-block-end:22px;">
+        <div class="module-body">
+          <p>Download transparent, verifiable records whenever you need proof of funds or a compliance trail.</p>
+          <div class="opt-row">
+            <div class="opt-card"><h4>Proof of Funds</h4><p>An official CircleVault certificate for visa, business or bank verification.</p></div>
+            <div class="opt-card"><h4>Statements &amp; Audit Trail</h4><p>Multi-currency monthly / annual statements with an on-chain cryptographic proof (Arc Hash), plus tax and AML audit reports.</p></div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="module" id="moduleD">
-      <div class="module-head" onclick="toggleModule('moduleD')">
-        <div class="m-title"><span class="mod-badge" aria-hidden="true">D</span> <span data-i18n="moduleDTitle">Payments, Remittance &amp; SME Escrow Hub</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><span class="m-tag">Payments</span><span class="chevron">⌄</span></div>
+      <div class="section-head">
+        <h2 data-i18n="ledgerTitle">Activity &amp; Ledger</h2>
+        <div class="hint">Every action is auto-categorized into its matching Vault hub in real time.</div>
       </div>
-      <div class="module-body">
-        <p>Move money across borders and hold funds safely until agreed conditions are met.</p>
-        <div class="opt-row">
-          <div class="opt-card"><h4>Remittance Engine</h4><p>Direct P2P transfers with local bank or mobile wallet payout — PKR, INR, AED and more.</p></div>
-          <div class="opt-card"><h4>Smart Escrow Payments</h4><p>Lock funds against a conditional contract for goods and services.</p></div>
-        </div>
+      <div class="ledger-toolbar" role="toolbar" aria-label="Ledger actions">
+        <button class="tab-btn" type="button" onclick="ledgerDownload()" data-i18n="btnDownload">Download</button>
+        <button class="tab-btn" type="button" onclick="ledgerPrint()" data-i18n="btnPrint">Print</button>
+        <button class="tab-btn" type="button" onclick="ledgerSave()" data-i18n="btnSave">Save</button>
       </div>
-    </div>
-
-    <div class="section-head" style="margin-block-start:34px;">
-      <h2 data-i18n="ledgerTitle">Activity &amp; Ledger</h2>
-      <div class="hint">Every action is auto-categorized into its matching Vault hub in real time.</div>
-    </div>
-    <div class="ledger-toolbar" role="toolbar" aria-label="Ledger actions">
-      <button class="tab-btn" type="button" onclick="ledgerDownload()" data-i18n="btnDownload">Download</button>
-      <button class="tab-btn" type="button" onclick="ledgerPrint()" data-i18n="btnPrint">Print</button>
-      <button class="tab-btn" type="button" onclick="ledgerSave()" data-i18n="btnSave">Save</button>
-    </div>
-    <div class="ledger-wrap" id="ledgerPanel">
-      <table class="ledger" id="ledgerTable">
-        <thead>
-          <tr>
-            <th data-i18n="colDate">Date</th>
-            <th data-i18n="colActivity">Activity</th>
-            <th data-i18n="colType">Type</th>
-            <th data-i18n="colHub">Dashboard Hub</th>
-            <th data-i18n="colStatus">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>28 Jul 2026</td><td>Remittance sent to family (Pakistan)</td><td>Outflow (P2P)</td><td>Payments &amp; Remittances</td><td><span class="status-pill ok">Settled</span></td></tr>
-          <tr><td>27 Jul 2026</td><td>Deposit into Solar RWA project</td><td>Asset Purchase</td><td>RWA Investment Vault</td><td><span class="status-pill ok">Confirmed</span></td></tr>
-          <tr><td>26 Jul 2026</td><td>Instant loan approved ($2,000 USDC)</td><td>Credit Inflow</td><td>Loan &amp; Credit Vault</td><td><span class="status-pill ok">Active Loan</span></td></tr>
-          <tr><td>25 Jul 2026</td><td>Daily USYC yield payout received</td><td>Yield Gain</td><td>Savings &amp; Vaults</td><td><span class="status-pill ok">Earning</span></td></tr>
-          <tr><td>24 Jul 2026</td><td>Downloaded official statement (PDF)</td><td>Audit Report</td><td>Financial Health Center</td><td><span class="status-pill ok">Generated</span></td></tr>
-          <tr><td>20 Jul 2026</td><td>Smart escrow locked for IT vendor</td><td>Trade Escrow</td><td>SME Trade Finance</td><td><span class="status-pill pending">In Escrow</span></td></tr>
-        </tbody>
-      </table>
+      <div class="ledger-wrap" id="ledgerPanel">
+        <table class="ledger" id="ledgerTable">
+          <thead>
+            <tr>
+              <th data-i18n="colDate">Date</th>
+              <th data-i18n="colActivity">Activity</th>
+              <th data-i18n="colType">Type</th>
+              <th data-i18n="colHub">Dashboard Hub</th>
+              <th data-i18n="colStatus">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>28 Jul 2026</td><td>Remittance sent to family (Pakistan)</td><td>Outflow (P2P)</td><td>Payments &amp; Remittances</td><td><span class="status-pill ok">Settled</span></td></tr>
+            <tr><td>27 Jul 2026</td><td>Deposit into Solar RWA project</td><td>Asset Purchase</td><td>RWA Investment Vault</td><td><span class="status-pill ok">Confirmed</span></td></tr>
+            <tr><td>26 Jul 2026</td><td>Instant loan approved ($2,000 USDC)</td><td>Credit Inflow</td><td>Loan &amp; Credit Vault</td><td><span class="status-pill ok">Active Loan</span></td></tr>
+            <tr><td>25 Jul 2026</td><td>Daily USYC yield payout received</td><td>Yield Gain</td><td>Savings &amp; Vaults</td><td><span class="status-pill ok">Earning</span></td></tr>
+            <tr><td>24 Jul 2026</td><td>Downloaded official statement (PDF)</td><td>Audit Report</td><td>Financial Health Center</td><td><span class="status-pill ok">Generated</span></td></tr>
+            <tr><td>20 Jul 2026</td><td>Smart escrow locked for IT vendor</td><td>Trade Escrow</td><td>SME Trade Finance</td><td><span class="status-pill pending">In Escrow</span></td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </section>
@@ -2906,6 +2984,9 @@ function goTo(view){
         }
       } catch(e){ syncStepControls(); }
     }
+    if(view === 'dashboard' && typeof switchDashTab === 'function'){
+      switchDashTab('overview');
+    }
     requestAnimationFrame(applyFitScale);
   }catch(err){
     console.error('goTo failed', err);
@@ -2980,7 +3061,7 @@ function goToStep(stepNumber){
   if(step3c){ step3c.hidden = false; step3c.style.display = ''; }
   if(step4c){ step4c.hidden = false; step4c.style.display = ''; }
 
-  document.querySelectorAll('.tabbar .tab').forEach(t=>{
+  document.querySelectorAll('#tabbar .tab').forEach(t=>{
     const s = parseInt(t.dataset.step, 10);
     t.classList.toggle('active', s === n);
     t.classList.toggle('done', s < n);
@@ -4348,12 +4429,104 @@ function submitVault(){
   }, 2200);
 }
 
-/* ---------------- dashboard modules ---------------- */
+/* ---------------- dashboard 3-tab architecture ---------------- */
+var DASH_FLOW_BY_MODULE = {
+  moduleA: 'deposit',
+  moduleB: 'loan',
+  moduleC: null,
+  moduleD: 'remit',
+  moduleEscrow: 'escrow'
+};
+
+function switchDashTab(tab){
+  var key = tab || 'overview';
+  if(key !== 'overview' && key !== 'transactions' && key !== 'ledger') key = 'overview';
+
+  var panels = {
+    overview: document.getElementById('dashPanelOverview'),
+    transactions: document.getElementById('dashPanelTransactions'),
+    ledger: document.getElementById('dashPanelLedger')
+  };
+  var bar = document.getElementById('dashTabbar');
+  if(!panels.overview || !bar) return;
+
+  Object.keys(panels).forEach(function(k){
+    var p = panels[k];
+    if(!p) return;
+    var on = k === key;
+    if(on) p.classList.add('active');
+    else p.classList.remove('active');
+  });
+
+  bar.querySelectorAll('.tab').forEach(function(t){
+    var on = t.getAttribute('data-dash-tab') === key;
+    if(on) t.classList.add('active');
+    else t.classList.remove('active');
+    t.setAttribute('aria-selected', on ? 'true' : 'false');
+  });
+
+  if(key !== 'transactions') closeDashFlow();
+  try{ window.scrollTo({ top: 0, behavior: 'smooth' }); }catch(_e){ window.scrollTo(0, 0); }
+}
+
+function closeDashFlow(){
+  document.querySelectorAll('.dash-flow.open').forEach(function(f){ f.classList.remove('open'); });
+}
+
+function openDashFlow(flowKey){
+  var key = flowKey || '';
+  switchDashTab('transactions');
+  document.querySelectorAll('.dash-flow').forEach(function(f){
+    var on = f.getAttribute('data-flow') === key;
+    if(on) f.classList.add('open');
+    else f.classList.remove('open');
+  });
+  var el = document.getElementById('flow-' + key);
+  if(el && el.scrollIntoView){
+    try{ el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+    catch(_e){ el.scrollIntoView(true); }
+  }
+}
+
 function toggleModule(id){
-  const el = document.getElementById(id);
-  const wasOpen = el.classList.contains('open');
-  document.querySelectorAll('.module').forEach(m=>m.classList.remove('open'));
-  if(!wasOpen){ el.classList.add('open'); el.scrollIntoView({behavior:'smooth', block:'center'}); }
+  if(id === 'moduleC'){
+    switchDashTab('ledger');
+    return;
+  }
+  var flow = DASH_FLOW_BY_MODULE[id];
+  if(flow){
+    openDashFlow(flow);
+    return;
+  }
+  var el = document.getElementById(id);
+  if(!el) return;
+  var wasOpen = el.classList.contains('open');
+  document.querySelectorAll('#dashPanelTransactions .module').forEach(function(m){ m.classList.remove('open'); });
+  if(!wasOpen){
+    el.classList.add('open');
+    try{ el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    catch(_e){ el.scrollIntoView(true); }
+  }
+}
+
+function bindDashTabs(){
+  var bar = document.getElementById('dashTabbar');
+  if(!bar || bar.dataset.boundDashTabs === '1') return;
+  bar.dataset.boundDashTabs = '1';
+  bar.querySelectorAll('.tab').forEach(function(tab){
+    CVBindTap(tab, function(){
+      var key = tab.getAttribute('data-dash-tab');
+      if(key) switchDashTab(key);
+    });
+  });
+  document.querySelectorAll('.dash-cmd-card').forEach(function(card){
+    CVBindTap(card, function(){
+      var flow = card.getAttribute('data-dash-flow');
+      if(flow) openDashFlow(flow);
+    });
+  });
+  var cta = document.getElementById('btnProceedTransactions');
+  if(cta) CVBindTap(cta, function(){ switchDashTab('transactions'); });
 }
 
 populateCountrySelects();
@@ -4361,6 +4534,7 @@ populateDialCodes();
 bindPillChoices();
 bindEmploymentListeners();
 bindTabbar();
+bindDashTabs();
 bindWizardNav();
 enhanceUploadSlots();
 syncEmployment();
@@ -4371,6 +4545,7 @@ syncDeployBtn();
 ensureCredentialSettlementNeverBlank();
 paintCredentialSettlement(resolveActiveSettlementCredentials());
 ensureCredentialSettlementNeverBlank();
+switchDashTab('overview');
 
 /* Expose navigation helpers on window (guards against scope / minify issues on mobile WebViews) */
 window.goTo = goTo;
@@ -4388,6 +4563,9 @@ window.editCurrentStep = editCurrentStep;
 window.deployVault = deployVault;
 window.addSettlementBankEntry = addSettlementBankEntry;
 window.toggleModule = toggleModule;
+window.switchDashTab = switchDashTab;
+window.openDashFlow = openDashFlow;
+window.closeDashFlow = closeDashFlow;
 window.goToStep = goToStep;
 window.showStep = showStep;
 
@@ -4404,7 +4582,7 @@ window.showStep = showStep;
     'button', 'a[href]', '.tab', '.tab-btn', '[role="button"]',
     '.btn', '.theme-toggle', '.lang-touch-btn', '.lang-sheet-item', '.lang-sheet-close',
     '.doc-tile', '.toggle-choice', '.pill-choice', '.action-btn', '.module-head', '.brand',
-    '.btn-deploy', '.btn-cam', '.btn-file', '[onclick]', '[data-cv-onclick]'
+    '.dash-cmd-card', '.btn-deploy', '.btn-cam', '.btn-file', '[onclick]', '[data-cv-onclick]'
   ].join(',');
 
   function isOwnedElsewhere(el){
@@ -4413,7 +4591,7 @@ window.showStep = showStep;
     var id = el.id || '';
     if(id === 'btnContinue' || id === 'btnBack' || id === 'btnSaveDraft' ||
        id === 'btnExit' || id === 'btnEdit' || id === 'btnDeployVault' ||
-       id === 'langTouchBtn' || id === 'langSheetClose') return true;
+       id === 'langTouchBtn' || id === 'langSheetClose' || id === 'btnProceedTransactions') return true;
     if(el.classList && (
       el.classList.contains('btn-step-continue') ||
       el.classList.contains('btn-step-back') ||
@@ -4421,7 +4599,8 @@ window.showStep = showStep;
       el.classList.contains('btn-exit-wizard') ||
       el.classList.contains('btn-step-edit') ||
       el.classList.contains('lang-sheet-item') ||
-      el.classList.contains('tab')
+      el.classList.contains('tab') ||
+      el.classList.contains('dash-cmd-card')
     )) return true;
     return false;
   }
@@ -4505,7 +4684,7 @@ window.showStep = showStep;
     'button', 'a[href]', '.tab', '.tab-btn', '[role="button"]',
     '.btn', '.theme-toggle', '.lang-touch-btn', '.lang-sheet-item', '.lang-sheet-close',
     '.doc-tile', '.toggle-choice', '.action-btn', '.module-head', '.brand',
-    '.btn-nav-primary', '.btn-nav-secondary', '.btn-nav-danger', '.btn-deploy',
+    '.dash-cmd-card', '.btn-nav-primary', '.btn-nav-secondary', '.btn-nav-danger', '.btn-deploy',
     '.btn-cam', '.btn-file', '.btn-doc-save', '.btn-doc-retake', '.btn-doc-remove',
     '.btn-add-settlement', '[data-cv-onclick]', '[onclick]'
   ].join(',');
