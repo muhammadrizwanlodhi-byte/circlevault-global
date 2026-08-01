@@ -1126,10 +1126,16 @@
     color:var(--emerald);background:var(--emerald-soft);
     border:1px solid rgba(40,184,150,.35);
   }
-  #dashPanelTransactions .dash-cmd-card .ref-badge{
-    margin:0 4px 6px 0;vertical-align:middle;
+  #dashPanelTransactions .dash-cmd-card{position:relative;padding-top:36px;}
+  #dashPanelTransactions .cat-badge{
+    position:absolute;top:12px;right:12px;
+    font-family:var(--font-mono);font-size:10px;font-weight:700;
+    letter-spacing:.05em;line-height:1.2;
+    padding:3px 8px;border-radius:999px;
+    color:var(--gold);background:var(--gold-soft);
+    border:1px solid rgba(212,175,70,.35);
+    display:inline-flex;align-items:center;white-space:nowrap;
   }
-  #dashPanelTransactions .dash-cmd-card p .ref-badge{margin-block-end:0;}
   #dashPanelTransactions .opt-card{
     display:flex;flex-direction:column;gap:8px;
     padding:14px;min-height:100%;
@@ -2196,39 +2202,46 @@
     <div class="dash-tab-panel" id="dashPanelTransactions" role="tabpanel" aria-labelledby="dashTabTransactions">
       <div class="grid-3 dash-cmd-grid" id="dashCmdGrid">
         <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="deposit">
+          <span class="cat-badge">CAT-01</span>
           <div class="ic">💳</div>
           <h4>Deposits &amp; Inflows</h4>
-          <p><span class="ref-badge">TX-DEP-01</span> Fiat On-Ramp Deposit, <span class="ref-badge">TX-DEP-02</span> Direct Stablecoin Inflow, <span class="ref-badge">TX-DEP-03</span> Cross-Border CCTP Mint</p>
+          <p>Fiat On-Ramp Deposit, Direct Stablecoin Inflow, Cross-Border CCTP Mint</p>
         </div>
         <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="yield">
+          <span class="cat-badge">CAT-02</span>
           <div class="ic">📈</div>
           <h4>Yield &amp; Treasury Management (USYC)</h4>
-          <p><span class="ref-badge">TX-YLD-01</span> USYC Yield Subscription, <span class="ref-badge">TX-YLD-02</span> USYC Yield Liquidation / Redemption, <span class="ref-badge">TX-YLD-03</span> Auto-Yield Sweep, <span class="ref-badge">TX-YLD-04</span> Yield Payout Distribution</p>
+          <p>USYC Yield Subscription, USYC Yield Liquidation / Redemption, Auto-Yield Sweep, Yield Payout Distribution</p>
         </div>
         <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="escrow">
+          <span class="cat-badge">CAT-03</span>
           <div class="ic">🤝</div>
           <h4>SME Trade &amp; Escrow Services</h4>
-          <p><span class="ref-badge">TX-ESC-01</span> Escrow Fund Lock, <span class="ref-badge">TX-ESC-02</span> Milestone Performance Release, <span class="ref-badge">TX-ESC-03</span> Escrow Dispute Refund, <span class="ref-badge">TX-ESC-04</span> Yield-Bearing Escrow Staking</p>
+          <p>Escrow Fund Lock, Milestone Performance Release, Escrow Dispute Refund, Yield-Bearing Escrow Staking</p>
         </div>
         <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="remit">
+          <span class="cat-badge">CAT-04</span>
           <div class="ic">💸</div>
           <h4>Remittances &amp; Payouts (PK/UAE)</h4>
-          <p><span class="ref-badge">TX-REM-01</span> Cross-Border Corridors (PK/UAE), <span class="ref-badge">TX-REM-02</span> Batch Payroll Disbursement, <span class="ref-badge">TX-REM-03</span> Merchant B2B Settlement</p>
+          <p>Cross-Border Corridors (PK/UAE), Batch Payroll Disbursement, Merchant B2B Settlement</p>
         </div>
         <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="rwa">
+          <span class="cat-badge">CAT-05</span>
           <div class="ic">🏢</div>
           <h4>Real World Asset (RWA) Investments</h4>
-          <p><span class="ref-badge">TX-RWA-01</span> RWA Tokenized Asset Purchase, <span class="ref-badge">TX-RWA-02</span> RWA Principal &amp; Return Redemption</p>
+          <p>RWA Tokenized Asset Purchase, RWA Principal &amp; Return Redemption</p>
         </div>
         <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="loan">
+          <span class="cat-badge">CAT-06</span>
           <div class="ic">🏦</div>
           <h4>Credit &amp; Liquidity Lines</h4>
-          <p><span class="ref-badge">TX-CRD-01</span> USYC / Asset Collateralized Borrow, <span class="ref-badge">TX-CRD-02</span> Credit Line Repayment</p>
+          <p>USYC / Asset Collateralized Borrow, Credit Line Repayment</p>
         </div>
         <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="withdraw">
+          <span class="cat-badge">CAT-07</span>
           <div class="ic">🏧</div>
           <h4>Withdrawals &amp; Fiat Off-Ramping</h4>
-          <p><span class="ref-badge">TX-WTH-01</span> Fiat Off-Ramp Withdrawal, <span class="ref-badge">TX-WTH-02</span> External Crypto Outflow</p>
+          <p>Fiat Off-Ramp Withdrawal, External Crypto Outflow</p>
         </div>
       </div>
 
