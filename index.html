@@ -1111,6 +1111,22 @@
     border:1px solid var(--line-strong);
     background:transparent;
   }
+  #dashPanelTransactions .ref-badge{
+    font-family:var(--font-mono);font-size:10px;font-weight:600;
+    letter-spacing:.04em;line-height:1.2;
+    padding:3px 8px;border-radius:999px;
+    color:var(--gold);background:var(--gold-soft);
+    border:1px solid rgba(212,175,70,.35);
+    display:inline-flex;align-items:center;white-space:nowrap;
+  }
+  #dashPanelTransactions .dash-cmd-card .ref-badge{
+    margin:0 4px 6px 0;vertical-align:middle;
+  }
+  #dashPanelTransactions .dash-cmd-card p .ref-badge{margin-block-end:0;}
+  #dashPanelTransactions .opt-card{position:relative;padding-top:34px;}
+  #dashPanelTransactions .opt-card > .ref-badge{
+    position:absolute;top:10px;right:10px;
+  }
   body.tx-modal-open{overflow:hidden;}
   @media (max-width:640px){
     #dashPanelTransactions .dash-flow .module{
@@ -2164,37 +2180,37 @@
         <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="deposit">
           <div class="ic">💳</div>
           <h4>Deposits &amp; Inflows</h4>
-          <p>Fiat On-Ramp Deposit, Direct Stablecoin Inflow, Cross-Border CCTP Mint</p>
+          <p><span class="ref-badge">TX-DEP-01</span> Fiat On-Ramp Deposit, <span class="ref-badge">TX-DEP-02</span> Direct Stablecoin Inflow, <span class="ref-badge">TX-DEP-03</span> Cross-Border CCTP Mint</p>
         </div>
         <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="yield">
           <div class="ic">📈</div>
           <h4>Yield &amp; Treasury Management (USYC)</h4>
-          <p>USYC Yield Subscription, USYC Yield Liquidation / Redemption, Auto-Yield Sweep, Yield Payout Distribution</p>
+          <p><span class="ref-badge">TX-YLD-01</span> USYC Yield Subscription, <span class="ref-badge">TX-YLD-02</span> USYC Yield Liquidation / Redemption, <span class="ref-badge">TX-YLD-03</span> Auto-Yield Sweep, <span class="ref-badge">TX-YLD-04</span> Yield Payout Distribution</p>
         </div>
         <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="escrow">
           <div class="ic">🤝</div>
           <h4>SME Trade &amp; Escrow Services</h4>
-          <p>Escrow Fund Lock, Milestone Performance Release, Escrow Dispute Refund, Yield-Bearing Escrow Staking</p>
+          <p><span class="ref-badge">TX-ESC-01</span> Escrow Fund Lock, <span class="ref-badge">TX-ESC-02</span> Milestone Performance Release, <span class="ref-badge">TX-ESC-03</span> Escrow Dispute Refund, <span class="ref-badge">TX-ESC-04</span> Yield-Bearing Escrow Staking</p>
         </div>
         <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="remit">
           <div class="ic">💸</div>
           <h4>Remittances &amp; Payouts (PK/UAE)</h4>
-          <p>Cross-Border Corridors (PK/UAE), Batch Payroll Disbursement, Merchant B2B Settlement</p>
+          <p><span class="ref-badge">TX-REM-01</span> Cross-Border Corridors (PK/UAE), <span class="ref-badge">TX-REM-02</span> Batch Payroll Disbursement, <span class="ref-badge">TX-REM-03</span> Merchant B2B Settlement</p>
         </div>
         <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="rwa">
           <div class="ic">🏢</div>
           <h4>Real World Asset (RWA) Investments</h4>
-          <p>RWA Tokenized Asset Purchase, RWA Principal &amp; Return Redemption</p>
+          <p><span class="ref-badge">TX-RWA-01</span> RWA Tokenized Asset Purchase, <span class="ref-badge">TX-RWA-02</span> RWA Principal &amp; Return Redemption</p>
         </div>
         <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="loan">
           <div class="ic">🏦</div>
           <h4>Credit &amp; Liquidity Lines</h4>
-          <p>USYC / Asset Collateralized Borrow, Credit Line Repayment</p>
+          <p><span class="ref-badge">TX-CRD-01</span> USYC / Asset Collateralized Borrow, <span class="ref-badge">TX-CRD-02</span> Credit Line Repayment</p>
         </div>
         <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="withdraw">
           <div class="ic">🏧</div>
           <h4>Withdrawals &amp; Fiat Off-Ramping</h4>
-          <p>Fiat Off-Ramp Withdrawal, External Crypto Outflow</p>
+          <p><span class="ref-badge">TX-WTH-01</span> Fiat Off-Ramp Withdrawal, <span class="ref-badge">TX-WTH-02</span> External Crypto Outflow</p>
         </div>
       </div>
 
@@ -2208,9 +2224,9 @@
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
             </header>
             <div class="opt-row">
-              <div class="opt-card" role="button" tabindex="0"><h4>Fiat On-Ramp Deposit</h4><p>Deposit fiat currency (PKR/AED/USD) converted seamlessly into USDC via Circle Mint.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><h4>Direct Stablecoin Inflow</h4><p>Receive native USDC or EURC directly from external Web3/exchange wallets.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><h4>Cross-Border CCTP Mint</h4><p>Native cross-chain transfer burned on source chain and minted into CircleVault.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-DEP-01</span><h4>Fiat On-Ramp Deposit</h4><p>Deposit fiat currency (PKR/AED/USD) converted seamlessly into USDC via Circle Mint.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-DEP-02</span><h4>Direct Stablecoin Inflow</h4><p>Receive native USDC or EURC directly from external Web3/exchange wallets.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-DEP-03</span><h4>Cross-Border CCTP Mint</h4><p>Native cross-chain transfer burned on source chain and minted into CircleVault.</p></div>
             </div>
             <div class="tx-subcat-actions">
               <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
@@ -2229,10 +2245,10 @@
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
             </header>
             <div class="opt-row">
-              <div class="opt-card" role="button" tabindex="0"><h4>USYC Yield Subscription</h4><p>Transfer idle USDC into USYC Yield Vault backed by Short-Term US Treasuries (~5.1% APY).</p></div>
-              <div class="opt-card" role="button" tabindex="0"><h4>USYC Yield Liquidation / Redemption</h4><p>Redeem USYC principal or accumulated earnings back into instantly spendable USDC.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><h4>Auto-Yield Sweep</h4><p>Automated smart contract rule sweeping excess treasury funds (&gt;Threshold) into USYC.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><h4>Yield Payout Distribution</h4><p>Periodic yield distribution directly credited to Liquid Cash or reinvested into USYC.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-YLD-01</span><h4>USYC Yield Subscription</h4><p>Transfer idle USDC into USYC Yield Vault backed by Short-Term US Treasuries (~5.1% APY).</p></div>
+              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-YLD-02</span><h4>USYC Yield Liquidation / Redemption</h4><p>Redeem USYC principal or accumulated earnings back into instantly spendable USDC.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-YLD-03</span><h4>Auto-Yield Sweep</h4><p>Automated smart contract rule sweeping excess treasury funds (&gt;Threshold) into USYC.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-YLD-04</span><h4>Yield Payout Distribution</h4><p>Periodic yield distribution directly credited to Liquid Cash or reinvested into USYC.</p></div>
             </div>
             <div class="tx-subcat-actions">
               <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
@@ -2251,10 +2267,10 @@
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
             </header>
             <div class="opt-row">
-              <div class="opt-card" role="button" tabindex="0"><h4>Escrow Fund Lock</h4><p>Lock buyer funds in smart escrow contract for B2B cross-border goods/services order.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><h4>Milestone Performance Release</h4><p>Release funds to seller upon verification of shipping/trade milestone execution.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><h4>Escrow Dispute Refund</h4><p>Return locked escrow funds to buyer in case of trade cancellation or contract breach.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><h4>Yield-Bearing Escrow Staking</h4><p>Generate ~5.1% yield on locked escrow funds while trade milestone verification is pending.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-ESC-01</span><h4>Escrow Fund Lock</h4><p>Lock buyer funds in smart escrow contract for B2B cross-border goods/services order.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-ESC-02</span><h4>Milestone Performance Release</h4><p>Release funds to seller upon verification of shipping/trade milestone execution.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-ESC-03</span><h4>Escrow Dispute Refund</h4><p>Return locked escrow funds to buyer in case of trade cancellation or contract breach.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-ESC-04</span><h4>Yield-Bearing Escrow Staking</h4><p>Generate ~5.1% yield on locked escrow funds while trade milestone verification is pending.</p></div>
             </div>
             <div class="tx-subcat-actions">
               <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
@@ -2273,9 +2289,9 @@
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
             </header>
             <div class="opt-row">
-              <div class="opt-card" role="button" tabindex="0"><h4>Cross-Border Corridors (PK/UAE)</h4><p>Instant low-cost cross-border transfer between UAE (AED) and Pakistan (PKR) via USDC.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><h4>Batch Payroll Disbursement</h4><p>Single-click bulk distribution of salaries/vendor payouts in USDC to multiple addresses.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><h4>Merchant B2B Settlement</h4><p>Instant commercial settlement to international supplier accounts with instant finality.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-REM-01</span><h4>Cross-Border Corridors (PK/UAE)</h4><p>Instant low-cost cross-border transfer between UAE (AED) and Pakistan (PKR) via USDC.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-REM-02</span><h4>Batch Payroll Disbursement</h4><p>Single-click bulk distribution of salaries/vendor payouts in USDC to multiple addresses.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-REM-03</span><h4>Merchant B2B Settlement</h4><p>Instant commercial settlement to international supplier accounts with instant finality.</p></div>
             </div>
             <div class="tx-subcat-actions">
               <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
@@ -2294,8 +2310,8 @@
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
             </header>
             <div class="opt-row">
-              <div class="opt-card" role="button" tabindex="0"><h4>RWA Tokenized Asset Purchase</h4><p>Invest USDC into tokenized Real-World Assets (e.g. Export Invoice, Tokenized Real Estate).</p></div>
-              <div class="opt-card" role="button" tabindex="0"><h4>RWA Principal &amp; Return Redemption</h4><p>Redeem matured RWA tokens along with accrued interest back into liquid USDC.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-RWA-01</span><h4>RWA Tokenized Asset Purchase</h4><p>Invest USDC into tokenized Real-World Assets (e.g. Export Invoice, Tokenized Real Estate).</p></div>
+              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-RWA-02</span><h4>RWA Principal &amp; Return Redemption</h4><p>Redeem matured RWA tokens along with accrued interest back into liquid USDC.</p></div>
             </div>
             <div class="tx-subcat-actions">
               <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
@@ -2314,8 +2330,8 @@
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
             </header>
             <div class="opt-row">
-              <div class="opt-card" role="button" tabindex="0"><h4>USYC / Asset Collateralized Borrow</h4><p>Drawdown instant USDC credit line against deposited USYC or RWA collateral.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><h4>Credit Line Repayment</h4><p>Repay principal plus low borrowing interest to restore available credit limit.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-CRD-01</span><h4>USYC / Asset Collateralized Borrow</h4><p>Drawdown instant USDC credit line against deposited USYC or RWA collateral.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-CRD-02</span><h4>Credit Line Repayment</h4><p>Repay principal plus low borrowing interest to restore available credit limit.</p></div>
             </div>
             <div class="tx-subcat-actions">
               <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
@@ -2334,8 +2350,8 @@
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
             </header>
             <div class="opt-row">
-              <div class="opt-card" role="button" tabindex="0"><h4>Fiat Off-Ramp Withdrawal</h4><p>Convert USDC directly to local fiat (PKR, AED, USD) into linked bank accounts.</p></div>
-              <div class="opt-card" role="button" tabindex="0"><h4>External Crypto Outflow</h4><p>Transfer USDC/EURC to external institutional or exchange Web3 wallet.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-WTH-01</span><h4>Fiat Off-Ramp Withdrawal</h4><p>Convert USDC directly to local fiat (PKR, AED, USD) into linked bank accounts.</p></div>
+              <div class="opt-card" role="button" tabindex="0"><span class="ref-badge">TX-WTH-02</span><h4>External Crypto Outflow</h4><p>Transfer USDC/EURC to external institutional or exchange Web3 wallet.</p></div>
             </div>
             <div class="tx-subcat-actions">
               <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
