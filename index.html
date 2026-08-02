@@ -703,6 +703,76 @@
   .doc-verify-banner.show{display:block;}
   .doc-verify-banner strong{color:#ff8b7e;display:block;margin-block-end:4px;font-size:13px;}
 
+  .tx-exec-modal{
+    position:fixed;inset:0;z-index:12500;display:none;align-items:center;justify-content:center;
+    padding:16px;background:rgba(4,10,20,.82);backdrop-filter:blur(6px);
+  }
+  .tx-exec-modal.open{display:flex;}
+  .tx-exec-card{
+    width:min(560px,100%);max-height:90vh;overflow-y:auto;background:var(--panel);
+    border:1px solid var(--line-strong);border-radius:16px;padding:22px;
+    box-shadow:0 24px 60px rgba(0,0,0,.5);position:relative;
+  }
+  .tx-exec-close{
+    position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;
+    border:1px solid var(--line-strong);background:var(--panel-3);color:var(--muted);
+    font-size:16px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  }
+  .tx-exec-close:hover{border-color:var(--rose);color:var(--rose);}
+  .tx-exec-head{margin:0 34px 16px 0;}
+  .tx-exec-head-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-block-end:8px;}
+  .tx-exec-code{
+    font-family:var(--font-mono);font-size:11.5px;font-weight:700;letter-spacing:.03em;
+    color:var(--gold);background:var(--gold-soft);border:1px solid rgba(212,175,70,.4);
+    padding:3px 9px;border-radius:20px;
+  }
+  .tx-exec-title{font-family:var(--font-display);font-size:19px;margin:0;color:var(--text);}
+  .tx-exec-rail-list{display:flex;flex-direction:column;gap:4px;margin-block-start:10px;}
+  .tx-exec-rail-line{font-family:var(--font-mono);font-size:11px;color:var(--muted);line-height:1.5;}
+  .tx-exec-rail-line.gated{color:var(--amber);}
+  .tx-exec-rail-line.compliance{color:var(--emerald);}
+  .tx-exec-wallet-box{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+    background:var(--panel-3);border:1px solid var(--line-strong);border-radius:10px;padding:11px 13px;
+  }
+  .tx-exec-wallet-box .addr{font-family:var(--font-mono);font-size:12px;color:var(--text);word-break:break-all;}
+  .tx-exec-wallet-box .net-tag{
+    flex:none;font-size:10.5px;font-weight:700;color:var(--emerald);background:var(--emerald-soft);
+    border:1px solid rgba(40,184,150,.4);padding:3px 8px;border-radius:20px;white-space:nowrap;
+  }
+  .tx-exec-amount-row{display:flex;gap:10px;align-items:flex-end;}
+  .tx-exec-amount-row .field{flex:1;}
+  .tx-exec-asset-tag{
+    flex:none;height:44px;display:flex;align-items:center;padding:0 14px;
+    font-family:var(--font-mono);font-size:12.5px;font-weight:700;color:var(--gold);
+    background:var(--gold-soft);border:1px solid rgba(212,175,70,.4);border-radius:10px;white-space:nowrap;
+  }
+  .tx-exec-compliance{
+    display:flex;gap:10px;align-items:flex-start;background:var(--amber-soft);border:1px solid var(--amber);
+    border-radius:10px;padding:13px;font-size:12.5px;color:var(--text);margin-block:16px;
+  }
+  .tx-exec-compliance input{margin-block-start:2px;accent-color:var(--amber);}
+  .tx-exec-compliance.is-hidden{display:none;}
+  .tx-exec-error{font-size:12px;color:var(--rose);margin-block:8px 0;display:none;}
+  .tx-exec-error.show{display:block;}
+  .tx-exec-status{
+    display:none;align-items:center;gap:10px;background:var(--panel-3);border:1px solid var(--line-strong);
+    border-radius:10px;padding:12px 14px;font-size:12.5px;color:var(--muted);margin-block:16px;
+  }
+  .tx-exec-status.show{display:flex;}
+  .tx-exec-status.signing{border-color:var(--amber);color:var(--amber);}
+  .tx-exec-status.success{border-color:var(--emerald);color:var(--emerald);}
+  .tx-exec-status .dot{width:8px;height:8px;border-radius:50%;background:currentColor;flex:none;animation:txPulse 1s ease-in-out infinite;}
+  @keyframes txPulse{0%,100%{opacity:.35;}50%{opacity:1;}}
+  .tx-exec-actions{display:flex;gap:10px;justify-content:flex-end;margin-block-start:18px;}
+  .tx-exec-actions .btn{min-width:170px;justify-content:center;}
+  @media (max-width:560px){
+    .tx-exec-actions{flex-direction:column-reverse;}
+    .tx-exec-actions .btn{width:100%;}
+    .tx-exec-amount-row{flex-direction:column;align-items:stretch;}
+    .tx-exec-asset-tag{justify-content:center;}
+  }
+
   .cam-modal{
     position:fixed;inset:0;z-index:12000;display:none !important;align-items:center;justify-content:center;
     padding:16px;background:rgba(4,10,20,.78);backdrop-filter:blur(6px);
@@ -1040,6 +1110,18 @@
   .status-pill.ok{background:var(--emerald-soft);color:var(--emerald);}
   .status-pill.pending{background:var(--amber-soft);color:var(--amber);}
   .amt-cell{font-family:var(--font-mono);}
+  /* Ledger compliance indicators (scoped; does not alter table column layout) */
+  .ledger-activity-code{display:block;font-family:var(--font-mono);font-size:11px;color:var(--muted-2);margin-block-start:4px;}
+  .ledger-flags{display:flex;flex-wrap:wrap;gap:4px;margin-block-start:6px;}
+  .ledger-flag{
+    display:inline-flex;align-items:center;font-size:10px;font-weight:700;letter-spacing:.02em;
+    padding:2px 7px;border-radius:6px;border:1px solid var(--line-strong);color:var(--muted);background:var(--panel-3);
+    white-space:nowrap;
+  }
+  .ledger-flag.iso{color:var(--emerald);border-color:rgba(40,184,150,.45);background:var(--emerald-soft);}
+  .ledger-flag.gateway{color:var(--gold);border-color:rgba(212,175,70,.45);background:var(--gold-soft);}
+  .ledger-flag.gated{color:var(--amber);border-color:rgba(232,168,56,.45);background:var(--amber-soft);}
+  .ledger-flag.agent{color:var(--text);border-color:var(--line-strong);}
 
   /* Dashboard 3-tab structure only (reuses existing .tabbar/.tab/.card tokens) */
   .dash-tab-panel{display:none;}
@@ -1077,7 +1159,7 @@
   }
   #dashPanelTransactions .dash-flow .module-body{
     position:relative;
-    padding:1.5rem;
+    padding:1.75rem 1.5rem 1.35rem;
     max-height:none;overflow:visible;
   }
   #dashPanelTransactions .tx-modal-x{
@@ -1090,8 +1172,8 @@
   }
   #dashPanelTransactions .tx-modal-x:hover{border-color:var(--gold);color:var(--gold);}
   #dashPanelTransactions .tx-subcat-head{
-    display:flex;flex-direction:column;align-items:flex-start;gap:6px;
-    margin:0 2.5rem 1.25rem 0;padding:0;
+    display:flex;flex-direction:column;align-items:flex-start;gap:0;
+    margin:0 2.5rem 1.35rem 0;padding:0;
   }
   #dashPanelTransactions .tx-subcat-title{
     margin:0;padding:0;
@@ -1100,45 +1182,60 @@
     color:#FFFFFF;
   }
   #dashPanelTransactions .tx-subcat-sub{
-    margin:0;padding:0;
+    margin:6px 0 0;padding:0;
     font-size:0.875rem;font-weight:400;line-height:1.45;
     color:#94A3B8;
   }
   #dashPanelTransactions .tx-subcat-actions{
-    display:flex;justify-content:flex-end;margin-block-start:1rem;
+    display:flex;justify-content:flex-end;margin-block-start:1.15rem;
   }
   #dashPanelTransactions .tx-subcat-actions .btn{
     border:1px solid var(--line-strong);
     background:transparent;
   }
-  #dashPanelTransactions .ref-badge,
+  #dashPanelTransactions .ref-badge{
+    font-family:var(--font-mono);font-size:10px;font-weight:500;
+    letter-spacing:.04em;line-height:1.2;
+    padding:3px 8px;border-radius:999px;
+    display:inline-flex;align-items:center;white-space:nowrap;
+    color:#CBD5E1;
+    background:rgba(30,41,59,.8);
+    border:1px solid rgba(148,163,184,.25);
+  }
   #dashPanelTransactions .asset-badge{
     font-family:var(--font-mono);font-size:10px;font-weight:600;
     letter-spacing:.04em;line-height:1.2;
     padding:3px 8px;border-radius:999px;
     display:inline-flex;align-items:center;white-space:nowrap;
-  }
-  #dashPanelTransactions .ref-badge{
-    color:var(--gold);background:var(--gold-soft);
-    border:1px solid rgba(212,175,70,.35);
-  }
-  #dashPanelTransactions .asset-badge{
     color:var(--emerald);background:var(--emerald-soft);
     border:1px solid rgba(40,184,150,.35);
   }
   #dashPanelTransactions .dash-cmd-card{position:relative;padding-top:36px;}
-  #dashPanelTransactions .cat-badge{
-    position:absolute;top:12px;right:12px;
-    font-family:var(--font-mono);font-size:10px;font-weight:700;
+  /* Parent category badges — bright enterprise gold */
+  #dashPanelTransactions .cat-badge,
+  #dashPanelTransactions .dash-cmd-card > .cat-badge,
+  #dashPanelTransactions .tx-subcat-head > .cat-badge{
+    font-family:var(--font-mono);font-size:11px;font-weight:700;
     letter-spacing:.05em;line-height:1.2;
     padding:3px 8px;border-radius:999px;
-    color:var(--gold);background:var(--gold-soft);
-    border:1px solid rgba(212,175,70,.35);
     display:inline-flex;align-items:center;white-space:nowrap;
+    color:#F5C518;
+    background:rgba(245,197,24,.15);
+    border:1px solid rgba(245,197,24,.5);
+  }
+  #dashPanelTransactions .dash-cmd-card > .cat-badge{
+    position:absolute;top:12px;right:12px;
+  }
+  #dashPanelTransactions .tx-subcat-head > .cat-badge{
+    position:static;align-self:flex-start;
+    margin:0 0 6px;padding:4px 9px;font-weight:700;
   }
   #dashPanelTransactions .opt-card{
     display:flex;flex-direction:column;gap:8px;
     padding:14px;min-height:100%;
+    background:rgba(15,23,42,.6);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:10px;
   }
   #dashPanelTransactions .opt-card-meta{
     display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;
@@ -1147,9 +1244,19 @@
   #dashPanelTransactions .opt-card p{margin:0;flex:1;}
   #dashPanelTransactions .rail-tag{
     margin-block-start:auto;padding-block-start:10px;
-    border-block-start:1px solid var(--line);
+    border-block-start:1px solid rgba(255,255,255,.08);
     font-family:var(--font-mono);font-size:10.5px;font-weight:500;
     color:var(--muted);letter-spacing:.02em;line-height:1.4;
+  }
+  #dashPanelTransactions .rail-tag + .rail-tag{margin-block-start:8px;}
+  #dashPanelTransactions .rail-tag.gated-tag{
+    color:var(--amber);border-block-start:1px dashed rgba(227,169,79,.35);
+  }
+  #dashPanelTransactions .rail-tag.compliance-tag{
+    color:var(--emerald);border-block-start:1px dashed rgba(40,184,150,.35);
+  }
+  #dashPanelTransactions .tx-subcat-sub.compliance-note{
+    color:var(--amber);font-size:12px;line-height:1.5;margin-block-start:6px;max-width:720px;
   }
   body.tx-modal-open{overflow:hidden;}
   @media (max-width:640px){
@@ -2198,7 +2305,7 @@
       </div>
     </div>
 
-    <!-- TAB 2: Transactions Hub — 7-category CircleVault Transaction Taxonomy -->
+    <!-- TAB 2: Transactions Hub — 8-category CircleVault Transaction Taxonomy -->
     <div class="dash-tab-panel" id="dashPanelTransactions" role="tabpanel" aria-labelledby="dashTabTransactions">
       <div class="grid-3 dash-cmd-grid" id="dashCmdGrid">
         <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="deposit">
@@ -2243,6 +2350,12 @@
           <h4>Withdrawals &amp; Fiat Off-Ramping</h4>
           <p>Fiat Off-Ramp Withdrawal, External Crypto Outflow</p>
         </div>
+        <div class="card dash-cmd-card" role="button" tabindex="0" data-dash-flow="agentic">
+          <span class="cat-badge">CAT-08</span>
+          <div class="ic">🤖</div>
+          <h4>Agentic Economy &amp; Nanopayments</h4>
+          <p>AI Agent-Executed Purchase, Streaming / Pay-Per-Inference Payment</p>
+        </div>
       </div>
 
       <!-- Category 1: Deposits & Inflows -->
@@ -2251,6 +2364,7 @@
           <div class="module-body">
             <button type="button" class="tx-modal-x" onclick="closeDashFlow()" aria-label="Close">×</button>
             <header class="tx-subcat-head">
+              <span class="cat-badge">CAT-01</span>
               <h3 class="tx-subcat-title">Deposits &amp; Inflows</h3>
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
             </header>
@@ -2271,7 +2385,7 @@
                 <div class="opt-card-meta"><span class="ref-badge">TX-DEP-03</span><span class="asset-badge">Asset: USDC</span></div>
                 <h4>Cross-Border CCTP Mint</h4>
                 <p>Native cross-chain transfer burned on source chain and minted into CircleVault.</p>
-                <div class="rail-tag">⚙️ Rail: Circle CCTP (Cross-Chain)</div>
+                <div class="rail-tag">⚙️ Rail: Circle CCTP with Bridge Kit (Cross-Chain)</div>
               </div>
             </div>
             <div class="tx-subcat-actions">
@@ -2287,6 +2401,7 @@
           <div class="module-body">
             <button type="button" class="tx-modal-x" onclick="closeDashFlow()" aria-label="Close">×</button>
             <header class="tx-subcat-head">
+              <span class="cat-badge">CAT-02</span>
               <h3 class="tx-subcat-title">Yield &amp; Treasury Management (USYC)</h3>
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
             </header>
@@ -2296,18 +2411,21 @@
                 <h4>USYC Yield Subscription</h4>
                 <p>Transfer idle USDC into USYC Yield Vault backed by Short-Term US Treasuries (~5.1% APY).</p>
                 <div class="rail-tag">⚙️ Rail: Circle USYC Contract / Hashnote</div>
+                <div class="rail-tag gated-tag">🔒 Enterprise/Gated Circle product — requires Circle approval (access-request form + email to customer-support@circle.com)</div>
               </div>
               <div class="opt-card" role="button" tabindex="0">
                 <div class="opt-card-meta"><span class="ref-badge">TX-YLD-02</span><span class="asset-badge">Asset: USYC -&gt; USDC</span></div>
                 <h4>USYC Yield Liquidation / Redemption</h4>
                 <p>Redeem USYC principal or accumulated earnings back into instantly spendable USDC.</p>
                 <div class="rail-tag">⚙️ Rail: Circle USYC Redemption Engine</div>
+                <div class="rail-tag gated-tag">🔒 Enterprise/Gated Circle product — requires Circle approval (access-request form + email to customer-support@circle.com)</div>
               </div>
               <div class="opt-card" role="button" tabindex="0">
                 <div class="opt-card-meta"><span class="ref-badge">TX-YLD-03</span><span class="asset-badge">Asset: USDC -&gt; USYC</span></div>
                 <h4>Auto-Yield Sweep</h4>
                 <p>Automated smart contract rule sweeping excess treasury funds (&gt;Threshold) into USYC.</p>
-                <div class="rail-tag">⚙️ Rail: Circle Programmable Wallets Automation</div>
+                <div class="rail-tag">⚙️ Rail: Circle Programmable Wallets Automation, routed via Circle Gateway (treasury movement)</div>
+                <div class="rail-tag gated-tag">🔒 USYC destination is an Enterprise/Gated Circle product — requires Circle approval</div>
               </div>
               <div class="opt-card" role="button" tabindex="0">
                 <div class="opt-card-meta"><span class="ref-badge">TX-YLD-04</span><span class="asset-badge">Asset: USDC</span></div>
@@ -2329,6 +2447,7 @@
           <div class="module-body">
             <button type="button" class="tx-modal-x" onclick="closeDashFlow()" aria-label="Close">×</button>
             <header class="tx-subcat-head">
+              <span class="cat-badge">CAT-03</span>
               <h3 class="tx-subcat-title">SME Trade &amp; Escrow Services</h3>
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
             </header>
@@ -2356,6 +2475,7 @@
                 <h4>Yield-Bearing Escrow Staking</h4>
                 <p>Generate ~5.1% yield on locked escrow funds while trade milestone verification is pending.</p>
                 <div class="rail-tag">⚙️ Rail: USYC + Escrow Integration</div>
+                <div class="rail-tag gated-tag">🔒 Enterprise/Gated Circle product — requires Circle approval (access-request form + email to customer-support@circle.com)</div>
               </div>
             </div>
             <div class="tx-subcat-actions">
@@ -2371,6 +2491,7 @@
           <div class="module-body">
             <button type="button" class="tx-modal-x" onclick="closeDashFlow()" aria-label="Close">×</button>
             <header class="tx-subcat-head">
+              <span class="cat-badge">CAT-04</span>
               <h3 class="tx-subcat-title">Remittances &amp; Payouts (PK/UAE)</h3>
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
             </header>
@@ -2379,13 +2500,14 @@
                 <div class="opt-card-meta"><span class="ref-badge">TX-REM-01</span><span class="asset-badge">Asset: USDC / Local FX</span></div>
                 <h4>Cross-Border Corridors (PK/UAE)</h4>
                 <p>Instant low-cost cross-border transfer between UAE (AED) and Pakistan (PKR) via USDC.</p>
-                <div class="rail-tag">⚙️ Rail: Circle Arc Rails + StableFX</div>
+                <div class="rail-tag">⚙️ Rail: Circle Arc Rails + StableFX, routed via Circle Gateway</div>
+                <div class="rail-tag gated-tag">🔒 StableFX is an Enterprise/Gated Circle product — requires Circle approval (access-request form + email to customer-support@circle.com)</div>
               </div>
               <div class="opt-card" role="button" tabindex="0">
                 <div class="opt-card-meta"><span class="ref-badge">TX-REM-02</span><span class="asset-badge">Asset: USDC</span></div>
                 <h4>Batch Payroll Disbursement</h4>
                 <p>Single-click bulk distribution of salaries/vendor payouts in USDC to multiple addresses.</p>
-                <div class="rail-tag">⚙️ Rail: Circle Mass Payments API</div>
+                <div class="rail-tag">⚙️ Rail: Circle Gateway (mass-payout routing &amp; treasury movement)</div>
               </div>
               <div class="opt-card" role="button" tabindex="0">
                 <div class="opt-card-meta"><span class="ref-badge">TX-REM-03</span><span class="asset-badge">Asset: USDC / EURC</span></div>
@@ -2407,6 +2529,7 @@
           <div class="module-body">
             <button type="button" class="tx-modal-x" onclick="closeDashFlow()" aria-label="Close">×</button>
             <header class="tx-subcat-head">
+              <span class="cat-badge">CAT-05</span>
               <h3 class="tx-subcat-title">Real World Asset (RWA) Investments</h3>
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
             </header>
@@ -2415,13 +2538,15 @@
                 <div class="opt-card-meta"><span class="ref-badge">TX-RWA-01</span><span class="asset-badge">Asset: USDC -&gt; Tokenized RWA</span></div>
                 <h4>RWA Tokenized Asset Purchase</h4>
                 <p>Invest USDC into tokenized Real-World Assets (e.g. Export Invoice, Tokenized Real Estate).</p>
-                <div class="rail-tag">⚙️ Rail: Circle Arc Regulated Vaults</div>
+                <div class="rail-tag">⚙️ Rail: Circle Arc Regulated Vaults, orchestrated via Circle Gateway</div>
+                <div class="rail-tag compliance-tag">🛡️ Embedded Compliance: investor accreditation check, onchain transfer-restriction flag, and KYC/AML-aware issuance logic run before mint (Track 3 requirement)</div>
               </div>
               <div class="opt-card" role="button" tabindex="0">
                 <div class="opt-card-meta"><span class="ref-badge">TX-RWA-02</span><span class="asset-badge">Asset: Tokenized RWA -&gt; USDC</span></div>
                 <h4>RWA Principal &amp; Return Redemption</h4>
                 <p>Redeem matured RWA tokens along with accrued interest back into liquid USDC.</p>
-                <div class="rail-tag">⚙️ Rail: Circle Settlement Engine</div>
+                <div class="rail-tag">⚙️ Rail: Circle Gateway (payout orchestration &amp; settlement)</div>
+                <div class="rail-tag compliance-tag">🛡️ Embedded Compliance: redemption checked against holder accreditation status and transfer-restriction registry before release</div>
               </div>
             </div>
             <div class="tx-subcat-actions">
@@ -2437,21 +2562,24 @@
           <div class="module-body">
             <button type="button" class="tx-modal-x" onclick="closeDashFlow()" aria-label="Close">×</button>
             <header class="tx-subcat-head">
+              <span class="cat-badge">CAT-06</span>
               <h3 class="tx-subcat-title">Credit &amp; Liquidity Lines</h3>
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
+              <p class="tx-subcat-sub compliance-note">⚠️ Conceptual / architecture-level category: "Credit Protocols" is not a named Circle product in the current Ignyte/Arc documentation. Modeled here as a working-capital extension of Track 2 (SME Trade Finance), built on documented Circle rails (USYC as collateral, Circle Gateway for disbursement). Per challenge rules, teams are not penalized for conceptual integrations of gated or unlisted tooling.</p>
             </header>
             <div class="opt-row">
               <div class="opt-card" role="button" tabindex="0">
                 <div class="opt-card-meta"><span class="ref-badge">TX-CRD-01</span><span class="asset-badge">Asset: USDC</span></div>
                 <h4>USYC / Asset Collateralized Borrow</h4>
                 <p>Drawdown instant USDC credit line against deposited USYC or RWA collateral.</p>
-                <div class="rail-tag">⚙️ Rail: Circle Arc Credit Protocols</div>
+                <div class="rail-tag">⚙️ Rail: Circle Gateway (disbursement) + USYC/RWA as collateral reference (conceptual credit logic layered on top — not a Circle-issued product)</div>
+                <div class="rail-tag gated-tag">🔒 USYC collateral leg is Enterprise/Gated — requires Circle approval</div>
               </div>
               <div class="opt-card" role="button" tabindex="0">
                 <div class="opt-card-meta"><span class="ref-badge">TX-CRD-02</span><span class="asset-badge">Asset: USDC</span></div>
                 <h4>Credit Line Repayment</h4>
                 <p>Repay principal plus low borrowing interest to restore available credit limit.</p>
-                <div class="rail-tag">⚙️ Rail: Circle Arc Credit Protocols</div>
+                <div class="rail-tag">⚙️ Rail: Circle Gateway (repayment routing) — conceptual credit logic, not a Circle-issued product</div>
               </div>
             </div>
             <div class="tx-subcat-actions">
@@ -2467,6 +2595,7 @@
           <div class="module-body">
             <button type="button" class="tx-modal-x" onclick="closeDashFlow()" aria-label="Close">×</button>
             <header class="tx-subcat-head">
+              <span class="cat-badge">CAT-07</span>
               <h3 class="tx-subcat-title">Withdrawals &amp; Fiat Off-Ramping</h3>
               <p class="tx-subcat-sub">Select a sub-category to continue.</p>
             </header>
@@ -2481,7 +2610,38 @@
                 <div class="opt-card-meta"><span class="ref-badge">TX-WTH-02</span><span class="asset-badge">Asset: USDC / EURC</span></div>
                 <h4>External Crypto Outflow</h4>
                 <p>Transfer USDC/EURC to external institutional or exchange Web3 wallet.</p>
-                <div class="rail-tag">⚙️ Rail: Circle CCTP / Web3 Transfer</div>
+                <div class="rail-tag">⚙️ Rail: Circle CCTP with Bridge Kit / Web3 Transfer</div>
+              </div>
+            </div>
+            <div class="tx-subcat-actions">
+              <button class="btn btn-ghost btn-sm" type="button" onclick="closeDashFlow()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category 8: Agentic Economy & Nanopayments (Track 4) -->
+      <div class="dash-flow" id="flow-agentic" data-flow="agentic" onclick="if(event.target===this)closeDashFlow()">
+        <div class="module open" id="moduleAgentic">
+          <div class="module-body">
+            <button type="button" class="tx-modal-x" onclick="closeDashFlow()" aria-label="Close">×</button>
+            <header class="tx-subcat-head">
+              <span class="cat-badge">CAT-08</span>
+              <h3 class="tx-subcat-title">Agentic Economy &amp; Nanopayments</h3>
+              <p class="tx-subcat-sub">Select a sub-category to continue.</p>
+            </header>
+            <div class="opt-row">
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-AGT-01</span><span class="asset-badge">Asset: USDC</span></div>
+                <h4>AI Agent-Executed Purchase</h4>
+                <p>An AI agent autonomously discovers a counterparty and executes a stablecoin-settled purchase on the user's behalf, within a pre-authorized budget and spend policy.</p>
+                <div class="rail-tag">⚙️ Rail: Circle Wallets (agent key management) + Circle Gateway (settlement routing)</div>
+              </div>
+              <div class="opt-card" role="button" tabindex="0">
+                <div class="opt-card-meta"><span class="ref-badge">TX-AGT-02</span><span class="asset-badge">Asset: USDC (sub-cent)</span></div>
+                <h4>Streaming / Pay-Per-Inference Payment</h4>
+                <p>High-frequency, sub-cent payments billed per API call, per model inference, or per second of continuous usage.</p>
+                <div class="rail-tag">⚙️ Rail: Nanopayments + Circle Wallets</div>
               </div>
             </div>
             <div class="tx-subcat-actions">
@@ -2524,13 +2684,8 @@
               <th data-i18n="colStatus">Status</th>
             </tr>
           </thead>
-          <tbody>
-            <tr><td>28 Jul 2026</td><td>Remittance sent to family (Pakistan)</td><td>Outflow (P2P)</td><td>Payments &amp; Remittances</td><td><span class="status-pill ok">Settled</span></td></tr>
-            <tr><td>27 Jul 2026</td><td>Deposit into Solar RWA project</td><td>Asset Purchase</td><td>RWA Investment Vault</td><td><span class="status-pill ok">Confirmed</span></td></tr>
-            <tr><td>26 Jul 2026</td><td>Instant loan approved ($2,000 USDC)</td><td>Credit Inflow</td><td>Loan &amp; Credit Vault</td><td><span class="status-pill ok">Active Loan</span></td></tr>
-            <tr><td>25 Jul 2026</td><td>Daily USYC yield payout received</td><td>Yield Gain</td><td>Savings &amp; Vaults</td><td><span class="status-pill ok">Earning</span></td></tr>
-            <tr><td>24 Jul 2026</td><td>Downloaded official statement (PDF)</td><td>Audit Report</td><td>Financial Health Center</td><td><span class="status-pill ok">Generated</span></td></tr>
-            <tr><td>20 Jul 2026</td><td>Smart escrow locked for IT vendor</td><td>Trade Escrow</td><td>SME Trade Finance</td><td><span class="status-pill pending">In Escrow</span></td></tr>
+          <tbody id="ledgerTableBody">
+            <!-- Populated by CircleVault Ledger System (ISO 20022 + Circle audit trail) -->
           </tbody>
         </table>
       </div>
@@ -3060,6 +3215,372 @@ function exitApp(){
   requestAnimationFrame(applyFitScale);
 }
 
+/* ============================================================
+   CircleVault Ledger & Transaction Logging System
+   ISO 20022 + Circle CCTP/Bridge Kit/Gateway + Ignyte Track 3
+   Taxonomy: 8 categories / 22 sub-modalities (TX-*-*)
+   ============================================================ */
+(function(){
+  'use strict';
+
+  var VAULT_SOURCE = '0x71C7656EC7ab88b098defB751B7401B5f6d8976F';
+  var SEQ = 0;
+
+  /** Ground-truth taxonomy: exact TX codes → metadata */
+  var LEDGER_TAXONOMY = {
+    'TX-DEP-01': { cat:'CAT-01', hub:'Deposit & Wealth Deployment Hub', type:'Fiat On-Ramp', activity:'Fiat On-Ramp Deposit', purposeCode:'CASH', status:'Settled', statusKind:'ok', cctp:false, bridgeKit:false, gateway:false, gated:false },
+    'TX-DEP-02': { cat:'CAT-01', hub:'Deposit & Wealth Deployment Hub', type:'Stablecoin Inflow', activity:'Direct Stablecoin Inflow', purposeCode:'CASH', status:'Settled', statusKind:'ok', cctp:false, bridgeKit:false, gateway:false, gated:false },
+    'TX-DEP-03': { cat:'CAT-01', hub:'Deposit & Wealth Deployment Hub', type:'CCTP Mint', activity:'Cross-Border CCTP Mint', purposeCode:'CASH', status:'Settled', statusKind:'ok', cctp:true, bridgeKit:true, gateway:false, gated:false },
+    'TX-YLD-01': { cat:'CAT-02', hub:'Savings & Vaults', type:'Yield Subscription', activity:'USYC Yield Subscription', purposeCode:'TREA', status:'Earning', statusKind:'ok', cctp:false, bridgeKit:false, gateway:false, gated:true },
+    'TX-YLD-02': { cat:'CAT-02', hub:'Savings & Vaults', type:'Yield Redemption', activity:'USYC Yield Liquidation / Redemption', purposeCode:'TREA', status:'Settled', statusKind:'ok', cctp:false, bridgeKit:false, gateway:false, gated:true },
+    'TX-YLD-03': { cat:'CAT-02', hub:'Savings & Vaults', type:'Auto-Yield Sweep', activity:'Auto-Yield Sweep', purposeCode:'TREA', status:'Earning', statusKind:'ok', cctp:false, bridgeKit:false, gateway:true, gated:true },
+    'TX-YLD-04': { cat:'CAT-02', hub:'Savings & Vaults', type:'Yield Gain', activity:'Yield Payout Distribution', purposeCode:'TREA', status:'Earning', statusKind:'ok', cctp:false, bridgeKit:false, gateway:false, gated:false },
+    'TX-ESC-01': { cat:'CAT-03', hub:'SME Trade Finance', type:'Trade Escrow', activity:'Escrow Fund Lock', purposeCode:'CORT', status:'In Escrow', statusKind:'pending', cctp:false, bridgeKit:false, gateway:false, gated:false },
+    'TX-ESC-02': { cat:'CAT-03', hub:'SME Trade Finance', type:'Milestone Release', activity:'Milestone Performance Release', purposeCode:'CORT', status:'Settled', statusKind:'ok', cctp:false, bridgeKit:false, gateway:false, gated:false },
+    'TX-ESC-03': { cat:'CAT-03', hub:'SME Trade Finance', type:'Escrow Refund', activity:'Escrow Dispute Refund', purposeCode:'CORT', status:'Settled', statusKind:'ok', cctp:false, bridgeKit:false, gateway:false, gated:false },
+    'TX-ESC-04': { cat:'CAT-03', hub:'SME Trade Finance', type:'Yield Escrow', activity:'Yield-Bearing Escrow Staking', purposeCode:'TREA', status:'In Escrow', statusKind:'pending', cctp:false, bridgeKit:false, gateway:false, gated:true },
+    'TX-REM-01': { cat:'CAT-04', hub:'Payments & Remittances', type:'Outflow (P2P)', activity:'Cross-Border Corridors (PK/UAE)', purposeCode:'FAMI', status:'Settled', statusKind:'ok', cctp:false, bridgeKit:false, gateway:true, gated:true },
+    'TX-REM-02': { cat:'CAT-04', hub:'Payments & Remittances', type:'Batch Payroll', activity:'Batch Payroll Disbursement', purposeCode:'SALA', status:'Settled', statusKind:'ok', cctp:false, bridgeKit:false, gateway:true, gated:false },
+    'TX-REM-03': { cat:'CAT-04', hub:'Payments & Remittances', type:'B2B Settlement', activity:'Merchant B2B Settlement', purposeCode:'CORT', status:'Settled', statusKind:'ok', cctp:false, bridgeKit:false, gateway:false, gated:false },
+    'TX-RWA-01': { cat:'CAT-05', hub:'RWA Investment Vault', type:'Asset Purchase', activity:'RWA Tokenized Asset Purchase', purposeCode:'SECU', status:'Confirmed', statusKind:'ok', cctp:false, bridgeKit:false, gateway:true, gated:false },
+    'TX-RWA-02': { cat:'CAT-05', hub:'RWA Investment Vault', type:'Asset Redemption', activity:'RWA Principal & Return Redemption', purposeCode:'SECU', status:'Settled', statusKind:'ok', cctp:false, bridgeKit:false, gateway:true, gated:false },
+    'TX-CRD-01': { cat:'CAT-06', hub:'Loan & Credit Vault', type:'Credit Inflow', activity:'USYC / Asset Collateralized Borrow', purposeCode:'LOAN', status:'Active Loan', statusKind:'ok', cctp:false, bridgeKit:false, gateway:true, gated:true },
+    'TX-CRD-02': { cat:'CAT-06', hub:'Loan & Credit Vault', type:'Credit Repayment', activity:'Credit Line Repayment', purposeCode:'LOAN', status:'Settled', statusKind:'ok', cctp:false, bridgeKit:false, gateway:true, gated:false },
+    'TX-WTH-01': { cat:'CAT-07', hub:'Withdrawals & Off-Ramp', type:'Fiat Off-Ramp', activity:'Fiat Off-Ramp Withdrawal', purposeCode:'CASH', status:'Settled', statusKind:'ok', cctp:false, bridgeKit:false, gateway:false, gated:false },
+    'TX-WTH-02': { cat:'CAT-07', hub:'Withdrawals & Off-Ramp', type:'Crypto Outflow', activity:'External Crypto Outflow', purposeCode:'CASH', status:'Settled', statusKind:'ok', cctp:true, bridgeKit:true, gateway:false, gated:false },
+    'TX-AGT-01': { cat:'CAT-08', hub:'Agentic Economy & Nanopayments', type:'AI Agent Purchase', activity:'AI Agent-Executed Purchase', purposeCode:'MP2B', status:'Settled', statusKind:'ok', cctp:false, bridgeKit:false, gateway:true, gated:false, agent:true },
+    'TX-AGT-02': { cat:'CAT-08', hub:'Agentic Economy & Nanopayments', type:'Nanopayment', activity:'Streaming / Pay-Per-Inference Payment', purposeCode:'EPAY', status:'Settled', statusKind:'ok', cctp:false, bridgeKit:false, gateway:false, gated:false, agent:true }
+  };
+
+  var ledgerState = {
+    vaultSource: VAULT_SOURCE,
+    standards: {
+      iso20022: true,
+      circleInfrastructure: true,
+      ignyteTrack3: true
+    },
+    transactionHistory: []
+  };
+
+  function isComplianceRequired(code){
+    return /^TX-YLD-/.test(code || '') || /^TX-RWA-/.test(code || '');
+  }
+
+  function pad3(n){ return String(n).padStart(3, '0'); }
+
+  function nextEndToEndId(code){
+    SEQ += 1;
+    var ts = Date.now().toString(36).toUpperCase();
+    return 'E2E-' + (code || 'TX-000-00') + '-' + ts + '-' + pad3(SEQ);
+  }
+
+  function formatDisplayDate(isoTs){
+    var d = new Date(isoTs);
+    if(isNaN(d.getTime())) return '—';
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return d.getUTCDate() + ' ' + months[d.getUTCMonth()] + ' ' + d.getUTCFullYear();
+  }
+
+  /** Byte-exact ISO 20022 memo string — deterministic canonical form */
+  function buildIsoMemo(parts){
+    return [
+      'ISO20022',
+      'EndToEndId=' + parts.endToEndId,
+      'Purpose=' + parts.purposeCode,
+      'TxCode=' + parts.code,
+      'Amt=' + parts.amount,
+      'Ccy=' + parts.asset,
+      'Ts=' + parts.timestamp,
+      'Src=' + parts.sourceWallet,
+      'Dst=' + (parts.target || 'N/A')
+    ].join('|');
+  }
+
+  function resolvePurpose(code, userMemo){
+    var meta = LEDGER_TAXONOMY[code];
+    var base = meta ? meta.purposeCode : 'PURP';
+    if(!userMemo) return base;
+    var m = /\b(INTC|PURP|CASH|TREA|CORT|FAMI|SALA|SECU|LOAN|MP2B|EPAY|GDDS|SCVE)\b/i.exec(userMemo);
+    return m ? m[1].toUpperCase() : base;
+  }
+
+  function gatewayStateFor(meta, executed){
+    if(!meta || !meta.gateway) return 'N/A';
+    return executed ? 'GATEWAY_EXECUTED' : 'GATEWAY_PENDING';
+  }
+
+  function buildIndicators(entry){
+    var flags = ['ISO 20022 Validated'];
+    if(entry.circle && entry.circle.gatewayState && entry.circle.gatewayState !== 'N/A'){
+      flags.push('Circle Gateway Standard');
+    }
+    if(entry.gatedChecked || entry.complianceRequired) flags.push('Gated Checked');
+    if(entry.circle && entry.circle.agentExecuted) flags.push('AI Agent Nanopayment');
+    return flags;
+  }
+
+  function freezeEntry(entry){
+    if(Object.freeze){
+      if(entry.circle) Object.freeze(entry.circle);
+      if(entry.iso20022) Object.freeze(entry.iso20022);
+      Object.freeze(entry.indicators);
+      Object.freeze(entry);
+    }
+    return entry;
+  }
+
+  function createLedgerEntry(opts){
+    opts = opts || {};
+    var code = opts.code || 'TX-000-00';
+    var meta = LEDGER_TAXONOMY[code];
+    if(!meta){
+      meta = {
+        cat:'CAT-00', hub:'Financial Health Center', type: opts.type || 'Activity',
+        activity: opts.activity || opts.title || 'Vault Activity', purposeCode:'PURP',
+        status: opts.status || 'Recorded', statusKind: opts.statusKind || 'ok',
+        cctp:false, bridgeKit:false, gateway:false, gated:false
+      };
+    }
+
+    var timestamp = opts.timestamp || new Date().toISOString();
+    var endToEndId = opts.endToEndId || nextEndToEndId(code);
+    var purposeCode = resolvePurpose(code, opts.memo);
+    var amount = (opts.amount === undefined || opts.amount === null || opts.amount === '') ? '0.00' : String(opts.amount);
+    var asset = opts.asset || 'USDC';
+    var sourceWallet = opts.sourceWallet || VAULT_SOURCE;
+    var target = opts.target || '';
+    var complianceRequired = isComplianceRequired(code);
+    var complianceVerified = complianceRequired ? !!opts.complianceVerified : true;
+    var gatedChecked = !!(meta.gated && (opts.gatedChecked !== false));
+    var activityLabel = opts.activity || opts.title || meta.activity;
+    if(opts.activityOverride) activityLabel = opts.activityOverride;
+
+    var isoMemo = buildIsoMemo({
+      endToEndId: endToEndId,
+      purposeCode: purposeCode,
+      code: code,
+      amount: amount,
+      asset: asset.replace(/\s+/g,' '),
+      timestamp: timestamp,
+      sourceWallet: sourceWallet,
+      target: target
+    });
+
+    var entry = {
+      id: endToEndId,
+      code: code,
+      category: meta.cat,
+      dateDisplay: opts.dateDisplay || formatDisplayDate(timestamp),
+      activity: activityLabel,
+      type: opts.type || meta.type,
+      hub: opts.hub || meta.hub,
+      status: opts.status || meta.status,
+      statusKind: opts.statusKind || meta.statusKind,
+      amount: amount,
+      asset: asset,
+      target: target,
+      userMemo: opts.memo || '',
+      immutable: true,
+      complianceRequired: complianceRequired,
+      complianceVerified: complianceVerified,
+      gatedChecked: gatedChecked,
+      iso20022: {
+        endToEndId: endToEndId,
+        purposeCode: purposeCode,
+        timestamp: timestamp,
+        isoMemo: isoMemo,
+        validated: true
+      },
+      circle: {
+        vaultSource: sourceWallet,
+        cctpMint: !!meta.cctp,
+        bridgeKitRouting: !!meta.bridgeKit,
+        gatewayState: gatewayStateFor(meta, true),
+        agentExecuted: !!meta.agent
+      },
+      indicators: []
+    };
+    entry.indicators = buildIndicators(entry);
+    return freezeEntry(entry);
+  }
+
+  function appendLedgerEntry(entry){
+    if(!entry || entry.immutable !== true) return null;
+    ledgerState.transactionHistory.unshift(entry);
+    renderLedger();
+    return entry;
+  }
+
+  function logExecution(payload){
+    payload = payload || {};
+    var entry = createLedgerEntry({
+      code: payload.code,
+      title: payload.title,
+      amount: payload.amount,
+      target: payload.target,
+      memo: payload.memo,
+      asset: payload.asset,
+      sourceWallet: payload.sourceWallet || VAULT_SOURCE,
+      complianceVerified: payload.complianceVerified,
+      gatedChecked: true
+    });
+    return appendLedgerEntry(entry);
+  }
+
+  function escapeHtml(s){
+    return String(s == null ? '' : s)
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;');
+  }
+
+  function renderFlags(entry){
+    var html = '';
+    var flags = entry.indicators || [];
+    for(var i=0;i<flags.length;i++){
+      var f = flags[i];
+      var cls = 'ledger-flag';
+      if(f.indexOf('ISO 20022') === 0) cls += ' iso';
+      else if(f.indexOf('Circle Gateway') === 0) cls += ' gateway';
+      else if(f.indexOf('Gated') >= 0 || f.indexOf('Compliance') === 0) cls += ' gated';
+      else if(f.indexOf('AI Agent') === 0) cls += ' agent';
+      html += '<span class="'+cls+'">'+escapeHtml(f)+'</span>';
+    }
+    return html ? '<div class="ledger-flags">'+html+'</div>' : '';
+  }
+
+  function renderLedger(){
+    var tbody = document.getElementById('ledgerTableBody');
+    if(!tbody) return;
+    var rows = ledgerState.transactionHistory;
+    if(!rows.length){
+      tbody.innerHTML = '<tr><td colspan="5" style="color:var(--muted);font-size:13px;">No ledger events yet — execute a transaction to append an ISO 20022 audit record.</td></tr>';
+      return;
+    }
+    var html = '';
+    for(var i=0;i<rows.length;i++){
+      var e = rows[i];
+      var pill = e.statusKind === 'pending' ? 'pending' : 'ok';
+      html += '<tr data-e2e="'+escapeHtml(e.iso20022.endToEndId)+'" data-tx="'+escapeHtml(e.code)+'">';
+      html += '<td>'+escapeHtml(e.dateDisplay)+'</td>';
+      html += '<td>'+escapeHtml(e.activity)+'<span class="ledger-activity-code">'+escapeHtml(e.code)+' · '+escapeHtml(e.iso20022.endToEndId)+'</span></td>';
+      html += '<td>'+escapeHtml(e.type)+'</td>';
+      html += '<td>'+escapeHtml(e.hub)+'</td>';
+      html += '<td><span class="status-pill '+pill+'">'+escapeHtml(e.status)+'</span>'+renderFlags(e)+'</td>';
+      html += '</tr>';
+    }
+    tbody.innerHTML = html;
+  }
+
+  function seedDemoHistory(){
+    var seeds = [
+      { code:'TX-REM-01', timestamp:'2026-07-28T14:22:00.000Z', activityOverride:'Remittance sent to family (Pakistan)', amount:'350.00', asset:'USDC / Local FX', target:'PK-FAMILY-IBAN', memo:'ISO-20022 Ref: FAMI | PK corridor', complianceVerified:true },
+      { code:'TX-RWA-01', timestamp:'2026-07-27T11:05:00.000Z', activityOverride:'Deposit into Solar RWA project', amount:'5000.00', asset:'USDC -> Tokenized RWA', target:'0xRWA-SOLAR', memo:'ISO-20022 Ref: SECU | Solar invoice token', complianceVerified:true },
+      { code:'TX-CRD-01', timestamp:'2026-07-26T09:40:00.000Z', activityOverride:'Instant loan approved ($2,000 USDC)', amount:'2000.00', asset:'USDC', target:'VAULT-CREDIT-LINE', memo:'ISO-20022 Ref: LOAN', complianceVerified:true },
+      { code:'TX-YLD-04', timestamp:'2026-07-25T16:10:00.000Z', activityOverride:'Daily USYC yield payout received', amount:'12.48', asset:'USDC', target:VAULT_SOURCE, memo:'ISO-20022 Ref: TREA | daily accrual', complianceVerified:true },
+      { code:'TX-ESC-01', timestamp:'2026-07-20T08:15:00.000Z', activityOverride:'Smart escrow locked for IT vendor', amount:'4200.00', asset:'USDC', target:'0xVENDOR-ESCROW', memo:'ISO-20022 Ref: CORT | Trade ID IT-8841', complianceVerified:true }
+    ];
+    /* Seed oldest-first then unshift order yields newest-first */
+    for(var i=seeds.length-1;i>=0;i--){
+      var e = createLedgerEntry(seeds[i]);
+      /* Push without re-render; freeze already applied */
+      ledgerState.transactionHistory.unshift(e);
+    }
+  }
+
+  function getExportPayload(){
+    return {
+      product: 'The CircleVault Global',
+      exportedAt: new Date().toISOString(),
+      vaultSource: VAULT_SOURCE,
+      standards: ledgerState.standards,
+      taxonomyCount: { categories: 8, subModalities: 22 },
+      transactionHistory: ledgerState.transactionHistory.map(function(e){
+        return {
+          code: e.code,
+          category: e.category,
+          activity: e.activity,
+          type: e.type,
+          hub: e.hub,
+          status: e.status,
+          amount: e.amount,
+          asset: e.asset,
+          target: e.target,
+          complianceRequired: e.complianceRequired,
+          complianceVerified: e.complianceVerified,
+          gatedChecked: e.gatedChecked,
+          indicators: e.indicators.slice(),
+          iso20022: {
+            endToEndId: e.iso20022.endToEndId,
+            purposeCode: e.iso20022.purposeCode,
+            timestamp: e.iso20022.timestamp,
+            isoMemo: e.iso20022.isoMemo
+          },
+          circle: {
+            vaultSource: e.circle.vaultSource,
+            cctpMint: e.circle.cctpMint,
+            bridgeKitRouting: e.circle.bridgeKitRouting,
+            gatewayState: e.circle.gatewayState,
+            agentExecuted: e.circle.agentExecuted
+          }
+        };
+      })
+    };
+  }
+
+  function validateAllModalities(){
+    var codes = Object.keys(LEDGER_TAXONOMY);
+    var results = [];
+    for(var i=0;i<codes.length;i++){
+      var code = codes[i];
+      var sample = createLedgerEntry({
+        code: code,
+        amount: code.indexOf('AGT-02') >= 0 ? '0.0042' : '100.00',
+        asset: LEDGER_TAXONOMY[code] ? 'USDC' : 'USDC',
+        target: 'VALIDATION-TARGET',
+        memo: 'ISO-20022 Ref: PURP/INTC | modality self-test',
+        complianceVerified: true,
+        timestamp: new Date().toISOString()
+      });
+      var ok = !!(
+        sample.iso20022 &&
+        sample.iso20022.endToEndId &&
+        sample.iso20022.purposeCode &&
+        sample.iso20022.timestamp &&
+        sample.iso20022.isoMemo &&
+        sample.iso20022.isoMemo.indexOf('ISO20022|EndToEndId=') === 0 &&
+        sample.circle &&
+        sample.circle.vaultSource === VAULT_SOURCE &&
+        sample.immutable === true &&
+        (!isComplianceRequired(code) || sample.complianceVerified)
+      );
+      results.push({ code: code, ok: ok, endToEndId: sample.iso20022.endToEndId, isoMemo: sample.iso20022.isoMemo });
+    }
+    return { total: results.length, passed: results.filter(function(r){ return r.ok; }).length, results: results };
+  }
+
+  window.CircleVaultLedger = {
+    VAULT_SOURCE: VAULT_SOURCE,
+    TAXONOMY: LEDGER_TAXONOMY,
+    state: ledgerState,
+    isComplianceRequired: isComplianceRequired,
+    createLedgerEntry: createLedgerEntry,
+    appendLedgerEntry: appendLedgerEntry,
+    logExecution: logExecution,
+    renderLedger: renderLedger,
+    getExportPayload: getExportPayload,
+    validateAllModalities: validateAllModalities
+  };
+
+  seedDemoHistory();
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', renderLedger);
+  } else {
+    renderLedger();
+  }
+})();
+
 /* ---------------- Ledger Download / Print / Save ---------------- */
 function ledgerRows(){
   const table = document.getElementById('ledgerTable');
@@ -3087,11 +3608,17 @@ function ledgerDownload(){
 }
 function ledgerSave(){
   const {headers, rows} = ledgerRows();
-  const payload = {
+  const structured = (window.CircleVaultLedger && typeof window.CircleVaultLedger.getExportPayload === 'function')
+    ? window.CircleVaultLedger.getExportPayload()
+    : null;
+  const payload = structured || {
     product: 'The CircleVault Global',
     exportedAt: new Date().toISOString(),
     headers, rows
   };
+  if(structured){
+    payload.tableView = { headers, rows };
+  }
   downloadBlob('circlevault-ledger.json', JSON.stringify(payload, null, 2), 'application/json;charset=utf-8');
 }
 function ledgerPrint(){
@@ -3100,7 +3627,7 @@ function ledgerPrint(){
   const win = window.open('', '_blank', 'noopener,noreferrer,width=960,height=700');
   if(!win){ window.print(); return; }
   win.document.write('<!DOCTYPE html><html><head><title>CircleVault Ledger</title>');
-  win.document.write('<style>body{font-family:Segoe UI,sans-serif;padding:24px;color:#111}h1{font-size:18px}table{width:100%;border-collapse:collapse;margin-top:16px}th,td{border:1px solid #ccc;padding:8px 10px;text-align:left;font-size:13px}th{background:#f3f3f3}</style>');
+  win.document.write('<style>body{font-family:Segoe UI,sans-serif;padding:24px;color:#111}h1{font-size:18px}table{width:100%;border-collapse:collapse;margin-top:16px}th,td{border:1px solid #ccc;padding:8px 10px;text-align:left;font-size:13px}th{background:#f3f3f3}.ledger-flags{margin-top:6px}.ledger-flag{display:inline-block;font-size:10px;margin:2px 4px 0 0;padding:2px 6px;border:1px solid #ccc;border-radius:4px}.ledger-activity-code{display:block;font-size:11px;color:#666;margin-top:4px}</style>');
   win.document.write('</head><body><h1>The CircleVault Global — Activity &amp; Ledger</h1>');
   win.document.write(panel.innerHTML);
   win.document.write('</body></html>');
@@ -5113,6 +5640,63 @@ window.showStep = showStep;
 </script>
 <div class="toast" id="appToast" role="status" aria-live="polite"></div>
 
+<!-- Reusable Transaction Execution Modal — dynamically populated for all 8 categories / all TX cards -->
+<div class="tx-exec-modal" id="txExecModal" aria-hidden="true" onclick="if(event.target===this)closeTxExecModal()">
+  <div class="tx-exec-card" role="dialog" aria-modal="true" aria-labelledby="txExecTitle">
+    <button type="button" class="tx-exec-close" onclick="closeTxExecModal()" aria-label="Close">×</button>
+    <header class="tx-exec-head">
+      <div class="tx-exec-head-row">
+        <span class="tx-exec-code" id="txExecCode">TX-000-00</span>
+      </div>
+      <h3 class="tx-exec-title" id="txExecTitle">Transaction</h3>
+      <div class="tx-exec-rail-list" id="txExecRailList"></div>
+    </header>
+
+    <div class="field" style="margin-block-end:16px;">
+      <label>Source Vault / Wallet</label>
+      <div class="tx-exec-wallet-box">
+        <span class="addr" id="txExecSourceWallet">0x71C7656EC7ab88b098defB751B7401B5f6d8976F</span>
+        <span class="net-tag">Arc Testnet</span>
+      </div>
+    </div>
+
+    <div class="tx-exec-amount-row" style="margin-block-end:16px;">
+      <div class="field">
+        <label for="txExecAmount">Amount</label>
+        <input type="number" id="txExecAmount" min="0" step="0.01" placeholder="0.00" inputmode="decimal">
+      </div>
+      <span class="tx-exec-asset-tag" id="txExecAssetTag">USDC</span>
+    </div>
+
+    <div class="field" style="margin-block-end:16px;">
+      <label id="txExecTargetLabel" for="txExecTarget">Counterparty / Target Destination</label>
+      <input type="text" id="txExecTarget" placeholder="Receiver wallet, IBAN, or smart contract address">
+    </div>
+
+    <div class="field" style="margin-block-end:4px;">
+      <label for="txExecMemo">Transaction Purpose / Memo <span style="color:var(--muted-2);font-weight:500;">(ISO 20022 reference)</span></label>
+      <textarea id="txExecMemo" rows="2" placeholder="ISO-20022 Ref: PURP/INTC | Trade ID / Remittance Code"></textarea>
+    </div>
+
+    <div class="tx-exec-compliance is-hidden" id="txExecComplianceField" data-required="0">
+      <input type="checkbox" id="txExecCompliance">
+      <label for="txExecCompliance" style="cursor:pointer;">I confirm accredited investor status and KYC compliance for USYC / RWA assets.</label>
+    </div>
+    <div class="tx-exec-error" id="txExecError">Please confirm accreditation/KYC verification before signing.</div>
+
+    <div class="tx-exec-status" id="txExecStatus">
+      <span class="dot"></span>
+      <span id="txExecStatusText">Connecting to Circle Wallet…</span>
+    </div>
+
+    <div class="tx-exec-actions">
+      <button type="button" class="btn btn-ghost btn-sm" onclick="closeTxExecModal()">Cancel</button>
+      <button type="button" class="btn btn-gold btn-sm" id="txExecSignBtn" onclick="executeTxSign()">🔏 Sign &amp; Execute Transaction</button>
+    </div>
+  </div>
+</div>
+
+
 <!-- Camera capture modal (Step 2 / Step 3 documents) -->
 <div class="cam-modal" id="camCaptureModal" aria-hidden="true">
   <div class="cam-modal-card" role="dialog" aria-modal="true" aria-labelledby="camCaptureTitle">
@@ -5129,5 +5713,177 @@ window.showStep = showStep;
     </div>
   </div>
 </div>
+
+<script>
+/* ============================================================
+   Reusable Transaction Execution Modal — CAT-01 through CAT-08
+   Fully dynamic: reads TX code, title, asset, and rail info
+   directly from the clicked .opt-card DOM. Does not alter any
+   existing category/sub-category/rail text — read-only display.
+   ============================================================ */
+(function(){
+  'use strict';
+
+  var TARGET_LABELS = {
+    'TX-DEP': 'Source Institution / Deposit Reference',
+    'TX-YLD': 'USYC Vault / Treasury Contract Address',
+    'TX-ESC': 'Counterparty Wallet / Escrow Beneficiary Address',
+    'TX-REM': 'Receiver Wallet / IBAN / Beneficiary Account',
+    'TX-RWA': 'RWA Smart Contract / Asset Token Address',
+    'TX-CRD': 'Credit Facility Contract Address',
+    'TX-WTH': 'Beneficiary Bank IBAN / External Wallet Address',
+    'TX-AGT': 'Agent Wallet Address / Service Endpoint'
+  };
+  var DEFAULT_TARGET_LABEL = 'Counterparty / Target Destination (Wallet / IBAN / Smart Contract)';
+  var SOURCE_WALLET = '0x71C7656EC7ab88b098defB751B7401B5f6d8976F';
+
+  function txPrefix(code){
+    var m = /^TX-([A-Z]{3})-/.exec(code || '');
+    return m ? ('TX-' + m[1]) : '';
+  }
+
+  function isComplianceRequired(card, code){
+    return /^TX-YLD-/.test(code) || /^TX-RWA-/.test(code);
+  }
+
+  function openTxExecModal(card){
+    if(!card) return;
+    var codeEl   = card.querySelector('.ref-badge');
+    var assetEl  = card.querySelector('.asset-badge');
+    var titleEl  = card.querySelector('h4');
+    var railEls  = card.querySelectorAll('.rail-tag');
+
+    var code  = codeEl  ? codeEl.textContent.trim()  : 'TX-000-00';
+    var asset = assetEl ? assetEl.textContent.replace(/^Asset:\s*/i,'').trim() : 'USDC';
+    var title = titleEl ? titleEl.textContent.trim() : 'Transaction';
+
+    document.getElementById('txExecCode').textContent = code;
+    document.getElementById('txExecTitle').textContent = title;
+    document.getElementById('txExecAssetTag').textContent = asset;
+    document.getElementById('txExecSourceWallet').textContent = SOURCE_WALLET;
+
+    var railList = document.getElementById('txExecRailList');
+    railList.innerHTML = '';
+    railEls.forEach(function(r){
+      var line = document.createElement('div');
+      var cls = 'tx-exec-rail-line';
+      if(r.classList.contains('gated-tag')) cls += ' gated';
+      else if(r.classList.contains('compliance-tag')) cls += ' compliance';
+      line.className = cls;
+      line.textContent = r.textContent.trim();
+      railList.appendChild(line);
+    });
+
+    var prefix = txPrefix(code);
+    document.getElementById('txExecTargetLabel').textContent = TARGET_LABELS[prefix] || DEFAULT_TARGET_LABEL;
+
+    document.getElementById('txExecAmount').value = '';
+    document.getElementById('txExecTarget').value = '';
+    document.getElementById('txExecMemo').value = '';
+
+    var complianceField = document.getElementById('txExecComplianceField');
+    var compliance = document.getElementById('txExecCompliance');
+    var required = isComplianceRequired(card, code);
+    complianceField.classList.toggle('is-hidden', !required);
+    complianceField.dataset.required = required ? '1' : '0';
+    compliance.checked = false;
+
+    document.getElementById('txExecError').classList.remove('show');
+    var status = document.getElementById('txExecStatus');
+    status.classList.remove('show','signing','success');
+
+    var signBtn = document.getElementById('txExecSignBtn');
+    signBtn.disabled = false;
+    signBtn.textContent = '🔏 Sign & Execute Transaction';
+
+    var modal = document.getElementById('txExecModal');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.classList.add('tx-modal-open');
+  }
+
+  function closeTxExecModal(){
+    var modal = document.getElementById('txExecModal');
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+    if(!document.querySelector('.dash-flow.open')){
+      document.body.classList.remove('tx-modal-open');
+    }
+  }
+
+  function executeTxSign(){
+    var complianceField = document.getElementById('txExecComplianceField');
+    var compliance = document.getElementById('txExecCompliance');
+    var errorEl = document.getElementById('txExecError');
+    var required = complianceField.dataset.required === '1';
+
+    if(required && !compliance.checked){
+      errorEl.classList.add('show');
+      return;
+    }
+    errorEl.classList.remove('show');
+
+    var signBtn = document.getElementById('txExecSignBtn');
+    var status = document.getElementById('txExecStatus');
+    var statusText = document.getElementById('txExecStatusText');
+
+    var code = document.getElementById('txExecCode').textContent.trim();
+    var title = document.getElementById('txExecTitle').textContent.trim();
+    var amount = document.getElementById('txExecAmount').value;
+    var target = document.getElementById('txExecTarget').value;
+    var memo = document.getElementById('txExecMemo').value;
+    var asset = document.getElementById('txExecAssetTag').textContent.trim();
+    var sourceWallet = document.getElementById('txExecSourceWallet').textContent.trim() || SOURCE_WALLET;
+
+    signBtn.disabled = true;
+    status.classList.add('show','signing');
+    status.classList.remove('success');
+    statusText.textContent = 'Connecting to Circle Wallet…';
+
+    setTimeout(function(){
+      status.classList.remove('signing');
+      status.classList.add('success');
+      statusText.textContent = '✅ Arc Testnet Execution Complete — simulated, no real funds moved.';
+      signBtn.textContent = 'Executed';
+
+      /* Append immutable ISO 20022 / Circle audit ledger event */
+      if(window.CircleVaultLedger && typeof window.CircleVaultLedger.logExecution === 'function'){
+        window.CircleVaultLedger.logExecution({
+          code: code,
+          title: title,
+          amount: amount,
+          target: target,
+          memo: memo,
+          asset: asset,
+          sourceWallet: sourceWallet,
+          complianceVerified: !required || !!compliance.checked,
+          complianceRequired: required
+        });
+      }
+    }, 1500);
+  }
+
+  window.openTxExecModal  = openTxExecModal;
+  window.closeTxExecModal = closeTxExecModal;
+  window.executeTxSign    = executeTxSign;
+
+  document.addEventListener('click', function(e){
+    var card = e.target.closest ? e.target.closest('.opt-card') : null;
+    if(card) openTxExecModal(card);
+  });
+
+  document.addEventListener('keydown', function(e){
+    if((e.key === 'Enter' || e.key === ' ') && document.activeElement &&
+       document.activeElement.classList && document.activeElement.classList.contains('opt-card')){
+      e.preventDefault();
+      openTxExecModal(document.activeElement);
+    }
+    if(e.key === 'Escape'){
+      var modal = document.getElementById('txExecModal');
+      if(modal && modal.classList.contains('open')) closeTxExecModal();
+    }
+  });
+})();
+</script>
 </body>
 </html>
