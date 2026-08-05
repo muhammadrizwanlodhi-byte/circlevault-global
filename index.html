@@ -1772,7 +1772,15 @@
   #cvRoleSwitcher .cv-sw-status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--emerald);box-shadow:0 0 8px rgba(40,184,150,.65);}
   #cvRoleSwitcher .cv-sw-signout{width:100%;margin-block-start:12px;}
   #view-login .login-demo-preset select{width:100%;min-height:40px;padding:8px 10px;border-radius:10px;border:1px solid var(--line-strong);background:var(--panel-3);color:var(--text);font:inherit;}
-  footer.site{border-block-start:1px solid var(--line);padding-block:26px;color:var(--muted-2);font-size:12px;text-align:center;}
+  /* Universal Google Translate chrome hide */
+  #google_translate_element{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important;}
+  .goog-te-banner-frame, .goog-te-balloon-frame, #goog-gt-tt, .goog-tooltip, .goog-te-balloon-frame{display:none!important;}
+  body{top:0!important;}
+  .goog-text-highlight{background:transparent!important;box-shadow:none!important;}
+  font[style*="vertical-align: inherit"]{vertical-align:inherit!important;}
+  .notranslate, [translate="no"]{unicode-bidi:isolate;}
+
+footer.site{border-block-start:1px solid var(--line);padding-block:26px;color:var(--muted-2);font-size:12px;text-align:center;}
 
   /* Temporary Dev Mode bypass — onboarding / registration only */
   #devModeSkip{
@@ -1894,12 +1902,15 @@
   </defs>
 </svg>
 
+<!-- Universal Translate host (hidden — driven by Language dropdown) -->
+<div id="google_translate_element" aria-hidden="true"></div>
+
 <div class="topbar">
   <div class="topbar-inner">
     <div class="rate-ticker">
       <span class="rate-dot" id="rateDot"></span>
       <span data-i18n="rateLabel">USDC Reference Rate</span>
-      <span class="rate-value" id="rateValue">$1.0000<span class="delta up" id="rateDelta">+0.01%</span></span>
+      <span class="rate-value notranslate" id="rateValue" translate="no">$1.0000<span class="delta up" id="rateDelta">+0.01%</span></span>
       <span class="rate-sub" id="rateDate">·</span>
     </div>
     <div class="topbar-right">
@@ -2756,7 +2767,7 @@
           </svg>
         </div>
         <div class="cred-row"><span class="k">Vault Holder Name</span><span class="v" id="credName">—</span></div>
-        <div class="cred-row"><span class="k">Universal Vault ID</span><span class="v" id="credVaultId">CV-ARC-••••••-XX-YYYY</span></div>
+        <div class="cred-row"><span class="k">Universal Vault ID</span><span class="v notranslate" id="credVaultId" translate="no">CV-ARC-••••••-XX-YYYY</span></div>
         <div class="cred-row"><span class="k">Arc On-Chain ID</span><span class="v" id="credArcId">—</span></div>
         <div class="cred-row"><span class="k">Jurisdiction</span><span class="v" id="credJuris">—</span></div>
         <div class="cred-settle-pair" id="credSettlePair" aria-label="Primary settlement credentials">
@@ -2933,7 +2944,7 @@
         <div class="avatar"><span id="dashInitials">CV</span></div>
         <div>
           <div class="id-name" id="dashName">Vault Holder</div>
-          <div class="id-meta" id="dashVaultId">CV-ARC-••••••-XX-YYYY</div>
+          <div class="id-meta" id="dashVaultId" class="id-meta notranslate" translate="no">CV-ARC-••••••-XX-YYYY</div>
         </div>
       </div>
       <div class="badges">
@@ -2961,20 +2972,20 @@
         <div class="equity-top">
           <div>
             <div class="equity-label" data-i18n="totalEquityLabel">Total Vault Equity</div>
-            <div class="equity-value" id="overviewTotalEquity">$0.00<span class="unit">USDC</span></div>
+            <div class="equity-value notranslate" id="overviewTotalEquity" translate="no">$0.00<span class="unit">USDC</span></div>
           </div>
           <div class="muted" style="font-family:var(--font-mono);font-size:12px;">1 USDC ≈ <span id="equityRateEcho">$1.0000</span></div>
         </div>
       </div>
 
       <div class="grid-3 overview-snap-row">
-        <div class="card subvault"><div><div class="ic">💵</div><div class="lbl" data-i18n="subLiquid">Liquid Cash (Spending &amp; Remittances)</div></div><div class="amt" id="overviewLiquidCash">$0.00</div></div>
-        <div class="card subvault"><div><div class="ic">📈</div><div class="lbl" data-i18n="subYield">Yield Vault (USYC Earnings)</div><div class="apy">APY ~5.1%</div></div><div class="amt" id="overviewYieldVault">$0.00</div></div>
-        <div class="card subvault"><div><div class="ic">🏢</div><div class="lbl" data-i18n="subRwa">RWA Project Investments</div></div><div class="amt" id="overviewRwaInvestments">$0.00</div></div>
+        <div class="card subvault"><div><div class="ic">💵</div><div class="lbl" data-i18n="subLiquid">Liquid Cash (Spending &amp; Remittances)</div></div><div class="amt notranslate" id="overviewLiquidCash" translate="no">$0.00</div></div>
+        <div class="card subvault"><div><div class="ic">📈</div><div class="lbl" data-i18n="subYield">Yield Vault (USYC Earnings)</div><div class="apy">APY ~5.1%</div></div><div class="amt notranslate" id="overviewYieldVault" translate="no">$0.00</div></div>
+        <div class="card subvault"><div><div class="ic">🏢</div><div class="lbl" data-i18n="subRwa">RWA Project Investments</div></div><div class="amt notranslate" id="overviewRwaInvestments" translate="no">$0.00</div></div>
       </div>
       <div class="grid-2 overview-snap-row">
-        <div class="card subvault"><div><div class="ic">🤝</div><div class="lbl" data-i18n="subEscrow">SME Trade Escrow (Locked)</div></div><div class="amt" id="overviewEscrowLocked">$0.00</div></div>
-        <div class="card subvault"><div><div class="ic">🏦</div><div class="lbl" data-i18n="subCredit" id="overviewCreditLabel">Active Credit Line Available</div></div><div class="amt" id="overviewCreditAvailable">$0.00</div></div>
+        <div class="card subvault"><div><div class="ic">🤝</div><div class="lbl" data-i18n="subEscrow">SME Trade Escrow (Locked)</div></div><div class="amt notranslate" id="overviewEscrowLocked" translate="no">$0.00</div></div>
+        <div class="card subvault"><div><div class="ic">🏦</div><div class="lbl" data-i18n="subCredit" id="overviewCreditLabel">Active Credit Line Available</div></div><div class="amt notranslate" id="overviewCreditAvailable" translate="no">$0.00</div></div>
       </div>
 
       <div class="dash-overview-cta">
@@ -3351,7 +3362,7 @@
         <button class="tab-btn" type="button" onclick="ledgerSave()" data-i18n="btnSave">Save</button>
         <button class="tab-btn" type="button" id="btnExportLedgerCsv" onclick="exportLedgerToCSV(); return false;">Export to CSV</button>
       </div>
-      <div class="ledger-audit-metrics" id="ledgerAuditMetrics" aria-label="Ledger audit summary totals">
+      <div class="ledger-audit-metrics notranslate" id="ledgerAuditMetrics" translate="no" aria-label="Ledger audit summary totals">
         <div class="lam-item">
           <div class="lam-label" data-i18n="ledgerMetricCredits">Total Credits (CR)</div>
           <div class="lam-value cr" id="ledgerMetricCredits">+$0.00</div>
@@ -3371,7 +3382,7 @@
         </div>
       </div>
       <div class="ledger-wrap" id="ledgerPanel">
-        <table class="ledger" id="ledgerTable">
+        <table class="ledger notranslate" id="ledgerTable" translate="no">
           <thead>
             <tr data-cv-audit-cols="1">
               <th data-i18n="colDate">Date</th>
@@ -3446,293 +3457,9 @@
   }
 })();
 /* Click-only interactive binding is installed after app functions are defined (see bindCleanClickHandlers). */
-/* ---------------- i18n ---------------- */
-const I18N = {
-  en: { rateLabel:"USDC Reference Rate", langLabel:"Language", fitLabel:"View", fitStandard:"Standard", fitScreen:"Fit to Screen", brandTag:"Global Payments, Remittances & Yield Ecosystem",
-    selectedCountryLabel:"Selected Country:", btnChangeCountry:"Change",
-    navSignIn:"Sign In", navOpenVault:"Open Your Vault", heroEyebrow:"Global Reach, Local Compliance",
-    heroHeading:"Global Reach with Local Compliance",
-    heroBody:"The CircleVault Global enforces strict onboarding protocols. Choose your jurisdiction, complete instant passport or ID verification powered by Circle Arc identity rails, and every transfer, remittance and yield vault interaction stays fully aligned with global AML/CFT standards.",
-    heroCta:"Open Your CircleVault Now",
-    onboardTitle:"Open Your CircleVault", onboardSub:"Three registration hubs. Your data is verified against issuing authorities and never shared without consent.",
-    tab1:"Jurisdiction", tab2:"Identity KYC", tab3:"Source of Income / Funds", tab4:"Settlement Banks & Wallets", tab5:"Next of Kin", tab6:"Security Credentials",
-    stepJurisdictionTitle:"Jurisdiction & Personal Identification", stepJurisdictionSub:"Tell us where you legally reside and who you are, exactly as shown on your official documents.",
-    stepProfileTitle:"Occupation, Source of Wealth & Financial Profile", stepProfileSub:"This tells us how you'll use your Vault so we can size compliance checks correctly — never used to judge you.",
-    stepVerifyTitle:"Deep AI Identity Verification", stepVerifySub:"Document scan, liveness check and facial match — cross-checked against the issuing authority in the background.",
-    stepSecurityTitle:"Account Credentials & Security Setup", stepSecuritySub:"Verification passed — secure your Vault with contact confirmation and a strong password.",
-    btnNext:"Continue", btnBack:"← Back", btnBackHome:"← Back", btnExit:"Exit", btnSubmit:"Create My Vault",
-    btnDownload:"Download", btnPrint:"Print", btnSave:"Save",
-    credEyebrow:"Vault Created", credTitle:"Your Official Vault Credential", credProceed:"Proceed to Vault Dashboard",
-    verifyingTitle:"Generating your Vault…", verifyingSub:"Cross-checking identity, compliance and issuing authority records.",
-    badgeVerifiedIdentity:"🟢 Verified Arc Identity", badgeAmlCleared:"🟢 AML/CFT Cleared", badgeCreditRating:"🟢 Credit Rating: A+",
-    totalEquityLabel:"Total Vault Equity",
-    subLiquid:"Liquid Cash (Spending & Remittances)", subYield:"Yield Vault (USYC Earnings)", subRwa:"RWA Project Investments",
-    subEscrow:"SME Trade Escrow (Locked)", subCredit:"Active Credit Line Available",
-    actionSend:"Send Money", actionDeposit:"Deposit USDC", actionInvest:"Invest in Projects", actionLoan:"Request Loan / Credit", actionStatements:"Financial Statements",
-    moduleATitle:"Deposit & Wealth Deployment Hub", moduleBTitle:"Loan & Credit Request Vault", moduleCTitle:"Financial Statements & Health Center", moduleDTitle:"Payments, Remittance & SME Escrow Hub",
-    ledgerTitle:"Activity & Ledger", colDate:"Date", colActivity:"Activity", colType:"Type", colHub:"Dashboard Hub", colAmount:"Amount (USDC)", colBalance:"Running Balance", colStatus:"Status & Compliance",
-    loginTitle:"Sign In to Your Vault",
-    loginSub:"Standard vault authentication. Sign in with your Account ID / email and password, or pick a demo preset.",
-    loginDemoPreset:"Demo Preset Accounts",
-    loginDemoPresetOpt:"— Select preset (optional) —",
-    loginDemoAdmin:"Admin",
-    loginDemoUser:"Demo User",
-    loginAccountId:"Account ID / Email",
-    loginPassword:"Password / Security PIN",
-    loginAccountPlaceholder:"Account ID, email, or 6-digit Vault ID",
-    loginPasswordPlaceholder:"Password or security PIN",
-    loginForgotId:"Forgot Vault ID?",
-    loginEmailSync:"Email Sync",
-    loginPasswordReset:"Password Reset",
-    loginForgotTitle:"Forgot Vault ID",
-    loginForgotHelp:"Enter your registered email to receive your masked Vault ID (demo: any email shows format CV-ARC-••••••-XX-YYYY).",
-    loginForgotBtn:"Send Vault ID Reminder",
-    loginEmailTitle:"Email Sync",
-    loginEmailHelp:"Sync recovery email with your vault profile for ISO 20022 audit trail.",
-    loginEmailBtn:"Sync Email",
-    loginResetTitle:"Password Reset",
-    loginResetHelp:"Verify registered email + mobile OTP to reset vault password (demo flow).",
-    loginResetBtn:"Reset Password",
-    loginSubmit:"Sign In",
-    loginOr:"or",
-    loginAdminOneClick:"Admin One-Click Login",
-    loginDemoPicker:"Open Demo Profile Picker",
-    loginPresetsHint:"Presets: Admin → admin / admin · Demo User → demo / demo",
-    loginSecureTag:"Secure Vault Access",
-    loginOpenVaultCta:"Open Your CircleVault Now",
-    loginOpenVaultHint:"New here? Start the registration pipeline to create your vault.",
-    loginBack:"← Back",
-    hubEyebrow:"REGISTRATION HUB",
-    hubTitle:"CircleVault Registration — Main Hub",
-    hubCard1Title:"1. Jurisdiction",
-    hubCard1Body:"Region, compliance framework, and regulatory declarations.",
-    hubCard2Title:"2. Identity KYC",
-    hubCard2Body:"Government ID, document scan, and live biometric check.",
-    hubCard3Title:"3. Source of Income / Funds",
-    hubCard3Body:"Occupation, income range, and bank statement proof.",
-    hubCard4Title:"4. Settlement Banks & Wallets",
-    hubCard4Body:"Bank IBAN, Raast, wallets, Visa/MC cards — Telco AI OTP + 3DS bind.",
-    hubCard5Title:"5. Next of Kin",
-    hubCard5Body:"Nominee identity, live selfie, OTP, and dynamic affidavits.",
-    hubCard6Title:"6. Security Credentials",
-    hubCard6Body:"Terms, 6-digit transaction PIN, 2FA setup, and Vault ID deployment.",
-    hubEmergencyTitle:"Successor Claim & Emergency Hub",
-    hubEmergencyBody:"Simultaneous demise protocol for surviving legal heirs to initiate vault recovery.",
-    hubEmergencyBtn:"Open Emergency Vault Claim Portal",
-    statusPending:"Pending",
-    statusCompleted:"Completed",
-    pctCompleted:"Completed",
-    dialCaption:"Arc Vault · Shield Network",
-    trustArc:"Circle Arc Identity Rails",
-    trustAml:"AML / CFT Compliant",
-    trustUsdc:"USDC-Native Settlement",
-    step1Title:"Jurisdiction & Regulatory Preferences",
-    step1Sub:"Select your region and compliance framework. Keep this short — deep identity is Step 2.",
-    lblCountryResidence:"Country of Residence",
-    lblCountryNationality:"Country of Nationality",
-    lblRegion:"State / Province / Region",
-    lblCity:"City / Area",
-    lblFirstName:"First Name",
-    lblLastName:"Last Name / Surname",
-    lblCompliance:"Compliance Framework",
-    lblRegDeclarations:"Regulatory Declarations",
-    step2Title:"Deep AI Identity & Biometric Verification",
-    step2Sub:"Government ID, document scan, and live selfie — cross-checked against issuing authorities.",
-    lblDocId:"Document ID Number",
-    lblDob:"Date of Birth",
-    lblDocIssue:"Date of Issue",
-    lblDocExpiry:"Date of Expiry",
-    lblLifetime:"Lifetime / No Expiry",
-    ledgerMetricCredits:"Total Credits (CR)",
-    ledgerMetricDebits:"Total Debits (DR)",
-    ledgerMetricDeductions:"Total Deductions",
-    ledgerMetricClosing:"Closing Balance",
-    colTxRef:"Transaction Ref & ISO Purpose",
-    colBeneficiary:"Beneficiary / Counterparty",
-    colRail:"Payout Rail / IBAN",
-    colDebit:"Debit (DR)",
-    colCredit:"Credit (CR)",
-    colDeductions:"Deductions (Fee/Tax)",
-    dashOverview:"Overview",
-    dashTransactions:"Transactions",
-    dashLedger:"Ledger",
-    profileTitle:"User Profile",
-    profileActiveAccount:"Active Account",
-    profileUsername:"Username",
-    profileAccountId:"Account ID",
-    profileStatus:"Status",
-    profileSignOut:"Sign Out / Reset",
-    footerSite:"The CircleVault Global — demo interface for illustration purposes. Rates, balances and identifiers shown are simulated.",
-    btnContinue:"Continue",
-    btnEdit:"Edit",
-    btnClose:"Close",
-    btnDeploy:"Deploy Vault"
-  },
-  ur: { rateLabel:"USDC حوالہ ریٹ", langLabel:"زبان", fitLabel:"ویو", fitStandard:"اسٹینڈرڈ", fitScreen:"اسکرین پر فٹ", brandTag:"عالمی ادائیگیاں، ترسیلات اور یِیلڈ ایکو سسٹم",
-    navSignIn:"سائن ان", navOpenVault:"اپنا والٹ کھولیں", heroEyebrow:"عالمی رسائی، مقامی تعمیل",
-    heroHeading:"عالمی رسائی، مقامی تعمیل کے ساتھ",
-    heroBody:"دی سرکل والٹ گلوبل سخت آن بورڈنگ اصولوں پر عمل کرتا ہے۔ اپنا دائرہ اختیار منتخب کریں، Circle Arc آئیڈینٹٹی ریلز کے ذریعے فوری پاسپورٹ یا شناختی تصدیق مکمل کریں، اور ہر ٹرانسفر، ترسیلِ زر اور یِیلڈ والٹ لین دین عالمی AML/CFT معیارات کے مطابق رہے۔",
-    heroCta:"ابھی اپنا سرکل والٹ کھولیں",
-    onboardTitle:"اپنا سرکل والٹ کھولیں", onboardSub:"صرف چار مختصر مراحل۔ آپ کا ڈیٹا جاری کرنے والے ادارے سے تصدیق شدہ ہے اور رضامندی کے بغیر کبھی شیئر نہیں ہوتا۔",
-    tab1:"دائرہ اختیار اور ذاتی معلومات", tab2:"پروفائل اور مقصد", tab3:"گہری AI تصدیق", tab4:"سیکیورٹی سیٹ اپ",
-    stepJurisdictionTitle:"دائرہ اختیار اور ذاتی شناخت", stepJurisdictionSub:"ہمیں بتائیں آپ قانونی طور پر کہاں رہائش پذیر ہیں اور آپ کون ہیں، بالکل اپنی سرکاری دستاویز کے مطابق۔",
-    stepProfileTitle:"پیشہ، ذریعہ آمدنی اور مالی پروفائل", stepProfileSub:"اس سے ہمیں معلوم ہوگا کہ آپ اپنا والٹ کیسے استعمال کریں گے تاکہ تعمیل کی جانچ درست انداز میں کی جا سکے۔",
-    stepVerifyTitle:"گہری AI شناختی تصدیق", stepVerifySub:"دستاویز اسکین، لائیونیس چیک اور چہرے کی مطابقت — پس منظر میں جاری کرنے والے ادارے سے کراس چیک کی جاتی ہے۔",
-    stepSecurityTitle:"اکاؤنٹ کریڈینشلز اور سیکیورٹی سیٹ اپ", stepSecuritySub:"تصدیق مکمل ہوگئی — رابطہ تصدیق اور مضبوط پاس ورڈ کے ساتھ اپنا والٹ محفوظ کریں۔",
-    btnNext:"جاری رکھیں", btnBack:"← پیچھے", btnBackHome:"← واپس", btnExit:"خروج", btnSubmit:"میرا والٹ بنائیں",
-    btnDownload:"ڈاؤن لوڈ", btnPrint:"پرنٹ", btnSave:"محفوظ کریں",
-    credEyebrow:"والٹ بن گیا", credTitle:"آپ کا سرکاری والٹ کریڈینشل", credProceed:"والٹ ڈیش بورڈ پر جائیں",
-    verifyingTitle:"آپ کا والٹ بنایا جا رہا ہے…", verifyingSub:"شناخت، تعمیل اور جاری کرنے والے ادارے کے ریکارڈ کی جانچ کی جا رہی ہے۔",
-    badgeVerifiedIdentity:"🟢 تصدیق شدہ آرک شناخت", badgeAmlCleared:"🟢 AML/CFT کلیئر", badgeCreditRating:"🟢 کریڈٹ ریٹنگ: A+",
-    totalEquityLabel:"کل والٹ ایکویٹی",
-    subLiquid:"نقد رقم (خرچ اور ترسیلات)", subYield:"یِیلڈ والٹ (USYC آمدنی)", subRwa:"RWA پراجیکٹ سرمایہ کاری",
-    subEscrow:"ایس ایم ای ٹریڈ ایسکرو (مقفل)", subCredit:"دستیاب کریڈٹ لائن",
-    actionSend:"رقم بھیجیں", actionDeposit:"USDC جمع کریں", actionInvest:"پراجیکٹس میں سرمایہ کاری", actionLoan:"قرض / کریڈٹ کی درخواست", actionStatements:"مالی گوشوارے",
-    moduleATitle:"ڈپازٹ اور دولت کی تعیناتی حب", moduleBTitle:"قرض اور کریڈٹ درخواست والٹ", moduleCTitle:"مالی گوشوارے اور صحت مرکز", moduleDTitle:"ادائیگیاں، ترسیلات اور ایس ایم ای ایسکرو حب",
-    ledgerTitle:"سرگرمی اور لیجر", colDate:"تاریخ", colActivity:"سرگرمی", colType:"قسم", colHub:"ڈیش بورڈ حب", colAmount:"رقم (USDC)", colBalance:"چلتا بیلنس", colStatus:"حیثیت"
-  },
-  ar: { rateLabel:"سعر USDC المرجعي", langLabel:"اللغة", fitLabel:"العرض", fitStandard:"قياسي", fitScreen:"ملائمة للشاشة", brandTag:"منظومة المدفوعات والتحويلات والعوائد العالمية",
-    navSignIn:"تسجيل الدخول", navOpenVault:"افتح خزنتك", heroEyebrow:"وصول عالمي، امتثال محلي",
-    heroHeading:"وصول عالمي مع امتثال محلي",
-    heroBody:"يطبق CircleVault Global بروتوكولات تسجيل صارمة. اختر ولايتك القضائية، أكمل التحقق الفوري من جواز السفر أو الهوية عبر منظومة Circle Arc، وستبقى كل عملية تحويل أو ترسيل أو تفاعل مع خزائن العائد متوافقة تمامًا مع معايير مكافحة غسل الأموال وتمويل الإرهاب العالمية.",
-    heroCta:"افتح خزنتك الآن",
-    onboardTitle:"افتح خزنتك في CircleVault", onboardSub:"أربع خطوات قصيرة فقط. يتم التحقق من بياناتك لدى الجهات المُصدرة ولا تتم مشاركتها دون موافقتك.",
-    tab1:"الولاية القضائية والبيانات الشخصية", tab2:"الملف الوظيفي والغرض", tab3:"التحقق العميق بالذكاء الاصطناعي", tab4:"إعداد الأمان",
-    stepJurisdictionTitle:"الولاية القضائية والهوية الشخصية", stepJurisdictionSub:"أخبرنا بمكان إقامتك القانونية ومن أنت، تمامًا كما هو مدوّن في مستنداتك الرسمية.",
-    stepProfileTitle:"المهنة ومصدر الثروة والملف المالي", stepProfileSub:"يساعدنا هذا على فهم كيفية استخدامك لخزنتك لضبط فحوصات الامتثال بدقة.",
-    stepVerifyTitle:"التحقق العميق من الهوية بالذكاء الاصطناعي", stepVerifySub:"مسح المستند، فحص الحيوية، ومطابقة الوجه — مع تحقق تلقائي في الخلفية من الجهة المُصدرة.",
-    stepSecurityTitle:"بيانات الحساب وإعداد الأمان", stepSecuritySub:"تم اجتياز التحقق — أمّن خزنتك بتأكيد التواصل وكلمة مرور قوية.",
-    btnNext:"متابعة", btnBack:"رجوع", btnBackHome:"← رجوع", btnExit:"خروج", btnSubmit:"أنشئ خزنتي",
-    btnDownload:"تنزيل", btnPrint:"طباعة", btnSave:"حفظ",
-    credEyebrow:"تم إنشاء الخزنة", credTitle:"بطاقة اعتماد خزنتك الرسمية", credProceed:"الانتقال إلى لوحة التحكم",
-    verifyingTitle:"جارٍ إنشاء خزنتك…", verifyingSub:"التحقق من الهوية والامتثال وسجلات الجهة المُصدرة.",
-    badgeVerifiedIdentity:"🟢 هوية Arc موثقة", badgeAmlCleared:"🟢 امتثال AML/CFT", badgeCreditRating:"🟢 تصنيف ائتماني: A+",
-    totalEquityLabel:"إجمالي رصيد الخزنة",
-    subLiquid:"نقد سائل (إنفاق وتحويلات)", subYield:"خزنة العائد (أرباح USYC)", subRwa:"استثمارات مشاريع RWA",
-    subEscrow:"ضمان تجاري للمنشآت الصغيرة (مقفل)", subCredit:"حد ائتماني متاح",
-    actionSend:"إرسال أموال", actionDeposit:"إيداع USDC", actionInvest:"استثمر في مشاريع", actionLoan:"طلب قرض / ائتمان", actionStatements:"البيانات المالية",
-    moduleATitle:"مركز الإيداع ونشر الثروة", moduleBTitle:"خزنة طلب القروض والائتمان", moduleCTitle:"مركز البيانات المالية والصحة", moduleDTitle:"مركز المدفوعات والتحويلات والضمان",
-    ledgerTitle:"النشاط والسجل", colDate:"التاريخ", colActivity:"النشاط", colType:"النوع", colHub:"المركز", colAmount:"المبلغ (USDC)", colBalance:"الرصيد الجاري", colStatus:"الحالة"
-  },
-  hi: { rateLabel:"USDC संदर्भ दर", langLabel:"भाषा", fitLabel:"दृश्य", fitStandard:"स्टैंडर्ड", fitScreen:"स्क्रीन पर फिट", brandTag:"वैश्विक भुगतान, प्रेषण और यील्ड इकोसिस्टम",
-    navSignIn:"साइन इन", navOpenVault:"अपना वॉल्ट खोलें", heroEyebrow:"वैश्विक पहुंच, स्थानीय अनुपालन",
-    heroHeading:"वैश्विक पहुंच, स्थानीय अनुपालन के साथ",
-    heroBody:"द सर्कलवॉल्ट ग्लोबल सख्त ऑनबोर्डिंग प्रोटोकॉल लागू करता है। अपना क्षेत्राधिकार चुनें, Circle Arc आइडेंटिटी रेल्स के ज़रिए तुरंत पासपोर्ट/ID सत्यापन पूरा करें, और हर ट्रांसफर, प्रेषण और यील्ड वॉल्ट लेनदेन वैश्विक AML/CFT मानकों के अनुरूप बना रहे।",
-    heroCta:"अभी अपना वॉल्ट खोलें",
-    onboardTitle:"अपना सर्कलवॉल्ट खोलें", onboardSub:"केवल चार छोटे चरण। आपका डेटा जारीकर्ता प्राधिकरण से सत्यापित होता है और सहमति के बिना साझा नहीं होता।",
-    tab1:"क्षेत्राधिकार और व्यक्तिगत विवरण", tab2:"प्रोफ़ाइल और उद्देश्य", tab3:"गहन AI सत्यापन", tab4:"सुरक्षा सेटअप",
-    stepJurisdictionTitle:"क्षेत्राधिकार और व्यक्तिगत पहचान", stepJurisdictionSub:"बताएं आप कानूनी रूप से कहां रहते हैं और आप कौन हैं, ठीक अपने आधिकारिक दस्तावेज़ों के अनुसार।",
-    stepProfileTitle:"पेशा, आय स्रोत और वित्तीय प्रोफ़ाइल", stepProfileSub:"इससे हमें पता चलेगा कि आप अपने वॉल्ट का उपयोग कैसे करेंगे ताकि अनुपालन जांच सही तरीके से हो सके।",
-    stepVerifyTitle:"गहन AI पहचान सत्यापन", stepVerifySub:"दस्तावेज़ स्कैन, लाइवनेस चेक और चेहरे का मिलान — बैकग्राउंड में जारीकर्ता प्राधिकरण से क्रॉस-चेक किया जाता है।",
-    stepSecurityTitle:"खाता क्रेडेंशियल्स और सुरक्षा सेटअप", stepSecuritySub:"सत्यापन सफल — संपर्क पुष्टि और मजबूत पासवर्ड से अपना वॉल्ट सुरक्षित करें।",
-    btnNext:"जारी रखें", btnBack:"वापस", btnBackHome:"← वापस", btnExit:"बाहर निकलें", btnSubmit:"मेरा वॉल्ट बनाएं",
-    btnDownload:"डाउनलोड", btnPrint:"प्रिंट", btnSave:"सेव",
-    credEyebrow:"वॉल्ट बन गया", credTitle:"आपका आधिकारिक वॉल्ट क्रेडेंशियल", credProceed:"वॉल्ट डैशबोर्ड पर जाएं",
-    verifyingTitle:"आपका वॉल्ट बनाया जा रहा है…", verifyingSub:"पहचान, अनुपालन और जारीकर्ता प्राधिकरण के रिकॉर्ड की जांच हो रही है।",
-    badgeVerifiedIdentity:"🟢 सत्यापित आर्क पहचान", badgeAmlCleared:"🟢 AML/CFT क्लियर", badgeCreditRating:"🟢 क्रेडिट रेटिंग: A+",
-    totalEquityLabel:"कुल वॉल्ट इक्विटी",
-    subLiquid:"तरल नकद (खर्च और प्रेषण)", subYield:"यील्ड वॉल्ट (USYC आय)", subRwa:"RWA परियोजना निवेश",
-    subEscrow:"SME ट्रेड एस्क्रो (लॉक्ड)", subCredit:"उपलब्ध क्रेडिट लाइन",
-    actionSend:"पैसे भेजें", actionDeposit:"USDC जमा करें", actionInvest:"परियोजनाओं में निवेश करें", actionLoan:"ऋण / क्रेडिट का अनुरोध करें", actionStatements:"वित्तीय विवरण",
-    moduleATitle:"डिपॉज़िट और वेल्थ डिप्लॉयमेंट हब", moduleBTitle:"ऋण और क्रेडिट अनुरोध वॉल्ट", moduleCTitle:"वित्तीय विवरण और स्वास्थ्य केंद्र", moduleDTitle:"भुगतान, प्रेषण और SME एस्क्रो हब",
-    ledgerTitle:"गतिविधि और लेजर", colDate:"तारीख", colActivity:"गतिविधि", colType:"प्रकार", colHub:"डैशबोर्ड हब", colAmount:"राशि (USDC)", colBalance:"रनिंग बैलेंस", colStatus:"स्थिति"
-  },
-  zh: { rateLabel:"USDC 参考汇率", langLabel:"语言", fitLabel:"视图", fitStandard:"标准", fitScreen:"适应屏幕", brandTag:"全球支付、汇款与收益生态系统",
-    navSignIn:"登录", navOpenVault:"开设您的金库", heroEyebrow:"全球触达，本地合规",
-    heroHeading:"全球触达，本地合规",
-    heroBody:"The CircleVault Global 执行严格的开户流程。选择您的司法管辖区，通过 Circle Arc 身份系统完成即时护照/证件验证，确保每一笔转账、汇款及收益金库操作都完全符合全球 AML/CFT 标准。",
-    heroCta:"立即开设您的金库",
-    onboardTitle:"开设您的 CircleVault", onboardSub:"仅需四个简短步骤。您的数据将与签发机构核实，未经同意绝不会被共享。",
-    tab1:"司法管辖区与个人信息", tab2:"资料与用途", tab3:"深度 AI 验证", tab4:"安全设置",
-    stepJurisdictionTitle:"司法管辖区与个人身份", stepJurisdictionSub:"请告诉我们您的合法居住地和身份，需与官方证件完全一致。",
-    stepProfileTitle:"职业、资金来源与财务概况", stepProfileSub:"这有助于我们了解您将如何使用金库，从而正确设定合规审查级别。",
-    stepVerifyTitle:"深度 AI 身份验证", stepVerifySub:"证件扫描、活体检测与人脸匹配 — 系统会在后台与签发机构进行交叉核实。",
-    stepSecurityTitle:"账户凭证与安全设置", stepSecuritySub:"验证已通过 — 请通过联系方式确认与强密码来保护您的金库。",
-    btnNext:"继续", btnBack:"返回", btnBackHome:"← 返回", btnExit:"退出", btnSubmit:"创建我的金库",
-    btnDownload:"下载", btnPrint:"打印", btnSave:"保存",
-    credEyebrow:"金库已创建", credTitle:"您的官方金库凭证", credProceed:"前往金库仪表板",
-    verifyingTitle:"正在生成您的金库…", verifyingSub:"正在核对身份、合规状态及签发机构记录。",
-    badgeVerifiedIdentity:"🟢 已验证 Arc 身份", badgeAmlCleared:"🟢 AML/CFT 已通过", badgeCreditRating:"🟢 信用评级：A+",
-    totalEquityLabel:"金库总权益",
-    subLiquid:"流动现金（支出与汇款）", subYield:"收益金库（USYC 收益）", subRwa:"RWA 项目投资",
-    subEscrow:"中小企业贸易托管（锁定）", subCredit:"可用信用额度",
-    actionSend:"转账", actionDeposit:"存入 USDC", actionInvest:"投资项目", actionLoan:"申请贷款/信用", actionStatements:"财务报表",
-    moduleATitle:"存款与资产配置中心", moduleBTitle:"贷款与信用申请金库", moduleCTitle:"财务报表与健康中心", moduleDTitle:"支付、汇款与中小企业托管中心",
-    ledgerTitle:"活动与账本", colDate:"日期", colActivity:"活动", colType:"类型", colHub:"所属中心", colAmount:"金额 (USDC)", colBalance:"余额", colStatus:"状态"
-  },
-  es: { rateLabel:"Tipo de referencia de USDC", langLabel:"Idioma", fitLabel:"Vista", fitStandard:"Estándar", fitScreen:"Ajustar a pantalla", brandTag:"Ecosistema global de pagos, remesas y rendimiento",
-    navSignIn:"Iniciar sesión", navOpenVault:"Abrir tu bóveda", heroEyebrow:"Alcance global, cumplimiento local",
-    heroHeading:"Alcance global con cumplimiento local",
-    heroBody:"The CircleVault Global aplica protocolos de incorporación estrictos. Elige tu jurisdicción, completa la verificación instantánea de pasaporte o identificación mediante los rieles de identidad Circle Arc, y toda transferencia, remesa e interacción con la bóveda de rendimiento se mantiene totalmente alineada con los estándares globales AML/CFT.",
-    heroCta:"Abre tu CircleVault ahora",
-    onboardTitle:"Abre tu CircleVault", onboardSub:"Solo cuatro pasos breves. Tus datos se verifican con las autoridades emisoras y nunca se comparten sin tu consentimiento.",
-    tab1:"Jurisdicción y datos personales", tab2:"Perfil y propósito", tab3:"Verificación profunda con IA", tab4:"Configuración de seguridad",
-    stepJurisdictionTitle:"Jurisdicción e identificación personal", stepJurisdictionSub:"Cuéntanos dónde resides legalmente y quién eres, tal como aparece en tus documentos oficiales.",
-    stepProfileTitle:"Ocupación, origen de fondos y perfil financiero", stepProfileSub:"Esto nos indica cómo usarás tu bóveda para ajustar correctamente las verificaciones de cumplimiento.",
-    stepVerifyTitle:"Verificación de identidad profunda con IA", stepVerifySub:"Escaneo de documento, prueba de vida y coincidencia facial, verificados en segundo plano con la autoridad emisora.",
-    stepSecurityTitle:"Credenciales de cuenta y configuración de seguridad", stepSecuritySub:"Verificación superada. Protege tu bóveda confirmando tus datos de contacto y creando una contraseña segura.",
-    btnNext:"Continuar", btnBack:"Atrás", btnBackHome:"← Atrás", btnExit:"Salir", btnSubmit:"Crear mi bóveda",
-    btnDownload:"Descargar", btnPrint:"Imprimir", btnSave:"Guardar",
-    credEyebrow:"Bóveda creada", credTitle:"Tu credencial oficial de bóveda", credProceed:"Ir al panel de la bóveda",
-    verifyingTitle:"Generando tu bóveda…", verifyingSub:"Verificando identidad, cumplimiento y registros de la autoridad emisora.",
-    badgeVerifiedIdentity:"🟢 Identidad Arc verificada", badgeAmlCleared:"🟢 AML/CFT aprobado", badgeCreditRating:"🟢 Calificación crediticia: A+",
-    totalEquityLabel:"Patrimonio total de la bóveda",
-    subLiquid:"Efectivo líquido (gastos y remesas)", subYield:"Bóveda de rendimiento (ganancias USYC)", subRwa:"Inversiones en proyectos RWA",
-    subEscrow:"Depósito en garantía comercial pyme (bloqueado)", subCredit:"Línea de crédito disponible",
-    actionSend:"Enviar dinero", actionDeposit:"Depositar USDC", actionInvest:"Invertir en proyectos", actionLoan:"Solicitar préstamo/crédito", actionStatements:"Estados financieros",
-    moduleATitle:"Centro de depósitos y despliegue de capital", moduleBTitle:"Bóveda de solicitud de préstamos y crédito", moduleCTitle:"Centro de estados financieros y salud", moduleDTitle:"Centro de pagos, remesas y garantía pyme",
-    ledgerTitle:"Actividad y libro mayor", colDate:"Fecha", colActivity:"Actividad", colType:"Tipo", colHub:"Centro", colAmount:"Importe (USDC)", colBalance:"Saldo acumulado", colStatus:"Estado"
-  },
-  fr: { rateLabel:"Taux de référence USDC", langLabel:"Langue", fitLabel:"Affichage", fitStandard:"Standard", fitScreen:"Ajuster à l'écran", brandTag:"Écosystème mondial de paiements, transferts et rendement",
-    navSignIn:"Connexion", navOpenVault:"Ouvrir votre coffre", heroEyebrow:"Portée mondiale, conformité locale",
-    heroHeading:"Portée mondiale, conformité locale",
-    heroBody:"The CircleVault Global applique des protocoles d'inscription stricts. Choisissez votre juridiction, effectuez une vérification instantanée du passeport ou de la pièce d'identité via les rails d'identité Circle Arc, et chaque transfert, remise ou interaction avec le coffre de rendement reste pleinement conforme aux normes mondiales AML/CFT.",
-    heroCta:"Ouvrez votre CircleVault maintenant",
-    onboardTitle:"Ouvrez votre CircleVault", onboardSub:"Seulement quatre étapes courtes. Vos données sont vérifiées auprès des autorités émettrices et ne sont jamais partagées sans votre consentement.",
-    tab1:"Juridiction et informations personnelles", tab2:"Profil et objectif", tab3:"Vérification IA approfondie", tab4:"Configuration de sécurité",
-    stepJurisdictionTitle:"Juridiction et identification personnelle", stepJurisdictionSub:"Indiquez-nous où vous résidez légalement et qui vous êtes, exactement comme indiqué sur vos documents officiels.",
-    stepProfileTitle:"Profession, origine des fonds et profil financier", stepProfileSub:"Cela nous indique comment vous utiliserez votre coffre afin de calibrer correctement les contrôles de conformité.",
-    stepVerifyTitle:"Vérification d'identité IA approfondie", stepVerifySub:"Numérisation du document, contrôle de vivacité et correspondance faciale — vérifiés en arrière-plan auprès de l'autorité émettrice.",
-    stepSecurityTitle:"Identifiants de compte et configuration de sécurité", stepSecuritySub:"Vérification réussie — sécurisez votre coffre avec une confirmation de contact et un mot de passe fort.",
-    btnNext:"Continuer", btnBack:"Retour", btnBackHome:"← Retour", btnExit:"Quitter", btnSubmit:"Créer mon coffre",
-    btnDownload:"Télécharger", btnPrint:"Imprimer", btnSave:"Enregistrer",
-    credEyebrow:"Coffre créé", credTitle:"Votre identifiant officiel de coffre", credProceed:"Accéder au tableau de bord",
-    verifyingTitle:"Création de votre coffre…", verifyingSub:"Vérification de l'identité, de la conformité et des registres de l'autorité émettrice.",
-    badgeVerifiedIdentity:"🟢 Identité Arc vérifiée", badgeAmlCleared:"🟢 AML/CFT validé", badgeCreditRating:"🟢 Cote de crédit : A+",
-    totalEquityLabel:"Capital total du coffre",
-    subLiquid:"Liquidités (dépenses et transferts)", subYield:"Coffre de rendement (gains USYC)", subRwa:"Investissements en projets RWA",
-    subEscrow:"Entiercement commercial PME (bloqué)", subCredit:"Ligne de crédit disponible",
-    actionSend:"Envoyer de l'argent", actionDeposit:"Déposer des USDC", actionInvest:"Investir dans des projets", actionLoan:"Demander un prêt/crédit", actionStatements:"États financiers",
-    moduleATitle:"Centre de dépôt et de déploiement de capital", moduleBTitle:"Coffre de demande de prêt et crédit", moduleCTitle:"Centre des états financiers et de santé", moduleDTitle:"Centre de paiements, transferts et entiercement PME",
-    ledgerTitle:"Activité et registre", colDate:"Date", colActivity:"Activité", colType:"Type", colHub:"Centre", colAmount:"Montant (USDC)", colBalance:"Solde courant", colStatus:"Statut"
-  },
-  de:{langLabel:"Sprache",fitLabel:"Ansicht",fitStandard:"Standard",fitScreen:"Bildschirmfüllend",navSignIn:"Anmelden",navOpenVault:"Tresor öffnen",btnBackHome:"← Zurück",btnExit:"Beenden",btnDownload:"Herunterladen",btnPrint:"Drucken",btnSave:"Speichern",btnNext:"Weiter",btnBack:"Zurück",heroHeading:"Globale Reichweite mit lokaler Compliance",ledgerTitle:"Aktivität & Hauptbuch"},
-  pt:{langLabel:"Idioma",fitLabel:"Vista",fitStandard:"Padrão",fitScreen:"Ajustar à tela",navSignIn:"Entrar",navOpenVault:"Abrir seu cofre",btnBackHome:"← Voltar",btnExit:"Sair",btnDownload:"Baixar",btnPrint:"Imprimir",btnSave:"Salvar",btnNext:"Continuar",btnBack:"Voltar",heroHeading:"Alcance global com conformidade local",ledgerTitle:"Atividade e razão"},
-  ru:{langLabel:"Язык",fitLabel:"Вид",fitStandard:"Стандарт",fitScreen:"По экрану",navSignIn:"Войти",navOpenVault:"Открыть хранилище",btnBackHome:"← Назад",btnExit:"Выход",btnDownload:"Скачать",btnPrint:"Печать",btnSave:"Сохранить",btnNext:"Далее",btnBack:"Назад",heroHeading:"Глобальный охват с локальным соответствием",ledgerTitle:"Активность и реестр"},
-  ja:{langLabel:"言語",fitLabel:"表示",fitStandard:"標準",fitScreen:"画面に合わせる",navSignIn:"サインイン",navOpenVault:"ボールトを開く",btnBackHome:"← 戻る",btnExit:"終了",btnDownload:"ダウンロード",btnPrint:"印刷",btnSave:"保存",btnNext:"続行",btnBack:"戻る",heroHeading:"グローバルリーチとローカルコンプライアンス",ledgerTitle:"アクティビティと台帳"},
-  ko:{langLabel:"언어",fitLabel:"보기",fitStandard:"표준",fitScreen:"화면에 맞추기",navSignIn:"로그인",navOpenVault:"볼트 열기",btnBackHome:"← 뒤로",btnExit:"종료",btnDownload:"다운로드",btnPrint:"인쇄",btnSave:"저장",btnNext:"계속",btnBack:"뒤로",heroHeading:"글로벌 도달과 로컬 컴플라이언스",ledgerTitle:"활동 및 원장"},
-  tr:{langLabel:"Dil",fitLabel:"Görünüm",fitStandard:"Standart",fitScreen:"Ekrana sığdır",navSignIn:"Giriş",navOpenVault:"Kasayı aç",btnBackHome:"← Geri",btnExit:"Çıkış",btnDownload:"İndir",btnPrint:"Yazdır",btnSave:"Kaydet",btnNext:"Devam",btnBack:"Geri",heroHeading:"Yerel uyumlulukla küresel erişim",ledgerTitle:"Etkinlik ve defter"},
-  bn:{langLabel:"ভাষা",fitLabel:"ভিউ",fitStandard:"স্ট্যান্ডার্ড",fitScreen:"স্ক্রিনে ফিট",navSignIn:"সাইন ইন",navOpenVault:"ভল্ট খুলুন",btnBackHome:"← ফিরে যান",btnExit:"প্রস্থান",btnDownload:"ডাউনলোড",btnPrint:"প্রিন্ট",btnSave:"সেভ",btnNext:"চালিয়ে যান",btnBack:"পিছনে",heroHeading:"স্থানীয় কমপ্লায়েন্সের সাথে বৈশ্বিক পৌঁছানো",ledgerTitle:"কার্যক্রম ও লেজার"},
-  id:{langLabel:"Bahasa",fitLabel:"Tampilan",fitStandard:"Standar",fitScreen:"Pas layar",navSignIn:"Masuk",navOpenVault:"Buka vault",btnBackHome:"← Kembali",btnExit:"Keluar",btnDownload:"Unduh",btnPrint:"Cetak",btnSave:"Simpan",btnNext:"Lanjut",btnBack:"Kembali",heroHeading:"Jangkauan global dengan kepatuhan lokal",ledgerTitle:"Aktivitas & buku besar"},
-  it:{langLabel:"Lingua",fitLabel:"Vista",fitStandard:"Standard",fitScreen:"Adatta allo schermo",navSignIn:"Accedi",navOpenVault:"Apri il vault",btnBackHome:"← Indietro",btnExit:"Esci",btnDownload:"Scarica",btnPrint:"Stampa",btnSave:"Salva",btnNext:"Continua",btnBack:"Indietro",heroHeading:"Portata globale con conformità locale",ledgerTitle:"Attività e registro"},
-  nl:{langLabel:"Taal",fitLabel:"Weergave",fitStandard:"Standaard",fitScreen:"Passend op scherm",navSignIn:"Inloggen",navOpenVault:"Open je kluis",btnBackHome:"← Terug",btnExit:"Afsluiten",btnDownload:"Downloaden",btnPrint:"Afdrukken",btnSave:"Opslaan",btnNext:"Doorgaan",btnBack:"Terug",heroHeading:"Wereldwijd bereik met lokale compliance",ledgerTitle:"Activiteit & grootboek"},
-  fa:{langLabel:"زبان",fitLabel:"نمایش",fitStandard:"استاندارد",fitScreen:"جا شدن در صفحه",navSignIn:"ورود",navOpenVault:"باز کردن خزانه",btnBackHome:"← بازگشت",btnExit:"خروج",btnDownload:"دانلود",btnPrint:"چاپ",btnSave:"ذخیره",btnNext:"ادامه",btnBack:"بازگشت",heroHeading:"دسترسی جهانی با انطباق محلی",ledgerTitle:"فعالیت و دفترکل"},
-  th:{langLabel:"ภาษา",fitLabel:"มุมมอง",fitStandard:"มาตรฐาน",fitScreen:"พอดีหน้าจอ",navSignIn:"เข้าสู่ระบบ",navOpenVault:"เปิดวอลต์",btnBackHome:"← กลับ",btnExit:"ออก",btnDownload:"ดาวน์โหลด",btnPrint:"พิมพ์",btnSave:"บันทึก",btnNext:"ดำเนินการต่อ",btnBack:"กลับ",heroHeading:"การเข้าถึงทั่วโลกพร้อมการปฏิบัติตามท้องถิ่น",ledgerTitle:"กิจกรรมและบัญชีแยกประเภท"},
-  vi:{langLabel:"Ngôn ngữ",fitLabel:"Chế độ xem",fitStandard:"Tiêu chuẩn",fitScreen:"Vừa màn hình",navSignIn:"Đăng nhập",navOpenVault:"Mở vault",btnBackHome:"← Quay lại",btnExit:"Thoát",btnDownload:"Tải xuống",btnPrint:"In",btnSave:"Lưu",btnNext:"Tiếp tục",btnBack:"Quay lại",heroHeading:"Tầm với toàn cầu với tuân thủ địa phương",ledgerTitle:"Hoạt động & sổ cái"},
-  pl:{langLabel:"Język",fitLabel:"Widok",fitStandard:"Standard",fitScreen:"Dopasuj do ekranu",navSignIn:"Zaloguj",navOpenVault:"Otwórz skarbiec",btnBackHome:"← Wstecz",btnExit:"Wyjdź",btnDownload:"Pobierz",btnPrint:"Drukuj",btnSave:"Zapisz",btnNext:"Dalej",btnBack:"Wstecz",heroHeading:"Globalny zasięg z lokalną zgodnością",ledgerTitle:"Aktywność i księga"},
-  sv:{langLabel:"Språk",fitLabel:"Vy",fitStandard:"Standard",fitScreen:"Anpassa till skärm",navSignIn:"Logga in",navOpenVault:"Öppna valv",btnBackHome:"← Tillbaka",btnExit:"Avsluta",btnDownload:"Ladda ner",btnPrint:"Skriv ut",btnSave:"Spara",btnNext:"Fortsätt",btnBack:"Tillbaka",heroHeading:"Global räckvidd med lokal efterlevnad",ledgerTitle:"Aktivitet och huvudbok"},
-  sw:{langLabel:"Lugha",fitLabel:"Mwonekano",fitStandard:"Kawaida",fitScreen:"Linganisha skrini",navSignIn:"Ingia",navOpenVault:"Fungua vault",btnBackHome:"← Rudi",btnExit:"Toka",btnDownload:"Pakua",btnPrint:"Chapisha",btnSave:"Hifadhi",btnNext:"Endelea",btnBack:"Rudi",heroHeading:"Ufikiaji wa kimataifa na utiifu wa ndani",ledgerTitle:"Shughuli na leja"},
-  he:{langLabel:"שפה",fitLabel:"תצוגה",fitStandard:"רגיל",fitScreen:"התאם למסך",navSignIn:"התחברות",navOpenVault:"פתח כספת",btnBackHome:"→ חזרה",btnExit:"יציאה",btnDownload:"הורדה",btnPrint:"הדפסה",btnSave:"שמירה",btnNext:"המשך",btnBack:"חזרה",heroHeading:"הגעה גלובלית עם ציות מקומי",ledgerTitle:"פעילות וספר חשבון"},
-  el:{langLabel:"Γλώσσα",fitLabel:"Προβολή",fitStandard:"Τυπική",fitScreen:"Προσαρμογή οθόνης",navSignIn:"Σύνδεση",navOpenVault:"Άνοιγμα θησαυροφυλακίου",btnBackHome:"← Πίσω",btnExit:"Έξοδος",btnDownload:"Λήψη",btnPrint:"Εκτύπωση",btnSave:"Αποθήκευση",btnNext:"Συνέχεια",btnBack:"Πίσω",heroHeading:"Παγκόσμια εμβέλεια με τοπική συμμόρφωση",ledgerTitle:"Δραστηριότητα & καθολικό"},
-  ro:{langLabel:"Limbă",fitLabel:"Vizualizare",fitStandard:"Standard",fitScreen:"Potrivire pe ecran",navSignIn:"Autentificare",navOpenVault:"Deschide seiful",btnBackHome:"← Înapoi",btnExit:"Ieșire",btnDownload:"Descarcă",btnPrint:"Printează",btnSave:"Salvează",btnNext:"Continuă",btnBack:"Înapoi",heroHeading:"Acoperire globală cu conformitate locală",ledgerTitle:"Activitate și registru"},
-  cs:{langLabel:"Jazyk",fitLabel:"Zobrazení",fitStandard:"Standardní",fitScreen:"Přizpůsobit obrazovce",navSignIn:"Přihlásit",navOpenVault:"Otevřít trezor",btnBackHome:"← Zpět",btnExit:"Ukončit",btnDownload:"Stáhnout",btnPrint:"Tisk",btnSave:"Uložit",btnNext:"Pokračovat",btnBack:"Zpět",heroHeading:"Globální dosah s místní shodou",ledgerTitle:"Aktivita a účetní kniha"},
-  hu:{langLabel:"Nyelv",fitLabel:"Nézet",fitStandard:"Normál",fitScreen:"Képernyőhöz igazít",navSignIn:"Bejelentkezés",navOpenVault:"Trezor megnyitása",btnBackHome:"← Vissza",btnExit:"Kilépés",btnDownload:"Letöltés",btnPrint:"Nyomtatás",btnSave:"Mentés",btnNext:"Tovább",btnBack:"Vissza",heroHeading:"Globális elérés helyi megfeleléssel",ledgerTitle:"Tevékenység és főkönyv"},
-  fil:{langLabel:"Wika",fitLabel:"View",fitStandard:"Standard",fitScreen:"Fit to Screen",navSignIn:"Mag-sign in",navOpenVault:"Buksan ang vault",btnBackHome:"← Bumalik",btnExit:"Lumabas",btnDownload:"I-download",btnPrint:"I-print",btnSave:"I-save",btnNext:"Magpatuloy",btnBack:"Bumalik",heroHeading:"Pandaigdigang abot na may lokal na pagsunod",ledgerTitle:"Aktibidad at ledger"},
-  ms:{langLabel:"Bahasa",fitLabel:"Paparan",fitStandard:"Standard",fitScreen:"Muat skrin",navSignIn:"Log masuk",navOpenVault:"Buka vault",btnBackHome:"← Kembali",btnExit:"Keluar",btnDownload:"Muat turun",btnPrint:"Cetak",btnSave:"Simpan",btnNext:"Teruskan",btnBack:"Kembali",heroHeading:"Jangkauan global dengan pematuhan tempatan",ledgerTitle:"Aktiviti & lejar"},
-  uk:{langLabel:"Мова",fitLabel:"Вигляд",fitStandard:"Стандарт",fitScreen:"На весь екран",navSignIn:"Увійти",navOpenVault:"Відкрити сховище",btnBackHome:"← Назад",btnExit:"Вихід",btnDownload:"Завантажити",btnPrint:"Друк",btnSave:"Зберегти",btnNext:"Далі",btnBack:"Назад",heroHeading:"Глобальне охоплення з локальною відповідністю",ledgerTitle:"Активність і реєстр"},
-  pa:{langLabel:"ਭਾਸ਼ਾ",fitLabel:"ਵਿਊ",fitStandard:"ਸਟੈਂਡਰਡ",fitScreen:"ਸਕ੍ਰੀਨ 'ਤੇ ਫਿੱਟ",navSignIn:"ਸਾਈਨ ਇਨ",navOpenVault:"ਵਾਲਟ ਖੋਲ੍ਹੋ",btnBackHome:"← ਵਾਪਸ",btnExit:"ਬਾਹਰ",btnDownload:"ਡਾਊਨਲੋਡ",btnPrint:"ਪ੍ਰਿੰਟ",btnSave:"ਸੇਵ",btnNext:"ਜਾਰੀ ਰੱਖੋ",btnBack:"ਵਾਪਸ",heroHeading:"ਸਥਾਨਕ ਅਨੁਪਾਲਨ ਨਾਲ ਗਲੋਬਲ ਪਹੁੰਚ",ledgerTitle:"ਸਰਗਰਮੀ ਅਤੇ ਲੈਜਰ"},
-  ta:{langLabel:"மொழி",fitLabel:"காட்சி",fitStandard:"நிலையானது",fitScreen:"திரைக்கு பொருத்து",navSignIn:"உள்நுழை",navOpenVault:"வால்ட்டைத் திற",btnBackHome:"← பின்செல்",btnExit:"வெளியேறு",btnDownload:"பதிவிறக்கு",btnPrint:"அச்சிடு",btnSave:"சேமி",btnNext:"தொடர்",btnBack:"பின்செல்",heroHeading:"உள்ளூர் இணக்கத்துடன் உலகளாவிய அணுகல்",ledgerTitle:"செயல்பாடு மற்றும் பேரேடு"}
-};
+/* ---------------- i18n (universal dynamic engine — no hardcoded dictionaries) ---------------- */
+/* Legacy stub kept so any residual I18N[code] lookups never throw. */
+const I18N = { en: {} };
 const RTL_LANGS = ['ur','ar','fa','he','ps','sd','ug','yi'];
 
 /**
@@ -3831,7 +3558,6 @@ function populateLanguages(){
   sel.innerHTML = '';
   if(list) list.innerHTML = '';
   WORLD_LANGS.forEach(([code, label])=>{
-    if(!I18N[code]) I18N[code] = { langLabel: label.split(' (')[0] };
     const opt = document.createElement('option');
     opt.value = code;
     opt.textContent = label;
@@ -3898,89 +3624,224 @@ function closeLangSheet(){
   if(btn) btn.setAttribute('aria-expanded', 'false');
 }
 
-/** Active language code — used by observer & t() */
+/**
+ * ============================================================================
+ * UNIVERSAL DYNAMIC TRANSLATION ENGINE (195+ languages)
+ * Google Translate page bridge — no hardcoded JSON keys required.
+ * Ledger / financial nodes marked .notranslate / translate="no" are excluded.
+ * ============================================================================
+ */
 var __cvActiveLang = 'en';
+var __cvTranslateReady = false;
+var __cvTranslatePending = null;
+var __cvTranslateTimer = null;
+
+/** Map UI language codes → Google Translate codes */
+var GT_LANG_MAP = {
+  fil: 'tl', he: 'iw', zh: 'zh-CN', nb: 'no', nn: 'no', jv: 'jw',
+  'zh-cn': 'zh-CN', 'zh-tw': 'zh-TW'
+};
+
+function toGoogleLang(code){
+  if(!code || code === 'en') return 'en';
+  var c = String(code).toLowerCase();
+  if(GT_LANG_MAP[c]) return GT_LANG_MAP[c];
+  return c;
+}
 
 /**
- * Resolve translation with English fallback (never breaks layout).
+ * Protect financial / identity nodes so translation never mutates ledger math.
  */
-function t(key, lang){
-  lang = lang || __cvActiveLang || 'en';
-  var pack = I18N[lang] || {};
-  var en = I18N.en || {};
-  if(pack[key] != null && pack[key] !== '') return pack[key];
-  if(en[key] != null && en[key] !== '') return en[key];
+function protectLedgerFromTranslation(root){
+  var scope = root && root.querySelectorAll ? root : document;
+  var selectors = [
+    '#ledgerTable', '#ledgerTableBody', '#ledgerTableFoot', '#ledgerAuditMetrics',
+    '.ledger-num', '.ledger-balance', '.cv-tot-dr', '.cv-tot-cr', '.cv-tot-fee', '.cv-tot-bal',
+    '.lam-value', '.amt', '.equity-value', '#overviewTotalEquity',
+    '#overviewLiquidCash', '#overviewYieldVault', '#overviewRwaInvestments',
+    '#overviewEscrowLocked', '#overviewCreditAvailable',
+    '#ledgerMetricCredits', '#ledgerMetricDebits', '#ledgerMetricDeductions',
+    '#ledgerMetricClosing', '#ledgerMetricRecordCount',
+    '#rateValue', '#rateDelta', '#rateDate', '#equityRateEcho',
+    '#credVaultId', '#dashVaultId', '#cvProfileVaultId',
+    '.cv-aud-dr', '.cv-aud-cr', '.cv-aud-deduct',
+    '[data-e2e]', '[data-net]', 'code', 'pre', '.font-mono'
+  ];
+  try{
+    var nodes = scope.querySelectorAll(selectors.join(','));
+    for(var i = 0; i < nodes.length; i++){
+      var el = nodes[i];
+      if(!el || el.nodeType !== 1) continue;
+      el.classList.add('notranslate');
+      el.setAttribute('translate', 'no');
+    }
+    if(scope.nodeType === 1){
+      /* also protect money-like text nodes' parents already covered */
+    }
+  }catch(_e){}
+}
+window.protectLedgerFromTranslation = protectLedgerFromTranslation;
+
+function t(key){
+  /* Compatibility shim — universal engine does not use dictionary keys */
   return null;
 }
 window.t = t;
 
 /**
- * Apply translations to a DOM subtree.
- * Supports: data-i18n, data-i18n-placeholder, data-i18n-title, data-i18n-aria-label, data-i18n-html
+ * Apply / refresh page translation for the active language.
+ * Re-runnable for dynamically injected DOM (observer + goTo).
  */
 function updateDOMTranslations(root){
-  var scope = root && root.querySelectorAll ? root : document;
-  var lang = __cvActiveLang || 'en';
-  var dict = Object.assign({}, I18N.en || {}, I18N[lang] || {});
-
-  function applyOne(el){
-    if(!el || el.nodeType !== 1) return;
-    var key = el.getAttribute('data-i18n');
-    if(key){
-      var val = dict[key];
-      if(val == null || val === '') val = (I18N.en && I18N.en[key]) || null;
-      if(val != null){
-        if(el.getAttribute('data-i18n-html') === '1' || /[<>]/.test(String(val))) el.innerHTML = val;
-        else el.textContent = val;
-      }
-    }
-    var ph = el.getAttribute('data-i18n-placeholder');
-    if(ph){
-      var pval = dict[ph] != null ? dict[ph] : (I18N.en && I18N.en[ph]);
-      if(pval != null) el.setAttribute('placeholder', pval);
-    }
-    var titleKey = el.getAttribute('data-i18n-title');
-    if(titleKey){
-      var tval = dict[titleKey] != null ? dict[titleKey] : (I18N.en && I18N.en[titleKey]);
-      if(tval != null) el.setAttribute('title', tval);
-    }
-    var ariaKey = el.getAttribute('data-i18n-aria-label');
-    if(ariaKey){
-      var aval = dict[ariaKey] != null ? dict[ariaKey] : (I18N.en && I18N.en[ariaKey]);
-      if(aval != null) el.setAttribute('aria-label', aval);
-    }
+  protectLedgerFromTranslation(root || document);
+  if(__cvActiveLang && __cvActiveLang !== 'en'){
+    triggerGoogleTranslate(__cvActiveLang, true);
   }
-
-  if(scope.nodeType === 1) applyOne(scope);
-  var nodes = scope.querySelectorAll
-    ? scope.querySelectorAll('[data-i18n],[data-i18n-placeholder],[data-i18n-title],[data-i18n-aria-label]')
-    : [];
-  for(var i = 0; i < nodes.length; i++) applyOne(nodes[i]);
-
-  /* Option elements inside labeled selects */
-  var opts = scope.querySelectorAll ? scope.querySelectorAll('option[data-i18n]') : [];
-  for(var j = 0; j < opts.length; j++) applyOne(opts[j]);
 }
 window.updateDOMTranslations = updateDOMTranslations;
+
+function googleTranslateElementInit(){
+  try{
+    /* Hidden combo — driven by our header Language dropdown */
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: '',
+      autoDisplay: false,
+      multilanguagePage: true,
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+  }catch(_e){}
+  __cvTranslateReady = true;
+  if(__cvTranslatePending){
+    var pending = __cvTranslatePending;
+    __cvTranslatePending = null;
+    setTimeout(function(){ triggerGoogleTranslate(pending, true); }, 120);
+  }
+}
+window.googleTranslateElementInit = googleTranslateElementInit;
+
+function findGoogleCombo(){
+  return document.querySelector('.goog-te-combo') ||
+    document.querySelector('#google_translate_element select') ||
+    document.querySelector('select.goog-te-combo');
+}
+
+function setGoogTransCookie(lang){
+  var gt = toGoogleLang(lang);
+  var domain = location.hostname;
+  var expire = 'expires=Thu, 31 Dec 2099 23:59:59 GMT';
+  if(gt === 'en'){
+    document.cookie = 'googtrans=; path=/; ' + expire;
+    document.cookie = 'googtrans=; path=/; domain=' + domain + '; ' + expire;
+    try{
+      if(domain.indexOf('.') !== -1){
+        document.cookie = 'googtrans=; path=/; domain=.' + domain.replace(/^www\./,'') + '; ' + expire;
+      }
+    }catch(_d){}
+    return;
+  }
+  var val = '/en/' + gt;
+  document.cookie = 'googtrans=' + val + '; path=/; ' + expire;
+  document.cookie = 'googtrans=' + val + '; path=/; domain=' + domain + '; ' + expire;
+  try{
+    if(domain.indexOf('.') !== -1){
+      document.cookie = 'googtrans=' + val + '; path=/; domain=.' + domain.replace(/^www\./,'') + '; ' + expire;
+    }
+  }catch(_d2){}
+}
+
+function triggerGoogleTranslate(lang, force){
+  var gt = toGoogleLang(lang || 'en');
+  protectLedgerFromTranslation(document);
+
+  if(!__cvTranslateReady || typeof google === 'undefined' || !google.translate){
+    __cvTranslatePending = lang || 'en';
+    return;
+  }
+
+  setGoogTransCookie(lang || 'en');
+
+  function trySelect(attempt){
+    var combo = findGoogleCombo();
+    if(!combo){
+      if(attempt < 25) setTimeout(function(){ trySelect(attempt + 1); }, 150);
+      return;
+    }
+    var target = gt === 'en' ? '' : gt;
+    /* Prefer exact option match */
+    var matched = '';
+    for(var i = 0; i < combo.options.length; i++){
+      var v = combo.options[i].value;
+      if(v === target || v === gt || (gt !== 'en' && v && v.indexOf(gt) !== -1)){
+        matched = v;
+        break;
+      }
+    }
+    if(gt === 'en'){
+      /* Reset to original English */
+      if(combo.value && combo.value !== ''){
+        combo.value = combo.options[0] ? combo.options[0].value : '';
+        try{
+          combo.dispatchEvent(new Event('change', { bubbles: true }));
+        }catch(_e){
+          var ev = document.createEvent('HTMLEvents');
+          ev.initEvent('change', true, true);
+          combo.dispatchEvent(ev);
+        }
+      }
+      /* Hard reset if Google left page in translated state */
+      if(force && (document.documentElement.classList.contains('translated-ltr') ||
+         document.documentElement.classList.contains('translated-rtl') ||
+         document.body.classList.contains('translated-ltr'))){
+        try{
+          /* Select first empty / English option */
+          for(var j = 0; j < combo.options.length; j++){
+            if(!combo.options[j].value || combo.options[j].value === 'en' || combo.options[j].value === ''){
+              combo.selectedIndex = j;
+              break;
+            }
+          }
+          combo.dispatchEvent(new Event('change', { bubbles: true }));
+        }catch(_r){}
+      }
+      return;
+    }
+    if(matched){
+      if(combo.value !== matched || force){
+        combo.value = matched;
+        try{
+          combo.dispatchEvent(new Event('change', { bubbles: true }));
+        }catch(_e2){
+          var ev2 = document.createEvent('HTMLEvents');
+          ev2.initEvent('change', true, true);
+          combo.dispatchEvent(ev2);
+        }
+      }
+    } else if(attempt < 20){
+      setTimeout(function(){ trySelect(attempt + 1); }, 200);
+    }
+  }
+  trySelect(0);
+}
+window.triggerGoogleTranslate = triggerGoogleTranslate;
 
 function applyLang(lang){
   if(!lang) lang = 'en';
   __cvActiveLang = lang;
   try{ localStorage.setItem('circlevault_lang_v1', lang); }catch(_e){}
-  updateDOMTranslations(document);
-  document.documentElement.lang = lang;
-  document.documentElement.dir = RTL_LANGS.includes(lang) ? 'rtl' : 'ltr';
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
+  document.documentElement.dir = (typeof RTL_LANGS !== 'undefined' && RTL_LANGS.indexOf(lang) !== -1) ? 'rtl' : 'ltr';
   syncLangTouchLabel(lang);
-  /* Sync country→language hint chip if present */
-  try{
-    if(typeof syncCountryLanguageHint === 'function') syncCountryLanguageHint();
-  }catch(_h){}
-  requestAnimationFrame(applyFitScale);
+  protectLedgerFromTranslation(document);
+  triggerGoogleTranslate(lang, true);
+  try{ if(typeof syncCountryLanguageHint === 'function') syncCountryLanguageHint(); }catch(_h){}
+  requestAnimationFrame(typeof applyFitScale === 'function' ? applyFitScale : function(){});
 }
 window.applyLang = applyLang;
 
 /**
- * Future-proof observer: re-translate whenever dynamic nodes are injected.
+ * Forever-active observer: any future DOM injection re-protects ledger
+ * and nudges Google Translate to cover new text nodes.
  */
 (function installI18nObserver(){
   if(window.__cvI18nObserverInstalled) return;
@@ -3989,8 +3850,17 @@ window.applyLang = applyLang;
   function schedule(node){
     clearTimeout(timer);
     timer = setTimeout(function(){
-      try{ updateDOMTranslations(node && node.nodeType === 1 ? node : document); }catch(_e){}
-    }, 40);
+      try{
+        protectLedgerFromTranslation(node && node.nodeType === 1 ? node : document);
+        if(__cvActiveLang && __cvActiveLang !== 'en'){
+          /* Soft refresh — Google already watches many mutations; nudge combo */
+          var combo = findGoogleCombo();
+          if(combo && combo.value){
+            try{ combo.dispatchEvent(new Event('change', { bubbles: true })); }catch(_e){}
+          }
+        }
+      }catch(_e2){}
+    }, 80);
   }
   try{
     var obs = new MutationObserver(function(muts){
@@ -3999,33 +3869,39 @@ window.applyLang = applyLang;
         if(m.type === 'childList' && m.addedNodes && m.addedNodes.length){
           for(var j = 0; j < m.addedNodes.length; j++){
             var n = m.addedNodes[j];
-            if(n && n.nodeType === 1) schedule(n);
+            if(n && n.nodeType === 1){
+              /* Ignore Google Translate's own chrome */
+              if(n.id === 'goog-gt-tt' || (n.className && String(n.className).indexOf('goog-') === 0)) continue;
+              schedule(n);
+            }
           }
-        }
-        if(m.type === 'attributes' && m.target && m.attributeName && m.attributeName.indexOf('data-i18n') === 0){
-          schedule(m.target);
         }
       }
     });
-    obs.observe(document.documentElement, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['data-i18n','data-i18n-placeholder','data-i18n-title','data-i18n-aria-label']
-    });
+    obs.observe(document.documentElement, { childList: true, subtree: true });
     window.i18nObserver = obs;
   }catch(_o){}
 })();
 
-/* Restore last language */
 (function restoreLang(){
   var saved = null;
   try{ saved = localStorage.getItem('circlevault_lang_v1'); }catch(_e){}
-  if(saved){
+  if(saved && saved !== 'en'){
     __cvActiveLang = saved;
-    setTimeout(function(){ selectLanguage(saved); }, 0);
+    __cvTranslatePending = saved;
+    setTimeout(function(){ selectLanguage(saved); }, 300);
   }
 })();
+
+(function loadGoogleTranslateScript(){
+  if(document.getElementById('cvGoogleTranslateScript')) return;
+  var s = document.createElement('script');
+  s.id = 'cvGoogleTranslateScript';
+  s.async = true;
+  s.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+  document.head.appendChild(s);
+})();
+
 populateLanguages();
 (function bindLangSwitch(){
   const sel = document.getElementById('langSwitch');
@@ -5298,6 +5174,7 @@ function _cvTotalsMoney(n){ return formatLedgerMoney(n); }
  */
 function applyLedgerTotalsToUI(totals, tableElement){
   if(!totals) return null;
+  try{ if(typeof protectLedgerFromTranslation === 'function') protectLedgerFromTranslation(document); }catch(_p){}
   window.__cvLedgerTotalsSnapshot = totals;
   window.__cvBalanceSnapshot = totals;
   try{
