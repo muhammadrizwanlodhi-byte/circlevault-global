@@ -1773,7 +1773,11 @@
   #cvRoleSwitcher .cv-sw-signout{width:100%;margin-block-start:12px;}
   #view-login .login-demo-preset select{width:100%;min-height:40px;padding:8px 10px;border-radius:10px;border:1px solid var(--line-strong);background:var(--panel-3);color:var(--text);font:inherit;}
   /* Universal Google Translate chrome hide */
-  #google_translate_element{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important;}
+  #google_translate_element{
+    position:fixed!important;top:0!important;left:0!important;
+    width:1px!important;height:1px!important;opacity:0.01!important;
+    overflow:hidden!important;z-index:-1!important;pointer-events:auto!important;
+  }
   .goog-te-banner-frame, .goog-te-balloon-frame, #goog-gt-tt, .goog-tooltip, .goog-te-balloon-frame{display:none!important;}
   body{top:0!important;}
   .goog-text-highlight{background:transparent!important;box-shadow:none!important;}
@@ -3638,8 +3642,9 @@ var __cvTranslateTimer = null;
 
 /** Map UI language codes → Google Translate codes */
 var GT_LANG_MAP = {
-  fil: 'tl', he: 'iw', zh: 'zh-CN', nb: 'no', nn: 'no', jv: 'jw',
-  'zh-cn': 'zh-CN', 'zh-tw': 'zh-TW'
+  fil: 'tl', he: 'iw', iw: 'iw', zh: 'zh-CN', nb: 'no', nn: 'no', jv: 'jw',
+  'zh-cn': 'zh-CN', 'zh-tw': 'zh-TW',
+  fa: 'fa', ur: 'ur', ar: 'ar', ps: 'ps', sd: 'sd'
 };
 
 function toGoogleLang(code){
@@ -3705,135 +3710,245 @@ function googleTranslateElementInit(){
     /* Hidden combo — driven by our header Language dropdown */
     new google.translate.TranslateElement({
       pageLanguage: 'en',
-      includedLanguages: '',
       autoDisplay: false,
       multilanguagePage: true,
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
     }, 'google_translate_element');
   }catch(_e){}
   __cvTranslateReady = true;
-  if(__cvTranslatePending){
-    var pending = __cvTranslatePending;
+
+  function flushPending(attempt){
+    var combo = document.querySelector('.goog-te-combo') ||
+      document.querySelector('#google_translate_element select');
+    if(!combo && attempt < 30){
+      setTimeout(function(){ flushPending(attempt + 1); }, 120);
+      return;
+    }
+    var pending = __cvTranslatePending || __cvActiveLang;
     __cvTranslatePending = null;
-    setTimeout(function(){ triggerGoogleTranslate(pending, true); }, 120);
+    if(pending && pending !== 'en'){
+      setTimeout(function(){ triggerGoogleTranslate(pending, true); }, 80);
+    } else if(pending === 'en'){
+      setTimeout(function(){ triggerGoogleTranslate('en', true); }, 80);
+    }
   }
+  flushPending(0);
 }
 window.googleTranslateElementInit = googleTranslateElementInit;
 
 function findGoogleCombo(){
   return document.querySelector('.goog-te-combo') ||
     document.querySelector('#google_translate_element select') ||
-    document.querySelector('select.goog-te-combo');
+    document.querySelector('select.goog-te-combo') ||
+    document.querySelector('iframe.goog-te-menu-frame') ||
+    null;
+}
+
+/**
+ * Fire a change Google Translate actually listens to.
+ * Synthetic Event alone is often ignored — call onchange + legacy HTMLEvents + InputEvent.
+ */
+function fireNativeSelectChange(select){
+  if(!select) return false;
+  var fired = false;
+  try{
+    if(typeof select.onchange === 'function'){
+      select.onchange();
+      fired = true;
+    }
+  }catch(_o){}
+  try{
+    var htmlEv = document.createEvent('HTMLEvents');
+    htmlEv.initEvent('change', true, true);
+    select.dispatchEvent(htmlEv);
+    fired = true;
+  }catch(_h){}
+  try{
+    select.dispatchEvent(new Event('change', { bubbles: true, cancelable: true }));
+    fired = true;
+  }catch(_e){}
+  try{
+    if(typeof Event === 'function'){
+      select.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
+    }
+  }catch(_i){}
+  /* Legacy IE path */
+  try{
+    if(document.createEventObject && select.fireEvent){
+      select.fireEvent('onchange');
+      fired = true;
+    }
+  }catch(_f){}
+  return fired;
 }
 
 function setGoogTransCookie(lang){
   var gt = toGoogleLang(lang);
-  var domain = location.hostname;
+  var host = location.hostname || '';
   var expire = 'expires=Thu, 31 Dec 2099 23:59:59 GMT';
-  if(gt === 'en'){
-    document.cookie = 'googtrans=; path=/; ' + expire;
-    document.cookie = 'googtrans=; path=/; domain=' + domain + '; ' + expire;
+  var paths = ['path=/'];
+  var domains = [''];
+  if(host && host !== 'localhost' && host !== '127.0.0.1'){
+    domains.push('domain=' + host);
     try{
-      if(domain.indexOf('.') !== -1){
-        document.cookie = 'googtrans=; path=/; domain=.' + domain.replace(/^www\./,'') + '; ' + expire;
-      }
+      var root = host.replace(/^www\./, '');
+      if(root.indexOf('.') !== -1) domains.push('domain=.' + root);
     }catch(_d){}
+  }
+  function writeCookie(name, value){
+    for(var i = 0; i < domains.length; i++){
+      var d = domains[i];
+      var base = name + '=' + value + '; path=/; ' + expire + (d ? ('; ' + d) : '');
+      document.cookie = base;
+    }
+  }
+  if(gt === 'en'){
+    writeCookie('googtrans', '');
+    writeCookie('googtrans', '/en/en');
     return;
   }
-  var val = '/en/' + gt;
-  document.cookie = 'googtrans=' + val + '; path=/; ' + expire;
-  document.cookie = 'googtrans=' + val + '; path=/; domain=' + domain + '; ' + expire;
-  try{
-    if(domain.indexOf('.') !== -1){
-      document.cookie = 'googtrans=' + val + '; path=/; domain=.' + domain.replace(/^www\./,'') + '; ' + expire;
+  writeCookie('googtrans', '/en/' + gt);
+}
+
+function matchGoogleOption(combo, gt){
+  if(!combo || !combo.options) return null;
+  if(gt === 'en'){
+    for(var i = 0; i < combo.options.length; i++){
+      var v0 = combo.options[i].value;
+      if(!v0 || v0 === 'en' || v0 === '') return combo.options[i];
     }
-  }catch(_d2){}
+    return combo.options[0] || null;
+  }
+  /* Exact first */
+  for(var a = 0; a < combo.options.length; a++){
+    if(combo.options[a].value === gt) return combo.options[a];
+  }
+  /* Prefix / contains (e.g. zh-CN) */
+  for(var b = 0; b < combo.options.length; b++){
+    var v = String(combo.options[b].value || '');
+    if(v === gt || v.indexOf(gt) === 0 || v.split(/[-_]/)[0] === gt) return combo.options[b];
+  }
+  return null;
+}
+
+function isPageTranslated(){
+  var html = document.documentElement;
+  var body = document.body;
+  return !!(html && (
+    html.classList.contains('translated-ltr') ||
+    html.classList.contains('translated-rtl') ||
+    (body && (body.classList.contains('translated-ltr') || body.classList.contains('translated-rtl'))) ||
+    document.querySelector('html.translated-ltr, html.translated-rtl, font[style*="vertical-align"]')
+  ));
+}
+
+function selectGoogleLanguage(gt, force){
+  var combo = document.querySelector('.goog-te-combo') ||
+    document.querySelector('#google_translate_element select');
+  if(!combo || !combo.options || !combo.options.length) return false;
+
+  var opt = matchGoogleOption(combo, gt);
+  if(!opt) return false;
+  var nextVal = opt.value;
+
+  /* Google often ignores setting the same value — bounce via empty first when forcing */
+  function applyValue(val){
+    combo.value = val;
+    /* selectedIndex sync */
+    for(var i = 0; i < combo.options.length; i++){
+      if(combo.options[i].value === val){
+        combo.selectedIndex = i;
+        break;
+      }
+    }
+    fireNativeSelectChange(combo);
+  }
+
+  if(force && combo.value === nextVal){
+    var emptyOpt = matchGoogleOption(combo, 'en');
+    var emptyVal = emptyOpt ? emptyOpt.value : '';
+    applyValue(emptyVal);
+    setTimeout(function(){ applyValue(nextVal); }, 60);
+    return true;
+  }
+
+  if(combo.value !== nextVal || force){
+    applyValue(nextVal);
+  }
+  return true;
 }
 
 function triggerGoogleTranslate(lang, force){
   var gt = toGoogleLang(lang || 'en');
   protectLedgerFromTranslation(document);
-
-  if(!__cvTranslateReady || typeof google === 'undefined' || !google.translate){
-    __cvTranslatePending = lang || 'en';
-    return;
-  }
-
   setGoogTransCookie(lang || 'en');
 
-  function trySelect(attempt){
-    var combo = findGoogleCombo();
-    if(!combo){
-      if(attempt < 25) setTimeout(function(){ trySelect(attempt + 1); }, 150);
-      return;
-    }
-    var target = gt === 'en' ? '' : gt;
-    /* Prefer exact option match */
-    var matched = '';
-    for(var i = 0; i < combo.options.length; i++){
-      var v = combo.options[i].value;
-      if(v === target || v === gt || (gt !== 'en' && v && v.indexOf(gt) !== -1)){
-        matched = v;
-        break;
-      }
-    }
-    if(gt === 'en'){
-      /* Reset to original English */
-      if(combo.value && combo.value !== ''){
-        combo.value = combo.options[0] ? combo.options[0].value : '';
-        try{
-          combo.dispatchEvent(new Event('change', { bubbles: true }));
-        }catch(_e){
-          var ev = document.createEvent('HTMLEvents');
-          ev.initEvent('change', true, true);
-          combo.dispatchEvent(ev);
-        }
-      }
-      /* Hard reset if Google left page in translated state */
-      if(force && (document.documentElement.classList.contains('translated-ltr') ||
-         document.documentElement.classList.contains('translated-rtl') ||
-         document.body.classList.contains('translated-ltr'))){
-        try{
-          /* Select first empty / English option */
-          for(var j = 0; j < combo.options.length; j++){
-            if(!combo.options[j].value || combo.options[j].value === 'en' || combo.options[j].value === ''){
-              combo.selectedIndex = j;
-              break;
-            }
+  if(typeof google === 'undefined' || !google.translate){
+    __cvTranslatePending = lang || 'en';
+    /* Script may still be loading — keep pending; init callback will retry */
+    return;
+  }
+  __cvTranslateReady = true;
+
+  var attempts = 0;
+  var maxAttempts = 40;
+
+  function trySelect(){
+    attempts++;
+    var ok = selectGoogleLanguage(gt, !!force);
+    if(ok){
+      /* Verify DOM actually translated; if not, hard cookie reload once */
+      if(gt !== 'en'){
+        setTimeout(function(){
+          if(!isPageTranslated() && !window.__cvGtReloadArmed){
+            window.__cvGtReloadArmed = true;
+            setGoogTransCookie(lang);
+            try{
+              /* Soft re-fire once more before reload */
+              selectGoogleLanguage(gt, true);
+            }catch(_r){}
+            setTimeout(function(){
+              if(!isPageTranslated()){
+                try{ location.reload(); }catch(_l){}
+              } else {
+                window.__cvGtReloadArmed = false;
+              }
+            }, 900);
           }
-          combo.dispatchEvent(new Event('change', { bubbles: true }));
-        }catch(_r){}
+        }, 1200);
       }
       return;
     }
-    if(matched){
-      if(combo.value !== matched || force){
-        combo.value = matched;
-        try{
-          combo.dispatchEvent(new Event('change', { bubbles: true }));
-        }catch(_e2){
-          var ev2 = document.createEvent('HTMLEvents');
-          ev2.initEvent('change', true, true);
-          combo.dispatchEvent(ev2);
-        }
-      }
-    } else if(attempt < 20){
-      setTimeout(function(){ trySelect(attempt + 1); }, 200);
+    if(attempts < maxAttempts){
+      setTimeout(trySelect, 150);
+    } else if(gt !== 'en' && !window.__cvGtReloadArmed){
+      /* Combo never appeared — cookie + reload fallback */
+      window.__cvGtReloadArmed = true;
+      setGoogTransCookie(lang);
+      try{ location.reload(); }catch(_e){}
     }
   }
-  trySelect(0);
+  trySelect();
 }
 window.triggerGoogleTranslate = triggerGoogleTranslate;
+window.fireNativeSelectChange = fireNativeSelectChange;
+window.selectGoogleLanguage = selectGoogleLanguage;
 
 function applyLang(lang){
   if(!lang) lang = 'en';
   __cvActiveLang = lang;
   try{ localStorage.setItem('circlevault_lang_v1', lang); }catch(_e){}
   document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
-  document.documentElement.dir = (typeof RTL_LANGS !== 'undefined' && RTL_LANGS.indexOf(lang) !== -1) ? 'rtl' : 'ltr';
+  var isRtl = (typeof RTL_LANGS !== 'undefined' && RTL_LANGS.indexOf(lang) !== -1);
+  document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
+  try{ document.body && (document.body.dir = isRtl ? 'rtl' : 'ltr'); }catch(_b){}
   syncLangTouchLabel(lang);
   protectLedgerFromTranslation(document);
-  triggerGoogleTranslate(lang, true);
+  /* Defer slightly so GT widget / combo is queryable after UI settles */
+  clearTimeout(__cvTranslateTimer);
+  __cvTranslateTimer = setTimeout(function(){
+    triggerGoogleTranslate(lang, true);
+  }, 40);
   try{ if(typeof syncCountryLanguageHint === 'function') syncCountryLanguageHint(); }catch(_h){}
   requestAnimationFrame(typeof applyFitScale === 'function' ? applyFitScale : function(){});
 }
