@@ -1703,6 +1703,13 @@
   #view-login .login-alt{display:flex;flex-direction:column;gap:8px;}
   #view-login .login-panel-extra{display:none;margin-block-start:14px;padding:14px;border-radius:12px;border:1px solid var(--line);background:var(--panel-2);}
   #view-login .login-panel-extra.show{display:block;}
+  #view-login .field-error{display:none;color:var(--rose);font-size:11.5px;margin-block-start:4px;}
+  #view-login .field.has-error input{border-color:var(--rose);}
+  #view-login .field.has-error .field-error{display:block;}
+  #view-login #loginStepOtp.is-hidden,#view-login #loginStepCredentials.is-hidden{display:none;}
+  #view-login #loginStepOtp .eyebrow-step{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);font-family:var(--font-mono);}
+  #view-login .login-trust-badge{display:flex;align-items:flex-start;gap:8px;margin-block-start:20px;padding:10px 12px;border-radius:10px;border:1px dashed var(--line-strong);background:var(--amber-soft);font-size:11px;line-height:1.5;color:var(--muted);}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
   #cvDemoProfileModal,#cvEnterpriseAdminPanel{position:fixed;inset:0;z-index:10050;display:none;align-items:flex-start;justify-content:center;padding:72px 16px 24px;background:rgba(4,8,16,.62);backdrop-filter:blur(6px);overflow:auto;}
   #cvDemoProfileModal.open,#cvEnterpriseAdminPanel.open{display:flex;}
   #cvDemoProfileModal .cv-modal-shell,#cvEnterpriseAdminPanel .cv-admin-shell{width:min(960px,100%);background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid rgba(0,212,255,.35);border-radius:16px;padding:18px 16px 22px;color:var(--text);box-shadow:0 24px 60px rgba(0,0,0,.45);}
@@ -1773,11 +1780,7 @@
   #cvRoleSwitcher .cv-sw-signout{width:100%;margin-block-start:12px;}
   #view-login .login-demo-preset select{width:100%;min-height:40px;padding:8px 10px;border-radius:10px;border:1px solid var(--line-strong);background:var(--panel-3);color:var(--text);font:inherit;}
   /* Universal Google Translate chrome hide */
-  #google_translate_element{
-    position:fixed!important;top:0!important;left:0!important;
-    width:1px!important;height:1px!important;opacity:0.01!important;
-    overflow:hidden!important;z-index:-1!important;pointer-events:auto!important;
-  }
+  #google_translate_element{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important;}
   .goog-te-banner-frame, .goog-te-balloon-frame, #goog-gt-tt, .goog-tooltip, .goog-te-balloon-frame{display:none!important;}
   body{top:0!important;}
   .goog-text-highlight{background:transparent!important;box-shadow:none!important;}
@@ -2028,35 +2031,67 @@ footer.site{border-block-start:1px solid var(--line);padding-block:26px;color:va
     <div class="login-card" role="form" aria-labelledby="loginTitleHeading">
       <h2 id="loginTitleHeading" data-i18n="loginTitle">Sign In to Your Vault</h2>
       <p class="login-sub" data-i18n="loginSub">Standard vault authentication. Sign in with your Account ID / email and password, or pick a demo preset.</p>
-      <div class="field login-demo-preset"><label for="loginDemoPreset" data-i18n="loginDemoPreset">Demo Preset Accounts</label>
-        <select id="loginDemoPreset" onchange="applyLoginDemoPreset(this.value)" aria-label="Demo Preset Accounts">
-          <option value="" data-i18n="loginDemoPresetOpt">— Select preset (optional) —</option>
-          <option value="admin" data-i18n="loginDemoAdmin">Admin</option>
-          <option value="demo" data-i18n="loginDemoUser">Demo User</option>
-        </select>
+      <!-- ===== Step 1: Credentials ===== -->
+      <div id="loginStepCredentials">
+        <div class="field login-demo-preset"><label for="loginDemoPreset" data-i18n="loginDemoPreset">Demo Preset Accounts</label>
+          <select id="loginDemoPreset" onchange="applyLoginDemoPreset(this.value)" aria-label="Demo Preset Accounts">
+            <option value="" data-i18n="loginDemoPresetOpt">— Select preset (optional) —</option>
+            <option value="admin" data-i18n="loginDemoAdmin">Demo Admin</option>
+            <option value="demo" data-i18n="loginDemoUser">Demo User</option>
+            <option value="auditor" data-i18n="loginDemoAuditor">Auditor View</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="loginUsername" data-i18n="loginAccountId">Account ID / Email</label>
+          <input type="text" id="loginUsername" name="username" autocomplete="username" required aria-required="true" aria-describedby="loginUsernameErr" data-i18n-placeholder="loginAccountPlaceholder" placeholder="Account ID, email, or 6-digit Vault ID" oninput="clearLoginFieldError('loginUsername')">
+          <span class="field-error" id="loginUsernameErr" role="alert" aria-live="polite"></span>
+        </div>
+        <div class="field">
+          <label for="loginPassword" data-i18n="loginPassword">Password / Security PIN</label>
+          <input type="password" id="loginPassword" name="password" autocomplete="current-password" required aria-required="true" aria-describedby="loginPasswordErr" data-i18n-placeholder="loginPasswordPlaceholder" placeholder="Password or security PIN" oninput="clearLoginFieldError('loginPassword')">
+          <span class="field-error" id="loginPasswordErr" role="alert" aria-live="polite"></span>
+        </div>
+        <input type="hidden" id="loginVaultDigits" aria-hidden="true">
+        <input type="hidden" id="loginVaultPassword" aria-hidden="true">
+        <div class="login-links">
+          <button type="button" onclick="toggleLoginExtra('forgot')" data-i18n="loginForgotId">Forgot Vault ID?</button>
+          <button type="button" onclick="toggleLoginExtra('email')" data-i18n="loginEmailSync">Email Sync</button>
+          <button type="button" onclick="toggleLoginExtra('reset')" data-i18n="loginPasswordReset">Password Reset</button>
+        </div>
+        <div class="login-panel-extra" id="loginExtraForgot"><strong data-i18n="loginForgotTitle">Forgot Vault ID</strong><p class="field-help" data-i18n="loginForgotHelp">Enter your registered email to receive your masked Vault ID (demo: any email shows format CV-ARC-••••••-XX-YYYY).</p><label for="loginForgotEmail" class="sr-only" data-i18n="loginForgotEmailLbl">Registered email</label><input type="email" id="loginForgotEmail" autocomplete="email" placeholder="you@example.com"><button type="button" class="btn btn-ghost btn-sm" style="margin-block-start:8px;" onclick="sendForgotVaultId()" data-i18n="loginForgotBtn">Send Vault ID Reminder</button></div>
+        <div class="login-panel-extra" id="loginExtraEmail"><strong data-i18n="loginEmailTitle">Email Sync</strong><p class="field-help" data-i18n="loginEmailHelp">Sync recovery email with your vault profile for ISO 20022 audit trail.</p><label for="loginSyncEmail" class="sr-only" data-i18n="loginSyncEmailLbl">Recovery email</label><input type="email" id="loginSyncEmail" autocomplete="email" placeholder="Recovery email"><button type="button" class="btn btn-ghost btn-sm" style="margin-block-start:8px;" onclick="syncVaultEmail()" data-i18n="loginEmailBtn">Sync Email</button></div>
+        <div class="login-panel-extra" id="loginExtraReset"><strong data-i18n="loginResetTitle">Password Reset</strong><p class="field-help" data-i18n="loginResetHelp">Verify registered email + mobile OTP to reset vault password (demo flow).</p><label for="loginResetEmail" class="sr-only" data-i18n="loginResetEmailLbl">Registered email</label><input type="email" id="loginResetEmail" autocomplete="email" placeholder="Registered email" style="margin-block-end:8px;"><label for="loginResetOtp" class="sr-only" data-i18n="loginResetOtpLbl">OTP</label><input type="text" id="loginResetOtp" maxlength="6" autocomplete="one-time-code" placeholder="OTP ••••••" inputmode="numeric"><button type="button" class="btn btn-ghost btn-sm" style="margin-block-start:8px;" onclick="resetVaultPassword()" data-i18n="loginResetBtn">Reset Password</button></div>
+        <button type="button" class="btn btn-gold" style="width:100%;margin-block-start:4px;" onclick="submitVaultSignIn()" data-i18n="loginSubmit">Sign In</button>
+        <div class="login-divider"><span data-i18n="loginOr">or</span></div>
+        <div class="login-alt">
+          <button type="button" class="btn btn-ghost" onclick="adminOneClickLogin()" data-i18n="loginAdminOneClick">Admin One-Click Login</button>
+          <button type="button" class="btn btn-ghost" onclick="submitDemoLogin()" data-i18n="loginDemoPicker">Open Demo Profile Picker</button>
+        </div>
+        <p class="field-help" style="margin-block-start:14px;" data-i18n="loginPresetsHint">Presets: Demo Admin → admin / admin · Demo User → demo / demo · Auditor View → auditor / auditor</p>
+        <div class="login-divider" style="margin-block-start:18px;"></div>
+        <p class="field-help" style="margin:0 0 8px;text-align:center;" data-i18n="loginOpenVaultHint">New here? Start the registration pipeline to create your vault.</p>
+        <button type="button" class="btn btn-ghost" style="width:100%;" id="btnLoginOpenVault" onclick="goTo('onboarding')" data-i18n="loginOpenVaultCta">Open Your CircleVault Now</button>
       </div>
-      <div class="field"><label for="loginUsername" data-i18n="loginAccountId">Account ID / Email</label><input type="text" id="loginUsername" autocomplete="username" data-i18n-placeholder="loginAccountPlaceholder" placeholder="Account ID, email, or 6-digit Vault ID"></div>
-      <div class="field"><label for="loginPassword" data-i18n="loginPassword">Password / Security PIN</label><input type="password" id="loginPassword" data-i18n-placeholder="loginPasswordPlaceholder" placeholder="Password or security PIN" autocomplete="current-password"></div>
-      <input type="hidden" id="loginVaultDigits" aria-hidden="true">
-      <input type="hidden" id="loginVaultPassword" aria-hidden="true">
-      <div class="login-links">
-        <button type="button" onclick="toggleLoginExtra('forgot')" data-i18n="loginForgotId">Forgot Vault ID?</button>
-        <button type="button" onclick="toggleLoginExtra('email')" data-i18n="loginEmailSync">Email Sync</button>
-        <button type="button" onclick="toggleLoginExtra('reset')" data-i18n="loginPasswordReset">Password Reset</button>
+
+      <!-- ===== Step 2: Simulated 2FA / OTP ===== -->
+      <div id="loginStepOtp" class="is-hidden" aria-live="polite">
+        <div class="eyebrow-step" data-i18n="loginOtpEyebrow">STEP 2 OF 2 — VERIFICATION</div>
+        <h3 style="margin:2px 0 6px;" data-i18n="loginOtpTitle">Confirm It's You</h3>
+        <p class="login-sub" data-i18n="loginOtpSub">A 6-digit one-time code was sent to your registered device. This is a simulated OTP for demo purposes — it's pre-filled below.</p>
+        <div class="field">
+          <label for="loginOtpInput" data-i18n="loginOtpLabel">One-Time Passcode</label>
+          <input type="text" id="loginOtpInput" maxlength="6" inputmode="numeric" autocomplete="one-time-code" value="123456" aria-describedby="loginOtpErr" oninput="clearLoginFieldError('loginOtpInput')">
+          <span class="field-error" id="loginOtpErr" role="alert" aria-live="polite"></span>
+        </div>
+        <button type="button" class="btn btn-gold" style="width:100%;margin-block-start:4px;" onclick="verifyLoginOtp()" data-i18n="loginOtpVerifyBtn">Verify &amp; Sign In</button>
+        <button type="button" class="btn btn-ghost btn-sm" style="width:100%;margin-block-start:8px;" onclick="resendLoginOtp()" data-i18n="loginOtpResend">Resend Code (demo)</button>
+        <button type="button" class="btn btn-ghost btn-sm" style="width:100%;margin-block-start:4px;" onclick="backToLoginCredentials()" data-i18n="loginOtpBack">← Back to Sign In</button>
       </div>
-      <div class="login-panel-extra" id="loginExtraForgot"><strong data-i18n="loginForgotTitle">Forgot Vault ID</strong><p class="field-help" data-i18n="loginForgotHelp">Enter your registered email to receive your masked Vault ID (demo: any email shows format CV-ARC-••••••-XX-YYYY).</p><input type="email" id="loginForgotEmail" placeholder="you@example.com"><button type="button" class="btn btn-ghost btn-sm" style="margin-block-start:8px;" onclick="sendForgotVaultId()" data-i18n="loginForgotBtn">Send Vault ID Reminder</button></div>
-      <div class="login-panel-extra" id="loginExtraEmail"><strong data-i18n="loginEmailTitle">Email Sync</strong><p class="field-help" data-i18n="loginEmailHelp">Sync recovery email with your vault profile for ISO 20022 audit trail.</p><input type="email" id="loginSyncEmail" placeholder="Recovery email"><button type="button" class="btn btn-ghost btn-sm" style="margin-block-start:8px;" onclick="syncVaultEmail()" data-i18n="loginEmailBtn">Sync Email</button></div>
-      <div class="login-panel-extra" id="loginExtraReset"><strong data-i18n="loginResetTitle">Password Reset</strong><p class="field-help" data-i18n="loginResetHelp">Verify registered email + mobile OTP to reset vault password (demo flow).</p><input type="email" id="loginResetEmail" placeholder="Registered email" style="margin-block-end:8px;"><input type="text" id="loginResetOtp" maxlength="6" placeholder="OTP ••••••" inputmode="numeric"><button type="button" class="btn btn-ghost btn-sm" style="margin-block-start:8px;" onclick="resetVaultPassword()" data-i18n="loginResetBtn">Reset Password</button></div>
-      <button type="button" class="btn btn-gold" style="width:100%;margin-block-start:4px;" onclick="submitVaultSignIn()" data-i18n="loginSubmit">Sign In</button>
-      <div class="login-divider"><span data-i18n="loginOr">or</span></div>
-      <div class="login-alt">
-        <button type="button" class="btn btn-ghost" onclick="adminOneClickLogin()" data-i18n="loginAdminOneClick">Admin One-Click Login</button>
-        <button type="button" class="btn btn-ghost" onclick="submitDemoLogin()" data-i18n="loginDemoPicker">Open Demo Profile Picker</button>
+
+      <div class="login-trust-badge" role="note">
+        <span aria-hidden="true">🛡️</span>
+        <span data-i18n="loginTrustBadge">Simulated Prototype Environment — For Ignyte Challenge Demo Purposes Only. No real funds, documents, or credentials are processed or transmitted.</span>
       </div>
-      <p class="field-help" style="margin-block-start:14px;" data-i18n="loginPresetsHint">Presets: Admin → admin / admin · Demo User → demo / demo</p>
-      <div class="login-divider" style="margin-block-start:18px;"></div>
-      <p class="field-help" style="margin:0 0 8px;text-align:center;" data-i18n="loginOpenVaultHint">New here? Start the registration pipeline to create your vault.</p>
-      <button type="button" class="btn btn-ghost" style="width:100%;" id="btnLoginOpenVault" onclick="goTo('onboarding')" data-i18n="loginOpenVaultCta">Open Your CircleVault Now</button>
     </div>
   </div>
 </section>
@@ -3642,9 +3677,8 @@ var __cvTranslateTimer = null;
 
 /** Map UI language codes → Google Translate codes */
 var GT_LANG_MAP = {
-  fil: 'tl', he: 'iw', iw: 'iw', zh: 'zh-CN', nb: 'no', nn: 'no', jv: 'jw',
-  'zh-cn': 'zh-CN', 'zh-tw': 'zh-TW',
-  fa: 'fa', ur: 'ur', ar: 'ar', ps: 'ps', sd: 'sd'
+  fil: 'tl', he: 'iw', zh: 'zh-CN', nb: 'no', nn: 'no', jv: 'jw',
+  'zh-cn': 'zh-CN', 'zh-tw': 'zh-TW'
 };
 
 function toGoogleLang(code){
@@ -3710,245 +3744,135 @@ function googleTranslateElementInit(){
     /* Hidden combo — driven by our header Language dropdown */
     new google.translate.TranslateElement({
       pageLanguage: 'en',
+      includedLanguages: '',
       autoDisplay: false,
       multilanguagePage: true,
-      layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
     }, 'google_translate_element');
   }catch(_e){}
   __cvTranslateReady = true;
-
-  function flushPending(attempt){
-    var combo = document.querySelector('.goog-te-combo') ||
-      document.querySelector('#google_translate_element select');
-    if(!combo && attempt < 30){
-      setTimeout(function(){ flushPending(attempt + 1); }, 120);
-      return;
-    }
-    var pending = __cvTranslatePending || __cvActiveLang;
+  if(__cvTranslatePending){
+    var pending = __cvTranslatePending;
     __cvTranslatePending = null;
-    if(pending && pending !== 'en'){
-      setTimeout(function(){ triggerGoogleTranslate(pending, true); }, 80);
-    } else if(pending === 'en'){
-      setTimeout(function(){ triggerGoogleTranslate('en', true); }, 80);
-    }
+    setTimeout(function(){ triggerGoogleTranslate(pending, true); }, 120);
   }
-  flushPending(0);
 }
 window.googleTranslateElementInit = googleTranslateElementInit;
 
 function findGoogleCombo(){
   return document.querySelector('.goog-te-combo') ||
     document.querySelector('#google_translate_element select') ||
-    document.querySelector('select.goog-te-combo') ||
-    document.querySelector('iframe.goog-te-menu-frame') ||
-    null;
-}
-
-/**
- * Fire a change Google Translate actually listens to.
- * Synthetic Event alone is often ignored — call onchange + legacy HTMLEvents + InputEvent.
- */
-function fireNativeSelectChange(select){
-  if(!select) return false;
-  var fired = false;
-  try{
-    if(typeof select.onchange === 'function'){
-      select.onchange();
-      fired = true;
-    }
-  }catch(_o){}
-  try{
-    var htmlEv = document.createEvent('HTMLEvents');
-    htmlEv.initEvent('change', true, true);
-    select.dispatchEvent(htmlEv);
-    fired = true;
-  }catch(_h){}
-  try{
-    select.dispatchEvent(new Event('change', { bubbles: true, cancelable: true }));
-    fired = true;
-  }catch(_e){}
-  try{
-    if(typeof Event === 'function'){
-      select.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
-    }
-  }catch(_i){}
-  /* Legacy IE path */
-  try{
-    if(document.createEventObject && select.fireEvent){
-      select.fireEvent('onchange');
-      fired = true;
-    }
-  }catch(_f){}
-  return fired;
+    document.querySelector('select.goog-te-combo');
 }
 
 function setGoogTransCookie(lang){
   var gt = toGoogleLang(lang);
-  var host = location.hostname || '';
+  var domain = location.hostname;
   var expire = 'expires=Thu, 31 Dec 2099 23:59:59 GMT';
-  var paths = ['path=/'];
-  var domains = [''];
-  if(host && host !== 'localhost' && host !== '127.0.0.1'){
-    domains.push('domain=' + host);
-    try{
-      var root = host.replace(/^www\./, '');
-      if(root.indexOf('.') !== -1) domains.push('domain=.' + root);
-    }catch(_d){}
-  }
-  function writeCookie(name, value){
-    for(var i = 0; i < domains.length; i++){
-      var d = domains[i];
-      var base = name + '=' + value + '; path=/; ' + expire + (d ? ('; ' + d) : '');
-      document.cookie = base;
-    }
-  }
   if(gt === 'en'){
-    writeCookie('googtrans', '');
-    writeCookie('googtrans', '/en/en');
+    document.cookie = 'googtrans=; path=/; ' + expire;
+    document.cookie = 'googtrans=; path=/; domain=' + domain + '; ' + expire;
+    try{
+      if(domain.indexOf('.') !== -1){
+        document.cookie = 'googtrans=; path=/; domain=.' + domain.replace(/^www\./,'') + '; ' + expire;
+      }
+    }catch(_d){}
     return;
   }
-  writeCookie('googtrans', '/en/' + gt);
-}
-
-function matchGoogleOption(combo, gt){
-  if(!combo || !combo.options) return null;
-  if(gt === 'en'){
-    for(var i = 0; i < combo.options.length; i++){
-      var v0 = combo.options[i].value;
-      if(!v0 || v0 === 'en' || v0 === '') return combo.options[i];
+  var val = '/en/' + gt;
+  document.cookie = 'googtrans=' + val + '; path=/; ' + expire;
+  document.cookie = 'googtrans=' + val + '; path=/; domain=' + domain + '; ' + expire;
+  try{
+    if(domain.indexOf('.') !== -1){
+      document.cookie = 'googtrans=' + val + '; path=/; domain=.' + domain.replace(/^www\./,'') + '; ' + expire;
     }
-    return combo.options[0] || null;
-  }
-  /* Exact first */
-  for(var a = 0; a < combo.options.length; a++){
-    if(combo.options[a].value === gt) return combo.options[a];
-  }
-  /* Prefix / contains (e.g. zh-CN) */
-  for(var b = 0; b < combo.options.length; b++){
-    var v = String(combo.options[b].value || '');
-    if(v === gt || v.indexOf(gt) === 0 || v.split(/[-_]/)[0] === gt) return combo.options[b];
-  }
-  return null;
-}
-
-function isPageTranslated(){
-  var html = document.documentElement;
-  var body = document.body;
-  return !!(html && (
-    html.classList.contains('translated-ltr') ||
-    html.classList.contains('translated-rtl') ||
-    (body && (body.classList.contains('translated-ltr') || body.classList.contains('translated-rtl'))) ||
-    document.querySelector('html.translated-ltr, html.translated-rtl, font[style*="vertical-align"]')
-  ));
-}
-
-function selectGoogleLanguage(gt, force){
-  var combo = document.querySelector('.goog-te-combo') ||
-    document.querySelector('#google_translate_element select');
-  if(!combo || !combo.options || !combo.options.length) return false;
-
-  var opt = matchGoogleOption(combo, gt);
-  if(!opt) return false;
-  var nextVal = opt.value;
-
-  /* Google often ignores setting the same value — bounce via empty first when forcing */
-  function applyValue(val){
-    combo.value = val;
-    /* selectedIndex sync */
-    for(var i = 0; i < combo.options.length; i++){
-      if(combo.options[i].value === val){
-        combo.selectedIndex = i;
-        break;
-      }
-    }
-    fireNativeSelectChange(combo);
-  }
-
-  if(force && combo.value === nextVal){
-    var emptyOpt = matchGoogleOption(combo, 'en');
-    var emptyVal = emptyOpt ? emptyOpt.value : '';
-    applyValue(emptyVal);
-    setTimeout(function(){ applyValue(nextVal); }, 60);
-    return true;
-  }
-
-  if(combo.value !== nextVal || force){
-    applyValue(nextVal);
-  }
-  return true;
+  }catch(_d2){}
 }
 
 function triggerGoogleTranslate(lang, force){
   var gt = toGoogleLang(lang || 'en');
   protectLedgerFromTranslation(document);
-  setGoogTransCookie(lang || 'en');
 
-  if(typeof google === 'undefined' || !google.translate){
+  if(!__cvTranslateReady || typeof google === 'undefined' || !google.translate){
     __cvTranslatePending = lang || 'en';
-    /* Script may still be loading — keep pending; init callback will retry */
     return;
   }
-  __cvTranslateReady = true;
 
-  var attempts = 0;
-  var maxAttempts = 40;
+  setGoogTransCookie(lang || 'en');
 
-  function trySelect(){
-    attempts++;
-    var ok = selectGoogleLanguage(gt, !!force);
-    if(ok){
-      /* Verify DOM actually translated; if not, hard cookie reload once */
-      if(gt !== 'en'){
-        setTimeout(function(){
-          if(!isPageTranslated() && !window.__cvGtReloadArmed){
-            window.__cvGtReloadArmed = true;
-            setGoogTransCookie(lang);
-            try{
-              /* Soft re-fire once more before reload */
-              selectGoogleLanguage(gt, true);
-            }catch(_r){}
-            setTimeout(function(){
-              if(!isPageTranslated()){
-                try{ location.reload(); }catch(_l){}
-              } else {
-                window.__cvGtReloadArmed = false;
-              }
-            }, 900);
+  function trySelect(attempt){
+    var combo = findGoogleCombo();
+    if(!combo){
+      if(attempt < 25) setTimeout(function(){ trySelect(attempt + 1); }, 150);
+      return;
+    }
+    var target = gt === 'en' ? '' : gt;
+    /* Prefer exact option match */
+    var matched = '';
+    for(var i = 0; i < combo.options.length; i++){
+      var v = combo.options[i].value;
+      if(v === target || v === gt || (gt !== 'en' && v && v.indexOf(gt) !== -1)){
+        matched = v;
+        break;
+      }
+    }
+    if(gt === 'en'){
+      /* Reset to original English */
+      if(combo.value && combo.value !== ''){
+        combo.value = combo.options[0] ? combo.options[0].value : '';
+        try{
+          combo.dispatchEvent(new Event('change', { bubbles: true }));
+        }catch(_e){
+          var ev = document.createEvent('HTMLEvents');
+          ev.initEvent('change', true, true);
+          combo.dispatchEvent(ev);
+        }
+      }
+      /* Hard reset if Google left page in translated state */
+      if(force && (document.documentElement.classList.contains('translated-ltr') ||
+         document.documentElement.classList.contains('translated-rtl') ||
+         document.body.classList.contains('translated-ltr'))){
+        try{
+          /* Select first empty / English option */
+          for(var j = 0; j < combo.options.length; j++){
+            if(!combo.options[j].value || combo.options[j].value === 'en' || combo.options[j].value === ''){
+              combo.selectedIndex = j;
+              break;
+            }
           }
-        }, 1200);
+          combo.dispatchEvent(new Event('change', { bubbles: true }));
+        }catch(_r){}
       }
       return;
     }
-    if(attempts < maxAttempts){
-      setTimeout(trySelect, 150);
-    } else if(gt !== 'en' && !window.__cvGtReloadArmed){
-      /* Combo never appeared — cookie + reload fallback */
-      window.__cvGtReloadArmed = true;
-      setGoogTransCookie(lang);
-      try{ location.reload(); }catch(_e){}
+    if(matched){
+      if(combo.value !== matched || force){
+        combo.value = matched;
+        try{
+          combo.dispatchEvent(new Event('change', { bubbles: true }));
+        }catch(_e2){
+          var ev2 = document.createEvent('HTMLEvents');
+          ev2.initEvent('change', true, true);
+          combo.dispatchEvent(ev2);
+        }
+      }
+    } else if(attempt < 20){
+      setTimeout(function(){ trySelect(attempt + 1); }, 200);
     }
   }
-  trySelect();
+  trySelect(0);
 }
 window.triggerGoogleTranslate = triggerGoogleTranslate;
-window.fireNativeSelectChange = fireNativeSelectChange;
-window.selectGoogleLanguage = selectGoogleLanguage;
 
 function applyLang(lang){
   if(!lang) lang = 'en';
   __cvActiveLang = lang;
   try{ localStorage.setItem('circlevault_lang_v1', lang); }catch(_e){}
   document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
-  var isRtl = (typeof RTL_LANGS !== 'undefined' && RTL_LANGS.indexOf(lang) !== -1);
-  document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
-  try{ document.body && (document.body.dir = isRtl ? 'rtl' : 'ltr'); }catch(_b){}
+  document.documentElement.dir = (typeof RTL_LANGS !== 'undefined' && RTL_LANGS.indexOf(lang) !== -1) ? 'rtl' : 'ltr';
   syncLangTouchLabel(lang);
   protectLedgerFromTranslation(document);
-  /* Defer slightly so GT widget / combo is queryable after UI settles */
-  clearTimeout(__cvTranslateTimer);
-  __cvTranslateTimer = setTimeout(function(){
-    triggerGoogleTranslate(lang, true);
-  }, 40);
+  triggerGoogleTranslate(lang, true);
   try{ if(typeof syncCountryLanguageHint === 'function') syncCountryLanguageHint(); }catch(_h){}
   requestAnimationFrame(typeof applyFitScale === 'function' ? applyFitScale : function(){});
 }
@@ -17181,6 +17105,9 @@ window.removeAffidavitSlot = removeAffidavitSlot;
   var ADMIN_PASS = 'admin';
   var DEMO_USER = 'demo';
   var DEMO_PASS = 'demo';
+  var AUDITOR_USER = 'auditor';
+  var AUDITOR_PASS = 'auditor';
+  var LOGIN_DEMO_OTP = '123456';
 
   function lsGet(k) { try { return localStorage.getItem(k); } catch (_e) { return null; } }
   function lsSet(k, v) { try { localStorage.setItem(k, v); return true; } catch (_e) { return false; } }
@@ -17256,8 +17183,7 @@ window.removeAffidavitSlot = removeAffidavitSlot;
 
     var m = computeMetrics();
     statsEl.innerHTML =
-      '<div class="cv-admin-stat"><b>
- + m.tvl.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '</b><span>TVL (Total Value Locked)</span></div>' +
+      '<div class="cv-admin-stat"><b>' + m.tvl.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '</b><span>TVL (Total Value Locked)</span></div>' +
       '<div class="cv-admin-stat"><b>' + m.active + ' / ' + m.total + '</b><span>Active Vaults</span></div>' +
       '<div class="cv-admin-stat"><b>' + m.suspended + '</b><span>Suspended / Inactive</span></div>' +
       '<div class="cv-admin-stat"><b>' + m.complianceQueue + '</b><span>Compliance Queue</span></div>' +
@@ -17441,6 +17367,7 @@ window.removeAffidavitSlot = removeAffidavitSlot;
   global.openLoginPanel = function () {
     if (typeof goTo === 'function') goTo('login');
     bindLoginForm();
+    if (typeof global.backToLoginCredentials === 'function') global.backToLoginCredentials();
   };
 
   function bindLoginForm() {
@@ -17448,8 +17375,12 @@ window.removeAffidavitSlot = removeAffidavitSlot;
     if (!card || card.__cvLoginBound) return;
     card.__cvLoginBound = true;
     card.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
+      if (e.key !== 'Enter') return;
+      e.preventDefault();
+      var otpStep = document.getElementById('loginStepOtp');
+      if (otpStep && !otpStep.classList.contains('is-hidden')) {
+        global.verifyLoginOtp();
+      } else {
         global.submitVaultSignIn();
       }
     });
@@ -17477,8 +17408,89 @@ window.removeAffidavitSlot = removeAffidavitSlot;
     } else if (preset === 'demo') {
       if (userEl) userEl.value = DEMO_USER;
       if (passEl) passEl.value = DEMO_PASS;
+    } else if (preset === 'auditor') {
+      if (userEl) userEl.value = AUDITOR_USER;
+      if (passEl) passEl.value = AUDITOR_PASS;
     }
+    clearLoginFieldError('loginUsername');
+    clearLoginFieldError('loginPassword');
     readLoginFields();
+  };
+
+  /* ── Inline field validation helpers ── */
+  global.clearLoginFieldError = function (fieldId) {
+    var input = document.getElementById(fieldId);
+    var err = document.getElementById(fieldId + 'Err');
+    if (input && input.closest) {
+      var wrap = input.closest('.field');
+      if (wrap) wrap.classList.remove('has-error');
+    }
+    if (err) err.textContent = '';
+  };
+
+  function setLoginFieldError(fieldId, message) {
+    var input = document.getElementById(fieldId);
+    var err = document.getElementById(fieldId + 'Err');
+    if (input && input.closest) {
+      var wrap = input.closest('.field');
+      if (wrap) wrap.classList.add('has-error');
+    }
+    if (err) err.textContent = message;
+  }
+
+  /* ── Simulated 2FA / OTP step ── */
+  var __cvPendingLoginAction = null;
+
+  function showLoginOtpStep(completeFn) {
+    __cvPendingLoginAction = completeFn;
+    var credStep = document.getElementById('loginStepCredentials');
+    var otpStep = document.getElementById('loginStepOtp');
+    if (credStep) credStep.classList.add('is-hidden');
+    if (otpStep) {
+      otpStep.classList.remove('is-hidden');
+      var otpInput = document.getElementById('loginOtpInput');
+      if (otpInput) {
+        otpInput.value = LOGIN_DEMO_OTP;
+        clearLoginFieldError('loginOtpInput');
+        try { otpInput.focus(); } catch (_f) {}
+      }
+    }
+  }
+
+  global.backToLoginCredentials = function () {
+    __cvPendingLoginAction = null;
+    var credStep = document.getElementById('loginStepCredentials');
+    var otpStep = document.getElementById('loginStepOtp');
+    if (otpStep) otpStep.classList.add('is-hidden');
+    if (credStep) credStep.classList.remove('is-hidden');
+  };
+
+  global.resendLoginOtp = function () {
+    var otpInput = document.getElementById('loginOtpInput');
+    if (otpInput) otpInput.value = LOGIN_DEMO_OTP;
+    clearLoginFieldError('loginOtpInput');
+    toast('New OTP sent (demo) — code pre-filled for testing.');
+  };
+
+  global.verifyLoginOtp = function () {
+    var otpInput = document.getElementById('loginOtpInput');
+    var code = String((otpInput && otpInput.value) || '').trim();
+    if (code.length !== 6 || !/^\d{6}$/.test(code)) {
+      setLoginFieldError('loginOtpInput', 'Enter the 6-digit code.');
+      return;
+    }
+    if (code !== LOGIN_DEMO_OTP) {
+      setLoginFieldError('loginOtpInput', 'Incorrect code. Try the demo code shown, or resend.');
+      return;
+    }
+    clearLoginFieldError('loginOtpInput');
+    var action = __cvPendingLoginAction;
+    __cvPendingLoginAction = null;
+    var otpStep = document.getElementById('loginStepOtp');
+    if (otpStep) otpStep.classList.add('is-hidden');
+    var credStep = document.getElementById('loginStepCredentials');
+    if (credStep) credStep.classList.remove('is-hidden');
+    if (typeof action === 'function') action();
   };
 
   global.signOutVaultSession = function () {
@@ -17531,18 +17543,44 @@ window.removeAffidavitSlot = removeAffidavitSlot;
     openDemoModal();
   };
 
+  global.submitAuditorLogin = function () {
+    setAuthSession('auditor');
+    try { localStorage.setItem('circlevault_role_mode_v1', 'auditor'); } catch (_e) {}
+    if (typeof goTo === 'function') goTo('dashboard');
+    if (typeof global.refreshUserProfilePopover === 'function') global.refreshUserProfilePopover();
+    toast('Auditor view loaded — read-only demo session.');
+  };
+
+  /**
+   * Primary Sign-In entry point.
+   * Validates required fields, matches a demo/admin/auditor/account preset,
+   * then routes through a simulated 2FA/OTP confirmation step before
+   * completing the session. No credentials leave the browser — this is a
+   * local-only, simulated auth flow for the hackathon prototype.
+   */
   global.submitVaultSignIn = function () {
     var fields = readLoginFields();
     var username = String(fields.username || '').trim();
     var pass = String(fields.password || '');
     var digits = username.replace(/\D/g, '');
+    var valid = true;
+
+    if (!username) { setLoginFieldError('loginUsername', 'Enter your Account ID, email, or Vault ID.'); valid = false; }
+    else { clearLoginFieldError('loginUsername'); }
+    if (!pass) { setLoginFieldError('loginPassword', 'Enter your password or security PIN.'); valid = false; }
+    else { clearLoginFieldError('loginPassword'); }
+    if (!valid) return;
 
     if ((username === DEMO_USER || digits === DEMO_USER) && pass === DEMO_PASS) {
-      submitDemoLogin();
+      showLoginOtpStep(submitDemoLogin);
+      return;
+    }
+    if ((username === AUDITOR_USER || digits === AUDITOR_USER) && pass === AUDITOR_PASS) {
+      showLoginOtpStep(global.submitAuditorLogin);
       return;
     }
     if (pass === ADMIN_PASS && (username === 'admin' || username === ADMIN_EMAIL || digits === 'admin' || digits === '000000')) {
-      adminOneClickLogin();
+      showLoginOtpStep(adminOneClickLogin);
       return;
     }
 
@@ -17553,19 +17591,22 @@ window.removeAffidavitSlot = removeAffidavitSlot;
       return String(a.vaultDigits) === digits || String(a.seq).padStart(6, '0') === digits.padStart(6, '0');
     });
     if (!acc) {
-      toast('Credentials not recognized. Try Admin or Demo User preset.');
+      setLoginFieldError('loginUsername', 'Credentials not recognized. Try a demo preset.');
+      toast('Credentials not recognized. Try Admin, Demo User, or Auditor preset.');
       return;
     }
     if (acc.status === 'inactive' || acc.status === 'suspended') {
       toast('Account deactivated — contact Admin.');
       return;
     }
-    setAuthSession('user');
-    try { localStorage.setItem('circlevault_role_mode_v1', 'user'); } catch (_e2) {}
-    if (api.enterAccount) api.enterAccount(acc.seq);
-    if (typeof goTo === 'function') goTo('dashboard');
-    if (typeof global.refreshUserProfilePopover === 'function') global.refreshUserProfilePopover();
-    toast('Signed in — ' + acc.holderName);
+    showLoginOtpStep(function () {
+      setAuthSession('user');
+      try { localStorage.setItem('circlevault_role_mode_v1', 'user'); } catch (_e2) {}
+      if (api.enterAccount) api.enterAccount(acc.seq);
+      if (typeof goTo === 'function') goTo('dashboard');
+      if (typeof global.refreshUserProfilePopover === 'function') global.refreshUserProfilePopover();
+      toast('Signed in — ' + acc.holderName);
+    });
   };
 
   global.closeDemoProfileModal = closeDemoModal;
