@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVP Language Selector & System Interface</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+        }
+        .urdu-font {
+            font-family: 'Noto Nastaliq Urdu', 'Plus Jakarta Sans', sans-serif;
+        }
+        /* Custom scrollbar for dropdown */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 flex flex-col justify-between">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                
+                <!-- Brand / Logo -->
+                <div class="flex items-center space-x-3 rtl:space-x-reverse">
+                    <div class="w-9 h-9 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-md shadow-indigo-100">
+                        S
+                    </div>
+                    <div>
+                        <span class="text-lg font-bold text-slate-900 tracking-tight" data-i18n="brand">SaaSify MVP</span>
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-100 ml-2 rtl:mr-2 rtl:ml-0">
+                            v1.0 MVP
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-8 rtl:space-x-reverse">
+                    <a href="#" class="text-sm font-semibold text-indigo-600 flex items-center gap-2 border-b-2 border-indigo-600 py-5">
+                        <i class="fa-solid fa-chart-pie text-xs"></i>
+                        <span data-i18n="nav_dashboard">Dashboard</span>
+                    </a>
+                    <a href="#" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors flex items-center gap-2 py-5">
+                        <i class="fa-solid fa-chart-line text-xs"></i>
+                        <span data-i18n="nav_analytics">Analytics</span>
+                    </a>
+                    <a href="#" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors flex items-center gap-2 py-5">
+                        <i class="fa-solid fa-gear text-xs"></i>
+                        <span data-i18n="nav_settings">Settings</span>
+                    </a>
+                </nav>
+
+                <!-- Right Section: Language Dropdown & User -->
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                    
+                    <!-- System Default Badge -->
+                    <div class="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-medium">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span data-i18n="sys_default_badge">Default: English</span>
+                    </div>
+
+                    <!-- MVP Language Dropdown Component -->
+                    <div class="relative" id="language-dropdown-container">
+                        <button id="lang-dropdown-btn" 
+                                onclick="toggleDropdown()"
+                                class="inline-flex items-center justify-between gap-2 bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 font-medium text-sm rounded-lg px-3 py-2 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm">
+                            <span class="flex items-center gap-2" id="selected-lang-display">
+                                <span class="text-base">🇬🇧</span>
+                                <span class="font-semibold text-slate-800">English</span>
+                                <span class="text-[10px] uppercase tracking-wider bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded font-bold">Default</span>
+                            </span>
+                            <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200" id="dropdown-chevron"></i>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div id="lang-dropdown-menu" 
+                             class="hidden absolute right-0 rtl:right-auto rtl:left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50 transition-all duration-200 transform opacity-0 scale-95">
+                            
+                            <div class="px-3 py-2 border-b border-slate-100 flex items-center justify-between">
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Select Language</span>
+                                <span class="text-[11px] text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full font-medium">System Default</span>
+                            </div>
+
+                            <div class="max-h-64 overflow-y-auto custom-scrollbar p-1">
+                                <!-- English (System Default) -->
+                                <button onclick="selectLanguage('en')" 
+                                        class="lang-option w-full flex items-center justify-between px-3 py-2.5 text-sm rounded-lg hover:bg-indigo-50/70 text-slate-800 transition-colors group mb-0.5 bg-indigo-50/50 font-semibold"
+                                        data-lang="en">
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-lg">🇬🇧</span>
+                                        <div class="text-left rtl:text-right">
+                                            <div class="font-medium text-slate-900 group-hover:text-indigo-700">English</div>
+                                            <div class="text-xs text-slate-400">United States</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-1.5">
+                                        <span class="text-[10px] font-bold text-indigo-700 bg-indigo-100 px-1.5 py-0.5 rounded">Default</span>
+                                        <i class="fa-solid fa-check text-indigo-600 text-xs check-icon"></i>
+                                    </div>
+                                </button>
+
+                                <!-- Urdu -->
+                                <button onclick="selectLanguage('ur')" 
+                                        class="lang-option w-full flex items-center justify-between px-3 py-2.5 text-sm rounded-lg hover:bg-slate-100 text-slate-700 transition-colors group mb-0.5"
+                                        data-lang="ur">
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-lg">🇵🇰</span>
+                                        <div class="text-left rtl:text-right">
+                                            <div class="font-medium text-slate-800 group-hover:text-indigo-600 font-urdu">اردو</div>
+                                            <div class="text-xs text-slate-400">Urdu</div>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-check text-indigo-600 text-xs check-icon hidden"></i>
+                                </button>
+
+                                <!-- Spanish -->
+                                <button onclick="selectLanguage('es')" 
+                                        class="lang-option w-full flex items-center justify-between px-3 py-2.5 text-sm rounded-lg hover:bg-slate-100 text-slate-700 transition-colors group mb-0.5"
+                                        data-lang="es">
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-lg">🇪🇸</span>
+                                        <div class="text-left rtl:text-right">
+                                            <div class="font-medium text-slate-800 group-hover:text-indigo-600">Español</div>
+                                            <div class="text-xs text-slate-400">Spanish</div>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-check text-indigo-600 text-xs check-icon hidden"></i>
+                                </button>
+
+                                <!-- French -->
+                                <button onclick="selectLanguage('fr')" 
+                                        class="lang-option w-full flex items-center justify-between px-3 py-2.5 text-sm rounded-lg hover:bg-slate-100 text-slate-700 transition-colors group mb-0.5"
+                                        data-lang="fr">
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-lg">🇫🇷</span>
+                                        <div class="text-left rtl:text-right">
+                                            <div class="font-medium text-slate-800 group-hover:text-indigo-600">Français</div>
+                                            <div class="text-xs text-slate-400">French</div>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-check text-indigo-600 text-xs check-icon hidden"></i>
+                                </button>
+
+                                <!-- Arabic -->
+                                <button onclick="selectLanguage('ar')" 
+                                        class="lang-option w-full flex items-center justify-between px-3 py-2.5 text-sm rounded-lg hover:bg-slate-100 text-slate-700 transition-colors group"
+                                        data-lang="ar">
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-lg">🇸🇦</span>
+                                        <div class="text-left rtl:text-right">
+                                            <div class="font-medium text-slate-800 group-hover:text-indigo-600">العربية</div>
+                                            <div class="text-xs text-slate-400">Arabic</div>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-check text-indigo-600 text-xs check-icon hidden"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Avatar -->
+                    <div class="w-9 h-9 rounded-full bg-slate-200 border border-slate-300 flex items-center justify-center font-bold text-slate-600 text-sm">
+                        AK
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow">
+        
+        <!-- Welcome Banner -->
+        <div class="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+                <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight" data-i18n="page_title">
+                    Welcome Back, Alex
+                </h1>
+                <p class="text-sm text-slate-500 mt-1" data-i18n="page_subtitle">
+                    Here is what is happening with your product today.
+                </p>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <button class="inline-flex items-center gap-2 bg-white border border-slate-300 text-slate-700 text-sm font-medium px-4 py-2 rounded-lg shadow-sm hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-download text-xs text-slate-400"></i>
+                    <span data-i18n="act_export">Export Report</span>
+                </button>
+                <button class="inline-flex items-center gap-2 bg-indigo-600 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-sm hover:bg-indigo-700 transition-colors">
+                    <i class="fa-solid fa-plus text-xs"></i>
+                    <span data-i18n="act_invite">Invite Teammate</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Metrics Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+            
+            <!-- Card 1 -->
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between text-slate-400 mb-3">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-500" data-i18n="stat_users">Total Active Users</span>
+                    <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                </div>
+                <div class="text-2xl font-bold text-slate-900">12,450</div>
+                <div class="mt-2 flex items-center text-xs text-emerald-600 font-medium gap-1">
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+                    <span>+12.5%</span>
+                    <span class="text-slate-400 font-normal">vs last month</span>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between text-slate-400 mb-3">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-500" data-i18n="stat_revenue">Monthly Revenue</span>
+                    <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                    </div>
+                </div>
+                <div class="text-2xl font-bold text-slate-900">$48,200</div>
+                <div class="mt-2 flex items-center text-xs text-emerald-600 font-medium gap-1">
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+                    <span>+8.2%</span>
+                    <span class="text-slate-400 font-normal">vs last month</span>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between text-slate-400 mb-3">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-500" data-i18n="stat_conversion">Conversion Rate</span>
+                    <div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-sm">
+                        <i class="fa-solid fa-percent"></i>
+                    </div>
+                </div>
+                <div class="text-2xl font-bold text-slate-900">3.84%</div>
+                <div class="mt-2 flex items-center text-xs text-emerald-600 font-medium gap-1">
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+                    <span>+0.4%</span>
+                    <span class="text-slate-400 font-normal">vs last month</span>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between text-slate-400 mb-3">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-500" data-i18n="stat_status">System Health</span>
+                    <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm">
+                        <i class="fa-solid fa-server"></i>
+                    </div>
+                </div>
+                <div class="text-2xl font-bold text-slate-900" data-i18n="status_optimal">100% Operational</div>
+                <div class="mt-2 flex items-center text-xs text-slate-500 font-normal gap-1">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span>All services running</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- System Language Preference Details Card (MVP Focus) -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Language Settings Info -->
+            <div class="lg:col-span-2 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                <div class="flex items-start justify-between pb-5 border-b border-slate-100">
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-900" data-i18n="lang_setting_title">Language & Regional Settings</h2>
+                        <p class="text-sm text-slate-500 mt-0.5" data-i18n="lang_setting_desc">Manage your primary language and system preferences across the application.</p>
+                    </div>
+                    <span class="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-semibold">
+                        MVP Config
+                    </span>
+                </div>
+
+                <div class="py-5 space-y-4">
+                    
+                    <!-- Default System Language Indicator -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-slate-50 rounded-lg border border-slate-200 gap-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-xl shadow-xs">
+                                🇬🇧
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-500 font-medium" data-i18n="default_lang_label">Default System Language</div>
+                                <div class="text-sm font-bold text-slate-900" data-i18n="default_lang_val">English (United States)</div>
+                            </div>
+                        </div>
+                        <span class="self-start sm:self-center px-2.5 py-1 bg-indigo-100 text-indigo-700 font-semibold text-xs rounded-md">
+                            System Default
+                        </span>
+                    </div>
+
+                    <!-- Active Session Language Indicator -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-white rounded-lg border border-slate-200 gap-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-xl shadow-xs" id="active-lang-flag">
+                                🇬🇧
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-500 font-medium" data-i18n="current_session_lang">Active Session Language</div>
+                                <div class="text-sm font-bold text-slate-900" id="active-lang-name">English (United States)</div>
+                            </div>
+                        </div>
+                        <div class="text-xs text-slate-400" id="active-lang-status">
+                            Matches System Default
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                    <span class="flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-info text-indigo-500"></i>
+                        Language selection instantly updates all navigation, metrics, and text labels.
+                    </span>
+                </div>
+            </div>
+
+            <!-- Activity List -->
+            <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+                <div>
+                    <h3 class="text-base font-bold text-slate-900 mb-4" data-i18n="recent_activity">Recent System Activity</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3 text-xs">
+                            <div class="w-2 h-2 rounded-full bg-indigo-600 mt-1.5"></div>
+                            <div>
+                                <p class="text-slate-800 font-medium" data-i18n="act_1">User @john_doe upgraded to Pro plan</p>
+                                <span class="text-slate-400">10 mins ago</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3 text-xs">
+                            <div class="w-2 h-2 rounded-full bg-emerald-500 mt-1.5"></div>
+                            <div>
+                                <p class="text-slate-800 font-medium" data-i18n="act_2">Default language set to English (Default)</p>
+                                <span class="text-slate-400">1 hour ago</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3 text-xs">
+                            <div class="w-2 h-2 rounded-full bg-slate-300 mt-1.5"></div>
+                            <div>
+                                <p class="text-slate-800 font-medium" data-i18n="act_3">Database backup completed successfully</p>
+                                <span class="text-slate-400">4 hours ago</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-slate-100">
+                    <button class="w-full text-center text-xs font-semibold text-indigo-600 hover:text-indigo-700 py-1" data-i18n="act_manage">
+                        Manage System Settings &rarr;
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div>
+                &copy; 2026 SaaSify MVP. All rights reserved.
+            </div>
+            <div class="flex items-center gap-4">
+                <span>Default Language: <strong>English (US)</strong></span>
+                <span>•</span>
+                <span>MVP Build 1.0.4</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Script -->
+    <script>
+        // Multilingual Dictionary with English as Default
+        const i18nData = {
+            en: {
+                dir: 'ltr',
+                flag: '🇬🇧',
+                name: 'English',
+                fullName: 'English (United States)',
+                brand: 'SaaSify MVP',
+                nav_dashboard: 'Dashboard',
+                nav_analytics: 'Analytics',
+                nav_settings: 'Settings',
+                sys_default_badge: 'Default: English',
+                page_title: 'Welcome Back, Alex',
+                page_subtitle: 'Here is what is happening with your product today.',
+                stat_users: 'Total Active Users',
+                stat_revenue: 'Monthly Revenue',
+                stat_conversion: 'Conversion Rate',
+                stat_status: 'System Health',
+                status_optimal: '100% Operational',
+                lang_setting_title: 'Language & Regional Settings',
+                lang_setting_desc: 'Manage your primary language and system preferences across the application.',
+                default_lang_label: 'Default System Language',
+                default_lang_val: 'English (United States)',
+                current_session_lang: 'Active Session Language',
+                act_export: 'Export Report',
+                act_invite: 'Invite Teammate',
+                act_manage: 'Manage System Settings',
+                recent_activity: 'Recent System Activity',
+                act_1: 'User @john_doe upgraded to Pro plan',
+                act_2: 'Default language set to English (Default)',
+                act_3: 'Database backup completed successfully'
+            },
+            ur: {
+                dir: 'rtl',
+                flag: '🇵🇰',
+                name: 'اردو',
+                fullName: 'اردو (پاکستان)',
+                brand: 'ساسیفائی ایم وی پی',
+                nav_dashboard: 'ڈیش بورڈ',
+                nav_analytics: 'تجزیات',
+                nav_settings: 'ترتیبات',
+                sys_default_badge: 'ڈیفالٹ: انگریزی',
+                page_title: 'خوش آمدید، الیکس',
+                page_subtitle: 'آج آپ کی پروڈکٹ کی تازہ ترین صورتحال درج ذیل ہے۔',
+                stat_users: 'کل فعال صارفین',
+                stat_revenue: 'ماہانہ آمدنی',
+                stat_conversion: 'تبدیلی کی شرح',
+                stat_status: 'سسٹم کی صورتحال',
+                status_optimal: '100% بہترین فعال',
+                lang_setting_title: 'زبان اور علاقائی ترتیبات',
+                lang_setting_desc: 'ایپلیکیشن میں اپنی بنیادی زبان اور سسٹم کی ترجیحات کا انتظام کریں۔',
+                default_lang_label: 'ڈیفالٹ سسٹم زبان',
+                default_lang_val: 'انگریزی (امریکہ)',
+                current_session_lang: 'فعال سیشن کی زبان',
+                act_export: 'رپورٹ برآمد کریں',
+                act_invite: 'ساتھی کو مدعو کریں',
+                act_manage: 'سسٹم کی ترتیبات دیکھیں',
+                recent_activity: 'حالیہ سسٹم سرگرمی',
+                act_1: 'صارف john_doe@ نے پرو پلان اپ گریڈ کیا',
+                act_2: 'ڈیفالٹ زبان انگریزی سیٹ کی گئی',
+                act_3: 'ڈیٹا بیس بیک اپ کامیابی سے مکمل ہو گیا'
+            },
+            es: {
+                dir: 'ltr',
+                flag: '🇪🇸',
+                name: 'Español',
+                fullName: 'Español (España)',
+                brand: 'SaaSify MVP',
+                nav_dashboard: 'Panel Principal',
+                nav_analytics: 'Analítica',
+                nav_settings: 'Ajustes',
+                sys_default_badge: 'Predeterminado: Inglés',
+                page_title: 'Bienvenido de nuevo, Alex',
+                page_subtitle: 'Esto es lo que está pasando con tu producto hoy.',
+                stat_users: 'Usuarios Activos Totales',
+                stat_revenue: 'Ingresos Mensuales',
+                stat_conversion: 'Tasa de Conversión',
+                stat_status: 'Estado del Sistema',
+                status_optimal: '100% Operativo',
+                lang_setting_title: 'Configuración de Idioma y Región',
+                lang_setting_desc: 'Gestione sus preferencias de idioma principal en la aplicación.',
+                default_lang_label: 'Idioma Predeterminado del Sistema',
+                default_lang_val: 'Inglés (Estados Unidos)',
+                current_session_lang: 'Idioma de Sesión Activa',
+                act_export: 'Exportar Informe',
+                act_invite: 'Invitar Compañero',
+                act_manage: 'Gestionar Ajustes',
+                recent_activity: 'Actividad Reciente del Sistema',
+                act_1: 'El usuario @john_doe se actualizó al plan Pro',
+                act_2: 'Idioma predeterminado establecido en Inglés',
+                act_3: 'Copia de seguridad completada con éxito'
+            },
+            fr: {
+                dir: 'ltr',
+                flag: '🇫🇷',
+                name: 'Français',
+                fullName: 'Français (France)',
+                brand: 'SaaSify MVP',
+                nav_dashboard: 'Tableau de bord',
+                nav_analytics: 'Analytique',
+                nav_settings: 'Paramètres',
+                sys_default_badge: 'Par défaut: Anglais',
+                page_title: 'Bon retour, Alex',
+                page_subtitle: 'Voici ce qui se passe avec votre produit aujourd\'hui.',
+                stat_users: 'Utilisateurs Actifs',
+                stat_revenue: 'Revenu Mensuel',
+                stat_conversion: 'Taux de Conversion',
+                stat_status: 'Santé du Système',
+                status_optimal: '100% Opérationnel',
+                lang_setting_title: 'Langue et Paramètres Régionaux',
+                lang_setting_desc: 'Gérez vos préférences linguistiques dans l\'application.',
+                default_lang_label: 'Langue par Défaut du Système',
+                default_lang_val: 'Anglais (États-Unis)',
+                current_session_lang: 'Langue de la Session Active',
+                act_export: 'Exporter le Rapport',
+                act_invite: 'Inviter un Membre',
+                act_manage: 'Gérer les Paramètres',
+                recent_activity: 'Activité Récente du Système',
+                act_1: 'L\'utilisateur @john_doe a surclassé vers le plan Pro',
+                act_2: 'Langue par défaut configurée sur Anglais',
+                act_3: 'Sauvegarde de la base de données réussie'
+            },
+            ar: {
+                dir: 'rtl',
+                flag: '🇸🇦',
+                name: 'العربية',
+                fullName: 'العربية (السعودية)',
+                brand: 'ساسيفاي MVP',
+                nav_dashboard: 'لوحة التحكم',
+                nav_analytics: 'التحليلات',
+                nav_settings: 'الإعدادات',
+                sys_default_badge: 'الافتراضي: الإنجليزية',
+                page_title: 'مرحباً بعودتك، أليكس',
+                page_subtitle: 'إليك ما يحدث مع منتجك اليوم.',
+                stat_users: 'إجمالي المستخدمين النشطين',
+                stat_revenue: 'الإيرادات الشهرية',
+                stat_conversion: 'معدل التحويل',
+                stat_status: 'حالة النظام',
+                status_optimal: '100% تعمل بنجاح',
+                lang_setting_title: 'إعدادات اللغة والمنطقة',
+                lang_setting_desc: 'إدارة تفضيلات اللغة الأساسية عبر التطبيق.',
+                default_lang_label: 'لغة النظام الافتراضية',
+                default_lang_val: 'الإنجليزية (الولايات المتحدة)',
+                current_session_lang: 'لغة الجلسة النشطة',
+                act_export: 'تصدير التقرير',
+                act_invite: 'دعوة زميل',
+                act_manage: 'إدارة إعدادات النظام',
+                recent_activity: 'نشاط النظام الحديث',
+                act_1: 'قام المستخدم john_doe@ بالترقية للخطة الاحترافية',
+                act_2: 'تم ضبط اللغة الافتراضية إلى الإنجليزية',
+                act_3: 'تم إكمال النسخ الاحتياطي لقاعدة البيانات بنجاح'
+            }
+        };
+
+        let currentLang = 'en'; // System Default Language
+
+        function toggleDropdown() {
+            const menu = document.getElementById('lang-dropdown-menu');
+            const chevron = document.getElementById('dropdown-chevron');
+            
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                setTimeout(() => {
+                    menu.classList.remove('opacity-0', 'scale-95');
+                    menu.classList.add('opacity-100', 'scale-100');
+                }, 10);
+                chevron.classList.add('rotate-180');
+            } else {
+                closeDropdown();
+            }
+        }
+
+        function closeDropdown() {
+            const menu = document.getElementById('lang-dropdown-menu');
+            const chevron = document.getElementById('dropdown-chevron');
+            
+            menu.classList.remove('opacity-100', 'scale-100');
+            menu.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+                menu.classList.add('hidden');
+            }, 150);
+            chevron.classList.remove('rotate-180');
+        }
+
+        function selectLanguage(langCode) {
+            currentLang = langCode;
+            const data = i18nData[langCode];
+
+            // Update Text Direction
+            document.documentElement.setAttribute('dir', data.dir);
+            document.documentElement.setAttribute('lang', langCode);
+
+            // Update Display Button in Header
+            const displayBtn = document.getElementById('selected-lang-display');
+            const isDefault = (langCode === 'en');
+            
+            displayBtn.innerHTML = `
+                <span class="text-base">${data.flag}</span>
+                <span class="font-semibold text-slate-800">${data.name}</span>
+                ${isDefault ? '<span class="text-[10px] uppercase tracking-wider bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded font-bold">Default</span>' : ''}
+            `;
+
+            // Update Checkmark Indicators in Dropdown
+            document.querySelectorAll('.lang-option').forEach(btn => {
+                const checkIcon = btn.querySelector('.check-icon');
+                const btnLang = btn.getAttribute('data-lang');
+                if (btnLang === langCode) {
+                    checkIcon.classList.remove('hidden');
+                    btn.classList.add('bg-indigo-50/70', 'font-semibold');
+                } else {
+                    checkIcon.classList.add('hidden');
+                    btn.classList.remove('bg-indigo-50/70', 'font-semibold');
+                }
+            });
+
+            // Update Active Session Card in UI
+            document.getElementById('active-lang-flag').textContent = data.flag;
+            document.getElementById('active-lang-name').textContent = data.fullName;
+            document.getElementById('active-lang-status').textContent = isDefault ? 'Matches System Default' : 'Custom Preference';
+
+            // Translate Text Elements throughout UI
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (data[key]) {
+                    element.textContent = data[key];
+                }
+            });
+
+            closeDropdown();
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const container = document.getElementById('language-dropdown-container');
+            if (!container.contains(event.target)) {
+                closeDropdown();
+            }
+        });
+    </script>
+
+</body>
+</html>

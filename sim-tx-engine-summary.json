@@ -1,0 +1,129 @@
+{
+  "reconciliation": {
+    "ok": true,
+    "unmatchedLinks": 0,
+    "totalTransactions": 592,
+    "totalFeesCollected": 3690.6,
+    "vaultCount": 14,
+    "note": "Double-entry corridor links reconciled. Fees itemized on sender gross; beneficiary receives net."
+  },
+  "period": {
+    "from": "2025-08",
+    "to": "2026-07",
+    "months": 12
+  },
+  "vaults": [
+    {
+      "seq": 1,
+      "name": "HASSAN RAZA",
+      "vaultId": "CV-ARC-100001-UAE-2026",
+      "opening": 262000,
+      "ending": 558965.25,
+      "tx": 64
+    },
+    {
+      "seq": 2,
+      "name": "SANA MALIK",
+      "vaultId": "CV-ARC-100002-UAE-2026",
+      "opening": 15800,
+      "ending": 48429.56,
+      "tx": 24
+    },
+    {
+      "seq": 3,
+      "name": "RAJESH NAIR",
+      "vaultId": "CV-ARC-100003-UAE-2026",
+      "opening": 286000,
+      "ending": 549489.45,
+      "tx": 48
+    },
+    {
+      "seq": 4,
+      "name": "ANANYA SHARMA",
+      "vaultId": "CV-ARC-100004-UAE-2026",
+      "opening": 16600,
+      "ending": 55519.2,
+      "tx": 24
+    },
+    {
+      "seq": 5,
+      "name": "OMAR AL MAKTOUM",
+      "vaultId": "CV-ARC-100005-UAE-2026",
+      "opening": 310000,
+      "ending": 572019.33,
+      "tx": 64
+    },
+    {
+      "seq": 6,
+      "name": "KHALID AL SUWAIDI",
+      "vaultId": "CV-ARC-100006-UAE-2026",
+      "opening": 322000,
+      "ending": 588458.17,
+      "tx": 48
+    },
+    {
+      "seq": 7,
+      "name": "JORDAN HAYES",
+      "vaultId": "CV-ARC-100007-US-2026",
+      "opening": 334000,
+      "ending": 794598.86,
+      "tx": 64
+    },
+    {
+      "seq": 8,
+      "name": "MAYA BROOKS",
+      "vaultId": "CV-ARC-100008-US-2026",
+      "opening": 18200,
+      "ending": 91307.96,
+      "tx": 12
+    },
+    {
+      "seq": 9,
+      "name": "OLIVIA BENNETT",
+      "vaultId": "CV-ARC-100009-GB-2026",
+      "opening": 18600,
+      "ending": 76126.68,
+      "tx": 12
+    },
+    {
+      "seq": 10,
+      "name": "WILLIAM CARTER",
+      "vaultId": "CV-ARC-100010-GB-2026",
+      "opening": 370000,
+      "ending": 790248.46,
+      "tx": 64
+    },
+    {
+      "seq": 11,
+      "name": "BILAL AHMED",
+      "vaultId": "CV-ARC-100011-PK-2026",
+      "opening": 382000,
+      "ending": 875342.54,
+      "tx": 60
+    },
+    {
+      "seq": 12,
+      "name": "AYESHA KHAN",
+      "vaultId": "CV-ARC-100012-PK-2026",
+      "opening": 19800,
+      "ending": 21319.8,
+      "tx": 24
+    },
+    {
+      "seq": 13,
+      "name": "ARJUN PATEL",
+      "vaultId": "CV-ARC-100013-IN-2026",
+      "opening": 406000,
+      "ending": 981461.26,
+      "tx": 60
+    },
+    {
+      "seq": 14,
+      "name": "NEHA GUPTA",
+      "vaultId": "CV-ARC-100014-IN-2026",
+      "opening": 20600,
+      "ending": 22775.72,
+      "tx": 24
+    }
+  ]
+}

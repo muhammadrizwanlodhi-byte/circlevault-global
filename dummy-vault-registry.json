@@ -1,0 +1,4937 @@
+{
+  "masterAdmin": {
+    "id": "admin_master_001",
+    "role": "System Super Admin / Compliance Director",
+    "title": "System Overseer & Root Access",
+    "name": "CIRCLEVAULT MASTER ADMIN",
+    "email": "master.admin@circlevault.system",
+    "vaultId": "CV-ARC-000000-SYS-2026",
+    "capabilities": [
+      "view_global_account_list",
+      "toggle_active_inactive_suspend_delete",
+      "passwordless_impersonate_inspect",
+      "enter_account_steps_1_6",
+      "view_kyc_metadata"
+    ],
+    "passwordless": true,
+    "isMasterAdmin": true,
+    "createdAt": "2026-08-03T19:33:05.364Z",
+    "sessionActive": true,
+    "lastLaunchAt": "2026-08-03T19:33:05.364Z"
+  },
+  "registry": {
+    "version": 2,
+    "label": "CircleVault Master Admin — Dummy Vault Registry",
+    "generatedAt": "2026-08-03T19:33:05.367Z",
+    "count": 14,
+    "note": "Managed by Master Admin. Does not overwrite system draft/ledger unless Enter Account is used.",
+    "accounts": [
+      {
+        "id": "dummy_01",
+        "seq": 1,
+        "isDummy": true,
+        "dummyBadge": "DUMMY ACCOUNT",
+        "status": "active",
+        "statusHistory": [
+          {
+            "status": "active",
+            "at": "2026-08-03T19:33:05.365Z",
+            "by": "master_admin"
+          }
+        ],
+        "profileType": "Resident Businessman",
+        "occupation": "Trade / Import-Export Owner",
+        "purpose": "UAE resident trade corridor",
+        "vaultId": "CV-ARC-100001-UAE-2026",
+        "vaultDigits": "100001",
+        "countryCode": "UAE",
+        "year": "2026",
+        "arcOnChainId": "0x2F3...38E4",
+        "holderName": "HASSAN RAZA",
+        "firstName": "Hassan",
+        "lastName": "Raza",
+        "country": "United Arab Emirates",
+        "nationality": "Pakistan",
+        "city": "Dubai",
+        "region": "Dubai",
+        "jurisdictionLabel": "United Arab Emirates / UAE Corridor",
+        "settlementBank": "Emirates NBD",
+        "settlementIbanMasked": "AE07 0331 **** **** 3456",
+        "settlementIbanRaw": "AE070331234567890123456",
+        "email": "hassan.raza.dummy@circlevault.test",
+        "mobile": "+971 501234001",
+        "biometricStatus": "3D Liveness & Age-Gap Verified",
+        "complianceStatus": "Fully Verified (AML/CFT)",
+        "hierarchy": {
+          "vaultHolder": "HASSAN RAZA",
+          "nextOfKin": {
+            "name": "Ayesha Raza",
+            "relationship": "spouse",
+            "tier": 1
+          },
+          "succession": {
+            "tier": 2,
+            "status": "deferred_optional",
+            "claimStatus": "idle"
+          },
+          "paymentRoutes": [
+            {
+              "id": "pm_dummy_1_1",
+              "type": "bank_iban",
+              "value": "AE070331234567890123456",
+              "cardHolder": "",
+              "cardExpiry": "",
+              "cardCvv": "",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": false,
+              "isDefault": true,
+              "bound": true
+            },
+            {
+              "id": "pm_dummy_1_2",
+              "type": "card_visa",
+              "value": "4111111111111001",
+              "cardHolder": "Hassan Raza",
+              "cardExpiry": "12/28",
+              "cardCvv": "123",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": true,
+              "isDefault": false,
+              "bound": true
+            }
+          ],
+          "settlement": {
+            "bank": "Emirates NBD",
+            "ibanRaw": "AE070331234567890123456",
+            "iban": "AE07 0331 **** **** 3456"
+          }
+        },
+        "credentials": {
+          "txPinSet": true,
+          "twoFa": "authenticator",
+          "twoFaVerified": true,
+          "amlAccepted": true,
+          "loginPasswordSet": true,
+          "activationComplete": true
+        },
+        "draft": {
+          "savedAt": "2026-08-03T19:33:05.365Z",
+          "step": 6,
+          "regMode": "hub",
+          "activeRegTab": null,
+          "isDummy": true,
+          "dummyLabel": "DUMMY ACCOUNT",
+          "dummyProfileId": 1,
+          "fields": {
+            "countrySelect": "United Arab Emirates",
+            "nationalitySelect": "Pakistan",
+            "regionInput": "Dubai",
+            "cityInput": "Dubai",
+            "firstName": "Hassan",
+            "lastName": "Raza",
+            "complianceFramework": "uae_cb",
+            "docIdInput": "784-1990-1000001-1",
+            "dobInput": "1988-02-11",
+            "docIssueInput": "2018-06-15",
+            "docExpiryInput": "2030-06-15",
+            "empStatus": "business",
+            "otherProfessionInput": "Trade / Import-Export Owner",
+            "incomeRange": "5000-15000",
+            "sourceOfWealth": "business",
+            "tinInput": "TIN-AE-PK-100001",
+            "bankName": "Emirates NBD",
+            "bankBranch": "Dubai Main Branch",
+            "bankIban": "AE070331234567890123456",
+            "emailInput": "hassan.raza.dummy@circlevault.test",
+            "mobileInput": "501234001",
+            "dialCodeSelect": "+971",
+            "settleBankName": "Emirates NBD",
+            "settleAccountTitle": "HASSAN RAZA",
+            "settleIban": "AE070331234567890123456",
+            "settleSwift": "EBILAEAD",
+            "settleBranch": "Emirates NBD · Dubai",
+            "nokFullName": "Ayesha Raza",
+            "nokRelationship": "spouse",
+            "nokIdType": "cnic",
+            "nokIdNumber": "NOK-100001",
+            "nokMobile": "501234999",
+            "nokOtp": "123456",
+            "txPin": "123456",
+            "txPinConfirm": "123456",
+            "twoFaOtp": "654321",
+            "masterPassword": "",
+            "masterPasswordConfirm": "",
+            "vaultLoginDigits": "100001",
+            "loginPassword": "Dummy@Vault1",
+            "loginPasswordConfirm": "Dummy@Vault1",
+            "activationEmail": "hassan.raza.dummy@circlevault.test",
+            "activationEmailOtp": "111111",
+            "activationPhone": "501234001",
+            "activationPhoneOtp": "222222"
+          },
+          "checks": {
+            "regDeclResident": true,
+            "regDeclPep": false,
+            "regDeclSanctions": true,
+            "lifetimeExpiry": false,
+            "amlCompliance": true
+          },
+          "radios": {},
+          "meta": {
+            "selectedDocKey": "eid",
+            "docExpiryValue": "2030-06-15",
+            "livenessDone": true,
+            "aiPassed": true,
+            "nokOtpVerified": true,
+            "nokLivenessDone": true,
+            "successionClaimStatus": "idle",
+            "uploads": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_1_1": true
+            },
+            "savedSlots": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_1_1": true
+            },
+            "twoFa": "authenticator",
+            "primarySettlement": {
+              "bank": "Emirates NBD",
+              "ibanRaw": "AE070331234567890123456",
+              "iban": "AE07 0331 **** **** 3456"
+            },
+            "nextOfKin": {
+              "fullName": "Ayesha Raza",
+              "relationship": "spouse",
+              "idType": "cnic",
+              "idNumber": "NOK-100001",
+              "mobile": "501234999",
+              "otpVerified": true,
+              "livenessDone": true,
+              "affidavits": [
+                {
+                  "id": "aff_nok_1_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_1.pdf",
+                  "uploaded": true
+                }
+              ]
+            },
+            "succession": {
+              "optional": true,
+              "claimStatus": "idle",
+              "affidavits": []
+            },
+            "affidavitState": {
+              "nok": [
+                {
+                  "id": "aff_nok_1_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_1.pdf"
+                }
+              ],
+              "succession": [],
+              "seq": {
+                "nok": 1,
+                "succession": 0
+              }
+            },
+            "paymentMethods": [
+              {
+                "id": "pm_dummy_1_1",
+                "type": "bank_iban",
+                "value": "AE070331234567890123456",
+                "cardHolder": "",
+                "cardExpiry": "",
+                "cardCvv": "",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": false,
+                "isDefault": true,
+                "bound": true
+              },
+              {
+                "id": "pm_dummy_1_2",
+                "type": "card_visa",
+                "value": "4111111111111001",
+                "cardHolder": "Hassan Raza",
+                "cardExpiry": "12/28",
+                "cardCvv": "123",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": true,
+                "isDefault": false,
+                "bound": true
+              }
+            ],
+            "kycDocumentPayloads": {
+              "frontScan": {
+                "fileName": "kyc_front_100001.jpg",
+                "hash": "sha256:9d39a27109faabaf92d68cd1747e1fd3",
+                "status": "verified"
+              },
+              "backScan": {
+                "fileName": "kyc_back_100001.jpg",
+                "hash": "sha256:3dbbca2f79bd7bb164279bcf9718760d",
+                "status": "verified"
+              },
+              "selfie": {
+                "fileName": "kyc_selfie_100001.jpg",
+                "hash": "sha256:b6ef84662701085a50c12aa69c90c032",
+                "status": "verified"
+              },
+              "addressProof": {
+                "fileName": "kyc_address_100001.pdf",
+                "hash": "sha256:32e7971f2a0b4cc149c042bf0c8254dd",
+                "status": "verified"
+              },
+              "bankStatement": {
+                "fileName": "kyc_bank_100001.pdf",
+                "hash": "sha256:96f36d24477a375c323c5aa43e90d96c",
+                "status": "verified"
+              },
+              "nokDoc": {
+                "fileName": "nok_id_100001.jpg",
+                "hash": "sha256:4dfeef8071df00808d98bf80e9748e80",
+                "status": "verified"
+              }
+            },
+            "iso20022Identity": {
+              "endToEndId": "ID-CV-DUMMY100001",
+              "purposeCode": "IDEN",
+              "timestamp": "2026-08-03T19:33:05.365Z",
+              "party": {
+                "firstName": "Hassan",
+                "lastName": "Raza",
+                "country": "United Arab Emirates",
+                "nationality": "Pakistan",
+                "tin": "TIN-AE-PK-100001",
+                "docId": "784-1990-1000001-1"
+              },
+              "nextOfKin": {
+                "fullName": "Ayesha Raza",
+                "relationship": "spouse",
+                "otpVerified": true,
+                "livenessDone": true,
+                "docUploaded": true,
+                "affidavitsUploaded": 1
+              },
+              "succession": {
+                "optional": true,
+                "deferredSetup": true,
+                "claimStatus": "idle"
+              }
+            },
+            "stepCompletion": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true,
+              "6": true
+            },
+            "completionPct": 100
+          }
+        },
+        "generatedAt": "2026-08-03T19:33:05.365Z",
+        "suiteVersion": 2
+      },
+      {
+        "id": "dummy_02",
+        "seq": 2,
+        "isDummy": true,
+        "dummyBadge": "DUMMY ACCOUNT",
+        "status": "active",
+        "statusHistory": [
+          {
+            "status": "active",
+            "at": "2026-08-03T19:33:05.366Z",
+            "by": "master_admin"
+          }
+        ],
+        "profileType": "Resident Employee",
+        "occupation": "Corporate Manager",
+        "purpose": "UAE resident corporate employment",
+        "vaultId": "CV-ARC-100002-UAE-2026",
+        "vaultDigits": "100002",
+        "countryCode": "UAE",
+        "year": "2026",
+        "arcOnChainId": "0x2F3...3AD3",
+        "holderName": "SANA MALIK",
+        "firstName": "Sana",
+        "lastName": "Malik",
+        "country": "United Arab Emirates",
+        "nationality": "Pakistan",
+        "city": "Abu Dhabi",
+        "region": "Abu Dhabi",
+        "jurisdictionLabel": "United Arab Emirates / UAE Corridor",
+        "settlementBank": "First Abu Dhabi Bank",
+        "settlementIbanMasked": "AE07 0331 **** **** 3457",
+        "settlementIbanRaw": "AE070331234567890123457",
+        "email": "sana.malik.dummy@circlevault.test",
+        "mobile": "+971 501234002",
+        "biometricStatus": "3D Liveness & Age-Gap Verified",
+        "complianceStatus": "Fully Verified (AML/CFT)",
+        "hierarchy": {
+          "vaultHolder": "SANA MALIK",
+          "nextOfKin": {
+            "name": "Imran Malik",
+            "relationship": "spouse",
+            "tier": 1
+          },
+          "succession": {
+            "tier": 2,
+            "status": "deferred_optional",
+            "claimStatus": "idle"
+          },
+          "paymentRoutes": [
+            {
+              "id": "pm_dummy_2_1",
+              "type": "bank_iban",
+              "value": "AE070331234567890123457",
+              "cardHolder": "",
+              "cardExpiry": "",
+              "cardCvv": "",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": false,
+              "isDefault": true,
+              "bound": true
+            },
+            {
+              "id": "pm_dummy_2_2",
+              "type": "card_visa",
+              "value": "4111111111111002",
+              "cardHolder": "Sana Malik",
+              "cardExpiry": "12/28",
+              "cardCvv": "123",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": true,
+              "isDefault": false,
+              "bound": true
+            }
+          ],
+          "settlement": {
+            "bank": "First Abu Dhabi Bank",
+            "ibanRaw": "AE070331234567890123457",
+            "iban": "AE07 0331 **** **** 3457"
+          }
+        },
+        "credentials": {
+          "txPinSet": true,
+          "twoFa": "authenticator",
+          "twoFaVerified": true,
+          "amlAccepted": true,
+          "loginPasswordSet": true,
+          "activationComplete": true
+        },
+        "draft": {
+          "savedAt": "2026-08-03T19:33:05.365Z",
+          "step": 6,
+          "regMode": "hub",
+          "activeRegTab": null,
+          "isDummy": true,
+          "dummyLabel": "DUMMY ACCOUNT",
+          "dummyProfileId": 2,
+          "fields": {
+            "countrySelect": "United Arab Emirates",
+            "nationalitySelect": "Pakistan",
+            "regionInput": "Abu Dhabi",
+            "cityInput": "Abu Dhabi",
+            "firstName": "Sana",
+            "lastName": "Malik",
+            "complianceFramework": "uae_cb",
+            "docIdInput": "784-1988-1000002-2",
+            "dobInput": "1988-03-12",
+            "docIssueInput": "2018-06-15",
+            "docExpiryInput": "2030-06-15",
+            "empStatus": "salaried",
+            "otherProfessionInput": "Corporate Manager",
+            "incomeRange": "5000-15000",
+            "sourceOfWealth": "salary",
+            "tinInput": "TIN-AE-PK-100002",
+            "bankName": "First Abu Dhabi Bank",
+            "bankBranch": "Abu Dhabi Main Branch",
+            "bankIban": "AE070331234567890123457",
+            "emailInput": "sana.malik.dummy@circlevault.test",
+            "mobileInput": "501234002",
+            "dialCodeSelect": "+971",
+            "settleBankName": "First Abu Dhabi Bank",
+            "settleAccountTitle": "SANA MALIK",
+            "settleIban": "AE070331234567890123457",
+            "settleSwift": "NBADAEAA",
+            "settleBranch": "First Abu Dhabi Bank · Abu Dhabi",
+            "nokFullName": "Imran Malik",
+            "nokRelationship": "spouse",
+            "nokIdType": "cnic",
+            "nokIdNumber": "NOK-100002",
+            "nokMobile": "501234999",
+            "nokOtp": "123456",
+            "txPin": "123456",
+            "txPinConfirm": "123456",
+            "twoFaOtp": "654321",
+            "masterPassword": "",
+            "masterPasswordConfirm": "",
+            "vaultLoginDigits": "100002",
+            "loginPassword": "Dummy@Vault1",
+            "loginPasswordConfirm": "Dummy@Vault1",
+            "activationEmail": "sana.malik.dummy@circlevault.test",
+            "activationEmailOtp": "111111",
+            "activationPhone": "501234002",
+            "activationPhoneOtp": "222222"
+          },
+          "checks": {
+            "regDeclResident": true,
+            "regDeclPep": false,
+            "regDeclSanctions": true,
+            "lifetimeExpiry": false,
+            "amlCompliance": true
+          },
+          "radios": {},
+          "meta": {
+            "selectedDocKey": "eid",
+            "docExpiryValue": "2030-06-15",
+            "livenessDone": true,
+            "aiPassed": true,
+            "nokOtpVerified": true,
+            "nokLivenessDone": true,
+            "successionClaimStatus": "idle",
+            "uploads": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_2_1": true
+            },
+            "savedSlots": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_2_1": true
+            },
+            "twoFa": "authenticator",
+            "primarySettlement": {
+              "bank": "First Abu Dhabi Bank",
+              "ibanRaw": "AE070331234567890123457",
+              "iban": "AE07 0331 **** **** 3457"
+            },
+            "nextOfKin": {
+              "fullName": "Imran Malik",
+              "relationship": "spouse",
+              "idType": "cnic",
+              "idNumber": "NOK-100002",
+              "mobile": "501234999",
+              "otpVerified": true,
+              "livenessDone": true,
+              "affidavits": [
+                {
+                  "id": "aff_nok_2_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_2.pdf",
+                  "uploaded": true
+                }
+              ]
+            },
+            "succession": {
+              "optional": true,
+              "claimStatus": "idle",
+              "affidavits": []
+            },
+            "affidavitState": {
+              "nok": [
+                {
+                  "id": "aff_nok_2_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_2.pdf"
+                }
+              ],
+              "succession": [],
+              "seq": {
+                "nok": 1,
+                "succession": 0
+              }
+            },
+            "paymentMethods": [
+              {
+                "id": "pm_dummy_2_1",
+                "type": "bank_iban",
+                "value": "AE070331234567890123457",
+                "cardHolder": "",
+                "cardExpiry": "",
+                "cardCvv": "",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": false,
+                "isDefault": true,
+                "bound": true
+              },
+              {
+                "id": "pm_dummy_2_2",
+                "type": "card_visa",
+                "value": "4111111111111002",
+                "cardHolder": "Sana Malik",
+                "cardExpiry": "12/28",
+                "cardCvv": "123",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": true,
+                "isDefault": false,
+                "bound": true
+              }
+            ],
+            "kycDocumentPayloads": {
+              "frontScan": {
+                "fileName": "kyc_front_100002.jpg",
+                "hash": "sha256:9a399db8acfa19486fd4c2b8eb7bb528",
+                "status": "verified"
+              },
+              "backScan": {
+                "fileName": "kyc_back_100002.jpg",
+                "hash": "sha256:3ebbcbc298bdac7ec52834821a194446",
+                "status": "verified"
+              },
+              "selfie": {
+                "fileName": "kyc_selfie_100002.jpg",
+                "hash": "sha256:b5ef82d30800d78defc091f3198ff1f9",
+                "status": "verified"
+              },
+              "addressProof": {
+                "fileName": "kyc_address_100002.pdf",
+                "hash": "sha256:33e798b2490b7d8eaac0db728f832316",
+                "status": "verified"
+              },
+              "bankStatement": {
+                "fileName": "kyc_bank_100002.pdf",
+                "hash": "sha256:99f371dda47ac9c3553e24bdc7934417",
+                "status": "verified"
+              },
+              "nokDoc": {
+                "fileName": "nok_id_100002.jpg",
+                "hash": "sha256:50fef439cedf92e7b09a89997276f92b",
+                "status": "verified"
+              }
+            },
+            "iso20022Identity": {
+              "endToEndId": "ID-CV-DUMMY100002",
+              "purposeCode": "IDEN",
+              "timestamp": "2026-08-03T19:33:05.366Z",
+              "party": {
+                "firstName": "Sana",
+                "lastName": "Malik",
+                "country": "United Arab Emirates",
+                "nationality": "Pakistan",
+                "tin": "TIN-AE-PK-100002",
+                "docId": "784-1988-1000002-2"
+              },
+              "nextOfKin": {
+                "fullName": "Imran Malik",
+                "relationship": "spouse",
+                "otpVerified": true,
+                "livenessDone": true,
+                "docUploaded": true,
+                "affidavitsUploaded": 1
+              },
+              "succession": {
+                "optional": true,
+                "deferredSetup": true,
+                "claimStatus": "idle"
+              }
+            },
+            "stepCompletion": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true,
+              "6": true
+            },
+            "completionPct": 100
+          }
+        },
+        "generatedAt": "2026-08-03T19:33:05.366Z",
+        "suiteVersion": 2
+      },
+      {
+        "id": "dummy_03",
+        "seq": 3,
+        "isDummy": true,
+        "dummyBadge": "DUMMY ACCOUNT",
+        "status": "active",
+        "statusHistory": [
+          {
+            "status": "active",
+            "at": "2026-08-03T19:33:05.366Z",
+            "by": "master_admin"
+          }
+        ],
+        "profileType": "Resident Businessman",
+        "occupation": "Retail Enterprise Owner",
+        "purpose": "UAE resident retail enterprise",
+        "vaultId": "CV-ARC-100003-UAE-2026",
+        "vaultDigits": "100003",
+        "countryCode": "UAE",
+        "year": "2026",
+        "arcOnChainId": "0x2F3...3CC2",
+        "holderName": "RAJESH NAIR",
+        "firstName": "Rajesh",
+        "lastName": "Nair",
+        "country": "United Arab Emirates",
+        "nationality": "India",
+        "city": "Sharjah",
+        "region": "Sharjah",
+        "jurisdictionLabel": "United Arab Emirates / UAE Corridor",
+        "settlementBank": "Mashreq Bank",
+        "settlementIbanMasked": "AE07 0331 **** **** 3458",
+        "settlementIbanRaw": "AE070331234567890123458",
+        "email": "rajesh.nair.dummy@circlevault.test",
+        "mobile": "+971 501234003",
+        "biometricStatus": "3D Liveness & Age-Gap Verified",
+        "complianceStatus": "Fully Verified (AML/CFT)",
+        "hierarchy": {
+          "vaultHolder": "RAJESH NAIR",
+          "nextOfKin": {
+            "name": "Priya Nair",
+            "relationship": "spouse",
+            "tier": 1
+          },
+          "succession": {
+            "tier": 2,
+            "status": "deferred_optional",
+            "claimStatus": "idle"
+          },
+          "paymentRoutes": [
+            {
+              "id": "pm_dummy_3_1",
+              "type": "bank_iban",
+              "value": "AE070331234567890123458",
+              "cardHolder": "",
+              "cardExpiry": "",
+              "cardCvv": "",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": false,
+              "isDefault": true,
+              "bound": true
+            },
+            {
+              "id": "pm_dummy_3_2",
+              "type": "card_visa",
+              "value": "4111111111111003",
+              "cardHolder": "Rajesh Nair",
+              "cardExpiry": "12/28",
+              "cardCvv": "123",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": true,
+              "isDefault": false,
+              "bound": true
+            }
+          ],
+          "settlement": {
+            "bank": "Mashreq Bank",
+            "ibanRaw": "AE070331234567890123458",
+            "iban": "AE07 0331 **** **** 3458"
+          }
+        },
+        "credentials": {
+          "txPinSet": true,
+          "twoFa": "authenticator",
+          "twoFaVerified": true,
+          "amlAccepted": true,
+          "loginPasswordSet": true,
+          "activationComplete": true
+        },
+        "draft": {
+          "savedAt": "2026-08-03T19:33:05.366Z",
+          "step": 6,
+          "regMode": "hub",
+          "activeRegTab": null,
+          "isDummy": true,
+          "dummyLabel": "DUMMY ACCOUNT",
+          "dummyProfileId": 3,
+          "fields": {
+            "countrySelect": "United Arab Emirates",
+            "nationalitySelect": "India",
+            "regionInput": "Sharjah",
+            "cityInput": "Sharjah",
+            "firstName": "Rajesh",
+            "lastName": "Nair",
+            "complianceFramework": "uae_cb",
+            "docIdInput": "784-1985-1000003-3",
+            "dobInput": "1988-04-13",
+            "docIssueInput": "2018-06-15",
+            "docExpiryInput": "2030-06-15",
+            "empStatus": "business",
+            "otherProfessionInput": "Retail Enterprise Owner",
+            "incomeRange": "5000-15000",
+            "sourceOfWealth": "business",
+            "tinInput": "TIN-AE-IN-100003",
+            "bankName": "Mashreq Bank",
+            "bankBranch": "Sharjah Main Branch",
+            "bankIban": "AE070331234567890123458",
+            "emailInput": "rajesh.nair.dummy@circlevault.test",
+            "mobileInput": "501234003",
+            "dialCodeSelect": "+971",
+            "settleBankName": "Mashreq Bank",
+            "settleAccountTitle": "RAJESH NAIR",
+            "settleIban": "AE070331234567890123458",
+            "settleSwift": "BOMLAEAD",
+            "settleBranch": "Mashreq Bank · Sharjah",
+            "nokFullName": "Priya Nair",
+            "nokRelationship": "spouse",
+            "nokIdType": "passport",
+            "nokIdNumber": "NOK-100003",
+            "nokMobile": "501234999",
+            "nokOtp": "123456",
+            "txPin": "123456",
+            "txPinConfirm": "123456",
+            "twoFaOtp": "654321",
+            "masterPassword": "",
+            "masterPasswordConfirm": "",
+            "vaultLoginDigits": "100003",
+            "loginPassword": "Dummy@Vault1",
+            "loginPasswordConfirm": "Dummy@Vault1",
+            "activationEmail": "rajesh.nair.dummy@circlevault.test",
+            "activationEmailOtp": "111111",
+            "activationPhone": "501234003",
+            "activationPhoneOtp": "222222"
+          },
+          "checks": {
+            "regDeclResident": true,
+            "regDeclPep": false,
+            "regDeclSanctions": true,
+            "lifetimeExpiry": false,
+            "amlCompliance": true
+          },
+          "radios": {},
+          "meta": {
+            "selectedDocKey": "eid",
+            "docExpiryValue": "2030-06-15",
+            "livenessDone": true,
+            "aiPassed": true,
+            "nokOtpVerified": true,
+            "nokLivenessDone": true,
+            "successionClaimStatus": "idle",
+            "uploads": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_3_1": true
+            },
+            "savedSlots": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_3_1": true
+            },
+            "twoFa": "authenticator",
+            "primarySettlement": {
+              "bank": "Mashreq Bank",
+              "ibanRaw": "AE070331234567890123458",
+              "iban": "AE07 0331 **** **** 3458"
+            },
+            "nextOfKin": {
+              "fullName": "Priya Nair",
+              "relationship": "spouse",
+              "idType": "passport",
+              "idNumber": "NOK-100003",
+              "mobile": "501234999",
+              "otpVerified": true,
+              "livenessDone": true,
+              "affidavits": [
+                {
+                  "id": "aff_nok_3_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_3.pdf",
+                  "uploaded": true
+                }
+              ]
+            },
+            "succession": {
+              "optional": true,
+              "claimStatus": "idle",
+              "affidavits": []
+            },
+            "affidavitState": {
+              "nok": [
+                {
+                  "id": "aff_nok_3_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_3.pdf"
+                }
+              ],
+              "succession": [],
+              "seq": {
+                "nok": 1,
+                "succession": 0
+              }
+            },
+            "paymentMethods": [
+              {
+                "id": "pm_dummy_3_1",
+                "type": "bank_iban",
+                "value": "AE070331234567890123458",
+                "cardHolder": "",
+                "cardExpiry": "",
+                "cardCvv": "",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": false,
+                "isDefault": true,
+                "bound": true
+              },
+              {
+                "id": "pm_dummy_3_2",
+                "type": "card_visa",
+                "value": "4111111111111003",
+                "cardHolder": "Rajesh Nair",
+                "cardExpiry": "12/28",
+                "cardCvv": "123",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": true,
+                "isDefault": false,
+                "bound": true
+              }
+            ],
+            "kycDocumentPayloads": {
+              "frontScan": {
+                "fileName": "kyc_front_100003.jpg",
+                "hash": "sha256:9b399f4bcbfa4a15d0d55b6b6e7c8361",
+                "status": "verified"
+              },
+              "backScan": {
+                "fileName": "kyc_back_100003.jpg",
+                "hash": "sha256:3fbbcd55b7bddd4b2628cd359d1a127f",
+                "status": "verified"
+              },
+              "selfie": {
+                "fileName": "kyc_selfie_100003.jpg",
+                "hash": "sha256:b4ef8140e900a6c08ebff940968f23c0",
+                "status": "verified"
+              },
+              "addressProof": {
+                "fileName": "kyc_address_100003.pdf",
+                "hash": "sha256:34e79a45680bae5b0bc174251283f14f",
+                "status": "verified"
+              },
+              "bankStatement": {
+                "fileName": "kyc_bank_100003.pdf",
+                "hash": "sha256:98f3704a857a98f6f43d8c0a449275de",
+                "status": "verified"
+              },
+              "nokDoc": {
+                "fileName": "nok_id_100003.jpg",
+                "hash": "sha256:4ffef2a6afdf621a4f99f0e6ef762af2",
+                "status": "verified"
+              }
+            },
+            "iso20022Identity": {
+              "endToEndId": "ID-CV-DUMMY100003",
+              "purposeCode": "IDEN",
+              "timestamp": "2026-08-03T19:33:05.366Z",
+              "party": {
+                "firstName": "Rajesh",
+                "lastName": "Nair",
+                "country": "United Arab Emirates",
+                "nationality": "India",
+                "tin": "TIN-AE-IN-100003",
+                "docId": "784-1985-1000003-3"
+              },
+              "nextOfKin": {
+                "fullName": "Priya Nair",
+                "relationship": "spouse",
+                "otpVerified": true,
+                "livenessDone": true,
+                "docUploaded": true,
+                "affidavitsUploaded": 1
+              },
+              "succession": {
+                "optional": true,
+                "deferredSetup": true,
+                "claimStatus": "idle"
+              }
+            },
+            "stepCompletion": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true,
+              "6": true
+            },
+            "completionPct": 100
+          }
+        },
+        "generatedAt": "2026-08-03T19:33:05.366Z",
+        "suiteVersion": 2
+      },
+      {
+        "id": "dummy_04",
+        "seq": 4,
+        "isDummy": true,
+        "dummyBadge": "DUMMY ACCOUNT",
+        "status": "active",
+        "statusHistory": [
+          {
+            "status": "active",
+            "at": "2026-08-03T19:33:05.366Z",
+            "by": "master_admin"
+          }
+        ],
+        "profileType": "Resident Employee",
+        "occupation": "Tech / Software Engineer",
+        "purpose": "UAE resident tech employment",
+        "vaultId": "CV-ARC-100004-UAE-2026",
+        "vaultDigits": "100004",
+        "countryCode": "UAE",
+        "year": "2026",
+        "arcOnChainId": "0x2F3...3EB1",
+        "holderName": "ANANYA SHARMA",
+        "firstName": "Ananya",
+        "lastName": "Sharma",
+        "country": "United Arab Emirates",
+        "nationality": "India",
+        "city": "Dubai",
+        "region": "Dubai",
+        "jurisdictionLabel": "United Arab Emirates / UAE Corridor",
+        "settlementBank": "HSBC UAE",
+        "settlementIbanMasked": "AE07 0331 **** **** 3459",
+        "settlementIbanRaw": "AE070331234567890123459",
+        "email": "ananya.sharma.dummy@circlevault.test",
+        "mobile": "+971 501234004",
+        "biometricStatus": "3D Liveness & Age-Gap Verified",
+        "complianceStatus": "Fully Verified (AML/CFT)",
+        "hierarchy": {
+          "vaultHolder": "ANANYA SHARMA",
+          "nextOfKin": {
+            "name": "Vikram Sharma",
+            "relationship": "parent",
+            "tier": 1
+          },
+          "succession": {
+            "tier": 2,
+            "status": "deferred_optional",
+            "claimStatus": "idle"
+          },
+          "paymentRoutes": [
+            {
+              "id": "pm_dummy_4_1",
+              "type": "bank_iban",
+              "value": "AE070331234567890123459",
+              "cardHolder": "",
+              "cardExpiry": "",
+              "cardCvv": "",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": false,
+              "isDefault": true,
+              "bound": true
+            },
+            {
+              "id": "pm_dummy_4_2",
+              "type": "card_visa",
+              "value": "4111111111111004",
+              "cardHolder": "Ananya Sharma",
+              "cardExpiry": "12/28",
+              "cardCvv": "123",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": true,
+              "isDefault": false,
+              "bound": true
+            }
+          ],
+          "settlement": {
+            "bank": "HSBC UAE",
+            "ibanRaw": "AE070331234567890123459",
+            "iban": "AE07 0331 **** **** 3459"
+          }
+        },
+        "credentials": {
+          "txPinSet": true,
+          "twoFa": "authenticator",
+          "twoFaVerified": true,
+          "amlAccepted": true,
+          "loginPasswordSet": true,
+          "activationComplete": true
+        },
+        "draft": {
+          "savedAt": "2026-08-03T19:33:05.366Z",
+          "step": 6,
+          "regMode": "hub",
+          "activeRegTab": null,
+          "isDummy": true,
+          "dummyLabel": "DUMMY ACCOUNT",
+          "dummyProfileId": 4,
+          "fields": {
+            "countrySelect": "United Arab Emirates",
+            "nationalitySelect": "India",
+            "regionInput": "Dubai",
+            "cityInput": "Dubai",
+            "firstName": "Ananya",
+            "lastName": "Sharma",
+            "complianceFramework": "uae_cb",
+            "docIdInput": "784-1992-1000004-4",
+            "dobInput": "1988-05-14",
+            "docIssueInput": "2018-06-15",
+            "docExpiryInput": "2030-06-15",
+            "empStatus": "salaried",
+            "otherProfessionInput": "Tech / Software Engineer",
+            "incomeRange": "5000-15000",
+            "sourceOfWealth": "salary",
+            "tinInput": "TIN-AE-IN-100004",
+            "bankName": "HSBC UAE",
+            "bankBranch": "Dubai Main Branch",
+            "bankIban": "AE070331234567890123459",
+            "emailInput": "ananya.sharma.dummy@circlevault.test",
+            "mobileInput": "501234004",
+            "dialCodeSelect": "+971",
+            "settleBankName": "HSBC UAE",
+            "settleAccountTitle": "ANANYA SHARMA",
+            "settleIban": "AE070331234567890123459",
+            "settleSwift": "BBMEAEAD",
+            "settleBranch": "HSBC UAE · Dubai",
+            "nokFullName": "Vikram Sharma",
+            "nokRelationship": "parent",
+            "nokIdType": "passport",
+            "nokIdNumber": "NOK-100004",
+            "nokMobile": "501234999",
+            "nokOtp": "123456",
+            "txPin": "123456",
+            "txPinConfirm": "123456",
+            "twoFaOtp": "654321",
+            "masterPassword": "",
+            "masterPasswordConfirm": "",
+            "vaultLoginDigits": "100004",
+            "loginPassword": "Dummy@Vault1",
+            "loginPasswordConfirm": "Dummy@Vault1",
+            "activationEmail": "ananya.sharma.dummy@circlevault.test",
+            "activationEmailOtp": "111111",
+            "activationPhone": "501234004",
+            "activationPhoneOtp": "222222"
+          },
+          "checks": {
+            "regDeclResident": true,
+            "regDeclPep": false,
+            "regDeclSanctions": true,
+            "lifetimeExpiry": false,
+            "amlCompliance": true
+          },
+          "radios": {},
+          "meta": {
+            "selectedDocKey": "eid",
+            "docExpiryValue": "2030-06-15",
+            "livenessDone": true,
+            "aiPassed": true,
+            "nokOtpVerified": true,
+            "nokLivenessDone": true,
+            "successionClaimStatus": "idle",
+            "uploads": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_4_1": true
+            },
+            "savedSlots": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_4_1": true
+            },
+            "twoFa": "authenticator",
+            "primarySettlement": {
+              "bank": "HSBC UAE",
+              "ibanRaw": "AE070331234567890123459",
+              "iban": "AE07 0331 **** **** 3459"
+            },
+            "nextOfKin": {
+              "fullName": "Vikram Sharma",
+              "relationship": "parent",
+              "idType": "passport",
+              "idNumber": "NOK-100004",
+              "mobile": "501234999",
+              "otpVerified": true,
+              "livenessDone": true,
+              "affidavits": [
+                {
+                  "id": "aff_nok_4_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_4.pdf",
+                  "uploaded": true
+                }
+              ]
+            },
+            "succession": {
+              "optional": true,
+              "claimStatus": "idle",
+              "affidavits": []
+            },
+            "affidavitState": {
+              "nok": [
+                {
+                  "id": "aff_nok_4_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_4.pdf"
+                }
+              ],
+              "succession": [],
+              "seq": {
+                "nok": 1,
+                "succession": 0
+              }
+            },
+            "paymentMethods": [
+              {
+                "id": "pm_dummy_4_1",
+                "type": "bank_iban",
+                "value": "AE070331234567890123459",
+                "cardHolder": "",
+                "cardExpiry": "",
+                "cardCvv": "",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": false,
+                "isDefault": true,
+                "bound": true
+              },
+              {
+                "id": "pm_dummy_4_2",
+                "type": "card_visa",
+                "value": "4111111111111004",
+                "cardHolder": "Ananya Sharma",
+                "cardExpiry": "12/28",
+                "cardCvv": "123",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": true,
+                "isDefault": false,
+                "bound": true
+              }
+            ],
+            "kycDocumentPayloads": {
+              "frontScan": {
+                "fileName": "kyc_front_100004.jpg",
+                "hash": "sha256:a039a72a66fb3e16b5d856eafd808a7e",
+                "status": "verified"
+              },
+              "backScan": {
+                "fileName": "kyc_back_100004.jpg",
+                "hash": "sha256:38bbc250debc87b07f24a05008146ef0",
+                "status": "verified"
+              },
+              "selfie": {
+                "fileName": "kyc_selfie_100004.jpg",
+                "hash": "sha256:bbef8c45c201fc5b35c426252b94c74f",
+                "status": "verified"
+              },
+              "addressProof": {
+                "fileName": "kyc_address_100004.pdf",
+                "hash": "sha256:2de78f408f0a58c064bd47407d7e4dc0",
+                "status": "verified"
+              },
+              "bankStatement": {
+                "fileName": "kyc_bank_100004.pdf",
+                "hash": "sha256:93f3686bea79a4f50f3a908bb58e6ec1",
+                "status": "verified"
+              },
+              "nokDoc": {
+                "fileName": "nok_id_100004.jpg",
+                "hash": "sha256:52fef75f0cdff481729bbaff7878959d",
+                "status": "verified"
+              }
+            },
+            "iso20022Identity": {
+              "endToEndId": "ID-CV-DUMMY100004",
+              "purposeCode": "IDEN",
+              "timestamp": "2026-08-03T19:33:05.366Z",
+              "party": {
+                "firstName": "Ananya",
+                "lastName": "Sharma",
+                "country": "United Arab Emirates",
+                "nationality": "India",
+                "tin": "TIN-AE-IN-100004",
+                "docId": "784-1992-1000004-4"
+              },
+              "nextOfKin": {
+                "fullName": "Vikram Sharma",
+                "relationship": "parent",
+                "otpVerified": true,
+                "livenessDone": true,
+                "docUploaded": true,
+                "affidavitsUploaded": 1
+              },
+              "succession": {
+                "optional": true,
+                "deferredSetup": true,
+                "claimStatus": "idle"
+              }
+            },
+            "stepCompletion": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true,
+              "6": true
+            },
+            "completionPct": 100
+          }
+        },
+        "generatedAt": "2026-08-03T19:33:05.366Z",
+        "suiteVersion": 2
+      },
+      {
+        "id": "dummy_05",
+        "seq": 5,
+        "isDummy": true,
+        "dummyBadge": "DUMMY ACCOUNT",
+        "status": "active",
+        "statusHistory": [
+          {
+            "status": "active",
+            "at": "2026-08-03T19:33:05.366Z",
+            "by": "master_admin"
+          }
+        ],
+        "profileType": "Local Businessman",
+        "occupation": "Commercial Real Estate",
+        "purpose": "UAE local commercial real estate",
+        "vaultId": "CV-ARC-100005-UAE-2026",
+        "vaultDigits": "100005",
+        "countryCode": "UAE",
+        "year": "2026",
+        "arcOnChainId": "0x2F3...40A0",
+        "holderName": "OMAR AL MAKTOUM",
+        "firstName": "Omar",
+        "lastName": "Al Maktoum",
+        "country": "United Arab Emirates",
+        "nationality": "United Arab Emirates",
+        "city": "Dubai",
+        "region": "Dubai",
+        "jurisdictionLabel": "United Arab Emirates / UAE Corridor",
+        "settlementBank": "Dubai Islamic Bank",
+        "settlementIbanMasked": "AE07 0331 **** **** 3460",
+        "settlementIbanRaw": "AE070331234567890123460",
+        "email": "omar.almaktoum.dummy@circlevault.test",
+        "mobile": "+971 501234005",
+        "biometricStatus": "3D Liveness & Age-Gap Verified",
+        "complianceStatus": "Fully Verified (AML/CFT)",
+        "hierarchy": {
+          "vaultHolder": "OMAR AL MAKTOUM",
+          "nextOfKin": {
+            "name": "Fatima Al Maktoum",
+            "relationship": "spouse",
+            "tier": 1
+          },
+          "succession": {
+            "tier": 2,
+            "status": "deferred_optional",
+            "claimStatus": "idle"
+          },
+          "paymentRoutes": [
+            {
+              "id": "pm_dummy_5_1",
+              "type": "bank_iban",
+              "value": "AE070331234567890123460",
+              "cardHolder": "",
+              "cardExpiry": "",
+              "cardCvv": "",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": false,
+              "isDefault": true,
+              "bound": true
+            },
+            {
+              "id": "pm_dummy_5_2",
+              "type": "card_visa",
+              "value": "4111111111111005",
+              "cardHolder": "Omar Al Maktoum",
+              "cardExpiry": "12/28",
+              "cardCvv": "123",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": true,
+              "isDefault": false,
+              "bound": true
+            }
+          ],
+          "settlement": {
+            "bank": "Dubai Islamic Bank",
+            "ibanRaw": "AE070331234567890123460",
+            "iban": "AE07 0331 **** **** 3460"
+          }
+        },
+        "credentials": {
+          "txPinSet": true,
+          "twoFa": "authenticator",
+          "twoFaVerified": true,
+          "amlAccepted": true,
+          "loginPasswordSet": true,
+          "activationComplete": true
+        },
+        "draft": {
+          "savedAt": "2026-08-03T19:33:05.366Z",
+          "step": 6,
+          "regMode": "hub",
+          "activeRegTab": null,
+          "isDummy": true,
+          "dummyLabel": "DUMMY ACCOUNT",
+          "dummyProfileId": 5,
+          "fields": {
+            "countrySelect": "United Arab Emirates",
+            "nationalitySelect": "United Arab Emirates",
+            "regionInput": "Dubai",
+            "cityInput": "Dubai",
+            "firstName": "Omar",
+            "lastName": "Al Maktoum",
+            "complianceFramework": "uae_cb",
+            "docIdInput": "784-1980-1000005-5",
+            "dobInput": "1988-06-15",
+            "docIssueInput": "2018-06-15",
+            "docExpiryInput": "2030-06-15",
+            "empStatus": "business",
+            "otherProfessionInput": "Commercial Real Estate",
+            "incomeRange": "15000+",
+            "sourceOfWealth": "business",
+            "tinInput": "TIN-AE-AE-100005",
+            "bankName": "Dubai Islamic Bank",
+            "bankBranch": "Dubai Main Branch",
+            "bankIban": "AE070331234567890123460",
+            "emailInput": "omar.almaktoum.dummy@circlevault.test",
+            "mobileInput": "501234005",
+            "dialCodeSelect": "+971",
+            "settleBankName": "Dubai Islamic Bank",
+            "settleAccountTitle": "OMAR AL MAKTOUM",
+            "settleIban": "AE070331234567890123460",
+            "settleSwift": "DUIBAEAD",
+            "settleBranch": "Dubai Islamic Bank · Dubai",
+            "nokFullName": "Fatima Al Maktoum",
+            "nokRelationship": "spouse",
+            "nokIdType": "passport",
+            "nokIdNumber": "NOK-100005",
+            "nokMobile": "501234999",
+            "nokOtp": "123456",
+            "txPin": "123456",
+            "txPinConfirm": "123456",
+            "twoFaOtp": "654321",
+            "masterPassword": "",
+            "masterPasswordConfirm": "",
+            "vaultLoginDigits": "100005",
+            "loginPassword": "Dummy@Vault1",
+            "loginPasswordConfirm": "Dummy@Vault1",
+            "activationEmail": "omar.almaktoum.dummy@circlevault.test",
+            "activationEmailOtp": "111111",
+            "activationPhone": "501234005",
+            "activationPhoneOtp": "222222"
+          },
+          "checks": {
+            "regDeclResident": true,
+            "regDeclPep": false,
+            "regDeclSanctions": true,
+            "lifetimeExpiry": false,
+            "amlCompliance": true
+          },
+          "radios": {},
+          "meta": {
+            "selectedDocKey": "eid",
+            "docExpiryValue": "2030-06-15",
+            "livenessDone": true,
+            "aiPassed": true,
+            "nokOtpVerified": true,
+            "nokLivenessDone": true,
+            "successionClaimStatus": "idle",
+            "uploads": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_5_1": true
+            },
+            "savedSlots": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_5_1": true
+            },
+            "twoFa": "authenticator",
+            "primarySettlement": {
+              "bank": "Dubai Islamic Bank",
+              "ibanRaw": "AE070331234567890123460",
+              "iban": "AE07 0331 **** **** 3460"
+            },
+            "nextOfKin": {
+              "fullName": "Fatima Al Maktoum",
+              "relationship": "spouse",
+              "idType": "passport",
+              "idNumber": "NOK-100005",
+              "mobile": "501234999",
+              "otpVerified": true,
+              "livenessDone": true,
+              "affidavits": [
+                {
+                  "id": "aff_nok_5_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_5.pdf",
+                  "uploaded": true
+                }
+              ]
+            },
+            "succession": {
+              "optional": true,
+              "claimStatus": "idle",
+              "affidavits": []
+            },
+            "affidavitState": {
+              "nok": [
+                {
+                  "id": "aff_nok_5_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_5.pdf"
+                }
+              ],
+              "succession": [],
+              "seq": {
+                "nok": 1,
+                "succession": 0
+              }
+            },
+            "paymentMethods": [
+              {
+                "id": "pm_dummy_5_1",
+                "type": "bank_iban",
+                "value": "AE070331234567890123460",
+                "cardHolder": "",
+                "cardExpiry": "",
+                "cardCvv": "",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": false,
+                "isDefault": true,
+                "bound": true
+              },
+              {
+                "id": "pm_dummy_5_2",
+                "type": "card_visa",
+                "value": "4111111111111005",
+                "cardHolder": "Omar Al Maktoum",
+                "cardExpiry": "12/28",
+                "cardCvv": "123",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": true,
+                "isDefault": false,
+                "bound": true
+              }
+            ],
+            "kycDocumentPayloads": {
+              "frontScan": {
+                "fileName": "kyc_front_100005.jpg",
+                "hash": "sha256:a139a8bd85fb6ee316d8ef9d808158b7",
+                "status": "verified"
+              },
+              "backScan": {
+                "fileName": "kyc_back_100005.jpg",
+                "hash": "sha256:39bbc3e3fdbcb87de02539038b153d29",
+                "status": "verified"
+              },
+              "selfie": {
+                "fileName": "kyc_selfie_100005.jpg",
+                "hash": "sha256:baef8ab2a301cb8ed4c38d72a893f916",
+                "status": "verified"
+              },
+              "addressProof": {
+                "fileName": "kyc_address_100005.pdf",
+                "hash": "sha256:2ee790d3ae0a898dc5bddff3007f1bf9",
+                "status": "verified"
+              },
+              "bankStatement": {
+                "fileName": "kyc_bank_100005.pdf",
+                "hash": "sha256:92f366d8cb797428ae39f7d8328da088",
+                "status": "verified"
+              },
+              "nokDoc": {
+                "fileName": "nok_id_100005.jpg",
+                "hash": "sha256:51fef5cceddfc3b4119b224cf577c764",
+                "status": "verified"
+              }
+            },
+            "iso20022Identity": {
+              "endToEndId": "ID-CV-DUMMY100005",
+              "purposeCode": "IDEN",
+              "timestamp": "2026-08-03T19:33:05.366Z",
+              "party": {
+                "firstName": "Omar",
+                "lastName": "Al Maktoum",
+                "country": "United Arab Emirates",
+                "nationality": "United Arab Emirates",
+                "tin": "TIN-AE-AE-100005",
+                "docId": "784-1980-1000005-5"
+              },
+              "nextOfKin": {
+                "fullName": "Fatima Al Maktoum",
+                "relationship": "spouse",
+                "otpVerified": true,
+                "livenessDone": true,
+                "docUploaded": true,
+                "affidavitsUploaded": 1
+              },
+              "succession": {
+                "optional": true,
+                "deferredSetup": true,
+                "claimStatus": "idle"
+              }
+            },
+            "stepCompletion": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true,
+              "6": true
+            },
+            "completionPct": 100
+          }
+        },
+        "generatedAt": "2026-08-03T19:33:05.366Z",
+        "suiteVersion": 2
+      },
+      {
+        "id": "dummy_06",
+        "seq": 6,
+        "isDummy": true,
+        "dummyBadge": "DUMMY ACCOUNT",
+        "status": "active",
+        "statusHistory": [
+          {
+            "status": "active",
+            "at": "2026-08-03T19:33:05.366Z",
+            "by": "master_admin"
+          }
+        ],
+        "profileType": "Local Businessman",
+        "occupation": "Logistics & Services Owner",
+        "purpose": "UAE local logistics & services",
+        "vaultId": "CV-ARC-100006-UAE-2026",
+        "vaultDigits": "100006",
+        "countryCode": "UAE",
+        "year": "2026",
+        "arcOnChainId": "0x2F3...428F",
+        "holderName": "KHALID AL SUWAIDI",
+        "firstName": "Khalid",
+        "lastName": "Al Suwaidi",
+        "country": "United Arab Emirates",
+        "nationality": "United Arab Emirates",
+        "city": "Abu Dhabi",
+        "region": "Abu Dhabi",
+        "jurisdictionLabel": "United Arab Emirates / UAE Corridor",
+        "settlementBank": "Abu Dhabi Commercial Bank",
+        "settlementIbanMasked": "AE07 0331 **** **** 3461",
+        "settlementIbanRaw": "AE070331234567890123461",
+        "email": "khalid.alsuwaidi.dummy@circlevault.test",
+        "mobile": "+971 501234006",
+        "biometricStatus": "3D Liveness & Age-Gap Verified",
+        "complianceStatus": "Fully Verified (AML/CFT)",
+        "hierarchy": {
+          "vaultHolder": "KHALID AL SUWAIDI",
+          "nextOfKin": {
+            "name": "Maryam Al Suwaidi",
+            "relationship": "sibling",
+            "tier": 1
+          },
+          "succession": {
+            "tier": 2,
+            "status": "deferred_optional",
+            "claimStatus": "idle"
+          },
+          "paymentRoutes": [
+            {
+              "id": "pm_dummy_6_1",
+              "type": "bank_iban",
+              "value": "AE070331234567890123461",
+              "cardHolder": "",
+              "cardExpiry": "",
+              "cardCvv": "",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": false,
+              "isDefault": true,
+              "bound": true
+            },
+            {
+              "id": "pm_dummy_6_2",
+              "type": "card_visa",
+              "value": "4111111111111006",
+              "cardHolder": "Khalid Al Suwaidi",
+              "cardExpiry": "12/28",
+              "cardCvv": "123",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": true,
+              "isDefault": false,
+              "bound": true
+            }
+          ],
+          "settlement": {
+            "bank": "Abu Dhabi Commercial Bank",
+            "ibanRaw": "AE070331234567890123461",
+            "iban": "AE07 0331 **** **** 3461"
+          }
+        },
+        "credentials": {
+          "txPinSet": true,
+          "twoFa": "authenticator",
+          "twoFaVerified": true,
+          "amlAccepted": true,
+          "loginPasswordSet": true,
+          "activationComplete": true
+        },
+        "draft": {
+          "savedAt": "2026-08-03T19:33:05.366Z",
+          "step": 6,
+          "regMode": "hub",
+          "activeRegTab": null,
+          "isDummy": true,
+          "dummyLabel": "DUMMY ACCOUNT",
+          "dummyProfileId": 6,
+          "fields": {
+            "countrySelect": "United Arab Emirates",
+            "nationalitySelect": "United Arab Emirates",
+            "regionInput": "Abu Dhabi",
+            "cityInput": "Abu Dhabi",
+            "firstName": "Khalid",
+            "lastName": "Al Suwaidi",
+            "complianceFramework": "uae_cb",
+            "docIdInput": "784-1983-1000006-6",
+            "dobInput": "1988-07-16",
+            "docIssueInput": "2018-06-15",
+            "docExpiryInput": "2030-06-15",
+            "empStatus": "business",
+            "otherProfessionInput": "Logistics & Services Owner",
+            "incomeRange": "5000-15000",
+            "sourceOfWealth": "business",
+            "tinInput": "TIN-AE-AE-100006",
+            "bankName": "Abu Dhabi Commercial Bank",
+            "bankBranch": "Abu Dhabi Main Branch",
+            "bankIban": "AE070331234567890123461",
+            "emailInput": "khalid.alsuwaidi.dummy@circlevault.test",
+            "mobileInput": "501234006",
+            "dialCodeSelect": "+971",
+            "settleBankName": "Abu Dhabi Commercial Bank",
+            "settleAccountTitle": "KHALID AL SUWAIDI",
+            "settleIban": "AE070331234567890123461",
+            "settleSwift": "ADCBAEAA",
+            "settleBranch": "Abu Dhabi Commercial Bank · Abu Dhabi",
+            "nokFullName": "Maryam Al Suwaidi",
+            "nokRelationship": "sibling",
+            "nokIdType": "passport",
+            "nokIdNumber": "NOK-100006",
+            "nokMobile": "501234999",
+            "nokOtp": "123456",
+            "txPin": "123456",
+            "txPinConfirm": "123456",
+            "twoFaOtp": "654321",
+            "masterPassword": "",
+            "masterPasswordConfirm": "",
+            "vaultLoginDigits": "100006",
+            "loginPassword": "Dummy@Vault1",
+            "loginPasswordConfirm": "Dummy@Vault1",
+            "activationEmail": "khalid.alsuwaidi.dummy@circlevault.test",
+            "activationEmailOtp": "111111",
+            "activationPhone": "501234006",
+            "activationPhoneOtp": "222222"
+          },
+          "checks": {
+            "regDeclResident": true,
+            "regDeclPep": false,
+            "regDeclSanctions": true,
+            "lifetimeExpiry": false,
+            "amlCompliance": true
+          },
+          "radios": {},
+          "meta": {
+            "selectedDocKey": "eid",
+            "docExpiryValue": "2030-06-15",
+            "livenessDone": true,
+            "aiPassed": true,
+            "nokOtpVerified": true,
+            "nokLivenessDone": true,
+            "successionClaimStatus": "idle",
+            "uploads": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_6_1": true
+            },
+            "savedSlots": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_6_1": true
+            },
+            "twoFa": "authenticator",
+            "primarySettlement": {
+              "bank": "Abu Dhabi Commercial Bank",
+              "ibanRaw": "AE070331234567890123461",
+              "iban": "AE07 0331 **** **** 3461"
+            },
+            "nextOfKin": {
+              "fullName": "Maryam Al Suwaidi",
+              "relationship": "sibling",
+              "idType": "passport",
+              "idNumber": "NOK-100006",
+              "mobile": "501234999",
+              "otpVerified": true,
+              "livenessDone": true,
+              "affidavits": [
+                {
+                  "id": "aff_nok_6_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_6.pdf",
+                  "uploaded": true
+                }
+              ]
+            },
+            "succession": {
+              "optional": true,
+              "claimStatus": "idle",
+              "affidavits": []
+            },
+            "affidavitState": {
+              "nok": [
+                {
+                  "id": "aff_nok_6_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_6.pdf"
+                }
+              ],
+              "succession": [],
+              "seq": {
+                "nok": 1,
+                "succession": 0
+              }
+            },
+            "paymentMethods": [
+              {
+                "id": "pm_dummy_6_1",
+                "type": "bank_iban",
+                "value": "AE070331234567890123461",
+                "cardHolder": "",
+                "cardExpiry": "",
+                "cardCvv": "",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": false,
+                "isDefault": true,
+                "bound": true
+              },
+              {
+                "id": "pm_dummy_6_2",
+                "type": "card_visa",
+                "value": "4111111111111006",
+                "cardHolder": "Khalid Al Suwaidi",
+                "cardExpiry": "12/28",
+                "cardCvv": "123",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": true,
+                "isDefault": false,
+                "bound": true
+              }
+            ],
+            "kycDocumentPayloads": {
+              "frontScan": {
+                "fileName": "kyc_front_100006.jpg",
+                "hash": "sha256:9e39a40428fadc7cf3d72584f77eee0c",
+                "status": "verified"
+              },
+              "backScan": {
+                "fileName": "kyc_back_100006.jpg",
+                "hash": "sha256:3abbc5761cbce94a4125d1b60e160b62",
+                "status": "verified"
+              },
+              "selfie": {
+                "fileName": "kyc_selfie_100006.jpg",
+                "hash": "sha256:b9ef891f84019ac173c2f4bf25932add",
+                "status": "verified"
+              },
+              "addressProof": {
+                "fileName": "kyc_address_100006.pdf",
+                "hash": "sha256:2fe79266cd0aba5a26be78a6837fea32",
+                "status": "verified"
+              },
+              "bankStatement": {
+                "fileName": "kyc_bank_100006.pdf",
+                "hash": "sha256:95f36b91287a068fd13bc1f1bb900b33",
+                "status": "verified"
+              },
+              "nokDoc": {
+                "fileName": "nok_id_100006.jpg",
+                "hash": "sha256:54fefa854ae0561b349cec657e7a320f",
+                "status": "verified"
+              }
+            },
+            "iso20022Identity": {
+              "endToEndId": "ID-CV-DUMMY100006",
+              "purposeCode": "IDEN",
+              "timestamp": "2026-08-03T19:33:05.366Z",
+              "party": {
+                "firstName": "Khalid",
+                "lastName": "Al Suwaidi",
+                "country": "United Arab Emirates",
+                "nationality": "United Arab Emirates",
+                "tin": "TIN-AE-AE-100006",
+                "docId": "784-1983-1000006-6"
+              },
+              "nextOfKin": {
+                "fullName": "Maryam Al Suwaidi",
+                "relationship": "sibling",
+                "otpVerified": true,
+                "livenessDone": true,
+                "docUploaded": true,
+                "affidavitsUploaded": 1
+              },
+              "succession": {
+                "optional": true,
+                "deferredSetup": true,
+                "claimStatus": "idle"
+              }
+            },
+            "stepCompletion": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true,
+              "6": true
+            },
+            "completionPct": 100
+          }
+        },
+        "generatedAt": "2026-08-03T19:33:05.366Z",
+        "suiteVersion": 2
+      },
+      {
+        "id": "dummy_07",
+        "seq": 7,
+        "isDummy": true,
+        "dummyBadge": "DUMMY ACCOUNT",
+        "status": "active",
+        "statusHistory": [
+          {
+            "status": "active",
+            "at": "2026-08-03T19:33:05.366Z",
+            "by": "master_admin"
+          }
+        ],
+        "profileType": "Citizen Businessman",
+        "occupation": "Tech Startup Founder",
+        "purpose": "US citizen tech startup founder",
+        "vaultId": "CV-ARC-100007-US-2026",
+        "vaultDigits": "100007",
+        "countryCode": "US",
+        "year": "2026",
+        "arcOnChainId": "0x2F3...447E",
+        "holderName": "JORDAN HAYES",
+        "firstName": "Jordan",
+        "lastName": "Hayes",
+        "country": "United States",
+        "nationality": "United States",
+        "city": "Austin",
+        "region": "Texas",
+        "jurisdictionLabel": "United States / US Corridor",
+        "settlementBank": "Chase Bank",
+        "settlementIbanMasked": "US64 SVBK **** **** 8879",
+        "settlementIbanRaw": "US64SVBKUS6S3300958879",
+        "email": "jordan.hayes.dummy@circlevault.test",
+        "mobile": "+1 5125551007",
+        "biometricStatus": "3D Liveness & Age-Gap Verified",
+        "complianceStatus": "Fully Verified (AML/CFT)",
+        "hierarchy": {
+          "vaultHolder": "JORDAN HAYES",
+          "nextOfKin": {
+            "name": "Taylor Hayes",
+            "relationship": "spouse",
+            "tier": 1
+          },
+          "succession": {
+            "tier": 2,
+            "status": "deferred_optional",
+            "claimStatus": "idle"
+          },
+          "paymentRoutes": [
+            {
+              "id": "pm_dummy_7_1",
+              "type": "bank_iban",
+              "value": "US64SVBKUS6S3300958879",
+              "cardHolder": "",
+              "cardExpiry": "",
+              "cardCvv": "",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": false,
+              "isDefault": true,
+              "bound": true
+            },
+            {
+              "id": "pm_dummy_7_2",
+              "type": "card_visa",
+              "value": "4111111111111007",
+              "cardHolder": "Jordan Hayes",
+              "cardExpiry": "12/28",
+              "cardCvv": "123",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": true,
+              "isDefault": false,
+              "bound": true
+            }
+          ],
+          "settlement": {
+            "bank": "Chase Bank",
+            "ibanRaw": "US64SVBKUS6S3300958879",
+            "iban": "US64 SVBK **** **** 8879"
+          }
+        },
+        "credentials": {
+          "txPinSet": true,
+          "twoFa": "authenticator",
+          "twoFaVerified": true,
+          "amlAccepted": true,
+          "loginPasswordSet": true,
+          "activationComplete": true
+        },
+        "draft": {
+          "savedAt": "2026-08-03T19:33:05.366Z",
+          "step": 6,
+          "regMode": "hub",
+          "activeRegTab": null,
+          "isDummy": true,
+          "dummyLabel": "DUMMY ACCOUNT",
+          "dummyProfileId": 7,
+          "fields": {
+            "countrySelect": "United States",
+            "nationalitySelect": "United States",
+            "regionInput": "Texas",
+            "cityInput": "Austin",
+            "firstName": "Jordan",
+            "lastName": "Hayes",
+            "complianceFramework": "fatf_circle",
+            "docIdInput": "TX-DL-1000007",
+            "dobInput": "1988-08-17",
+            "docIssueInput": "2018-06-15",
+            "docExpiryInput": "2030-06-15",
+            "empStatus": "business",
+            "otherProfessionInput": "Tech Startup Founder",
+            "incomeRange": "15000+",
+            "sourceOfWealth": "business",
+            "tinInput": "SSN-100-00-1007",
+            "bankName": "Chase Bank",
+            "bankBranch": "Austin Main Branch",
+            "bankIban": "US64SVBKUS6S3300958879",
+            "emailInput": "jordan.hayes.dummy@circlevault.test",
+            "mobileInput": "5125551007",
+            "dialCodeSelect": "+1",
+            "settleBankName": "Chase Bank",
+            "settleAccountTitle": "JORDAN HAYES",
+            "settleIban": "US64SVBKUS6S3300958879",
+            "settleSwift": "CHASUS33",
+            "settleBranch": "Chase Bank · Austin",
+            "nokFullName": "Taylor Hayes",
+            "nokRelationship": "spouse",
+            "nokIdType": "passport",
+            "nokIdNumber": "NOK-100007",
+            "nokMobile": "5125551999",
+            "nokOtp": "123456",
+            "txPin": "123456",
+            "txPinConfirm": "123456",
+            "twoFaOtp": "654321",
+            "masterPassword": "",
+            "masterPasswordConfirm": "",
+            "vaultLoginDigits": "100007",
+            "loginPassword": "Dummy@Vault1",
+            "loginPasswordConfirm": "Dummy@Vault1",
+            "activationEmail": "jordan.hayes.dummy@circlevault.test",
+            "activationEmailOtp": "111111",
+            "activationPhone": "5125551007",
+            "activationPhoneOtp": "222222"
+          },
+          "checks": {
+            "regDeclResident": true,
+            "regDeclPep": false,
+            "regDeclSanctions": true,
+            "lifetimeExpiry": false,
+            "amlCompliance": true
+          },
+          "radios": {},
+          "meta": {
+            "selectedDocKey": "ssn",
+            "docExpiryValue": "2030-06-15",
+            "livenessDone": true,
+            "aiPassed": true,
+            "nokOtpVerified": true,
+            "nokLivenessDone": true,
+            "successionClaimStatus": "idle",
+            "uploads": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_7_1": true
+            },
+            "savedSlots": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_7_1": true
+            },
+            "twoFa": "authenticator",
+            "primarySettlement": {
+              "bank": "Chase Bank",
+              "ibanRaw": "US64SVBKUS6S3300958879",
+              "iban": "US64 SVBK **** **** 8879"
+            },
+            "nextOfKin": {
+              "fullName": "Taylor Hayes",
+              "relationship": "spouse",
+              "idType": "passport",
+              "idNumber": "NOK-100007",
+              "mobile": "5125551999",
+              "otpVerified": true,
+              "livenessDone": true,
+              "affidavits": [
+                {
+                  "id": "aff_nok_7_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_7.pdf",
+                  "uploaded": true
+                }
+              ]
+            },
+            "succession": {
+              "optional": true,
+              "claimStatus": "idle",
+              "affidavits": []
+            },
+            "affidavitState": {
+              "nok": [
+                {
+                  "id": "aff_nok_7_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_7.pdf"
+                }
+              ],
+              "succession": [],
+              "seq": {
+                "nok": 1,
+                "succession": 0
+              }
+            },
+            "paymentMethods": [
+              {
+                "id": "pm_dummy_7_1",
+                "type": "bank_iban",
+                "value": "US64SVBKUS6S3300958879",
+                "cardHolder": "",
+                "cardExpiry": "",
+                "cardCvv": "",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": false,
+                "isDefault": true,
+                "bound": true
+              },
+              {
+                "id": "pm_dummy_7_2",
+                "type": "card_visa",
+                "value": "4111111111111007",
+                "cardHolder": "Jordan Hayes",
+                "cardExpiry": "12/28",
+                "cardCvv": "123",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": true,
+                "isDefault": false,
+                "bound": true
+              }
+            ],
+            "kycDocumentPayloads": {
+              "frontScan": {
+                "fileName": "kyc_front_100007.jpg",
+                "hash": "sha256:9f39a59747fb0d4954d7be377a7fbc45",
+                "status": "verified"
+              },
+              "backScan": {
+                "fileName": "kyc_back_100007.jpg",
+                "hash": "sha256:3bbbc7093bbd1a17a2266a699116d99b",
+                "status": "verified"
+              },
+              "selfie": {
+                "fileName": "kyc_selfie_100007.jpg",
+                "hash": "sha256:b8ef878c650169f412c25c0ca2925ca4",
+                "status": "verified"
+              },
+              "addressProof": {
+                "fileName": "kyc_address_100007.pdf",
+                "hash": "sha256:30e793f9ec0aeb2787bf11590680b86b",
+                "status": "verified"
+              },
+              "bankStatement": {
+                "fileName": "kyc_bank_100007.pdf",
+                "hash": "sha256:94f369fe0979d5c2703b293e388f3cfa",
+                "status": "verified"
+              },
+              "nokDoc": {
+                "fileName": "nok_id_100007.jpg",
+                "hash": "sha256:53fef8f22be0254ed39c53b2fb7963d6",
+                "status": "verified"
+              }
+            },
+            "iso20022Identity": {
+              "endToEndId": "ID-CV-DUMMY100007",
+              "purposeCode": "IDEN",
+              "timestamp": "2026-08-03T19:33:05.366Z",
+              "party": {
+                "firstName": "Jordan",
+                "lastName": "Hayes",
+                "country": "United States",
+                "nationality": "United States",
+                "tin": "SSN-100-00-1007",
+                "docId": "TX-DL-1000007"
+              },
+              "nextOfKin": {
+                "fullName": "Taylor Hayes",
+                "relationship": "spouse",
+                "otpVerified": true,
+                "livenessDone": true,
+                "docUploaded": true,
+                "affidavitsUploaded": 1
+              },
+              "succession": {
+                "optional": true,
+                "deferredSetup": true,
+                "claimStatus": "idle"
+              }
+            },
+            "stepCompletion": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true,
+              "6": true
+            },
+            "completionPct": 100
+          }
+        },
+        "generatedAt": "2026-08-03T19:33:05.366Z",
+        "suiteVersion": 2
+      },
+      {
+        "id": "dummy_08",
+        "seq": 8,
+        "isDummy": true,
+        "dummyBadge": "DUMMY ACCOUNT",
+        "status": "active",
+        "statusHistory": [
+          {
+            "status": "active",
+            "at": "2026-08-03T19:33:05.366Z",
+            "by": "master_admin"
+          }
+        ],
+        "profileType": "Govt Employee",
+        "occupation": "Public Sector Civil Service",
+        "purpose": "US public sector civil service",
+        "vaultId": "CV-ARC-100008-US-2026",
+        "vaultDigits": "100008",
+        "countryCode": "US",
+        "year": "2026",
+        "arcOnChainId": "0x2F3...466D",
+        "holderName": "MAYA BROOKS",
+        "firstName": "Maya",
+        "lastName": "Brooks",
+        "country": "United States",
+        "nationality": "United States",
+        "city": "Washington",
+        "region": "District of Columbia",
+        "jurisdictionLabel": "United States / US Corridor",
+        "settlementBank": "Bank of America",
+        "settlementIbanMasked": "US64 BOFA **** **** 8879",
+        "settlementIbanRaw": "US64BOFAUS3N3300958879",
+        "email": "maya.brooks.dummy@circlevault.test",
+        "mobile": "+1 2025551008",
+        "biometricStatus": "3D Liveness & Age-Gap Verified",
+        "complianceStatus": "Fully Verified (AML/CFT)",
+        "hierarchy": {
+          "vaultHolder": "MAYA BROOKS",
+          "nextOfKin": {
+            "name": "Ethan Brooks",
+            "relationship": "child",
+            "tier": 1
+          },
+          "succession": {
+            "tier": 2,
+            "status": "deferred_optional",
+            "claimStatus": "idle"
+          },
+          "paymentRoutes": [
+            {
+              "id": "pm_dummy_8_1",
+              "type": "bank_iban",
+              "value": "US64BOFAUS3N3300958879",
+              "cardHolder": "",
+              "cardExpiry": "",
+              "cardCvv": "",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": false,
+              "isDefault": true,
+              "bound": true
+            },
+            {
+              "id": "pm_dummy_8_2",
+              "type": "card_visa",
+              "value": "4111111111111008",
+              "cardHolder": "Maya Brooks",
+              "cardExpiry": "12/28",
+              "cardCvv": "123",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": true,
+              "isDefault": false,
+              "bound": true
+            }
+          ],
+          "settlement": {
+            "bank": "Bank of America",
+            "ibanRaw": "US64BOFAUS3N3300958879",
+            "iban": "US64 BOFA **** **** 8879"
+          }
+        },
+        "credentials": {
+          "txPinSet": true,
+          "twoFa": "authenticator",
+          "twoFaVerified": true,
+          "amlAccepted": true,
+          "loginPasswordSet": true,
+          "activationComplete": true
+        },
+        "draft": {
+          "savedAt": "2026-08-03T19:33:05.366Z",
+          "step": 6,
+          "regMode": "hub",
+          "activeRegTab": null,
+          "isDummy": true,
+          "dummyLabel": "DUMMY ACCOUNT",
+          "dummyProfileId": 8,
+          "fields": {
+            "countrySelect": "United States",
+            "nationalitySelect": "United States",
+            "regionInput": "District of Columbia",
+            "cityInput": "Washington",
+            "firstName": "Maya",
+            "lastName": "Brooks",
+            "complianceFramework": "fatf_circle",
+            "docIdInput": "DC-ID-1000008",
+            "dobInput": "1988-09-18",
+            "docIssueInput": "2018-06-15",
+            "docExpiryInput": "2030-06-15",
+            "empStatus": "salaried",
+            "otherProfessionInput": "Public Sector Civil Service",
+            "incomeRange": "5000-15000",
+            "sourceOfWealth": "salary",
+            "tinInput": "SSN-100-00-1008",
+            "bankName": "Bank of America",
+            "bankBranch": "Washington Main Branch",
+            "bankIban": "US64BOFAUS3N3300958879",
+            "emailInput": "maya.brooks.dummy@circlevault.test",
+            "mobileInput": "2025551008",
+            "dialCodeSelect": "+1",
+            "settleBankName": "Bank of America",
+            "settleAccountTitle": "MAYA BROOKS",
+            "settleIban": "US64BOFAUS3N3300958879",
+            "settleSwift": "BOFAUS3N",
+            "settleBranch": "Bank of America · Washington",
+            "nokFullName": "Ethan Brooks",
+            "nokRelationship": "child",
+            "nokIdType": "passport",
+            "nokIdNumber": "NOK-100008",
+            "nokMobile": "2025551999",
+            "nokOtp": "123456",
+            "txPin": "123456",
+            "txPinConfirm": "123456",
+            "twoFaOtp": "654321",
+            "masterPassword": "",
+            "masterPasswordConfirm": "",
+            "vaultLoginDigits": "100008",
+            "loginPassword": "Dummy@Vault1",
+            "loginPasswordConfirm": "Dummy@Vault1",
+            "activationEmail": "maya.brooks.dummy@circlevault.test",
+            "activationEmailOtp": "111111",
+            "activationPhone": "2025551008",
+            "activationPhoneOtp": "222222"
+          },
+          "checks": {
+            "regDeclResident": true,
+            "regDeclPep": false,
+            "regDeclSanctions": true,
+            "lifetimeExpiry": false,
+            "amlCompliance": true
+          },
+          "radios": {},
+          "meta": {
+            "selectedDocKey": "ssn",
+            "docExpiryValue": "2030-06-15",
+            "livenessDone": true,
+            "aiPassed": true,
+            "nokOtpVerified": true,
+            "nokLivenessDone": true,
+            "successionClaimStatus": "idle",
+            "uploads": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_8_1": true
+            },
+            "savedSlots": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_8_1": true
+            },
+            "twoFa": "authenticator",
+            "primarySettlement": {
+              "bank": "Bank of America",
+              "ibanRaw": "US64BOFAUS3N3300958879",
+              "iban": "US64 BOFA **** **** 8879"
+            },
+            "nextOfKin": {
+              "fullName": "Ethan Brooks",
+              "relationship": "child",
+              "idType": "passport",
+              "idNumber": "NOK-100008",
+              "mobile": "2025551999",
+              "otpVerified": true,
+              "livenessDone": true,
+              "affidavits": [
+                {
+                  "id": "aff_nok_8_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_8.pdf",
+                  "uploaded": true
+                }
+              ]
+            },
+            "succession": {
+              "optional": true,
+              "claimStatus": "idle",
+              "affidavits": []
+            },
+            "affidavitState": {
+              "nok": [
+                {
+                  "id": "aff_nok_8_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_8.pdf"
+                }
+              ],
+              "succession": [],
+              "seq": {
+                "nok": 1,
+                "succession": 0
+              }
+            },
+            "paymentMethods": [
+              {
+                "id": "pm_dummy_8_1",
+                "type": "bank_iban",
+                "value": "US64BOFAUS3N3300958879",
+                "cardHolder": "",
+                "cardExpiry": "",
+                "cardCvv": "",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": false,
+                "isDefault": true,
+                "bound": true
+              },
+              {
+                "id": "pm_dummy_8_2",
+                "type": "card_visa",
+                "value": "4111111111111008",
+                "cardHolder": "Maya Brooks",
+                "cardExpiry": "12/28",
+                "cardCvv": "123",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": true,
+                "isDefault": false,
+                "bound": true
+              }
+            ],
+            "kycDocumentPayloads": {
+              "frontScan": {
+                "fileName": "kyc_front_100008.jpg",
+                "hash": "sha256:94399446f2f8f47a29d12e86d976dfd2",
+                "status": "verified"
+              },
+              "backScan": {
+                "fileName": "kyc_back_100008.jpg",
+                "hash": "sha256:44bbd53452bed14c0b2bc8b42c1e199c",
+                "status": "verified"
+              },
+              "selfie": {
+                "fileName": "kyc_selfie_100008.jpg",
+                "hash": "sha256:bfef92913e02bf8fb9c688f137980033",
+                "status": "verified"
+              },
+              "addressProof": {
+                "fileName": "kyc_address_100008.pdf",
+                "hash": "sha256:39e7a224030ca25cf0c46fa4a187f86c",
+                "status": "verified"
+              },
+              "bankStatement": {
+                "fileName": "kyc_bank_100008.pdf",
+                "hash": "sha256:8ff3621f6e78e1c18b382dbfa98b35dd",
+                "status": "verified"
+              },
+              "nokDoc": {
+                "fileName": "nok_id_100008.jpg",
+                "hash": "sha256:56fefdab88e0b7b5f69e1dcb847bce81",
+                "status": "verified"
+              }
+            },
+            "iso20022Identity": {
+              "endToEndId": "ID-CV-DUMMY100008",
+              "purposeCode": "IDEN",
+              "timestamp": "2026-08-03T19:33:05.366Z",
+              "party": {
+                "firstName": "Maya",
+                "lastName": "Brooks",
+                "country": "United States",
+                "nationality": "United States",
+                "tin": "SSN-100-00-1008",
+                "docId": "DC-ID-1000008"
+              },
+              "nextOfKin": {
+                "fullName": "Ethan Brooks",
+                "relationship": "child",
+                "otpVerified": true,
+                "livenessDone": true,
+                "docUploaded": true,
+                "affidavitsUploaded": 1
+              },
+              "succession": {
+                "optional": true,
+                "deferredSetup": true,
+                "claimStatus": "idle"
+              }
+            },
+            "stepCompletion": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true,
+              "6": true
+            },
+            "completionPct": 100
+          }
+        },
+        "generatedAt": "2026-08-03T19:33:05.366Z",
+        "suiteVersion": 2
+      },
+      {
+        "id": "dummy_09",
+        "seq": 9,
+        "isDummy": true,
+        "dummyBadge": "DUMMY ACCOUNT",
+        "status": "active",
+        "statusHistory": [
+          {
+            "status": "active",
+            "at": "2026-08-03T19:33:05.366Z",
+            "by": "master_admin"
+          }
+        ],
+        "profileType": "Govt Employee",
+        "occupation": "Public Health/Govt Officer",
+        "purpose": "UK public health / government officer",
+        "vaultId": "CV-ARC-100009-GB-2026",
+        "vaultDigits": "100009",
+        "countryCode": "GB",
+        "year": "2026",
+        "arcOnChainId": "0x2F3...485C",
+        "holderName": "OLIVIA BENNETT",
+        "firstName": "Olivia",
+        "lastName": "Bennett",
+        "country": "United Kingdom",
+        "nationality": "United Kingdom",
+        "city": "London",
+        "region": "England",
+        "jurisdictionLabel": "United Kingdom / GB Corridor",
+        "settlementBank": "Barclays",
+        "settlementIbanMasked": "GB29 NWBK **** **** 6819",
+        "settlementIbanRaw": "GB29NWBK60161331926819",
+        "email": "olivia.bennett.dummy@circlevault.test",
+        "mobile": "+44 7700900009",
+        "biometricStatus": "3D Liveness & Age-Gap Verified",
+        "complianceStatus": "Fully Verified (AML/CFT)",
+        "hierarchy": {
+          "vaultHolder": "OLIVIA BENNETT",
+          "nextOfKin": {
+            "name": "James Bennett",
+            "relationship": "spouse",
+            "tier": 1
+          },
+          "succession": {
+            "tier": 2,
+            "status": "deferred_optional",
+            "claimStatus": "idle"
+          },
+          "paymentRoutes": [
+            {
+              "id": "pm_dummy_9_1",
+              "type": "bank_iban",
+              "value": "GB29NWBK60161331926819",
+              "cardHolder": "",
+              "cardExpiry": "",
+              "cardCvv": "",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": false,
+              "isDefault": true,
+              "bound": true
+            },
+            {
+              "id": "pm_dummy_9_2",
+              "type": "card_visa",
+              "value": "4111111111111009",
+              "cardHolder": "Olivia Bennett",
+              "cardExpiry": "12/28",
+              "cardCvv": "123",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": true,
+              "isDefault": false,
+              "bound": true
+            }
+          ],
+          "settlement": {
+            "bank": "Barclays",
+            "ibanRaw": "GB29NWBK60161331926819",
+            "iban": "GB29 NWBK **** **** 6819"
+          }
+        },
+        "credentials": {
+          "txPinSet": true,
+          "twoFa": "authenticator",
+          "twoFaVerified": true,
+          "amlAccepted": true,
+          "loginPasswordSet": true,
+          "activationComplete": true
+        },
+        "draft": {
+          "savedAt": "2026-08-03T19:33:05.366Z",
+          "step": 6,
+          "regMode": "hub",
+          "activeRegTab": null,
+          "isDummy": true,
+          "dummyLabel": "DUMMY ACCOUNT",
+          "dummyProfileId": 9,
+          "fields": {
+            "countrySelect": "United Kingdom",
+            "nationalitySelect": "United Kingdom",
+            "regionInput": "England",
+            "cityInput": "London",
+            "firstName": "Olivia",
+            "lastName": "Bennett",
+            "complianceFramework": "eu_mica",
+            "docIdInput": "UK-NINO-AB100009C",
+            "dobInput": "1988-01-19",
+            "docIssueInput": "2018-06-15",
+            "docExpiryInput": "2030-06-15",
+            "empStatus": "salaried",
+            "otherProfessionInput": "Public Health/Govt Officer",
+            "incomeRange": "5000-15000",
+            "sourceOfWealth": "salary",
+            "tinInput": "UTR-100009",
+            "bankName": "Barclays",
+            "bankBranch": "London Main Branch",
+            "bankIban": "GB29NWBK60161331926819",
+            "emailInput": "olivia.bennett.dummy@circlevault.test",
+            "mobileInput": "7700900009",
+            "dialCodeSelect": "+44",
+            "settleBankName": "Barclays",
+            "settleAccountTitle": "OLIVIA BENNETT",
+            "settleIban": "GB29NWBK60161331926819",
+            "settleSwift": "BARCGB22",
+            "settleBranch": "Barclays · London",
+            "nokFullName": "James Bennett",
+            "nokRelationship": "spouse",
+            "nokIdType": "passport",
+            "nokIdNumber": "NOK-100009",
+            "nokMobile": "7700900999",
+            "nokOtp": "123456",
+            "txPin": "123456",
+            "txPinConfirm": "123456",
+            "twoFaOtp": "654321",
+            "masterPassword": "",
+            "masterPasswordConfirm": "",
+            "vaultLoginDigits": "100009",
+            "loginPassword": "Dummy@Vault1",
+            "loginPasswordConfirm": "Dummy@Vault1",
+            "activationEmail": "olivia.bennett.dummy@circlevault.test",
+            "activationEmailOtp": "111111",
+            "activationPhone": "7700900009",
+            "activationPhoneOtp": "222222"
+          },
+          "checks": {
+            "regDeclResident": true,
+            "regDeclPep": false,
+            "regDeclSanctions": true,
+            "lifetimeExpiry": false,
+            "amlCompliance": true
+          },
+          "radios": {},
+          "meta": {
+            "selectedDocKey": "brp",
+            "docExpiryValue": "2030-06-15",
+            "livenessDone": true,
+            "aiPassed": true,
+            "nokOtpVerified": true,
+            "nokLivenessDone": true,
+            "successionClaimStatus": "idle",
+            "uploads": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_9_1": true
+            },
+            "savedSlots": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_9_1": true
+            },
+            "twoFa": "authenticator",
+            "primarySettlement": {
+              "bank": "Barclays",
+              "ibanRaw": "GB29NWBK60161331926819",
+              "iban": "GB29 NWBK **** **** 6819"
+            },
+            "nextOfKin": {
+              "fullName": "James Bennett",
+              "relationship": "spouse",
+              "idType": "passport",
+              "idNumber": "NOK-100009",
+              "mobile": "7700900999",
+              "otpVerified": true,
+              "livenessDone": true,
+              "affidavits": [
+                {
+                  "id": "aff_nok_9_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_9.pdf",
+                  "uploaded": true
+                }
+              ]
+            },
+            "succession": {
+              "optional": true,
+              "claimStatus": "idle",
+              "affidavits": []
+            },
+            "affidavitState": {
+              "nok": [
+                {
+                  "id": "aff_nok_9_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_9.pdf"
+                }
+              ],
+              "succession": [],
+              "seq": {
+                "nok": 1,
+                "succession": 0
+              }
+            },
+            "paymentMethods": [
+              {
+                "id": "pm_dummy_9_1",
+                "type": "bank_iban",
+                "value": "GB29NWBK60161331926819",
+                "cardHolder": "",
+                "cardExpiry": "",
+                "cardCvv": "",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": false,
+                "isDefault": true,
+                "bound": true
+              },
+              {
+                "id": "pm_dummy_9_2",
+                "type": "card_visa",
+                "value": "4111111111111009",
+                "cardHolder": "Olivia Bennett",
+                "cardExpiry": "12/28",
+                "cardCvv": "123",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": true,
+                "isDefault": false,
+                "bound": true
+              }
+            ],
+            "kycDocumentPayloads": {
+              "frontScan": {
+                "fileName": "kyc_front_100009.jpg",
+                "hash": "sha256:953995d911f925478ad1c7395c77ae0b",
+                "status": "verified"
+              },
+              "backScan": {
+                "fileName": "kyc_back_100009.jpg",
+                "hash": "sha256:45bbd6c771bf02196c2c6167af1ee7d5",
+                "status": "verified"
+              },
+              "selfie": {
+                "fileName": "kyc_selfie_100009.jpg",
+                "hash": "sha256:beef90fe1f028ec258c5f03eb49731fa",
+                "status": "verified"
+              },
+              "addressProof": {
+                "fileName": "kyc_address_100009.pdf",
+                "hash": "sha256:3ae7a3b7220cd32951c508572488c6a5",
+                "status": "verified"
+              },
+              "bankStatement": {
+                "fileName": "kyc_bank_100009.pdf",
+                "hash": "sha256:8ef3608c4f78b0f42a37950c268a67a4",
+                "status": "verified"
+              },
+              "nokDoc": {
+                "fileName": "nok_id_100009.jpg",
+                "hash": "sha256:55fefc1869e086e8959d8518017b0048",
+                "status": "verified"
+              }
+            },
+            "iso20022Identity": {
+              "endToEndId": "ID-CV-DUMMY100009",
+              "purposeCode": "IDEN",
+              "timestamp": "2026-08-03T19:33:05.366Z",
+              "party": {
+                "firstName": "Olivia",
+                "lastName": "Bennett",
+                "country": "United Kingdom",
+                "nationality": "United Kingdom",
+                "tin": "UTR-100009",
+                "docId": "UK-NINO-AB100009C"
+              },
+              "nextOfKin": {
+                "fullName": "James Bennett",
+                "relationship": "spouse",
+                "otpVerified": true,
+                "livenessDone": true,
+                "docUploaded": true,
+                "affidavitsUploaded": 1
+              },
+              "succession": {
+                "optional": true,
+                "deferredSetup": true,
+                "claimStatus": "idle"
+              }
+            },
+            "stepCompletion": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true,
+              "6": true
+            },
+            "completionPct": 100
+          }
+        },
+        "generatedAt": "2026-08-03T19:33:05.366Z",
+        "suiteVersion": 2
+      },
+      {
+        "id": "dummy_10",
+        "seq": 10,
+        "isDummy": true,
+        "dummyBadge": "DUMMY ACCOUNT",
+        "status": "active",
+        "statusHistory": [
+          {
+            "status": "active",
+            "at": "2026-08-03T19:33:05.366Z",
+            "by": "master_admin"
+          }
+        ],
+        "profileType": "Citizen Businessman",
+        "occupation": "Financial Services Firm",
+        "purpose": "UK financial services firm owner",
+        "vaultId": "CV-ARC-100010-GB-2026",
+        "vaultDigits": "100010",
+        "countryCode": "GB",
+        "year": "2026",
+        "arcOnChainId": "0x2F3...4A4B",
+        "holderName": "WILLIAM CARTER",
+        "firstName": "William",
+        "lastName": "Carter",
+        "country": "United Kingdom",
+        "nationality": "United Kingdom",
+        "city": "Manchester",
+        "region": "England",
+        "jurisdictionLabel": "United Kingdom / GB Corridor",
+        "settlementBank": "HSBC UK",
+        "settlementIbanMasked": "GB29 HBUK **** **** 6820",
+        "settlementIbanRaw": "GB29HBUK60161331926820",
+        "email": "william.carter.dummy@circlevault.test",
+        "mobile": "+44 7700900010",
+        "biometricStatus": "3D Liveness & Age-Gap Verified",
+        "complianceStatus": "Fully Verified (AML/CFT)",
+        "hierarchy": {
+          "vaultHolder": "WILLIAM CARTER",
+          "nextOfKin": {
+            "name": "Charlotte Carter",
+            "relationship": "spouse",
+            "tier": 1
+          },
+          "succession": {
+            "tier": 2,
+            "status": "deferred_optional",
+            "claimStatus": "idle"
+          },
+          "paymentRoutes": [
+            {
+              "id": "pm_dummy_10_1",
+              "type": "bank_iban",
+              "value": "GB29HBUK60161331926820",
+              "cardHolder": "",
+              "cardExpiry": "",
+              "cardCvv": "",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": false,
+              "isDefault": true,
+              "bound": true
+            },
+            {
+              "id": "pm_dummy_10_2",
+              "type": "card_visa",
+              "value": "4111111111111010",
+              "cardHolder": "William Carter",
+              "cardExpiry": "12/28",
+              "cardCvv": "123",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": true,
+              "isDefault": false,
+              "bound": true
+            }
+          ],
+          "settlement": {
+            "bank": "HSBC UK",
+            "ibanRaw": "GB29HBUK60161331926820",
+            "iban": "GB29 HBUK **** **** 6820"
+          }
+        },
+        "credentials": {
+          "txPinSet": true,
+          "twoFa": "authenticator",
+          "twoFaVerified": true,
+          "amlAccepted": true,
+          "loginPasswordSet": true,
+          "activationComplete": true
+        },
+        "draft": {
+          "savedAt": "2026-08-03T19:33:05.366Z",
+          "step": 6,
+          "regMode": "hub",
+          "activeRegTab": null,
+          "isDummy": true,
+          "dummyLabel": "DUMMY ACCOUNT",
+          "dummyProfileId": 10,
+          "fields": {
+            "countrySelect": "United Kingdom",
+            "nationalitySelect": "United Kingdom",
+            "regionInput": "England",
+            "cityInput": "Manchester",
+            "firstName": "William",
+            "lastName": "Carter",
+            "complianceFramework": "eu_mica",
+            "docIdInput": "UK-NINO-CD100010D",
+            "dobInput": "1988-02-20",
+            "docIssueInput": "2018-06-15",
+            "docExpiryInput": "2030-06-15",
+            "empStatus": "business",
+            "otherProfessionInput": "Financial Services Firm",
+            "incomeRange": "15000+",
+            "sourceOfWealth": "business",
+            "tinInput": "UTR-100010",
+            "bankName": "HSBC UK",
+            "bankBranch": "Manchester Main Branch",
+            "bankIban": "GB29HBUK60161331926820",
+            "emailInput": "william.carter.dummy@circlevault.test",
+            "mobileInput": "7700900010",
+            "dialCodeSelect": "+44",
+            "settleBankName": "HSBC UK",
+            "settleAccountTitle": "WILLIAM CARTER",
+            "settleIban": "GB29HBUK60161331926820",
+            "settleSwift": "HBUKGB4B",
+            "settleBranch": "HSBC UK · Manchester",
+            "nokFullName": "Charlotte Carter",
+            "nokRelationship": "spouse",
+            "nokIdType": "passport",
+            "nokIdNumber": "NOK-100010",
+            "nokMobile": "7700900999",
+            "nokOtp": "123456",
+            "txPin": "123456",
+            "txPinConfirm": "123456",
+            "twoFaOtp": "654321",
+            "masterPassword": "",
+            "masterPasswordConfirm": "",
+            "vaultLoginDigits": "100010",
+            "loginPassword": "Dummy@Vault1",
+            "loginPasswordConfirm": "Dummy@Vault1",
+            "activationEmail": "william.carter.dummy@circlevault.test",
+            "activationEmailOtp": "111111",
+            "activationPhone": "7700900010",
+            "activationPhoneOtp": "222222"
+          },
+          "checks": {
+            "regDeclResident": true,
+            "regDeclPep": false,
+            "regDeclSanctions": true,
+            "lifetimeExpiry": false,
+            "amlCompliance": true
+          },
+          "radios": {},
+          "meta": {
+            "selectedDocKey": "brp",
+            "docExpiryValue": "2030-06-15",
+            "livenessDone": true,
+            "aiPassed": true,
+            "nokOtpVerified": true,
+            "nokLivenessDone": true,
+            "successionClaimStatus": "idle",
+            "uploads": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_10_1": true
+            },
+            "savedSlots": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_10_1": true
+            },
+            "twoFa": "authenticator",
+            "primarySettlement": {
+              "bank": "HSBC UK",
+              "ibanRaw": "GB29HBUK60161331926820",
+              "iban": "GB29 HBUK **** **** 6820"
+            },
+            "nextOfKin": {
+              "fullName": "Charlotte Carter",
+              "relationship": "spouse",
+              "idType": "passport",
+              "idNumber": "NOK-100010",
+              "mobile": "7700900999",
+              "otpVerified": true,
+              "livenessDone": true,
+              "affidavits": [
+                {
+                  "id": "aff_nok_10_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_10.pdf",
+                  "uploaded": true
+                }
+              ]
+            },
+            "succession": {
+              "optional": true,
+              "claimStatus": "idle",
+              "affidavits": []
+            },
+            "affidavitState": {
+              "nok": [
+                {
+                  "id": "aff_nok_10_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_10.pdf"
+                }
+              ],
+              "succession": [],
+              "seq": {
+                "nok": 1,
+                "succession": 0
+              }
+            },
+            "paymentMethods": [
+              {
+                "id": "pm_dummy_10_1",
+                "type": "bank_iban",
+                "value": "GB29HBUK60161331926820",
+                "cardHolder": "",
+                "cardExpiry": "",
+                "cardCvv": "",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": false,
+                "isDefault": true,
+                "bound": true
+              },
+              {
+                "id": "pm_dummy_10_2",
+                "type": "card_visa",
+                "value": "4111111111111010",
+                "cardHolder": "William Carter",
+                "cardExpiry": "12/28",
+                "cardCvv": "123",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": true,
+                "isDefault": false,
+                "bound": true
+              }
+            ],
+            "kycDocumentPayloads": {
+              "frontScan": {
+                "fileName": "kyc_front_100010.jpg",
+                "hash": "sha256:a23be8e7a54133f978b33f8704a82e35",
+                "status": "verified"
+              },
+              "backScan": {
+                "fileName": "kyc_back_100010.jpg",
+                "hash": "sha256:42be10a5150403fb4a044e852742846f",
+                "status": "verified"
+              },
+              "selfie": {
+                "fileName": "kyc_selfie_100010.jpg",
+                "hash": "sha256:b1ed3df08bba80106ae477f00c66b1d0",
+                "status": "verified"
+              },
+              "addressProof": {
+                "fileName": "kyc_address_100010.pdf",
+                "hash": "sha256:b7eaa715456a3b8bafe94ef51d137fbf",
+                "status": "verified"
+              },
+              "bankStatement": {
+                "fileName": "kyc_bank_100010.pdf",
+                "hash": "sha256:91f126aeac33af124c5fa7eeae66cb0a",
+                "status": "verified"
+              },
+              "nokDoc": {
+                "fileName": "nok_id_100010.jpg",
+                "hash": "sha256:68fcdb6ab69e91d6c7cf232ab964473e",
+                "status": "verified"
+              }
+            },
+            "iso20022Identity": {
+              "endToEndId": "ID-CV-DUMMY100010",
+              "purposeCode": "IDEN",
+              "timestamp": "2026-08-03T19:33:05.366Z",
+              "party": {
+                "firstName": "William",
+                "lastName": "Carter",
+                "country": "United Kingdom",
+                "nationality": "United Kingdom",
+                "tin": "UTR-100010",
+                "docId": "UK-NINO-CD100010D"
+              },
+              "nextOfKin": {
+                "fullName": "Charlotte Carter",
+                "relationship": "spouse",
+                "otpVerified": true,
+                "livenessDone": true,
+                "docUploaded": true,
+                "affidavitsUploaded": 1
+              },
+              "succession": {
+                "optional": true,
+                "deferredSetup": true,
+                "claimStatus": "idle"
+              }
+            },
+            "stepCompletion": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true,
+              "6": true
+            },
+            "completionPct": 100
+          }
+        },
+        "generatedAt": "2026-08-03T19:33:05.366Z",
+        "suiteVersion": 2
+      },
+      {
+        "id": "dummy_11",
+        "seq": 11,
+        "isDummy": true,
+        "dummyBadge": "DUMMY ACCOUNT",
+        "status": "active",
+        "statusHistory": [
+          {
+            "status": "active",
+            "at": "2026-08-03T19:33:05.366Z",
+            "by": "master_admin"
+          }
+        ],
+        "profileType": "Local Businessman",
+        "occupation": "Inbound/Outbound Remittance Receiver & Trader",
+        "purpose": "PK remittance receiver & trader",
+        "vaultId": "CV-ARC-100011-PK-2026",
+        "vaultDigits": "100011",
+        "countryCode": "PK",
+        "year": "2026",
+        "arcOnChainId": "0x2F3...4C3A",
+        "holderName": "BILAL AHMED",
+        "firstName": "Bilal",
+        "lastName": "Ahmed",
+        "country": "Pakistan",
+        "nationality": "Pakistan",
+        "city": "Lahore",
+        "region": "Punjab",
+        "jurisdictionLabel": "Pakistan / PK Corridor",
+        "settlementBank": "Meezan Bank Ltd",
+        "settlementIbanMasked": "PK36 MEZN **** **** 7890",
+        "settlementIbanRaw": "PK36MEZN0000001234567890",
+        "email": "bilal.ahmed.dummy@circlevault.test",
+        "mobile": "+92 3001234011",
+        "biometricStatus": "3D Liveness & Age-Gap Verified",
+        "complianceStatus": "Fully Verified (AML/CFT)",
+        "hierarchy": {
+          "vaultHolder": "BILAL AHMED",
+          "nextOfKin": {
+            "name": "Farah Ahmed",
+            "relationship": "spouse",
+            "tier": 1
+          },
+          "succession": {
+            "tier": 2,
+            "status": "deferred_optional",
+            "claimStatus": "idle"
+          },
+          "paymentRoutes": [
+            {
+              "id": "pm_dummy_11_1",
+              "type": "jazzcash",
+              "value": "3001234011",
+              "cardHolder": "",
+              "cardExpiry": "",
+              "cardCvv": "",
+              "otpVerified": true,
+              "telcoStatus": "matched",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": false,
+              "isDefault": true,
+              "bound": true
+            },
+            {
+              "id": "pm_dummy_11_2",
+              "type": "raast_mobile",
+              "value": "3001234011",
+              "cardHolder": "Bilal Ahmed",
+              "cardExpiry": "12/28",
+              "cardCvv": "123",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": true,
+              "isDefault": false,
+              "bound": true
+            }
+          ],
+          "settlement": {
+            "bank": "Meezan Bank Ltd",
+            "ibanRaw": "PK36MEZN0000001234567890",
+            "iban": "PK36 MEZN **** **** 7890"
+          }
+        },
+        "credentials": {
+          "txPinSet": true,
+          "twoFa": "authenticator",
+          "twoFaVerified": true,
+          "amlAccepted": true,
+          "loginPasswordSet": true,
+          "activationComplete": true
+        },
+        "draft": {
+          "savedAt": "2026-08-03T19:33:05.366Z",
+          "step": 6,
+          "regMode": "hub",
+          "activeRegTab": null,
+          "isDummy": true,
+          "dummyLabel": "DUMMY ACCOUNT",
+          "dummyProfileId": 11,
+          "fields": {
+            "countrySelect": "Pakistan",
+            "nationalitySelect": "Pakistan",
+            "regionInput": "Punjab",
+            "cityInput": "Lahore",
+            "firstName": "Bilal",
+            "lastName": "Ahmed",
+            "complianceFramework": "pk_sbp",
+            "docIdInput": "35202-1000011-1",
+            "dobInput": "1988-03-21",
+            "docIssueInput": "2018-06-15",
+            "docExpiryInput": "2030-06-15",
+            "empStatus": "trader",
+            "otherProfessionInput": "Inbound/Outbound Remittance Receiver & Trader",
+            "incomeRange": "1500-5000",
+            "sourceOfWealth": "remittance",
+            "tinInput": "NTN-100011",
+            "bankName": "Meezan Bank Ltd",
+            "bankBranch": "Lahore Main Branch",
+            "bankIban": "PK36MEZN0000001234567890",
+            "emailInput": "bilal.ahmed.dummy@circlevault.test",
+            "mobileInput": "3001234011",
+            "dialCodeSelect": "+92",
+            "settleBankName": "Meezan Bank Ltd",
+            "settleAccountTitle": "BILAL AHMED",
+            "settleIban": "PK36MEZN0000001234567890",
+            "settleSwift": "MEZNPKKA",
+            "settleBranch": "Meezan Bank Ltd · Lahore",
+            "nokFullName": "Farah Ahmed",
+            "nokRelationship": "spouse",
+            "nokIdType": "cnic",
+            "nokIdNumber": "NOK-100011",
+            "nokMobile": "3001234999",
+            "nokOtp": "123456",
+            "txPin": "123456",
+            "txPinConfirm": "123456",
+            "twoFaOtp": "654321",
+            "masterPassword": "",
+            "masterPasswordConfirm": "",
+            "vaultLoginDigits": "100011",
+            "loginPassword": "Dummy@Vault1",
+            "loginPasswordConfirm": "Dummy@Vault1",
+            "activationEmail": "bilal.ahmed.dummy@circlevault.test",
+            "activationEmailOtp": "111111",
+            "activationPhone": "3001234011",
+            "activationPhoneOtp": "222222"
+          },
+          "checks": {
+            "regDeclResident": true,
+            "regDeclPep": false,
+            "regDeclSanctions": true,
+            "lifetimeExpiry": false,
+            "amlCompliance": true
+          },
+          "radios": {},
+          "meta": {
+            "selectedDocKey": "cnic",
+            "docExpiryValue": "2030-06-15",
+            "livenessDone": true,
+            "aiPassed": true,
+            "nokOtpVerified": true,
+            "nokLivenessDone": true,
+            "successionClaimStatus": "idle",
+            "uploads": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_11_1": true
+            },
+            "savedSlots": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_11_1": true
+            },
+            "twoFa": "authenticator",
+            "primarySettlement": {
+              "bank": "Meezan Bank Ltd",
+              "ibanRaw": "PK36MEZN0000001234567890",
+              "iban": "PK36 MEZN **** **** 7890"
+            },
+            "nextOfKin": {
+              "fullName": "Farah Ahmed",
+              "relationship": "spouse",
+              "idType": "cnic",
+              "idNumber": "NOK-100011",
+              "mobile": "3001234999",
+              "otpVerified": true,
+              "livenessDone": true,
+              "affidavits": [
+                {
+                  "id": "aff_nok_11_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_11.pdf",
+                  "uploaded": true
+                }
+              ]
+            },
+            "succession": {
+              "optional": true,
+              "claimStatus": "idle",
+              "affidavits": []
+            },
+            "affidavitState": {
+              "nok": [
+                {
+                  "id": "aff_nok_11_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_11.pdf"
+                }
+              ],
+              "succession": [],
+              "seq": {
+                "nok": 1,
+                "succession": 0
+              }
+            },
+            "paymentMethods": [
+              {
+                "id": "pm_dummy_11_1",
+                "type": "jazzcash",
+                "value": "3001234011",
+                "cardHolder": "",
+                "cardExpiry": "",
+                "cardCvv": "",
+                "otpVerified": true,
+                "telcoStatus": "matched",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": false,
+                "isDefault": true,
+                "bound": true
+              },
+              {
+                "id": "pm_dummy_11_2",
+                "type": "raast_mobile",
+                "value": "3001234011",
+                "cardHolder": "Bilal Ahmed",
+                "cardExpiry": "12/28",
+                "cardCvv": "123",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": true,
+                "isDefault": false,
+                "bound": true
+              }
+            ],
+            "kycDocumentPayloads": {
+              "frontScan": {
+                "fileName": "kyc_front_100011.jpg",
+                "hash": "sha256:a13be7548641032c17b2a6d481a75ffc",
+                "status": "verified"
+              },
+              "backScan": {
+                "fileName": "kyc_back_100011.jpg",
+                "hash": "sha256:41be0f12f603d32ee903b5d2a441b636",
+                "status": "verified"
+              },
+              "selfie": {
+                "fileName": "kyc_selfie_100011.jpg",
+                "hash": "sha256:b2ed3f83aabab0ddcbe510a38f678009",
+                "status": "verified"
+              },
+              "addressProof": {
+                "fileName": "kyc_address_100011.pdf",
+                "hash": "sha256:b6eaa582266a0abe4ee8b6429a12b186",
+                "status": "verified"
+              },
+              "bankStatement": {
+                "fileName": "kyc_bank_100011.pdf",
+                "hash": "sha256:92f12841cb33dfdfad6040a131679943",
+                "status": "verified"
+              },
+              "nokDoc": {
+                "fileName": "nok_id_100011.jpg",
+                "hash": "sha256:69fcdcfdd59ec2a328cfbbdd3c651577",
+                "status": "verified"
+              }
+            },
+            "iso20022Identity": {
+              "endToEndId": "ID-CV-DUMMY100011",
+              "purposeCode": "IDEN",
+              "timestamp": "2026-08-03T19:33:05.366Z",
+              "party": {
+                "firstName": "Bilal",
+                "lastName": "Ahmed",
+                "country": "Pakistan",
+                "nationality": "Pakistan",
+                "tin": "NTN-100011",
+                "docId": "35202-1000011-1"
+              },
+              "nextOfKin": {
+                "fullName": "Farah Ahmed",
+                "relationship": "spouse",
+                "otpVerified": true,
+                "livenessDone": true,
+                "docUploaded": true,
+                "affidavitsUploaded": 1
+              },
+              "succession": {
+                "optional": true,
+                "deferredSetup": true,
+                "claimStatus": "idle"
+              }
+            },
+            "stepCompletion": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true,
+              "6": true
+            },
+            "completionPct": 100
+          }
+        },
+        "generatedAt": "2026-08-03T19:33:05.367Z",
+        "suiteVersion": 2
+      },
+      {
+        "id": "dummy_12",
+        "seq": 12,
+        "isDummy": true,
+        "dummyBadge": "DUMMY ACCOUNT",
+        "status": "active",
+        "statusHistory": [
+          {
+            "status": "active",
+            "at": "2026-08-03T19:33:05.367Z",
+            "by": "master_admin"
+          }
+        ],
+        "profileType": "Local Employee",
+        "occupation": "Remittance Receiver (Salary/Family Support)",
+        "purpose": "PK remittance receiver family support",
+        "vaultId": "CV-ARC-100012-PK-2026",
+        "vaultDigits": "100012",
+        "countryCode": "PK",
+        "year": "2026",
+        "arcOnChainId": "0x2F3...4E29",
+        "holderName": "AYESHA KHAN",
+        "firstName": "Ayesha",
+        "lastName": "Khan",
+        "country": "Pakistan",
+        "nationality": "Pakistan",
+        "city": "Karachi",
+        "region": "Sindh",
+        "jurisdictionLabel": "Pakistan / PK Corridor",
+        "settlementBank": "HBL",
+        "settlementIbanMasked": "PK36 HABB **** **** 7891",
+        "settlementIbanRaw": "PK36HABB0000001234567891",
+        "email": "ayesha.khan.dummy@circlevault.test",
+        "mobile": "+92 3001234012",
+        "biometricStatus": "3D Liveness & Age-Gap Verified",
+        "complianceStatus": "Fully Verified (AML/CFT)",
+        "hierarchy": {
+          "vaultHolder": "AYESHA KHAN",
+          "nextOfKin": {
+            "name": "Usman Khan",
+            "relationship": "parent",
+            "tier": 1
+          },
+          "succession": {
+            "tier": 2,
+            "status": "deferred_optional",
+            "claimStatus": "idle"
+          },
+          "paymentRoutes": [
+            {
+              "id": "pm_dummy_12_1",
+              "type": "jazzcash",
+              "value": "3001234012",
+              "cardHolder": "",
+              "cardExpiry": "",
+              "cardCvv": "",
+              "otpVerified": true,
+              "telcoStatus": "matched",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": false,
+              "isDefault": true,
+              "bound": true
+            },
+            {
+              "id": "pm_dummy_12_2",
+              "type": "raast_mobile",
+              "value": "3001234012",
+              "cardHolder": "Ayesha Khan",
+              "cardExpiry": "12/28",
+              "cardCvv": "123",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": true,
+              "isDefault": false,
+              "bound": true
+            }
+          ],
+          "settlement": {
+            "bank": "HBL",
+            "ibanRaw": "PK36HABB0000001234567891",
+            "iban": "PK36 HABB **** **** 7891"
+          }
+        },
+        "credentials": {
+          "txPinSet": true,
+          "twoFa": "authenticator",
+          "twoFaVerified": true,
+          "amlAccepted": true,
+          "loginPasswordSet": true,
+          "activationComplete": true
+        },
+        "draft": {
+          "savedAt": "2026-08-03T19:33:05.367Z",
+          "step": 6,
+          "regMode": "hub",
+          "activeRegTab": null,
+          "isDummy": true,
+          "dummyLabel": "DUMMY ACCOUNT",
+          "dummyProfileId": 12,
+          "fields": {
+            "countrySelect": "Pakistan",
+            "nationalitySelect": "Pakistan",
+            "regionInput": "Sindh",
+            "cityInput": "Karachi",
+            "firstName": "Ayesha",
+            "lastName": "Khan",
+            "complianceFramework": "pk_sbp",
+            "docIdInput": "42101-1000012-2",
+            "dobInput": "1988-04-22",
+            "docIssueInput": "2018-06-15",
+            "docExpiryInput": "2030-06-15",
+            "empStatus": "remittance",
+            "otherProfessionInput": "Remittance Receiver (Salary/Family Support)",
+            "incomeRange": "500-1500",
+            "sourceOfWealth": "remittance",
+            "tinInput": "NTN-100012",
+            "bankName": "HBL",
+            "bankBranch": "Karachi Main Branch",
+            "bankIban": "PK36HABB0000001234567891",
+            "emailInput": "ayesha.khan.dummy@circlevault.test",
+            "mobileInput": "3001234012",
+            "dialCodeSelect": "+92",
+            "settleBankName": "HBL",
+            "settleAccountTitle": "AYESHA KHAN",
+            "settleIban": "PK36HABB0000001234567891",
+            "settleSwift": "HABBPKKA",
+            "settleBranch": "HBL · Karachi",
+            "nokFullName": "Usman Khan",
+            "nokRelationship": "parent",
+            "nokIdType": "cnic",
+            "nokIdNumber": "NOK-100012",
+            "nokMobile": "3001234999",
+            "nokOtp": "123456",
+            "txPin": "123456",
+            "txPinConfirm": "123456",
+            "twoFaOtp": "654321",
+            "masterPassword": "",
+            "masterPasswordConfirm": "",
+            "vaultLoginDigits": "100012",
+            "loginPassword": "Dummy@Vault1",
+            "loginPasswordConfirm": "Dummy@Vault1",
+            "activationEmail": "ayesha.khan.dummy@circlevault.test",
+            "activationEmailOtp": "111111",
+            "activationPhone": "3001234012",
+            "activationPhoneOtp": "222222"
+          },
+          "checks": {
+            "regDeclResident": true,
+            "regDeclPep": false,
+            "regDeclSanctions": true,
+            "lifetimeExpiry": false,
+            "amlCompliance": true
+          },
+          "radios": {},
+          "meta": {
+            "selectedDocKey": "cnic",
+            "docExpiryValue": "2030-06-15",
+            "livenessDone": true,
+            "aiPassed": true,
+            "nokOtpVerified": true,
+            "nokLivenessDone": true,
+            "successionClaimStatus": "idle",
+            "uploads": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": false,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_12_1": true
+            },
+            "savedSlots": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": false,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_12_1": true
+            },
+            "twoFa": "authenticator",
+            "primarySettlement": {
+              "bank": "HBL",
+              "ibanRaw": "PK36HABB0000001234567891",
+              "iban": "PK36 HABB **** **** 7891"
+            },
+            "nextOfKin": {
+              "fullName": "Usman Khan",
+              "relationship": "parent",
+              "idType": "cnic",
+              "idNumber": "NOK-100012",
+              "mobile": "3001234999",
+              "otpVerified": true,
+              "livenessDone": true,
+              "affidavits": [
+                {
+                  "id": "aff_nok_12_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_12.pdf",
+                  "uploaded": true
+                }
+              ]
+            },
+            "succession": {
+              "optional": true,
+              "claimStatus": "idle",
+              "affidavits": []
+            },
+            "affidavitState": {
+              "nok": [
+                {
+                  "id": "aff_nok_12_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_12.pdf"
+                }
+              ],
+              "succession": [],
+              "seq": {
+                "nok": 1,
+                "succession": 0
+              }
+            },
+            "paymentMethods": [
+              {
+                "id": "pm_dummy_12_1",
+                "type": "jazzcash",
+                "value": "3001234012",
+                "cardHolder": "",
+                "cardExpiry": "",
+                "cardCvv": "",
+                "otpVerified": true,
+                "telcoStatus": "matched",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": false,
+                "isDefault": true,
+                "bound": true
+              },
+              {
+                "id": "pm_dummy_12_2",
+                "type": "raast_mobile",
+                "value": "3001234012",
+                "cardHolder": "Ayesha Khan",
+                "cardExpiry": "12/28",
+                "cardCvv": "123",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": true,
+                "isDefault": false,
+                "bound": true
+              }
+            ],
+            "kycDocumentPayloads": {
+              "frontScan": {
+                "fileName": "kyc_front_100012.jpg",
+                "hash": "sha256:a43bec0de34195933ab470ed0aa9caa7",
+                "status": "verified"
+              },
+              "backScan": {
+                "fileName": "kyc_back_100012.jpg",
+                "hash": "sha256:40be0d7fd703a26188031d1f2140e7fd",
+                "status": "verified"
+              },
+              "selfie": {
+                "fileName": "kyc_selfie_100012.jpg",
+                "hash": "sha256:b3ed4116c9bae1aa2ce5a95612684e42",
+                "status": "verified"
+              },
+              "addressProof": {
+                "fileName": "kyc_address_100012.pdf",
+                "hash": "sha256:b5eaa3ef0769d9f1ede81d8f1711e34d",
+                "status": "verified"
+              },
+              "bankStatement": null,
+              "nokDoc": {
+                "fileName": "nok_id_100012.jpg",
+                "hash": "sha256:66fcd844789e303c05cdf1c4b362aacc",
+                "status": "verified"
+              }
+            },
+            "iso20022Identity": {
+              "endToEndId": "ID-CV-DUMMY100012",
+              "purposeCode": "IDEN",
+              "timestamp": "2026-08-03T19:33:05.367Z",
+              "party": {
+                "firstName": "Ayesha",
+                "lastName": "Khan",
+                "country": "Pakistan",
+                "nationality": "Pakistan",
+                "tin": "NTN-100012",
+                "docId": "42101-1000012-2"
+              },
+              "nextOfKin": {
+                "fullName": "Usman Khan",
+                "relationship": "parent",
+                "otpVerified": true,
+                "livenessDone": true,
+                "docUploaded": true,
+                "affidavitsUploaded": 1
+              },
+              "succession": {
+                "optional": true,
+                "deferredSetup": true,
+                "claimStatus": "idle"
+              }
+            },
+            "stepCompletion": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true,
+              "6": true
+            },
+            "completionPct": 100
+          }
+        },
+        "generatedAt": "2026-08-03T19:33:05.367Z",
+        "suiteVersion": 2
+      },
+      {
+        "id": "dummy_13",
+        "seq": 13,
+        "isDummy": true,
+        "dummyBadge": "DUMMY ACCOUNT",
+        "status": "active",
+        "statusHistory": [
+          {
+            "status": "active",
+            "at": "2026-08-03T19:33:05.367Z",
+            "by": "master_admin"
+          }
+        ],
+        "profileType": "Local Businessman",
+        "occupation": "Inbound/Outbound Remittance Receiver & Trader",
+        "purpose": "IN remittance receiver & trader",
+        "vaultId": "CV-ARC-100013-IN-2026",
+        "vaultDigits": "100013",
+        "countryCode": "IN",
+        "year": "2026",
+        "arcOnChainId": "0x2F3...5018",
+        "holderName": "ARJUN PATEL",
+        "firstName": "Arjun",
+        "lastName": "Patel",
+        "country": "India",
+        "nationality": "India",
+        "city": "Mumbai",
+        "region": "Maharashtra",
+        "jurisdictionLabel": "India / IN Corridor",
+        "settlementBank": "HDFC Bank",
+        "settlementIbanMasked": "IN91 HDFC **** **** 7892",
+        "settlementIbanRaw": "IN91HDFC0000001234567892",
+        "email": "arjun.patel.dummy@circlevault.test",
+        "mobile": "+91 9876540013",
+        "biometricStatus": "3D Liveness & Age-Gap Verified",
+        "complianceStatus": "Fully Verified (AML/CFT)",
+        "hierarchy": {
+          "vaultHolder": "ARJUN PATEL",
+          "nextOfKin": {
+            "name": "Meera Patel",
+            "relationship": "spouse",
+            "tier": 1
+          },
+          "succession": {
+            "tier": 2,
+            "status": "deferred_optional",
+            "claimStatus": "idle"
+          },
+          "paymentRoutes": [
+            {
+              "id": "pm_dummy_13_1",
+              "type": "stablecoin",
+              "value": "0xDUM100013ABCDEF1234567890AB",
+              "cardHolder": "",
+              "cardExpiry": "",
+              "cardCvv": "",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": false,
+              "isDefault": true,
+              "bound": true
+            },
+            {
+              "id": "pm_dummy_13_2",
+              "type": "raast_mobile",
+              "value": "9876540013",
+              "cardHolder": "Arjun Patel",
+              "cardExpiry": "12/28",
+              "cardCvv": "123",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": true,
+              "isDefault": false,
+              "bound": true
+            }
+          ],
+          "settlement": {
+            "bank": "HDFC Bank",
+            "ibanRaw": "IN91HDFC0000001234567892",
+            "iban": "IN91 HDFC **** **** 7892"
+          }
+        },
+        "credentials": {
+          "txPinSet": true,
+          "twoFa": "authenticator",
+          "twoFaVerified": true,
+          "amlAccepted": true,
+          "loginPasswordSet": true,
+          "activationComplete": true
+        },
+        "draft": {
+          "savedAt": "2026-08-03T19:33:05.367Z",
+          "step": 6,
+          "regMode": "hub",
+          "activeRegTab": null,
+          "isDummy": true,
+          "dummyLabel": "DUMMY ACCOUNT",
+          "dummyProfileId": 13,
+          "fields": {
+            "countrySelect": "India",
+            "nationalitySelect": "India",
+            "regionInput": "Maharashtra",
+            "cityInput": "Mumbai",
+            "firstName": "Arjun",
+            "lastName": "Patel",
+            "complianceFramework": "fatf_circle",
+            "docIdInput": "4567 8901 0013",
+            "dobInput": "1988-05-23",
+            "docIssueInput": "2018-06-15",
+            "docExpiryInput": "2030-06-15",
+            "empStatus": "trader",
+            "otherProfessionInput": "Inbound/Outbound Remittance Receiver & Trader",
+            "incomeRange": "1500-5000",
+            "sourceOfWealth": "remittance",
+            "tinInput": "PAN-ABCPD1001E",
+            "bankName": "HDFC Bank",
+            "bankBranch": "Mumbai Main Branch",
+            "bankIban": "IN91HDFC0000001234567892",
+            "emailInput": "arjun.patel.dummy@circlevault.test",
+            "mobileInput": "9876540013",
+            "dialCodeSelect": "+91",
+            "settleBankName": "HDFC Bank",
+            "settleAccountTitle": "ARJUN PATEL",
+            "settleIban": "IN91HDFC0000001234567892",
+            "settleSwift": "HDFCINBB",
+            "settleBranch": "HDFC Bank · Mumbai",
+            "nokFullName": "Meera Patel",
+            "nokRelationship": "spouse",
+            "nokIdType": "passport",
+            "nokIdNumber": "NOK-100013",
+            "nokMobile": "9876540999",
+            "nokOtp": "123456",
+            "txPin": "123456",
+            "txPinConfirm": "123456",
+            "twoFaOtp": "654321",
+            "masterPassword": "",
+            "masterPasswordConfirm": "",
+            "vaultLoginDigits": "100013",
+            "loginPassword": "Dummy@Vault1",
+            "loginPasswordConfirm": "Dummy@Vault1",
+            "activationEmail": "arjun.patel.dummy@circlevault.test",
+            "activationEmailOtp": "111111",
+            "activationPhone": "9876540013",
+            "activationPhoneOtp": "222222"
+          },
+          "checks": {
+            "regDeclResident": true,
+            "regDeclPep": false,
+            "regDeclSanctions": true,
+            "lifetimeExpiry": false,
+            "amlCompliance": true
+          },
+          "radios": {},
+          "meta": {
+            "selectedDocKey": "aadhaar",
+            "docExpiryValue": "2030-06-15",
+            "livenessDone": true,
+            "aiPassed": true,
+            "nokOtpVerified": true,
+            "nokLivenessDone": true,
+            "successionClaimStatus": "idle",
+            "uploads": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_13_1": true
+            },
+            "savedSlots": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": true,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_13_1": true
+            },
+            "twoFa": "authenticator",
+            "primarySettlement": {
+              "bank": "HDFC Bank",
+              "ibanRaw": "IN91HDFC0000001234567892",
+              "iban": "IN91 HDFC **** **** 7892"
+            },
+            "nextOfKin": {
+              "fullName": "Meera Patel",
+              "relationship": "spouse",
+              "idType": "passport",
+              "idNumber": "NOK-100013",
+              "mobile": "9876540999",
+              "otpVerified": true,
+              "livenessDone": true,
+              "affidavits": [
+                {
+                  "id": "aff_nok_13_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_13.pdf",
+                  "uploaded": true
+                }
+              ]
+            },
+            "succession": {
+              "optional": true,
+              "claimStatus": "idle",
+              "affidavits": []
+            },
+            "affidavitState": {
+              "nok": [
+                {
+                  "id": "aff_nok_13_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_13.pdf"
+                }
+              ],
+              "succession": [],
+              "seq": {
+                "nok": 1,
+                "succession": 0
+              }
+            },
+            "paymentMethods": [
+              {
+                "id": "pm_dummy_13_1",
+                "type": "stablecoin",
+                "value": "0xDUM100013ABCDEF1234567890AB",
+                "cardHolder": "",
+                "cardExpiry": "",
+                "cardCvv": "",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": false,
+                "isDefault": true,
+                "bound": true
+              },
+              {
+                "id": "pm_dummy_13_2",
+                "type": "raast_mobile",
+                "value": "9876540013",
+                "cardHolder": "Arjun Patel",
+                "cardExpiry": "12/28",
+                "cardCvv": "123",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": true,
+                "isDefault": false,
+                "bound": true
+              }
+            ],
+            "kycDocumentPayloads": {
+              "frontScan": {
+                "fileName": "kyc_front_100013.jpg",
+                "hash": "sha256:a33bea7ac44164c6d9b3d83a87a8fc6e",
+                "status": "verified"
+              },
+              "backScan": {
+                "fileName": "kyc_back_100013.jpg",
+                "hash": "sha256:3fbe0becb80371942702846c9e4019c4",
+                "status": "verified"
+              },
+              "selfie": {
+                "fileName": "kyc_selfie_100013.jpg",
+                "hash": "sha256:b4ed42a9e8bb12778de6420995691c7b",
+                "status": "verified"
+              },
+              "addressProof": {
+                "fileName": "kyc_address_100013.pdf",
+                "hash": "sha256:b4eaa25ce869a9248ce784dc94111514",
+                "status": "verified"
+              },
+              "bankStatement": {
+                "fileName": "kyc_bank_100013.pdf",
+                "hash": "sha256:90f1251b8d337e45eb5f0f3b2b65fcd1",
+                "status": "verified"
+              },
+              "nokDoc": {
+                "fileName": "nok_id_100013.jpg",
+                "hash": "sha256:67fcd9d7979e610966ce8a7736637905",
+                "status": "verified"
+              }
+            },
+            "iso20022Identity": {
+              "endToEndId": "ID-CV-DUMMY100013",
+              "purposeCode": "IDEN",
+              "timestamp": "2026-08-03T19:33:05.367Z",
+              "party": {
+                "firstName": "Arjun",
+                "lastName": "Patel",
+                "country": "India",
+                "nationality": "India",
+                "tin": "PAN-ABCPD1001E",
+                "docId": "4567 8901 0013"
+              },
+              "nextOfKin": {
+                "fullName": "Meera Patel",
+                "relationship": "spouse",
+                "otpVerified": true,
+                "livenessDone": true,
+                "docUploaded": true,
+                "affidavitsUploaded": 1
+              },
+              "succession": {
+                "optional": true,
+                "deferredSetup": true,
+                "claimStatus": "idle"
+              }
+            },
+            "stepCompletion": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true,
+              "6": true
+            },
+            "completionPct": 100
+          }
+        },
+        "generatedAt": "2026-08-03T19:33:05.367Z",
+        "suiteVersion": 2
+      },
+      {
+        "id": "dummy_14",
+        "seq": 14,
+        "isDummy": true,
+        "dummyBadge": "DUMMY ACCOUNT",
+        "status": "active",
+        "statusHistory": [
+          {
+            "status": "active",
+            "at": "2026-08-03T19:33:05.367Z",
+            "by": "master_admin"
+          }
+        ],
+        "profileType": "Local Employee",
+        "occupation": "Remittance Receiver (Salary/Family Support)",
+        "purpose": "IN remittance receiver family support",
+        "vaultId": "CV-ARC-100014-IN-2026",
+        "vaultDigits": "100014",
+        "countryCode": "IN",
+        "year": "2026",
+        "arcOnChainId": "0x2F3...5207",
+        "holderName": "NEHA GUPTA",
+        "firstName": "Neha",
+        "lastName": "Gupta",
+        "country": "India",
+        "nationality": "India",
+        "city": "Delhi",
+        "region": "Delhi",
+        "jurisdictionLabel": "India / IN Corridor",
+        "settlementBank": "State Bank of India",
+        "settlementIbanMasked": "IN91 SBIN **** **** 7893",
+        "settlementIbanRaw": "IN91SBIN0000001234567893",
+        "email": "neha.gupta.dummy@circlevault.test",
+        "mobile": "+91 9876540014",
+        "biometricStatus": "3D Liveness & Age-Gap Verified",
+        "complianceStatus": "Fully Verified (AML/CFT)",
+        "hierarchy": {
+          "vaultHolder": "NEHA GUPTA",
+          "nextOfKin": {
+            "name": "Rohit Gupta",
+            "relationship": "sibling",
+            "tier": 1
+          },
+          "succession": {
+            "tier": 2,
+            "status": "deferred_optional",
+            "claimStatus": "idle"
+          },
+          "paymentRoutes": [
+            {
+              "id": "pm_dummy_14_1",
+              "type": "stablecoin",
+              "value": "0xDUM100014ABCDEF1234567890AB",
+              "cardHolder": "",
+              "cardExpiry": "",
+              "cardCvv": "",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": false,
+              "isDefault": true,
+              "bound": true
+            },
+            {
+              "id": "pm_dummy_14_2",
+              "type": "raast_mobile",
+              "value": "9876540014",
+              "cardHolder": "Neha Gupta",
+              "cardExpiry": "12/28",
+              "cardCvv": "123",
+              "otpVerified": true,
+              "telcoStatus": "idle",
+              "emailBound": true,
+              "otpSent": true,
+              "threeDsVerified": true,
+              "isDefault": false,
+              "bound": true
+            }
+          ],
+          "settlement": {
+            "bank": "State Bank of India",
+            "ibanRaw": "IN91SBIN0000001234567893",
+            "iban": "IN91 SBIN **** **** 7893"
+          }
+        },
+        "credentials": {
+          "txPinSet": true,
+          "twoFa": "authenticator",
+          "twoFaVerified": true,
+          "amlAccepted": true,
+          "loginPasswordSet": true,
+          "activationComplete": true
+        },
+        "draft": {
+          "savedAt": "2026-08-03T19:33:05.367Z",
+          "step": 6,
+          "regMode": "hub",
+          "activeRegTab": null,
+          "isDummy": true,
+          "dummyLabel": "DUMMY ACCOUNT",
+          "dummyProfileId": 14,
+          "fields": {
+            "countrySelect": "India",
+            "nationalitySelect": "India",
+            "regionInput": "Delhi",
+            "cityInput": "Delhi",
+            "firstName": "Neha",
+            "lastName": "Gupta",
+            "complianceFramework": "fatf_circle",
+            "docIdInput": "4567 8901 0014",
+            "dobInput": "1988-06-24",
+            "docIssueInput": "2018-06-15",
+            "docExpiryInput": "2030-06-15",
+            "empStatus": "remittance",
+            "otherProfessionInput": "Remittance Receiver (Salary/Family Support)",
+            "incomeRange": "500-1500",
+            "sourceOfWealth": "remittance",
+            "tinInput": "PAN-FGHIJ1002K",
+            "bankName": "State Bank of India",
+            "bankBranch": "Delhi Main Branch",
+            "bankIban": "IN91SBIN0000001234567893",
+            "emailInput": "neha.gupta.dummy@circlevault.test",
+            "mobileInput": "9876540014",
+            "dialCodeSelect": "+91",
+            "settleBankName": "State Bank of India",
+            "settleAccountTitle": "NEHA GUPTA",
+            "settleIban": "IN91SBIN0000001234567893",
+            "settleSwift": "SBININBB",
+            "settleBranch": "State Bank of India · Delhi",
+            "nokFullName": "Rohit Gupta",
+            "nokRelationship": "sibling",
+            "nokIdType": "passport",
+            "nokIdNumber": "NOK-100014",
+            "nokMobile": "9876540999",
+            "nokOtp": "123456",
+            "txPin": "123456",
+            "txPinConfirm": "123456",
+            "twoFaOtp": "654321",
+            "masterPassword": "",
+            "masterPasswordConfirm": "",
+            "vaultLoginDigits": "100014",
+            "loginPassword": "Dummy@Vault1",
+            "loginPasswordConfirm": "Dummy@Vault1",
+            "activationEmail": "neha.gupta.dummy@circlevault.test",
+            "activationEmailOtp": "111111",
+            "activationPhone": "9876540014",
+            "activationPhoneOtp": "222222"
+          },
+          "checks": {
+            "regDeclResident": true,
+            "regDeclPep": false,
+            "regDeclSanctions": true,
+            "lifetimeExpiry": false,
+            "amlCompliance": true
+          },
+          "radios": {},
+          "meta": {
+            "selectedDocKey": "aadhaar",
+            "docExpiryValue": "2030-06-15",
+            "livenessDone": true,
+            "aiPassed": true,
+            "nokOtpVerified": true,
+            "nokLivenessDone": true,
+            "successionClaimStatus": "idle",
+            "uploads": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": false,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_14_1": true
+            },
+            "savedSlots": {
+              "slotFront": true,
+              "slotBack": true,
+              "slotPhoto": true,
+              "slotAddressProof": true,
+              "slotBankStatement": false,
+              "slotNokDoc": true,
+              "slotNokSelfie": true,
+              "slotSalPayslip": false,
+              "slotBizWork": false,
+              "slotTraderWork": false,
+              "slotFreeWork": false,
+              "slotSkillWork": false,
+              "slotCustomWork": false,
+              "slotNokClaimDeathCert": false,
+              "slotTier2HolderDeath": false,
+              "slotTier2NokDeath": false,
+              "slotTier2NocPoa": false,
+              "aff_nok_14_1": true
+            },
+            "twoFa": "authenticator",
+            "primarySettlement": {
+              "bank": "State Bank of India",
+              "ibanRaw": "IN91SBIN0000001234567893",
+              "iban": "IN91 SBIN **** **** 7893"
+            },
+            "nextOfKin": {
+              "fullName": "Rohit Gupta",
+              "relationship": "sibling",
+              "idType": "passport",
+              "idNumber": "NOK-100014",
+              "mobile": "9876540999",
+              "otpVerified": true,
+              "livenessDone": true,
+              "affidavits": [
+                {
+                  "id": "aff_nok_14_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_14.pdf",
+                  "uploaded": true
+                }
+              ]
+            },
+            "succession": {
+              "optional": true,
+              "claimStatus": "idle",
+              "affidavits": []
+            },
+            "affidavitState": {
+              "nok": [
+                {
+                  "id": "aff_nok_14_1",
+                  "label": "Affidavit 1",
+                  "fileName": "nok_affidavit_14.pdf"
+                }
+              ],
+              "succession": [],
+              "seq": {
+                "nok": 1,
+                "succession": 0
+              }
+            },
+            "paymentMethods": [
+              {
+                "id": "pm_dummy_14_1",
+                "type": "stablecoin",
+                "value": "0xDUM100014ABCDEF1234567890AB",
+                "cardHolder": "",
+                "cardExpiry": "",
+                "cardCvv": "",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": false,
+                "isDefault": true,
+                "bound": true
+              },
+              {
+                "id": "pm_dummy_14_2",
+                "type": "raast_mobile",
+                "value": "9876540014",
+                "cardHolder": "Neha Gupta",
+                "cardExpiry": "12/28",
+                "cardCvv": "123",
+                "otpVerified": true,
+                "telcoStatus": "idle",
+                "emailBound": true,
+                "otpSent": true,
+                "threeDsVerified": true,
+                "isDefault": false,
+                "bound": true
+              }
+            ],
+            "kycDocumentPayloads": {
+              "frontScan": {
+                "fileName": "kyc_front_100014.jpg",
+                "hash": "sha256:9e3be29b294070c5f4b0dcbbf8a4f551",
+                "status": "verified"
+              },
+              "backScan": {
+                "fileName": "kyc_back_100014.jpg",
+                "hash": "sha256:3ebe0a59990340c7c601ebb91b3f4b8b",
+                "status": "verified"
+              },
+              "selfie": {
+                "fileName": "kyc_selfie_100014.jpg",
+                "hash": "sha256:b5ed443c07bb4344eee6dabc1869eab4",
+                "status": "verified"
+              },
+              "addressProof": {
+                "fileName": "kyc_address_100014.pdf",
+                "hash": "sha256:b3eaa0c9c96978572be6ec29111046db",
+                "status": "verified"
+              },
+              "bankStatement": null,
+              "nokDoc": {
+                "fileName": "nok_id_100014.jpg",
+                "hash": "sha256:64fcd51e3a9dcea243ccc05ead610e5a",
+                "status": "verified"
+              }
+            },
+            "iso20022Identity": {
+              "endToEndId": "ID-CV-DUMMY100014",
+              "purposeCode": "IDEN",
+              "timestamp": "2026-08-03T19:33:05.367Z",
+              "party": {
+                "firstName": "Neha",
+                "lastName": "Gupta",
+                "country": "India",
+                "nationality": "India",
+                "tin": "PAN-FGHIJ1002K",
+                "docId": "4567 8901 0014"
+              },
+              "nextOfKin": {
+                "fullName": "Rohit Gupta",
+                "relationship": "sibling",
+                "otpVerified": true,
+                "livenessDone": true,
+                "docUploaded": true,
+                "affidavitsUploaded": 1
+              },
+              "succession": {
+                "optional": true,
+                "deferredSetup": true,
+                "claimStatus": "idle"
+              }
+            },
+            "stepCompletion": {
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true,
+              "6": true
+            },
+            "completionPct": 100
+          }
+        },
+        "generatedAt": "2026-08-03T19:33:05.367Z",
+        "suiteVersion": 2
+      }
+    ]
+  }
+}
