@@ -1,13 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="notranslate" translate="no">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Opt this page out of Chrome/Edge's built-in auto-translate banner.
+     We ship our own complete native i18n dictionary (see I18N / NATIVE_I18N_LANGS
+     below), so the browser's translate prompt is redundant and can visually
+     conflict with our own language switcher + RTL handling. -->
+<meta name="google" content="notranslate">
+<meta http-equiv="Content-Language" content="en">
 <title>The CircleVault Global — Payments, Remittances & Yield Ecosystem</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Nastaliq+Urdu:wght@500;700&display=swap" rel="stylesheet">
 <style>
+  /* ---------- Hard-kill any legacy/injected Google Translate UI ---------- */
+  #google_translate_element,
+  .goog-te-banner-frame,
+  .goog-te-menu-frame,
+  .goog-tooltip, .goog-tooltip:hover,
+  .goog-text-highlight,
+  iframe.skiptranslate,
+  #goog-gt-tt,
+  .goog-te-balloon-frame{
+    display:none !important;
+    visibility:hidden !important;
+    height:0 !important;
+    max-height:0 !important;
+    width:0 !important;
+    overflow:hidden !important;
+    position:absolute !important;
+    left:-9999px !important;
+  }
+  body{ top:0 !important; position:static !important; } /* Google Translate injects body{top:40px} — neutralize it */
   :root{
     --bg:#0A1120;
     --bg-grad: radial-gradient(1100px 600px at 85% -10%, #12213c 0%, transparent 60%), radial-gradient(900px 500px at -10% 20%, #0f1c33 0%, transparent 55%), #0A1120;
@@ -3707,14 +3732,14 @@ function closeLangSheet(){
 
 /**
  * ============================================================================
- * NATIVE DICTIONARY + UNIVERSAL i18n BRIDGE
- * Built-in dictionaries for top languages; lazy API fill for all others.
+ * NATIVE DICTIONARY i18n BRIDGE — fully local, zero external calls.
+ * Languages in NATIVE_I18N_LANGS render from the bundled I18N dictionary;
+ * anything else falls back to English rather than calling out to a
+ * translation service.
  * ============================================================================
  */
 var __cvActiveLang = 'en';
 var __cvI18nCache = {};
-var __cvApiQueue = {};
-var __cvApiBusy = false;
 var I18N_CACHE_KEY = 'circlevault_i18n_cache_v1';
 
 try{
@@ -3769,60 +3794,21 @@ function isNativeI18nLang(lang){
   return NATIVE_I18N_LANGS.indexOf(lang) !== -1;
 }
 
-function apiLangCode(lang){
-  if(lang === 'zh') return 'zh-CN';
-  if(lang === 'fil') return 'tl';
-  if(lang === 'he') return 'iw';
-  return lang;
-}
-
-function scheduleApiTranslate(lang, key, enText){
-  if(!lang || lang === 'en' || !enText) return;
-  if(__cvI18nCache[lang] && __cvI18nCache[lang][key]) return;
-  if(isNativeI18nLang(lang) && I18N[lang] && I18N[lang][key] && I18N[lang][key] !== (I18N.en && I18N.en[key])) return;
-  if(!__cvApiQueue[lang]) __cvApiQueue[lang] = {};
-  __cvApiQueue[lang][key] = enText;
-  if(!__cvApiBusy){
-    __cvApiBusy = true;
-    setTimeout(flushApiQueue, 40);
-  }
-}
-
-function flushApiQueue(){
-  var langs = Object.keys(__cvApiQueue);
-  if(!langs.length){ __cvApiBusy = false; return; }
-  var lang = langs[0];
-  var keys = Object.keys(__cvApiQueue[lang] || {});
-  if(!keys.length){
-    delete __cvApiQueue[lang];
-    setTimeout(flushApiQueue, 20);
-    return;
-  }
-  var key = keys[0];
-  var text = __cvApiQueue[lang][key];
-  delete __cvApiQueue[lang][key];
-
-  var url = 'https://api.mymemory.translated.net/get?q=' +
-    encodeURIComponent(String(text).slice(0, 450)) +
-    '&langpair=en|' + encodeURIComponent(apiLangCode(lang));
-
-  fetch(url).then(function(r){ return r.json(); }).then(function(j){
-    var out = j && j.responseData && j.responseData.translatedText;
-    if(out && !/^MYMEMORY WARNING/i.test(out)){
-      if(!__cvI18nCache[lang]) __cvI18nCache[lang] = {};
-      __cvI18nCache[lang][key] = out;
-      if(!I18N[lang]) I18N[lang] = Object.assign({}, I18N.en || {});
-      I18N[lang][key] = out;
-      persistI18nCache();
-      if(__cvActiveLang === lang){
-        updateDOMTranslations(document);
-      }
-    }
-  }).catch(function(){ /* keep English until next attempt */ })
-  .finally(function(){
-    setTimeout(flushApiQueue, 160);
-  });
-}
+/**
+ * NOTE: This build is 100% local/native i18n — no external translation
+ * service is ever called (no Google Translate, no third-party API).
+ * Languages in NATIVE_I18N_LANGS render from the bundled I18N dictionary.
+ * Any language NOT in that list (e.g. a long-tail entry in the country/
+ * flag list) simply falls back to English text rather than firing a
+ * network request, so there is no "layout flips to RTL but text stays
+ * in English while we wait on a fetch" failure mode.
+ *
+ * These two functions are kept as harmless no-op stubs (rather than
+ * deleted outright) so any legacy call sites elsewhere in the file don't
+ * throw — but neither one performs any network I/O anymore.
+ */
+function scheduleApiTranslate(lang, key, enText){ /* intentionally a no-op: no external API calls */ }
+function flushApiQueue(){ /* intentionally a no-op: no external API calls */ }
 
 function t(key){
   if(!key) return '';
@@ -3846,7 +3832,6 @@ function t(key){
       console.log('[i18n] missing/pending key', { lang: lang, key: key, fallback: enVal, hasDict: !!dict, native: isNativeI18nLang(lang) });
     }
   }catch(_log){}
-  try{ scheduleApiTranslate(lang, key, enVal); }catch(_api){ try{ console.log('[i18n] scheduleApiTranslate failed', _api); }catch(_e){} }
   if(dict && dict[key]) return dict[key];
   return enVal;
 }
@@ -3953,15 +3938,6 @@ function applyLang(lang){
     console.log('[i18n] applyLang', { lang: lang, hasDict: !!(I18N && I18N[lang]), dictKeys: I18N && I18N[lang] ? Object.keys(I18N[lang]).length : 0 });
   }catch(_c){}
   updateDOMTranslations(document);
-  /* Prefetch full dictionary for non-native langs (native gaps fill lazily via t()) */
-  if(lang !== 'en' && !isNativeI18nLang(lang)){
-    var enDict = I18N.en || {};
-    Object.keys(enDict).forEach(function(k){
-      var have = (I18N[lang] && I18N[lang][k] && I18N[lang][k] !== enDict[k]) ||
-        (__cvI18nCache[lang] && __cvI18nCache[lang][k]);
-      if(!have) scheduleApiTranslate(lang, k, enDict[k]);
-    });
-  }
   try{ if(typeof syncCountryLanguageHint === 'function') syncCountryLanguageHint(); }catch(_h){}
   requestAnimationFrame(typeof applyFitScale === 'function' ? applyFitScale : function(){});
 }
