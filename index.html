@@ -3590,6 +3590,48 @@ const WORLD_LANGS = [
   ['zh','中文 (Chinese)'],['zu','isiZulu']
 ];
 
+/* Representative country + flag for each language code, used purely for
+   friendlier dropdown labels (a language can map to several countries —
+   this picks one well-known reference point, not a political statement). */
+const LANG_FLAG_MAP = {
+  af:['🇿🇦','South Africa'], am:['🇪🇹','Ethiopia'], ar:['🇸🇦','Saudi Arabia'], az:['🇦🇿','Azerbaijan'],
+  be:['🇧🇾','Belarus'], bg:['🇧🇬','Bulgaria'], bn:['🇧🇩','Bangladesh'], bs:['🇧🇦','Bosnia & Herzegovina'],
+  ca:['🇪🇸','Catalonia'], ceb:['🇵🇭','Philippines'], cs:['🇨🇿','Czechia'], cy:['🇬🇧','Wales'],
+  da:['🇩🇰','Denmark'], de:['🇩🇪','Germany'], el:['🇬🇷','Greece'], en:['🇺🇸','United States'],
+  eo:['🌐','International'], es:['🇪🇸','Spain'], et:['🇪🇪','Estonia'], eu:['🇪🇸','Basque Country'],
+  fa:['🇮🇷','Iran'], fi:['🇫🇮','Finland'], fil:['🇵🇭','Philippines'], fr:['🇫🇷','France'], fy:['🇳🇱','Netherlands'],
+  ga:['🇮🇪','Ireland'], gd:['🇬🇧','Scotland'], gl:['🇪🇸','Galicia'], gu:['🇮🇳','India'],
+  ha:['🇳🇬','Nigeria'], haw:['🇺🇸','Hawaii'], he:['🇮🇱','Israel'], hi:['🇮🇳','India'], hmn:['🌐','Hmong'],
+  hr:['🇭🇷','Croatia'], ht:['🇭🇹','Haiti'], hu:['🇭🇺','Hungary'], hy:['🇦🇲','Armenia'],
+  id:['🇮🇩','Indonesia'], ig:['🇳🇬','Nigeria'], is:['🇮🇸','Iceland'], it:['🇮🇹','Italy'],
+  ja:['🇯🇵','Japan'], jv:['🇮🇩','Indonesia'],
+  ka:['🇬🇪','Georgia'], kk:['🇰🇿','Kazakhstan'], km:['🇰🇭','Cambodia'], kn:['🇮🇳','India'],
+  ko:['🇰🇷','South Korea'], ku:['🌐','Kurdish'], ky:['🇰🇬','Kyrgyzstan'],
+  lo:['🇱🇦','Laos'], lt:['🇱🇹','Lithuania'], lv:['🇱🇻','Latvia'],
+  mg:['🇲🇬','Madagascar'], mi:['🇳🇿','New Zealand'], mk:['🇲🇰','North Macedonia'], ml:['🇮🇳','India'],
+  mn:['🇲🇳','Mongolia'], mr:['🇮🇳','India'], ms:['🇲🇾','Malaysia'], mt:['🇲🇹','Malta'], my:['🇲🇲','Myanmar'],
+  ne:['🇳🇵','Nepal'], nl:['🇳🇱','Netherlands'], no:['🇳🇴','Norway'], ny:['🇲🇼','Malawi'],
+  or:['🇮🇳','India'],
+  pa:['🇮🇳','India'], pl:['🇵🇱','Poland'], ps:['🇦🇫','Afghanistan'], pt:['🇵🇹','Portugal'],
+  ro:['🇷🇴','Romania'], ru:['🇷🇺','Russia'], rw:['🇷🇼','Rwanda'],
+  sd:['🇵🇰','Pakistan'], si:['🇱🇰','Sri Lanka'], sk:['🇸🇰','Slovakia'], sl:['🇸🇮','Slovenia'],
+  sm:['🇼🇸','Samoa'], sn:['🇿🇼','Zimbabwe'], so:['🇸🇴','Somalia'], sq:['🇦🇱','Albania'], sr:['🇷🇸','Serbia'],
+  st:['🇱🇸','Lesotho'], su:['🇮🇩','Indonesia'], sv:['🇸🇪','Sweden'], sw:['🇰🇪','Kenya'],
+  ta:['🇮🇳','India'], te:['🇮🇳','India'], tg:['🇹🇯','Tajikistan'], th:['🇹🇭','Thailand'],
+  tk:['🇹🇲','Turkmenistan'], tl:['🇵🇭','Philippines'], tr:['🇹🇷','Turkey'], tt:['🇷🇺','Tatarstan'],
+  ug:['🇨🇳','Xinjiang'], uk:['🇺🇦','Ukraine'], ur:['🇵🇰','Pakistan'], uz:['🇺🇿','Uzbekistan'],
+  vi:['🇻🇳','Vietnam'],
+  xh:['🇿🇦','South Africa'],
+  yi:['🌐','Yiddish'], yo:['🇳🇬','Nigeria'],
+  zh:['🇨🇳','China'], zu:['🇿🇦','South Africa']
+};
+
+function langDisplayLabel(code, nativeLabel){
+  const meta = LANG_FLAG_MAP[code];
+  if(!meta) return nativeLabel;
+  return meta[0] + ' ' + meta[1] + ' - ' + nativeLabel;
+}
+
 function populateLanguages(){
   const sel = document.getElementById('langSwitch');
   const list = document.getElementById('langSheetList');
@@ -3597,9 +3639,10 @@ function populateLanguages(){
   sel.innerHTML = '';
   if(list) list.innerHTML = '';
   WORLD_LANGS.forEach(([code, label])=>{
+    const fullLabel = langDisplayLabel(code, label);
     const opt = document.createElement('option');
     opt.value = code;
-    opt.textContent = label;
+    opt.textContent = fullLabel;
     if(code === 'en') opt.selected = true;
     sel.appendChild(opt);
 
@@ -3610,7 +3653,7 @@ function populateLanguages(){
       btn.setAttribute('role', 'option');
       btn.setAttribute('data-lang', code);
       btn.setAttribute('aria-selected', code === 'en' ? 'true' : 'false');
-      btn.textContent = label;
+      btn.textContent = fullLabel;
       CVBindTap(btn, function(){
         selectLanguage(code);
         closeLangSheet();
@@ -3618,13 +3661,15 @@ function populateLanguages(){
       list.appendChild(btn);
     }
   });
-  syncLangTouchLabel('en');
+  syncLangTouchLabel(__cvActiveLang || 'en');
+  const sw = document.getElementById('langSwitch');
+  if(sw && __cvActiveLang) sw.value = __cvActiveLang;
 }
 
 function syncLangTouchLabel(lang){
   const labelEl = document.getElementById('langTouchLabel');
   const found = WORLD_LANGS.find(function(row){ return row[0] === lang; });
-  if(labelEl) labelEl.textContent = found ? found[1] : (lang || 'English');
+  if(labelEl) labelEl.textContent = found ? langDisplayLabel(found[0], found[1]) : (lang || 'English');
   const list = document.getElementById('langSheetList');
   if(list){
     list.querySelectorAll('.lang-sheet-item').forEach(function(btn){
@@ -3633,11 +3678,26 @@ function syncLangTouchLabel(lang){
   }
 }
 
+/**
+ * User-initiated language change.
+ * Robust bridge: set the googtrans cookie (or clear it for English), persist
+ * the choice, then reload. Google's translate_a/element.js reads that cookie
+ * on init and translates the freshly-rendered DOM itself — this doesn't
+ * depend on the hidden .goog-te-combo widget already being alive in the
+ * page, which is the part that silently fails when the translate script is
+ * slow, blocked, or not yet initialized.
+ */
 function selectLanguage(lang){
+  if(!lang) lang = 'en';
   const sel = document.getElementById('langSwitch');
   if(sel) sel.value = lang;
-  applyLang(lang);
   syncLangTouchLabel(lang);
+  if(lang === __cvActiveLang){
+    return; /* already the active language — nothing to bridge/reload for */
+  }
+  try{ localStorage.setItem('circlevault_lang_v1', lang); }catch(_e){}
+  setGoogTransCookie(lang);
+  location.reload();
 }
 
 function openLangSheet(){
@@ -3864,6 +3924,14 @@ function triggerGoogleTranslate(lang, force){
 }
 window.triggerGoogleTranslate = triggerGoogleTranslate;
 
+/**
+ * Apply language state to the CURRENT document without reloading.
+ * Used at boot time (state already resolved from the googtrans cookie /
+ * localStorage before the page painted) and as a same-page fallback nudge
+ * for the hidden Google combo. selectLanguage() — the user-facing entry
+ * point — reloads instead so Google's own script re-translates on init;
+ * this function never reloads on its own, to avoid loops.
+ */
 function applyLang(lang){
   if(!lang) lang = 'en';
   __cvActiveLang = lang;
@@ -3922,13 +3990,34 @@ window.applyLang = applyLang;
   }catch(_o){}
 })();
 
-(function restoreLang(){
+/**
+ * Boot-time language resolution — runs synchronously on parse, before the
+ * Google Translate script has loaded. Sets dir/lang attributes immediately
+ * (so RTL layout is correct from first paint, no flash) and makes sure the
+ * googtrans cookie matches the saved preference, since that's what Google's
+ * script checks on init to auto-translate the page. No reload here — a
+ * reload already happened the moment the user picked this language via
+ * selectLanguage(); this just re-affirms state on every subsequent load.
+ */
+(function bootstrapLang(){
   var saved = null;
   try{ saved = localStorage.getItem('circlevault_lang_v1'); }catch(_e){}
   if(saved && saved !== 'en'){
     __cvActiveLang = saved;
     __cvTranslatePending = saved;
-    setTimeout(function(){ selectLanguage(saved); }, 300);
+    document.documentElement.lang = saved === 'zh' ? 'zh-CN' : saved;
+    document.documentElement.dir = RTL_LANGS.indexOf(saved) !== -1 ? 'rtl' : 'ltr';
+    setGoogTransCookie(saved);
+    /* Fallback only: if the cookie-triggered auto-translate hasn't kicked in
+       after a few seconds (script blocked/slow), retry via the combo hack. */
+    setTimeout(function(){
+      var translated = document.documentElement.classList.contains('translated-ltr') ||
+        document.documentElement.classList.contains('translated-rtl');
+      if(!translated) triggerGoogleTranslate(saved, true);
+    }, 3000);
+  } else {
+    __cvActiveLang = 'en';
+    setGoogTransCookie('en');
   }
 })();
 
