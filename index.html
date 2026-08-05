@@ -1781,11 +1781,31 @@
   #view-login .login-demo-preset select{width:100%;min-height:40px;padding:8px 10px;border-radius:10px;border:1px solid var(--line-strong);background:var(--panel-3);color:var(--text);font:inherit;}
   /* Universal Google Translate chrome hide */
   #google_translate_element{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important;}
-  .goog-te-banner-frame, .goog-te-balloon-frame, #goog-gt-tt, .goog-tooltip, .goog-te-balloon-frame{display:none!important;}
-  body{top:0!important;}
-  .goog-text-highlight{background:transparent!important;box-shadow:none!important;}
+  .goog-te-banner-frame{
+    display:none !important;
+  }
+  iframe.goog-te-banner-frame,
+  .skiptranslate iframe.goog-te-banner-frame{
+    display:none !important;
+    visibility:hidden !important;
+    height:0 !important;
+    max-height:0 !important;
+    border:0 !important;
+  }
+  body{
+    top:0px !important;
+    position:static !important;
+  }
+  #goog-gt-tt, .goog-te-balloon-frame{
+    display:none !important;
+  }
+  .goog-text-highlight{
+    background-color:transparent !important;
+    box-shadow:none !important;
+  }
   font[style*="vertical-align: inherit"]{vertical-align:inherit!important;}
   .notranslate, [translate="no"]{unicode-bidi:isolate;}
+  .skiptranslate{display:none !important;}
 
 footer.site{border-block-start:1px solid var(--line);padding-block:26px;color:var(--muted-2);font-size:12px;text-align:center;}
 
