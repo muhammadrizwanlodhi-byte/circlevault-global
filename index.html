@@ -3769,6 +3769,61 @@ function isNativeI18nLang(lang){
   return NATIVE_I18N_LANGS.indexOf(lang) !== -1;
 }
 
+function apiLangCode(lang){
+  if(lang === 'zh') return 'zh-CN';
+  if(lang === 'fil') return 'tl';
+  if(lang === 'he') return 'iw';
+  return lang;
+}
+
+function scheduleApiTranslate(lang, key, enText){
+  if(!lang || lang === 'en' || !enText) return;
+  if(__cvI18nCache[lang] && __cvI18nCache[lang][key]) return;
+  if(isNativeI18nLang(lang) && I18N[lang] && I18N[lang][key] && I18N[lang][key] !== (I18N.en && I18N.en[key])) return;
+  if(!__cvApiQueue[lang]) __cvApiQueue[lang] = {};
+  __cvApiQueue[lang][key] = enText;
+  if(!__cvApiBusy){
+    __cvApiBusy = true;
+    setTimeout(flushApiQueue, 40);
+  }
+}
+
+function flushApiQueue(){
+  var langs = Object.keys(__cvApiQueue);
+  if(!langs.length){ __cvApiBusy = false; return; }
+  var lang = langs[0];
+  var keys = Object.keys(__cvApiQueue[lang] || {});
+  if(!keys.length){
+    delete __cvApiQueue[lang];
+    setTimeout(flushApiQueue, 20);
+    return;
+  }
+  var key = keys[0];
+  var text = __cvApiQueue[lang][key];
+  delete __cvApiQueue[lang][key];
+
+  var url = 'https://api.mymemory.translated.net/get?q=' +
+    encodeURIComponent(String(text).slice(0, 450)) +
+    '&langpair=en|' + encodeURIComponent(apiLangCode(lang));
+
+  fetch(url).then(function(r){ return r.json(); }).then(function(j){
+    var out = j && j.responseData && j.responseData.translatedText;
+    if(out && !/^MYMEMORY WARNING/i.test(out)){
+      if(!__cvI18nCache[lang]) __cvI18nCache[lang] = {};
+      __cvI18nCache[lang][key] = out;
+      if(!I18N[lang]) I18N[lang] = Object.assign({}, I18N.en || {});
+      I18N[lang][key] = out;
+      persistI18nCache();
+      if(__cvActiveLang === lang){
+        updateDOMTranslations(document);
+      }
+    }
+  }).catch(function(){ /* keep English until next attempt */ })
+  .finally(function(){
+    setTimeout(flushApiQueue, 160);
+  });
+}
+
 function t(key){
   if(!key) return '';
   var lang = __cvActiveLang || 'en';
@@ -3791,7 +3846,7 @@ function t(key){
       console.log('[i18n] missing/pending key', { lang: lang, key: key, fallback: enVal, hasDict: !!dict, native: isNativeI18nLang(lang) });
     }
   }catch(_log){}
-  scheduleApiTranslate(lang, key, enVal);
+  try{ scheduleApiTranslate(lang, key, enVal); }catch(_api){ try{ console.log('[i18n] scheduleApiTranslate failed', _api); }catch(_e){} }
   if(dict && dict[key]) return dict[key];
   return enVal;
 }
@@ -3842,13 +3897,18 @@ function updateDOMTranslations(root){
   try{
     var nodes = scope.querySelectorAll('[data-i18n]');
     for(var i = 0; i < nodes.length; i++){
-      var el = nodes[i];
-      var key = el.getAttribute('data-i18n');
-      if(!key) continue;
-      var val = t(key);
-      if(val == null || val === ''){ missing++; continue; }
-      setI18nText(el, val);
-      applied++;
+      try{
+        var el = nodes[i];
+        var key = el.getAttribute('data-i18n');
+        if(!key) continue;
+        var val = t(key);
+        if(val == null || val === ''){ missing++; continue; }
+        setI18nText(el, val);
+        applied++;
+      }catch(nodeErr){
+        missing++;
+        try{ console.log('[i18n] node apply failed', { index: i, key: nodes[i] && nodes[i].getAttribute('data-i18n'), err: nodeErr }); }catch(_e){}
+      }
     }
     var ph = scope.querySelectorAll('[data-i18n-placeholder]');
     for(var j = 0; j < ph.length; j++){
@@ -11830,7 +11890,9 @@ window.removeAffidavitSlot = removeAffidavitSlot;
     if (root) root.setAttribute('data-mode', 'user');
     if (label) {
       label.setAttribute('data-i18n', 'profileTitle');
-      label.textContent = (typeof t === 'function' && t('profileTitle')) || 'User Profile';
+      var profileLbl = (typeof t === 'function') ? t('profileTitle') : '';
+      if (typeof setI18nText === 'function' && profileLbl) setI18nText(label, profileLbl);
+      else label.textContent = profileLbl || 'User Profile';
     }
     if (chip) {
       chip.className = '';
