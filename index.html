@@ -1698,6 +1698,7 @@
   #view-login .login-links{display:flex;flex-wrap:wrap;gap:8px 14px;margin-block:12px 16px;font-size:12px;}
   #view-login .login-links button{border:0;background:transparent;color:var(--cyan);cursor:pointer;font:inherit;padding:0;text-decoration:underline;text-underline-offset:2px;}
   #view-login .login-divider{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06em;}
+  #view-login .login-divider span{flex:none;}
   #view-login .login-divider::before,#view-login .login-divider::after{content:"";flex:1;height:1px;background:var(--line);}
   #view-login .login-alt{display:flex;flex-direction:column;gap:8px;}
   #view-login .login-panel-extra{display:none;margin-block-start:14px;padding:14px;border-radius:12px;border:1px solid var(--line);background:var(--panel-2);}
@@ -1959,9 +1960,9 @@
           <button type="button" class="btn btn-ghost" id="btnSignIn" onclick="openLoginPanel()" data-i18n="navSignIn">Sign In</button>
         </div>
         <div class="trust-row">
-          <div class="trust-item"><span class="tick" aria-hidden="true"></span><span>Circle Arc Identity Rails</span></div>
-          <div class="trust-item"><span class="tick" aria-hidden="true"></span><span>AML / CFT Compliant</span></div>
-          <div class="trust-item"><span class="tick" aria-hidden="true"></span><span>USDC-Native Settlement</span></div>
+          <div class="trust-item"><span class="tick" aria-hidden="true"></span><span data-i18n="trustArc">Circle Arc Identity Rails</span></div>
+          <div class="trust-item"><span class="tick" aria-hidden="true"></span><span data-i18n="trustAml">AML / CFT Compliant</span></div>
+          <div class="trust-item"><span class="tick" aria-hidden="true"></span><span data-i18n="trustUsdc">USDC-Native Settlement</span></div>
         </div>
       </div>
       <div class="dial-wrap" aria-hidden="true">
@@ -1994,50 +1995,53 @@
           <path d="M152 156 V150 A8 8 0 0 1 168 150 V156" fill="none" stroke="url(#cvVaultGold)" stroke-width="2" stroke-linecap="round"/>
           <circle cx="160" cy="166" r="2.5" fill="url(#cvVaultGold)"/>
         </svg>
-        <div class="dial-caption">Arc Vault · Shield Network</div>
+        <div class="dial-caption" data-i18n="dialCaption">Arc Vault · Shield Network</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================= VAULT LOGIN ================= -->
+<!-- ================= VAULT LOGIN (Dedicated Sign-In View) ================= -->
 <section id="view-login" class="view">
   <div class="wrap login-shell">
     <div class="nav" style="width:100%;margin-block-end:8px;">
       <div class="brand" onclick="goTo('landing')" title="The CircleVault">
-        <div class="brand-text"><div class="name">The Circle<span>Vault</span></div><div class="tag">Secure Vault Access</div></div>
+        <div class="brand-text"><div class="name">The Circle<span>Vault</span></div><div class="tag" data-i18n="loginSecureTag">Secure Vault Access</div></div>
       </div>
-      <div class="nav-actions nav-rail"><button class="btn btn-ghost btn-sm" type="button" onclick="goTo('landing')">← Back</button></div>
+      <div class="nav-actions nav-rail"><button class="btn btn-ghost btn-sm" type="button" onclick="goTo('landing')" data-i18n="loginBack">← Back</button></div>
     </div>
-    <div class="login-card">
-      <h2>Sign In to Your Vault</h2>
-      <p class="login-sub">Standard vault authentication. Sign in with your username and password, or pick a demo preset to pre-fill sandbox credentials.</p>
-      <div class="field login-demo-preset"><label for="loginDemoPreset">Demo Preset Accounts</label>
-        <select id="loginDemoPreset" onchange="applyLoginDemoPreset(this.value)">
-          <option value="">— Select preset (optional) —</option>
-          <option value="admin">Admin</option>
-          <option value="demo">Demo User</option>
+    <div class="login-card" role="form" aria-labelledby="loginTitleHeading">
+      <h2 id="loginTitleHeading" data-i18n="loginTitle">Sign In to Your Vault</h2>
+      <p class="login-sub" data-i18n="loginSub">Standard vault authentication. Sign in with your Account ID / email and password, or pick a demo preset.</p>
+      <div class="field login-demo-preset"><label for="loginDemoPreset" data-i18n="loginDemoPreset">Demo Preset Accounts</label>
+        <select id="loginDemoPreset" onchange="applyLoginDemoPreset(this.value)" aria-label="Demo Preset Accounts">
+          <option value="" data-i18n="loginDemoPresetOpt">— Select preset (optional) —</option>
+          <option value="admin" data-i18n="loginDemoAdmin">Admin</option>
+          <option value="demo" data-i18n="loginDemoUser">Demo User</option>
         </select>
       </div>
-      <div class="field"><label for="loginUsername">Username</label><input type="text" id="loginUsername" autocomplete="username" placeholder="Vault username or 6-digit ID"></div>
-      <div class="field"><label for="loginPassword">Password</label><input type="password" id="loginPassword" placeholder="Your vault password" autocomplete="current-password"></div>
+      <div class="field"><label for="loginUsername" data-i18n="loginAccountId">Account ID / Email</label><input type="text" id="loginUsername" autocomplete="username" data-i18n-placeholder="loginAccountPlaceholder" placeholder="Account ID, email, or 6-digit Vault ID"></div>
+      <div class="field"><label for="loginPassword" data-i18n="loginPassword">Password / Security PIN</label><input type="password" id="loginPassword" data-i18n-placeholder="loginPasswordPlaceholder" placeholder="Password or security PIN" autocomplete="current-password"></div>
       <input type="hidden" id="loginVaultDigits" aria-hidden="true">
       <input type="hidden" id="loginVaultPassword" aria-hidden="true">
       <div class="login-links">
-        <button type="button" onclick="toggleLoginExtra('forgot')">Forgot Vault ID?</button>
-        <button type="button" onclick="toggleLoginExtra('email')">Email Sync</button>
-        <button type="button" onclick="toggleLoginExtra('reset')">Password Reset</button>
+        <button type="button" onclick="toggleLoginExtra('forgot')" data-i18n="loginForgotId">Forgot Vault ID?</button>
+        <button type="button" onclick="toggleLoginExtra('email')" data-i18n="loginEmailSync">Email Sync</button>
+        <button type="button" onclick="toggleLoginExtra('reset')" data-i18n="loginPasswordReset">Password Reset</button>
       </div>
-      <div class="login-panel-extra" id="loginExtraForgot"><strong>Forgot Vault ID</strong><p class="field-help">Enter your registered email to receive your masked Vault ID (demo: any email shows format CV-ARC-••••••-XX-YYYY).</p><input type="email" id="loginForgotEmail" placeholder="you@example.com"><button type="button" class="btn btn-ghost btn-sm" style="margin-block-start:8px;" onclick="sendForgotVaultId()">Send Vault ID Reminder</button></div>
-      <div class="login-panel-extra" id="loginExtraEmail"><strong>Email Sync</strong><p class="field-help">Sync recovery email with your vault profile for ISO 20022 audit trail.</p><input type="email" id="loginSyncEmail" placeholder="Recovery email"><button type="button" class="btn btn-ghost btn-sm" style="margin-block-start:8px;" onclick="syncVaultEmail()">Sync Email</button></div>
-      <div class="login-panel-extra" id="loginExtraReset"><strong>Password Reset</strong><p class="field-help">Verify registered email + mobile OTP to reset vault password (demo flow).</p><input type="email" id="loginResetEmail" placeholder="Registered email" style="margin-block-end:8px;"><input type="text" id="loginResetOtp" maxlength="6" placeholder="OTP ••••••" inputmode="numeric"><button type="button" class="btn btn-ghost btn-sm" style="margin-block-start:8px;" onclick="resetVaultPassword()">Reset Password</button></div>
-      <button type="button" class="btn btn-gold" style="width:100%;margin-block-start:4px;" onclick="submitVaultSignIn()">Sign In</button>
-      <div class="login-divider">or</div>
+      <div class="login-panel-extra" id="loginExtraForgot"><strong data-i18n="loginForgotTitle">Forgot Vault ID</strong><p class="field-help" data-i18n="loginForgotHelp">Enter your registered email to receive your masked Vault ID (demo: any email shows format CV-ARC-••••••-XX-YYYY).</p><input type="email" id="loginForgotEmail" placeholder="you@example.com"><button type="button" class="btn btn-ghost btn-sm" style="margin-block-start:8px;" onclick="sendForgotVaultId()" data-i18n="loginForgotBtn">Send Vault ID Reminder</button></div>
+      <div class="login-panel-extra" id="loginExtraEmail"><strong data-i18n="loginEmailTitle">Email Sync</strong><p class="field-help" data-i18n="loginEmailHelp">Sync recovery email with your vault profile for ISO 20022 audit trail.</p><input type="email" id="loginSyncEmail" placeholder="Recovery email"><button type="button" class="btn btn-ghost btn-sm" style="margin-block-start:8px;" onclick="syncVaultEmail()" data-i18n="loginEmailBtn">Sync Email</button></div>
+      <div class="login-panel-extra" id="loginExtraReset"><strong data-i18n="loginResetTitle">Password Reset</strong><p class="field-help" data-i18n="loginResetHelp">Verify registered email + mobile OTP to reset vault password (demo flow).</p><input type="email" id="loginResetEmail" placeholder="Registered email" style="margin-block-end:8px;"><input type="text" id="loginResetOtp" maxlength="6" placeholder="OTP ••••••" inputmode="numeric"><button type="button" class="btn btn-ghost btn-sm" style="margin-block-start:8px;" onclick="resetVaultPassword()" data-i18n="loginResetBtn">Reset Password</button></div>
+      <button type="button" class="btn btn-gold" style="width:100%;margin-block-start:4px;" onclick="submitVaultSignIn()" data-i18n="loginSubmit">Sign In</button>
+      <div class="login-divider"><span data-i18n="loginOr">or</span></div>
       <div class="login-alt">
-        <button type="button" class="btn btn-ghost" onclick="adminOneClickLogin()">Admin One-Click Login</button>
-        <button type="button" class="btn btn-ghost" onclick="submitDemoLogin()">Open Demo Profile Picker</button>
+        <button type="button" class="btn btn-ghost" onclick="adminOneClickLogin()" data-i18n="loginAdminOneClick">Admin One-Click Login</button>
+        <button type="button" class="btn btn-ghost" onclick="submitDemoLogin()" data-i18n="loginDemoPicker">Open Demo Profile Picker</button>
       </div>
-      <p class="field-help" style="margin-block-start:14px;">Presets: Admin → admin / admin · Demo User → demo / demo</p>
+      <p class="field-help" style="margin-block-start:14px;" data-i18n="loginPresetsHint">Presets: Admin → admin / admin · Demo User → demo / demo</p>
+      <div class="login-divider" style="margin-block-start:18px;"></div>
+      <p class="field-help" style="margin:0 0 8px;text-align:center;" data-i18n="loginOpenVaultHint">New here? Start the registration pipeline to create your vault.</p>
+      <button type="button" class="btn btn-ghost" style="width:100%;" id="btnLoginOpenVault" onclick="goTo('onboarding')" data-i18n="loginOpenVaultCta">Open Your CircleVault Now</button>
     </div>
   </div>
 </section>
@@ -2104,7 +2108,7 @@
             <circle cx="12" cy="15.5" r="1.2" fill="currentColor"/>
           </svg>
           <div class="pct" id="progressPct">0%</div>
-          <div class="pct-label">Completed</div>
+          <div class="pct-label" data-i18n="pctCompleted">Completed</div>
         </div>
       </div>
       <h1 data-i18n="onboardTitle">Open Your CircleVault</h1>
@@ -2112,23 +2116,23 @@
     </div>
 
     <div class="dynamic-step-header" id="dynamicStepHeader" aria-live="polite">
-      <p class="eyebrow-step">REGISTRATION HUB</p>
-      <h2 id="dynamicStepTitle">CircleVault Registration — Main Hub</h2>
+      <p class="eyebrow-step" data-i18n="hubEyebrow">REGISTRATION HUB</p>
+      <h2 id="dynamicStepTitle" data-i18n="hubTitle">CircleVault Registration — Main Hub</h2>
     </div>
 
     <div class="reg-hub-view" id="regHubView">
       <div class="reg-hub-grid reg-hub-grid-6">
-        <div class="reg-hub-card" role="button" tabindex="0" data-open-reg-tab="1" onclick="openRegTab(1)"><h4>1. Jurisdiction</h4><p>Region, compliance framework, and regulatory declarations.</p><span class="reg-status-badge pending" data-reg-badge-card="1">Pending</span></div>
-        <div class="reg-hub-card" role="button" tabindex="0" data-open-reg-tab="2" onclick="openRegTab(2)"><h4>2. Identity KYC</h4><p>Government ID, document scan, and live biometric check.</p><span class="reg-status-badge pending" data-reg-badge-card="2">Pending</span></div>
-        <div class="reg-hub-card" role="button" tabindex="0" data-open-reg-tab="3" onclick="openRegTab(3)"><h4>3. Source of Income / Funds</h4><p>Occupation, income range, and bank statement proof.</p><span class="reg-status-badge pending" data-reg-badge-card="3">Pending</span></div>
-        <div class="reg-hub-card" role="button" tabindex="0" data-open-reg-tab="4" onclick="openRegTab(4)"><h4>4. Settlement Banks &amp; Wallets</h4><p>Bank IBAN, Raast, wallets, Visa/MC cards — Telco AI OTP + 3DS bind.</p><span class="reg-status-badge pending" data-reg-badge-card="4">Pending</span></div>
-        <div class="reg-hub-card" role="button" tabindex="0" data-open-reg-tab="5" onclick="openRegTab(5)"><h4>5. Next of Kin</h4><p>Nominee identity, live selfie, OTP, and dynamic affidavits.</p><span class="reg-status-badge pending" data-reg-badge-card="5">Pending</span></div>
-        <div class="reg-hub-card" role="button" tabindex="0" data-open-reg-tab="6" onclick="openRegTab(6)"><h4>6. Security Credentials</h4><p>Terms, 6-digit transaction PIN, 2FA setup, and Vault ID deployment.</p><span class="reg-status-badge pending" data-reg-badge-card="6">Pending</span></div>
+        <div class="reg-hub-card" role="button" tabindex="0" data-open-reg-tab="1" onclick="openRegTab(1)"><h4 data-i18n="hubCard1Title">1. Jurisdiction</h4><p data-i18n="hubCard1Body">Region, compliance framework, and regulatory declarations.</p><span class="reg-status-badge pending" data-reg-badge-card="1" data-i18n="statusPending">Pending</span></div>
+        <div class="reg-hub-card" role="button" tabindex="0" data-open-reg-tab="2" onclick="openRegTab(2)"><h4 data-i18n="hubCard2Title">2. Identity KYC</h4><p data-i18n="hubCard2Body">Government ID, document scan, and live biometric check.</p><span class="reg-status-badge pending" data-reg-badge-card="2" data-i18n="statusPending">Pending</span></div>
+        <div class="reg-hub-card" role="button" tabindex="0" data-open-reg-tab="3" onclick="openRegTab(3)"><h4 data-i18n="hubCard3Title">3. Source of Income / Funds</h4><p data-i18n="hubCard3Body">Occupation, income range, and bank statement proof.</p><span class="reg-status-badge pending" data-reg-badge-card="3" data-i18n="statusPending">Pending</span></div>
+        <div class="reg-hub-card" role="button" tabindex="0" data-open-reg-tab="4" onclick="openRegTab(4)"><h4 data-i18n="hubCard4Title">4. Settlement Banks &amp; Wallets</h4><p data-i18n="hubCard4Body">Bank IBAN, Raast, wallets, Visa/MC cards — Telco AI OTP + 3DS bind.</p><span class="reg-status-badge pending" data-reg-badge-card="4" data-i18n="statusPending">Pending</span></div>
+        <div class="reg-hub-card" role="button" tabindex="0" data-open-reg-tab="5" onclick="openRegTab(5)"><h4 data-i18n="hubCard5Title">5. Next of Kin</h4><p data-i18n="hubCard5Body">Nominee identity, live selfie, OTP, and dynamic affidavits.</p><span class="reg-status-badge pending" data-reg-badge-card="5" data-i18n="statusPending">Pending</span></div>
+        <div class="reg-hub-card" role="button" tabindex="0" data-open-reg-tab="6" onclick="openRegTab(6)"><h4 data-i18n="hubCard6Title">6. Security Credentials</h4><p data-i18n="hubCard6Body">Terms, 6-digit transaction PIN, 2FA setup, and Vault ID deployment.</p><span class="reg-status-badge pending" data-reg-badge-card="6" data-i18n="statusPending">Pending</span></div>
       </div>
       <div class="reg-hub-emergency">
-        <h4>Successor Claim &amp; Emergency Hub</h4>
-        <p>Simultaneous demise protocol for surviving legal heirs to initiate vault recovery.</p>
-        <button type="button" class="btn btn-ghost btn-sm" id="btnOpenEmergencyClaim" onclick="openVaultClaimModal(); return false;">Open Emergency Vault Claim Portal</button>
+        <h4 data-i18n="hubEmergencyTitle">Successor Claim &amp; Emergency Hub</h4>
+        <p data-i18n="hubEmergencyBody">Simultaneous demise protocol for surviving legal heirs to initiate vault recovery.</p>
+        <button type="button" class="btn btn-ghost btn-sm" id="btnOpenEmergencyClaim" onclick="openVaultClaimModal(); return false;" data-i18n="hubEmergencyBtn">Open Emergency Vault Claim Portal</button>
       </div>
     </div>
 
@@ -2138,16 +2142,16 @@
       <!-- STEP 1 -->
       <div class="reg-tab-panel" id="regTab-1">
         <div class="form-panel step" id="step-1">
-          <h3 class="form-section-title">Jurisdiction &amp; Regulatory Preferences</h3>
-          <p class="form-section-sub">Select your region and compliance framework. Keep this short — deep identity is Step 2.</p>
+          <h3 class="form-section-title" data-i18n="step1Title">Jurisdiction &amp; Regulatory Preferences</h3>
+          <p class="form-section-sub" data-i18n="step1Sub">Select your region and compliance framework. Keep this short — deep identity is Step 2.</p>
           <div class="field-grid">
-            <div class="field"><label>Country of Residence <span class="req">*</span></label><select id="countrySelect" onchange="syncCountry()"></select></div>
-            <div class="field"><label>Country of Nationality <span class="req">*</span></label><select id="nationalitySelect"></select></div>
-            <div class="field"><label>State / Province / Region</label><input type="text" id="regionInput" placeholder="e.g. Punjab / Dubai"></div>
-            <div class="field"><label>City / Area <span class="req">*</span></label><input type="text" id="cityInput" placeholder="e.g. Lahore"></div>
-            <div class="field"><label>First Name <span class="req">*</span></label><input type="text" id="firstName" placeholder="As per CNIC / Passport"></div>
-            <div class="field"><label>Last Name / Surname <span class="req">*</span></label><input type="text" id="lastName" placeholder="Surname"></div>
-            <div class="field span-2"><label>Compliance Framework <span class="req">*</span></label>
+            <div class="field"><label><span data-i18n="lblCountryResidence">Country of Residence</span> <span class="req">*</span></label><select id="countrySelect" onchange="syncCountry()"></select><div class="field-help" id="cvCountryLangHint" style="margin-block-start:4px;font-size:11px;color:var(--muted);"></div></div>
+            <div class="field"><label><span data-i18n="lblCountryNationality">Country of Nationality</span> <span class="req">*</span></label><select id="nationalitySelect"></select></div>
+            <div class="field"><label data-i18n="lblRegion">State / Province / Region</label><input type="text" id="regionInput" placeholder="e.g. Punjab / Dubai"></div>
+            <div class="field"><label><span data-i18n="lblCity">City / Area</span> <span class="req">*</span></label><input type="text" id="cityInput" placeholder="e.g. Lahore"></div>
+            <div class="field"><label><span data-i18n="lblFirstName">First Name</span> <span class="req">*</span></label><input type="text" id="firstName" placeholder="As per CNIC / Passport"></div>
+            <div class="field"><label><span data-i18n="lblLastName">Last Name / Surname</span> <span class="req">*</span></label><input type="text" id="lastName" placeholder="Surname"></div>
+            <div class="field span-2"><label><span data-i18n="lblCompliance">Compliance Framework</span> <span class="req">*</span></label>
               <select id="complianceFramework">
                 <option value="fatf_circle" selected>FATF / Circle AML &amp; CFT + Local Jurisdiction</option>
                 <option value="uae_cb">UAE Central Bank / VARA-aligned</option>
@@ -2155,7 +2159,7 @@
                 <option value="eu_mica">EU MiCA / EEA</option>
               </select>
             </div>
-            <div class="field span-2"><label>Regulatory Declarations <span class="req">*</span></label>
+            <div class="field span-2"><label><span data-i18n="lblRegDeclarations">Regulatory Declarations</span> <span class="req">*</span></label>
               <div class="check-row">
                 <label class="pill-choice active"><input type="checkbox" id="regDeclResident" checked> I am a lawful resident of the selected jurisdiction</label>
                 <label class="pill-choice"><input type="checkbox" id="regDeclPep"> I am / am related to a Politically Exposed Person (PEP)</label>
@@ -2170,18 +2174,18 @@
       <div class="reg-tab-panel is-hidden" id="regTab-2">
         <div class="form-panel step" id="step-2">
           <div id="step3-container">
-            <h3 class="form-section-title">Deep AI Identity &amp; Biometric Verification</h3>
-            <p class="form-section-sub">Government ID, document scan, and live selfie — cross-checked against issuing authorities.</p>
+            <h3 class="form-section-title" data-i18n="step2Title">Deep AI Identity &amp; Biometric Verification</h3>
+            <p class="form-section-sub" data-i18n="step2Sub">Government ID, document scan, and live selfie — cross-checked against issuing authorities.</p>
             <div class="doc-tiles" id="docTiles"></div>
             <div class="field-grid">
-              <div class="field"><label>Document ID Number <span class="req">*</span></label><input type="text" id="docIdInput" placeholder="e.g. 35202-XXXXXXX-X"></div>
-              <div class="field"><label>Date of Birth <span class="req">*</span></label><input type="date" id="dobInput"></div>
-              <div class="field"><label>Date of Issue</label><input type="date" id="docIssueInput"></div>
+              <div class="field"><label><span data-i18n="lblDocId">Document ID Number</span> <span class="req">*</span></label><input type="text" id="docIdInput" placeholder="e.g. 35202-XXXXXXX-X"></div>
+              <div class="field"><label><span data-i18n="lblDob">Date of Birth</span> <span class="req">*</span></label><input type="date" id="dobInput"></div>
+              <div class="field"><label data-i18n="lblDocIssue">Date of Issue</label><input type="date" id="docIssueInput"></div>
               <div class="field">
-                <label>Date of Expiry</label>
+                <label data-i18n="lblDocExpiry">Date of Expiry</label>
                 <div class="expiry-row">
                   <input type="date" id="docExpiryInput" onchange="checkExpiry(this)">
-                  <label class="lifetime-check"><input type="checkbox" id="lifetimeExpiry" onchange="toggleLifetimeExpiry(this)"><span>Lifetime / No Expiry</span></label>
+                  <label class="lifetime-check"><input type="checkbox" id="lifetimeExpiry" onchange="toggleLifetimeExpiry(this)"><span data-i18n="lblLifetime">Lifetime / No Expiry</span></label>
                 </div>
               </div>
             </div>
@@ -2941,13 +2945,13 @@
 
     <div class="tabbar" id="dashTabbar" role="tablist" aria-label="Dashboard sections">
       <button class="tab active" type="button" role="tab" data-dash-tab="overview" aria-selected="true" id="dashTabOverview">
-        <span class="num">1</span><span>Overview</span>
+        <span class="num">1</span><span data-i18n="dashOverview">Overview</span>
       </button>
       <button class="tab" type="button" role="tab" data-dash-tab="transactions" aria-selected="false" id="dashTabTransactions">
-        <span class="num">2</span><span>Transactions</span>
+        <span class="num">2</span><span data-i18n="dashTransactions">Transactions</span>
       </button>
       <button class="tab" type="button" role="tab" data-dash-tab="ledger" aria-selected="false" id="dashTabLedger">
-        <span class="num">3</span><span>Activity &amp; Ledger</span>
+        <span class="num">3</span><span data-i18n="ledgerTitle">Activity &amp; Ledger</span>
       </button>
     </div>
 
@@ -3349,19 +3353,19 @@
       </div>
       <div class="ledger-audit-metrics" id="ledgerAuditMetrics" aria-label="Ledger audit summary totals">
         <div class="lam-item">
-          <div class="lam-label">Total Credits (CR)</div>
+          <div class="lam-label" data-i18n="ledgerMetricCredits">Total Credits (CR)</div>
           <div class="lam-value cr" id="ledgerMetricCredits">+$0.00</div>
         </div>
         <div class="lam-item">
-          <div class="lam-label">Total Debits (DR)</div>
+          <div class="lam-label" data-i18n="ledgerMetricDebits">Total Debits (DR)</div>
           <div class="lam-value dr" id="ledgerMetricDebits">−$0.00</div>
         </div>
         <div class="lam-item">
-          <div class="lam-label">Total Deductions</div>
+          <div class="lam-label" data-i18n="ledgerMetricDeductions">Total Deductions</div>
           <div class="lam-value fee" id="ledgerMetricDeductions">−$0.00</div>
         </div>
         <div class="lam-item">
-          <div class="lam-label">Closing Balance</div>
+          <div class="lam-label" data-i18n="ledgerMetricClosing">Closing Balance</div>
           <div class="lam-value bal" id="ledgerMetricClosing">$0.00</div>
           <div class="lam-sub" id="ledgerMetricRecordCount">0 Records</div>
         </div>
@@ -3371,12 +3375,12 @@
           <thead>
             <tr data-cv-audit-cols="1">
               <th data-i18n="colDate">Date</th>
-              <th>Transaction Ref &amp; ISO Purpose</th>
-              <th>Beneficiary / Counterparty</th>
-              <th>Payout Rail / IBAN</th>
-              <th class="ledger-num">Debit (DR)</th>
-              <th class="ledger-num">Credit (CR)</th>
-              <th class="ledger-num">Deductions (Fee/Tax)</th>
+              <th data-i18n="colTxRef">Transaction Ref &amp; ISO Purpose</th>
+              <th data-i18n="colBeneficiary">Beneficiary / Counterparty</th>
+              <th data-i18n="colRail">Payout Rail / IBAN</th>
+              <th class="ledger-num" data-i18n="colDebit">Debit (DR)</th>
+              <th class="ledger-num" data-i18n="colCredit">Credit (CR)</th>
+              <th class="ledger-num" data-i18n="colDeductions">Deductions (Fee/Tax)</th>
               <th class="ledger-num" data-i18n="colBalance">Running Balance</th>
               <th data-i18n="colStatus">Status &amp; Compliance</th>
             </tr>
@@ -3400,7 +3404,7 @@
   </div>
 </section>
 
-<footer class="site">The CircleVault Global — demo interface for illustration purposes. Rates, balances and identifiers shown are simulated.</footer>
+<footer class="site" data-i18n="footerSite">The CircleVault Global — demo interface for illustration purposes. Rates, balances and identifiers shown are simulated.</footer>
 
 <div class="verify-overlay" id="verifyOverlay">
   <svg width="80" height="80" viewBox="0 0 100 100">
@@ -3466,7 +3470,103 @@ const I18N = {
     subEscrow:"SME Trade Escrow (Locked)", subCredit:"Active Credit Line Available",
     actionSend:"Send Money", actionDeposit:"Deposit USDC", actionInvest:"Invest in Projects", actionLoan:"Request Loan / Credit", actionStatements:"Financial Statements",
     moduleATitle:"Deposit & Wealth Deployment Hub", moduleBTitle:"Loan & Credit Request Vault", moduleCTitle:"Financial Statements & Health Center", moduleDTitle:"Payments, Remittance & SME Escrow Hub",
-    ledgerTitle:"Activity & Ledger", colDate:"Date", colActivity:"Activity", colType:"Type", colHub:"Dashboard Hub", colAmount:"Amount (USDC)", colBalance:"Running Balance", colStatus:"Status"
+    ledgerTitle:"Activity & Ledger", colDate:"Date", colActivity:"Activity", colType:"Type", colHub:"Dashboard Hub", colAmount:"Amount (USDC)", colBalance:"Running Balance", colStatus:"Status & Compliance",
+    loginTitle:"Sign In to Your Vault",
+    loginSub:"Standard vault authentication. Sign in with your Account ID / email and password, or pick a demo preset.",
+    loginDemoPreset:"Demo Preset Accounts",
+    loginDemoPresetOpt:"— Select preset (optional) —",
+    loginDemoAdmin:"Admin",
+    loginDemoUser:"Demo User",
+    loginAccountId:"Account ID / Email",
+    loginPassword:"Password / Security PIN",
+    loginAccountPlaceholder:"Account ID, email, or 6-digit Vault ID",
+    loginPasswordPlaceholder:"Password or security PIN",
+    loginForgotId:"Forgot Vault ID?",
+    loginEmailSync:"Email Sync",
+    loginPasswordReset:"Password Reset",
+    loginForgotTitle:"Forgot Vault ID",
+    loginForgotHelp:"Enter your registered email to receive your masked Vault ID (demo: any email shows format CV-ARC-••••••-XX-YYYY).",
+    loginForgotBtn:"Send Vault ID Reminder",
+    loginEmailTitle:"Email Sync",
+    loginEmailHelp:"Sync recovery email with your vault profile for ISO 20022 audit trail.",
+    loginEmailBtn:"Sync Email",
+    loginResetTitle:"Password Reset",
+    loginResetHelp:"Verify registered email + mobile OTP to reset vault password (demo flow).",
+    loginResetBtn:"Reset Password",
+    loginSubmit:"Sign In",
+    loginOr:"or",
+    loginAdminOneClick:"Admin One-Click Login",
+    loginDemoPicker:"Open Demo Profile Picker",
+    loginPresetsHint:"Presets: Admin → admin / admin · Demo User → demo / demo",
+    loginSecureTag:"Secure Vault Access",
+    loginOpenVaultCta:"Open Your CircleVault Now",
+    loginOpenVaultHint:"New here? Start the registration pipeline to create your vault.",
+    loginBack:"← Back",
+    hubEyebrow:"REGISTRATION HUB",
+    hubTitle:"CircleVault Registration — Main Hub",
+    hubCard1Title:"1. Jurisdiction",
+    hubCard1Body:"Region, compliance framework, and regulatory declarations.",
+    hubCard2Title:"2. Identity KYC",
+    hubCard2Body:"Government ID, document scan, and live biometric check.",
+    hubCard3Title:"3. Source of Income / Funds",
+    hubCard3Body:"Occupation, income range, and bank statement proof.",
+    hubCard4Title:"4. Settlement Banks & Wallets",
+    hubCard4Body:"Bank IBAN, Raast, wallets, Visa/MC cards — Telco AI OTP + 3DS bind.",
+    hubCard5Title:"5. Next of Kin",
+    hubCard5Body:"Nominee identity, live selfie, OTP, and dynamic affidavits.",
+    hubCard6Title:"6. Security Credentials",
+    hubCard6Body:"Terms, 6-digit transaction PIN, 2FA setup, and Vault ID deployment.",
+    hubEmergencyTitle:"Successor Claim & Emergency Hub",
+    hubEmergencyBody:"Simultaneous demise protocol for surviving legal heirs to initiate vault recovery.",
+    hubEmergencyBtn:"Open Emergency Vault Claim Portal",
+    statusPending:"Pending",
+    statusCompleted:"Completed",
+    pctCompleted:"Completed",
+    dialCaption:"Arc Vault · Shield Network",
+    trustArc:"Circle Arc Identity Rails",
+    trustAml:"AML / CFT Compliant",
+    trustUsdc:"USDC-Native Settlement",
+    step1Title:"Jurisdiction & Regulatory Preferences",
+    step1Sub:"Select your region and compliance framework. Keep this short — deep identity is Step 2.",
+    lblCountryResidence:"Country of Residence",
+    lblCountryNationality:"Country of Nationality",
+    lblRegion:"State / Province / Region",
+    lblCity:"City / Area",
+    lblFirstName:"First Name",
+    lblLastName:"Last Name / Surname",
+    lblCompliance:"Compliance Framework",
+    lblRegDeclarations:"Regulatory Declarations",
+    step2Title:"Deep AI Identity & Biometric Verification",
+    step2Sub:"Government ID, document scan, and live selfie — cross-checked against issuing authorities.",
+    lblDocId:"Document ID Number",
+    lblDob:"Date of Birth",
+    lblDocIssue:"Date of Issue",
+    lblDocExpiry:"Date of Expiry",
+    lblLifetime:"Lifetime / No Expiry",
+    ledgerMetricCredits:"Total Credits (CR)",
+    ledgerMetricDebits:"Total Debits (DR)",
+    ledgerMetricDeductions:"Total Deductions",
+    ledgerMetricClosing:"Closing Balance",
+    colTxRef:"Transaction Ref & ISO Purpose",
+    colBeneficiary:"Beneficiary / Counterparty",
+    colRail:"Payout Rail / IBAN",
+    colDebit:"Debit (DR)",
+    colCredit:"Credit (CR)",
+    colDeductions:"Deductions (Fee/Tax)",
+    dashOverview:"Overview",
+    dashTransactions:"Transactions",
+    dashLedger:"Ledger",
+    profileTitle:"User Profile",
+    profileActiveAccount:"Active Account",
+    profileUsername:"Username",
+    profileAccountId:"Account ID",
+    profileStatus:"Status",
+    profileSignOut:"Sign Out / Reset",
+    footerSite:"The CircleVault Global — demo interface for illustration purposes. Rates, balances and identifiers shown are simulated.",
+    btnContinue:"Continue",
+    btnEdit:"Edit",
+    btnClose:"Close",
+    btnDeploy:"Deploy Vault"
   },
   ur: { rateLabel:"USDC حوالہ ریٹ", langLabel:"زبان", fitLabel:"ویو", fitStandard:"اسٹینڈرڈ", fitScreen:"اسکرین پر فٹ", brandTag:"عالمی ادائیگیاں، ترسیلات اور یِیلڈ ایکو سسٹم",
     navSignIn:"سائن ان", navOpenVault:"اپنا والٹ کھولیں", heroEyebrow:"عالمی رسائی، مقامی تعمیل",
@@ -3798,17 +3898,134 @@ function closeLangSheet(){
   if(btn) btn.setAttribute('aria-expanded', 'false');
 }
 
+/** Active language code — used by observer & t() */
+var __cvActiveLang = 'en';
+
+/**
+ * Resolve translation with English fallback (never breaks layout).
+ */
+function t(key, lang){
+  lang = lang || __cvActiveLang || 'en';
+  var pack = I18N[lang] || {};
+  var en = I18N.en || {};
+  if(pack[key] != null && pack[key] !== '') return pack[key];
+  if(en[key] != null && en[key] !== '') return en[key];
+  return null;
+}
+window.t = t;
+
+/**
+ * Apply translations to a DOM subtree.
+ * Supports: data-i18n, data-i18n-placeholder, data-i18n-title, data-i18n-aria-label, data-i18n-html
+ */
+function updateDOMTranslations(root){
+  var scope = root && root.querySelectorAll ? root : document;
+  var lang = __cvActiveLang || 'en';
+  var dict = Object.assign({}, I18N.en || {}, I18N[lang] || {});
+
+  function applyOne(el){
+    if(!el || el.nodeType !== 1) return;
+    var key = el.getAttribute('data-i18n');
+    if(key){
+      var val = dict[key];
+      if(val == null || val === '') val = (I18N.en && I18N.en[key]) || null;
+      if(val != null){
+        if(el.getAttribute('data-i18n-html') === '1' || /[<>]/.test(String(val))) el.innerHTML = val;
+        else el.textContent = val;
+      }
+    }
+    var ph = el.getAttribute('data-i18n-placeholder');
+    if(ph){
+      var pval = dict[ph] != null ? dict[ph] : (I18N.en && I18N.en[ph]);
+      if(pval != null) el.setAttribute('placeholder', pval);
+    }
+    var titleKey = el.getAttribute('data-i18n-title');
+    if(titleKey){
+      var tval = dict[titleKey] != null ? dict[titleKey] : (I18N.en && I18N.en[titleKey]);
+      if(tval != null) el.setAttribute('title', tval);
+    }
+    var ariaKey = el.getAttribute('data-i18n-aria-label');
+    if(ariaKey){
+      var aval = dict[ariaKey] != null ? dict[ariaKey] : (I18N.en && I18N.en[ariaKey]);
+      if(aval != null) el.setAttribute('aria-label', aval);
+    }
+  }
+
+  if(scope.nodeType === 1) applyOne(scope);
+  var nodes = scope.querySelectorAll
+    ? scope.querySelectorAll('[data-i18n],[data-i18n-placeholder],[data-i18n-title],[data-i18n-aria-label]')
+    : [];
+  for(var i = 0; i < nodes.length; i++) applyOne(nodes[i]);
+
+  /* Option elements inside labeled selects */
+  var opts = scope.querySelectorAll ? scope.querySelectorAll('option[data-i18n]') : [];
+  for(var j = 0; j < opts.length; j++) applyOne(opts[j]);
+}
+window.updateDOMTranslations = updateDOMTranslations;
+
 function applyLang(lang){
-  const dict = Object.assign({}, I18N.en, I18N[lang] || {});
-  document.querySelectorAll('[data-i18n]').forEach(el=>{
-    const key = el.getAttribute('data-i18n');
-    if(dict[key]) el.innerHTML = dict[key];
-  });
+  if(!lang) lang = 'en';
+  __cvActiveLang = lang;
+  try{ localStorage.setItem('circlevault_lang_v1', lang); }catch(_e){}
+  updateDOMTranslations(document);
   document.documentElement.lang = lang;
   document.documentElement.dir = RTL_LANGS.includes(lang) ? 'rtl' : 'ltr';
   syncLangTouchLabel(lang);
+  /* Sync country→language hint chip if present */
+  try{
+    if(typeof syncCountryLanguageHint === 'function') syncCountryLanguageHint();
+  }catch(_h){}
   requestAnimationFrame(applyFitScale);
 }
+window.applyLang = applyLang;
+
+/**
+ * Future-proof observer: re-translate whenever dynamic nodes are injected.
+ */
+(function installI18nObserver(){
+  if(window.__cvI18nObserverInstalled) return;
+  window.__cvI18nObserverInstalled = true;
+  var timer = null;
+  function schedule(node){
+    clearTimeout(timer);
+    timer = setTimeout(function(){
+      try{ updateDOMTranslations(node && node.nodeType === 1 ? node : document); }catch(_e){}
+    }, 40);
+  }
+  try{
+    var obs = new MutationObserver(function(muts){
+      for(var i = 0; i < muts.length; i++){
+        var m = muts[i];
+        if(m.type === 'childList' && m.addedNodes && m.addedNodes.length){
+          for(var j = 0; j < m.addedNodes.length; j++){
+            var n = m.addedNodes[j];
+            if(n && n.nodeType === 1) schedule(n);
+          }
+        }
+        if(m.type === 'attributes' && m.target && m.attributeName && m.attributeName.indexOf('data-i18n') === 0){
+          schedule(m.target);
+        }
+      }
+    });
+    obs.observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['data-i18n','data-i18n-placeholder','data-i18n-title','data-i18n-aria-label']
+    });
+    window.i18nObserver = obs;
+  }catch(_o){}
+})();
+
+/* Restore last language */
+(function restoreLang(){
+  var saved = null;
+  try{ saved = localStorage.getItem('circlevault_lang_v1'); }catch(_e){}
+  if(saved){
+    __cvActiveLang = saved;
+    setTimeout(function(){ selectLanguage(saved); }, 0);
+  }
+})();
 populateLanguages();
 (function bindLangSwitch(){
   const sel = document.getElementById('langSwitch');
@@ -5779,6 +5996,7 @@ function syncCountry(){
   if(dial && country && COUNTRY_DIAL[country]){
     dial.value = COUNTRY_DIAL[country];
   }
+  try{ if(typeof syncCountryLanguageHint === 'function') syncCountryLanguageHint(); }catch(_h){}
 }
 
 /* ---------------- view routing ---------------- */
@@ -5915,6 +6133,9 @@ function goTo(view){
     if(view === 'reg-setup-2' && typeof showRs2Step === 'function'){
       showRs2Step(rs2Step || 1);
     }
+    if(typeof updateDOMTranslations === 'function'){
+      try{ updateDOMTranslations(target); }catch(_i18n){}
+    }
     syncDevModeSkipBtn();
     requestAnimationFrame(applyFitScale);
   }catch(err){
@@ -6020,13 +6241,79 @@ const REG_TAB_HEADERS = {
   activation: 'Account Activation & Credential Setup'
 };
 
+
+/** Primary national / official language code per UN-recognized country (ISO 639-1). */
+const COUNTRY_PRIMARY_LANG = {
+  "Afghanistan":"ps","Albania":"sq","Algeria":"ar","Andorra":"ca","Angola":"pt","Antigua and Barbuda":"en","Argentina":"es","Armenia":"hy","Australia":"en","Austria":"de","Azerbaijan":"az",
+  "Bahamas":"en","Bahrain":"ar","Bangladesh":"bn","Barbados":"en","Belarus":"be","Belgium":"nl","Belize":"en","Benin":"fr","Bhutan":"en","Bolivia":"es","Bosnia and Herzegovina":"bs","Botswana":"en","Brazil":"pt","Brunei":"ms","Bulgaria":"bg","Burkina Faso":"fr","Burundi":"rn",
+  "Cabo Verde":"pt","Cambodia":"km","Cameroon":"fr","Canada":"en","Central African Republic":"fr","Chad":"fr","Chile":"es","China":"zh","Colombia":"es","Comoros":"ar","Congo (Congo-Brazzaville)":"fr","Cook Islands":"en","Costa Rica":"es","Côte d'Ivoire":"fr","Croatia":"hr","Cuba":"es","Cyprus":"el","Czechia":"cs",
+  "Democratic Republic of the Congo":"fr","Denmark":"da","Djibouti":"fr","Dominica":"en","Dominican Republic":"es",
+  "Ecuador":"es","Egypt":"ar","El Salvador":"es","Equatorial Guinea":"es","Eritrea":"ti","Estonia":"et","Eswatini":"en","Ethiopia":"am",
+  "Fiji":"en","Finland":"fi","France":"fr",
+  "Gabon":"fr","Gambia":"en","Georgia":"ka","Germany":"de","Ghana":"en","Greece":"el","Grenada":"en","Guatemala":"es","Guinea":"fr","Guinea-Bissau":"pt","Guyana":"en",
+  "Haiti":"ht","Holy See":"it","Honduras":"es","Hungary":"hu",
+  "Iceland":"is","India":"hi","Indonesia":"id","Iran":"fa","Iraq":"ar","Ireland":"en","Israel":"he","Italy":"it",
+  "Jamaica":"en","Japan":"ja","Jordan":"ar",
+  "Kazakhstan":"kk","Kenya":"sw","Kiribati":"en","Kosovo":"sq","Kuwait":"ar","Kyrgyzstan":"ky",
+  "Laos":"lo","Latvia":"lv","Lebanon":"ar","Lesotho":"en","Liberia":"en","Libya":"ar","Liechtenstein":"de","Lithuania":"lt","Luxembourg":"fr",
+  "Madagascar":"mg","Malawi":"en","Malaysia":"ms","Maldives":"en","Mali":"fr","Malta":"mt","Marshall Islands":"en","Mauritania":"ar","Mauritius":"en","Mexico":"es","Micronesia":"en","Moldova":"ro","Monaco":"fr","Mongolia":"mn","Montenegro":"sr","Morocco":"ar","Mozambique":"pt","Myanmar":"my",
+  "Namibia":"en","Nauru":"en","Nepal":"ne","Netherlands":"nl","New Zealand":"en","Nicaragua":"es","Niger":"fr","Nigeria":"en","Niue":"en","North Korea":"ko","North Macedonia":"mk","Norway":"no",
+  "Oman":"ar",
+  "Pakistan":"ur","Palau":"en","Palestine State":"ar","Panama":"es","Papua New Guinea":"en","Paraguay":"es","Peru":"es","Philippines":"fil","Poland":"pl","Portugal":"pt",
+  "Qatar":"ar",
+  "Romania":"ro","Russia":"ru","Rwanda":"rw",
+  "Saint Kitts and Nevis":"en","Saint Lucia":"en","Saint Vincent and the Grenadines":"en","Samoa":"sm","San Marino":"it","Sao Tome and Principe":"pt","Saudi Arabia":"ar","Senegal":"fr","Serbia":"sr","Seychelles":"en","Sierra Leone":"en","Singapore":"en","Slovakia":"sk","Slovenia":"sl","Solomon Islands":"en","Somalia":"so","South Africa":"en","South Korea":"ko","South Sudan":"en","Spain":"es","Sri Lanka":"si","Sudan":"ar","Suriname":"nl","Sweden":"sv","Switzerland":"de","Syria":"ar",
+  "Taiwan":"zh","Tajikistan":"tg","Tanzania":"sw","Thailand":"th","Timor-Leste":"pt","Togo":"fr","Tonga":"en","Trinidad and Tobago":"en","Tunisia":"ar","Turkey":"tr","Turkmenistan":"tk","Tuvalu":"en",
+  "Uganda":"en","Ukraine":"uk","United Arab Emirates":"ar","United Kingdom":"en","United States":"en","Uruguay":"es","Uzbekistan":"uz",
+  "Vanuatu":"en","Venezuela":"es","Vietnam":"vi",
+  "Western Sahara":"ar",
+  "Yemen":"ar",
+  "Zambia":"en","Zimbabwe":"en"
+};
+window.COUNTRY_PRIMARY_LANG = COUNTRY_PRIMARY_LANG;
+
+function languageForCountry(countryName){
+  if(!countryName) return 'en';
+  return COUNTRY_PRIMARY_LANG[countryName] || 'en';
+}
+window.languageForCountry = languageForCountry;
+
+function syncCountryLanguageHint(){
+  var countryEl = document.getElementById('countrySelect');
+  var hint = document.getElementById('cvCountryLangHint');
+  if(!countryEl || !hint) return;
+  var lang = languageForCountry(countryEl.value);
+  var found = WORLD_LANGS.find(function(row){ return row[0] === lang; });
+  hint.textContent = found ? found[1] : lang;
+}
+window.syncCountryLanguageHint = syncCountryLanguageHint;
+
 const COUNTRY_ISO2_MAP = {
-  'Pakistan':'PK','United Arab Emirates':'UAE','India':'IN','United Kingdom':'GB',
-  'United States':'US','Saudi Arabia':'SA','Canada':'CA','Australia':'AU',
-  'Germany':'DE','France':'FR','China':'CN','Japan':'JP','Brazil':'BR',
-  'Nigeria':'NG','South Africa':'ZA','Bangladesh':'BD','Turkey':'TR',
-  'Qatar':'QA','Kuwait':'KW','Bahrain':'BH','Oman':'OM','Egypt':'EG',
-  'Singapore':'SG','Malaysia':'MY','Indonesia':'ID','Philippines':'PH'
+  'Afghanistan':'AF','Albania':'AL','Algeria':'DZ','Andorra':'AD','Angola':'AO','Antigua and Barbuda':'AG','Argentina':'AR','Armenia':'AM','Australia':'AU','Austria':'AT','Azerbaijan':'AZ',
+  'Bahamas':'BS','Bahrain':'BH','Bangladesh':'BD','Barbados':'BB','Belarus':'BY','Belgium':'BE','Belize':'BZ','Benin':'BJ','Bhutan':'BT','Bolivia':'BO','Bosnia and Herzegovina':'BA','Botswana':'BW','Brazil':'BR','Brunei':'BN','Bulgaria':'BG','Burkina Faso':'BF','Burundi':'BI',
+  'Cabo Verde':'CV','Cambodia':'KH','Cameroon':'CM','Canada':'CA','Central African Republic':'CF','Chad':'TD','Chile':'CL','China':'CN','Colombia':'CO','Comoros':'KM','Congo (Congo-Brazzaville)':'CG','Cook Islands':'CK','Costa Rica':'CR',"Côte d'Ivoire":'CI','Croatia':'HR','Cuba':'CU','Cyprus':'CY','Czechia':'CZ',
+  'Democratic Republic of the Congo':'CD','Denmark':'DK','Djibouti':'DJ','Dominica':'DM','Dominican Republic':'DO',
+  'Ecuador':'EC','Egypt':'EG','El Salvador':'SV','Equatorial Guinea':'GQ','Eritrea':'ER','Estonia':'EE','Eswatini':'SZ','Ethiopia':'ET',
+  'Fiji':'FJ','Finland':'FI','France':'FR',
+  'Gabon':'GA','Gambia':'GM','Georgia':'GE','Germany':'DE','Ghana':'GH','Greece':'GR','Grenada':'GD','Guatemala':'GT','Guinea':'GN','Guinea-Bissau':'GW','Guyana':'GY',
+  'Haiti':'HT','Holy See':'VA','Honduras':'HN','Hungary':'HU',
+  'Iceland':'IS','India':'IN','Indonesia':'ID','Iran':'IR','Iraq':'IQ','Ireland':'IE','Israel':'IL','Italy':'IT',
+  'Jamaica':'JM','Japan':'JP','Jordan':'JO',
+  'Kazakhstan':'KZ','Kenya':'KE','Kiribati':'KI','Kosovo':'XK','Kuwait':'KW','Kyrgyzstan':'KG',
+  'Laos':'LA','Latvia':'LV','Lebanon':'LB','Lesotho':'LS','Liberia':'LR','Libya':'LY','Liechtenstein':'LI','Lithuania':'LT','Luxembourg':'LU',
+  'Madagascar':'MG','Malawi':'MW','Malaysia':'MY','Maldives':'MV','Mali':'ML','Malta':'MT','Marshall Islands':'MH','Mauritania':'MR','Mauritius':'MU','Mexico':'MX','Micronesia':'FM','Moldova':'MD','Monaco':'MC','Mongolia':'MN','Montenegro':'ME','Morocco':'MA','Mozambique':'MZ','Myanmar':'MM',
+  'Namibia':'NA','Nauru':'NR','Nepal':'NP','Netherlands':'NL','New Zealand':'NZ','Nicaragua':'NI','Niger':'NE','Nigeria':'NG','Niue':'NU','North Korea':'KP','North Macedonia':'MK','Norway':'NO',
+  'Oman':'OM',
+  'Pakistan':'PK','Palau':'PW','Palestine State':'PS','Panama':'PA','Papua New Guinea':'PG','Paraguay':'PY','Peru':'PE','Philippines':'PH','Poland':'PL','Portugal':'PT',
+  'Qatar':'QA',
+  'Romania':'RO','Russia':'RU','Rwanda':'RW',
+  'Saint Kitts and Nevis':'KN','Saint Lucia':'LC','Saint Vincent and the Grenadines':'VC','Samoa':'WS','San Marino':'SM','Sao Tome and Principe':'ST','Saudi Arabia':'SA','Senegal':'SN','Serbia':'RS','Seychelles':'SC','Sierra Leone':'SL','Singapore':'SG','Slovakia':'SK','Slovenia':'SI','Solomon Islands':'SB','Somalia':'SO','South Africa':'ZA','South Korea':'KR','South Sudan':'SS','Spain':'ES','Sri Lanka':'LK','Sudan':'SD','Suriname':'SR','Sweden':'SE','Switzerland':'CH','Syria':'SY',
+  'Taiwan':'TW','Tajikistan':'TJ','Tanzania':'TZ','Thailand':'TH','Timor-Leste':'TL','Togo':'TG','Tonga':'TO','Trinidad and Tobago':'TT','Tunisia':'TN','Turkey':'TR','Turkmenistan':'TM','Tuvalu':'TV',
+  'Uganda':'UG','Ukraine':'UA','United Arab Emirates':'UAE','United Kingdom':'GB','United States':'US','Uruguay':'UY','Uzbekistan':'UZ',
+  'Vanuatu':'VU','Venezuela':'VE','Vietnam':'VN',
+  'Western Sahara':'EH',
+  'Yemen':'YE',
+  'Zambia':'ZM','Zimbabwe':'ZW'
 };
 
 function countryToVaultIso(countryName){
@@ -11505,13 +11792,16 @@ window.removeAffidavitSlot = removeAffidavitSlot;
       menu.setAttribute('role', 'dialog');
       menu.setAttribute('aria-label', 'Active account profile');
       menu.innerHTML = [
-        '<h4>Active Account</h4>',
-        '<div class="cv-sw-row"><span class="cv-sw-k">Username</span><span class="cv-sw-v" id="cvProfileUsername">—</span></div>',
-        '<div class="cv-sw-row"><span class="cv-sw-k">Account ID</span><span class="cv-sw-v" id="cvProfileVaultId">CV-ARC-896586-PK-2026</span></div>',
-        '<div class="cv-sw-row"><span class="cv-sw-k">Status</span><span class="cv-sw-v"><span class="cv-sw-status" id="cvProfileStatus">Active</span></span></div>',
-        '<button type="button" class="btn btn-ghost btn-sm cv-sw-signout" id="cvProfileSignOut">Sign Out / Reset</button>'
+        '<h4 data-i18n="profileActiveAccount">Active Account</h4>',
+        '<div class="cv-sw-row"><span class="cv-sw-k" data-i18n="profileUsername">Username</span><span class="cv-sw-v" id="cvProfileUsername">—</span></div>',
+        '<div class="cv-sw-row"><span class="cv-sw-k" data-i18n="profileAccountId">Account ID</span><span class="cv-sw-v" id="cvProfileVaultId">CV-ARC-896586-PK-2026</span></div>',
+        '<div class="cv-sw-row"><span class="cv-sw-k" data-i18n="profileStatus">Status</span><span class="cv-sw-v"><span class="cv-sw-status" id="cvProfileStatus">Active</span></span></div>',
+        '<button type="button" class="btn btn-ghost btn-sm cv-sw-signout" id="cvProfileSignOut" data-i18n="profileSignOut">Sign Out / Reset</button>'
       ].join('');
       root.appendChild(menu);
+      if (typeof updateDOMTranslations === 'function') {
+        try { updateDOMTranslations(menu); } catch (_t) {}
+      }
     }
 
     updateSwitcherLabel();
@@ -11606,7 +11896,10 @@ window.removeAffidavitSlot = removeAffidavitSlot;
     var label = document.getElementById('cvRoleSwLabel');
     var chip = document.getElementById('cvRoleModeChip');
     if (root) root.setAttribute('data-mode', 'user');
-    if (label) label.textContent = 'User Profile';
+    if (label) {
+      label.setAttribute('data-i18n', 'profileTitle');
+      label.textContent = (typeof t === 'function' && t('profileTitle')) || 'User Profile';
+    }
     if (chip) {
       chip.className = '';
       chip.classList.remove('show');
