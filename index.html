@@ -184,11 +184,13 @@
   .topbar-right{
     display:flex;align-items:center;gap:10px;flex-wrap:nowrap;
     flex:0 0 auto;position:relative;z-index:2;pointer-events:auto;
+    isolation:isolate;
   }
   .lang-box{
     display:flex;align-items:center;gap:8px;min-width:0;flex:1 1 auto;
-    position:relative;z-index:5;pointer-events:auto;
+    position:relative;z-index:1;pointer-events:auto;
   }
+  .lang-box.lang-open{z-index:10052;isolation:isolate;}
   .lang-box label{color:var(--muted-2);font-size:11px;text-transform:uppercase;letter-spacing:.08em;flex:none;}
   /* Native select kept for sync only — real UI is .lang-touch-btn (iOS-safe) */
   select#langSwitch,
@@ -223,13 +225,14 @@
   /* Dropdown anchored under Language button (not a page-center modal) */
   .lang-sheet{
     display:none !important;position:absolute;top:calc(100% + 8px);right:0;left:auto;
-    z-index:60;width:min(300px,92vw);max-width:92vw;
+    z-index:10053;width:min(300px,92vw);max-width:92vw;
     padding:0;margin:0;background:transparent;pointer-events:none !important;visibility:hidden !important;
   }
   .lang-sheet.open{
     display:block !important;pointer-events:auto !important;visibility:visible !important;
     animation:langSheetIn .16s cubic-bezier(.2,.9,.3,1.1) both;
   }
+  .lang-box.lang-open .lang-touch-btn{z-index:10054;}
   @keyframes langSheetIn{
     from{opacity:0;transform:translateY(-6px) scale(.98);}
     to{opacity:1;transform:translateY(0) scale(1);}
@@ -291,11 +294,12 @@
     .rate-ticker{font-size:11.5px;gap:7px;width:100%;order:1;}
     .rate-sub{display:none;}
     .topbar-right{
-      width:100%;order:2;display:grid;grid-template-columns:1fr 48px;
-      align-items:end;gap:8px;flex-wrap:nowrap;
+      width:100%;order:2;display:flex;flex-wrap:nowrap;
+      align-items:center;gap:8px;
     }
     .lang-box{
       flex:1 1 auto;min-width:0;flex-direction:column;align-items:stretch;gap:4px;
+      max-width:calc(100% - 120px);
     }
     .lang-box label{
       display:block;font-size:10px;margin:0;width:100%;
@@ -307,8 +311,9 @@
       font-size:16px;padding:12px 14px;
     }
     .lang-sheet{
-      left:0;right:0;width:100%;max-width:none;
+      left:0;right:0;width:100%;max-width:none;z-index:10053;
     }
+    .cv-nav-profile-wrap{flex:none;}
     .theme-toggle{width:48px;height:48px;min-width:48px;min-height:48px;margin:0;}
     .hero-ctas{
       position:relative;z-index:5;width:100%;max-width:420px;
@@ -2001,7 +2006,11 @@ footer.site{border-block-start:1px solid var(--line);padding-block:26px;color:va
   .cam-modal:not(.open),
   .verify-overlay:not(.active),
   .cv-security-modal:not(.open),
-  .lang-sheet:not(.open),
+  .lang-sheet:not(.open){
+    display:none !important;
+    pointer-events:none !important;
+    visibility:hidden !important;
+  }
   .toast,
   .svg-defs,
   .view:not(.active){
@@ -3890,9 +3899,10 @@ function populateLanguages(){
       btn.setAttribute('data-lang', code);
       btn.setAttribute('aria-selected', code === 'en' ? 'true' : 'false');
       btn.textContent = fullLabel;
-      CVBindTap(btn, function(){
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
         selectLanguage(code);
-        closeLangSheet();
       });
       list.appendChild(btn);
     }
@@ -3923,16 +3933,19 @@ function selectLanguage(lang){
   if(sel) sel.value = lang;
   syncLangTouchLabel(lang);
   applyLang(lang);
+  closeLangSheet();
 }
 
 function openLangSheet(){
   const sheet = document.getElementById('langSheet');
   const btn = document.getElementById('langTouchBtn');
+  const box = document.querySelector('.lang-box');
   if(!sheet) return;
+  if(typeof closeNavProfileMenus === 'function') closeNavProfileMenus();
   sheet.classList.add('open');
   sheet.setAttribute('aria-hidden', 'false');
+  if(box) box.classList.add('lang-open');
   if(btn) btn.setAttribute('aria-expanded', 'true');
-  /* Keep list under the Language button even if layout wraps */
   requestAnimationFrame(function(){
     const selected = sheet.querySelector('.lang-sheet-item[aria-selected="true"]');
     if(selected && selected.scrollIntoView) selected.scrollIntoView({ block:'nearest' });
@@ -3942,9 +3955,11 @@ function openLangSheet(){
 function closeLangSheet(){
   const sheet = document.getElementById('langSheet');
   const btn = document.getElementById('langTouchBtn');
+  const box = document.querySelector('.lang-box');
   if(!sheet) return;
   sheet.classList.remove('open');
   sheet.setAttribute('aria-hidden', 'true');
+  if(box) box.classList.remove('lang-open');
   if(btn) btn.setAttribute('aria-expanded', 'false');
 }
 
@@ -4221,21 +4236,42 @@ if(typeof runDocExpiryEngine === 'function') runDocExpiryEngine();
   const touchBtn = document.getElementById('langTouchBtn');
   const closeBtn = document.getElementById('langSheetClose');
   const sheet = document.getElementById('langSheet');
+  const box = document.querySelector('.lang-box');
   if(sel) sel.addEventListener('change', function(e){ selectLanguage(e.target.value); });
-  if(touchBtn) CVBindTap(touchBtn, function(){
-    const open = sheet && sheet.classList.contains('open');
-    if(open) closeLangSheet(); else openLangSheet();
-  });
-  if(closeBtn) CVBindTap(closeBtn, function(){ closeLangSheet(); });
-  document.addEventListener('click', function(e){
-    if(!sheet || !sheet.classList.contains('open')) return;
-    const box = document.querySelector('.lang-box');
-    if(box && box.contains(e.target)) return;
-    closeLangSheet();
-  });
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape') closeLangSheet();
-  });
+  if(touchBtn && !touchBtn.__cvLangToggleBound){
+    touchBtn.__cvLangToggleBound = true;
+    touchBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      const open = sheet && sheet.classList.contains('open');
+      if(open) closeLangSheet(); else openLangSheet();
+    });
+  }
+  if(closeBtn && !closeBtn.__cvLangCloseBound){
+    closeBtn.__cvLangCloseBound = true;
+    closeBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      closeLangSheet();
+    });
+  }
+  if(!window.__cvLangOutsideBound){
+    window.__cvLangOutsideBound = true;
+    function outsideLangClose(e){
+      if(!sheet || !sheet.classList.contains('open')) return;
+      if(box && box.contains(e.target)) return;
+      closeLangSheet();
+    }
+    document.addEventListener('pointerdown', outsideLangClose, true);
+    document.addEventListener('touchstart', outsideLangClose, true);
+    document.addEventListener('click', outsideLangClose, true);
+  }
+  if(!window.__cvLangEscapeBound){
+    window.__cvLangEscapeBound = true;
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') closeLangSheet();
+    });
+  }
 })();
 
 /* ---------------- theme toggle (default dark) ---------------- */
@@ -6775,6 +6811,7 @@ function bindNavProfileMenus(){
     if(btn){
       var toggle = function(e){
         e.stopPropagation();
+        if(typeof closeLangSheet === 'function') closeLangSheet();
         var open = wrap.classList.toggle('open');
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       };
