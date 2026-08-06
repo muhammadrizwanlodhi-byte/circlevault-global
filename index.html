@@ -1834,14 +1834,64 @@
   .notranslate, [translate="no"]{unicode-bidi:isolate;}
 
   /* Profile hierarchy & doc expiry */
-  .cv-nav-profile-wrap{position:relative;display:inline-flex;align-items:center;}
-  .cv-nav-profile-btn{font:inherit;font-size:12px;font-weight:600;padding:7px 12px;border-radius:999px;border:1px solid var(--line-strong);background:var(--panel-2);color:var(--text);cursor:pointer;display:inline-flex;align-items:center;gap:6px;}
-  .cv-nav-profile-btn:hover{border-color:var(--cyan);color:var(--cyan);}
-  .cv-nav-profile-menu{display:none;position:absolute;top:calc(100% + 6px);right:0;min-width:260px;padding:10px;border-radius:12px;border:1px solid var(--line-strong);background:var(--panel);box-shadow:0 12px 40px rgba(0,0,0,.45);z-index:9999;}
+  #navProfileLanding,#navProfileDashboard{display:none!important;}
+  #cvRoleSwitcher{display:none!important;}
+  .cv-nav-profile-wrap{position:relative;display:inline-flex;align-items:center;flex:none;z-index:8;}
+  .cv-nav-profile-btn{
+    font:inherit;font-size:12px;font-weight:600;padding:5px 10px 5px 5px;border-radius:999px;
+    border:1px solid var(--line-strong);background:var(--panel-2);color:var(--text);cursor:pointer;
+    display:inline-flex;align-items:center;gap:8px;min-height:40px;max-width:min(220px,42vw);
+  }
+  .cv-nav-profile-btn:hover,.cv-nav-profile-wrap.open .cv-nav-profile-btn{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(0,212,255,.12);}
+  .cv-nav-avatar{
+    width:30px;height:30px;border-radius:50%;flex:none;display:inline-flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:800;letter-spacing:.02em;color:#061018;
+    background:linear-gradient(135deg,var(--gold),var(--cyan));
+  }
+  .cv-nav-profile-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:120px;}
+  .cv-nav-profile-caret{font-size:10px;opacity:.75;flex:none;transition:transform .18s;}
+  .cv-nav-profile-wrap.open .cv-nav-profile-caret{transform:rotate(180deg);opacity:1;color:var(--gold);}
+  .cv-nav-profile-menu{display:none;position:absolute;top:calc(100% + 6px);right:0;min-width:260px;padding:8px;border-radius:12px;border:1px solid var(--line-strong);background:var(--panel);box-shadow:0 12px 40px rgba(0,0,0,.45);z-index:9999;}
   .cv-nav-profile-wrap.open .cv-nav-profile-menu{display:block;}
-  .cv-nav-profile-menu button{width:100%;text-align:left;padding:10px 12px;border:0;border-radius:8px;background:transparent;color:var(--text);font:inherit;font-size:13px;cursor:pointer;}
+  .cv-nav-profile-menu button{width:100%;text-align:start;padding:10px 12px;border:0;border-radius:8px;background:transparent;color:var(--text);font:inherit;font-size:13px;cursor:pointer;}
   .cv-nav-profile-menu button:hover{background:var(--panel-3);}
   .cv-nav-profile-menu .cv-menu-divider{height:1px;background:var(--line);margin:6px 0;}
+  .cv-security-modal{
+    position:fixed;inset:0;background:rgba(6,10,20,.88);backdrop-filter:blur(6px);
+    display:none;align-items:center;justify-content:center;z-index:10050;padding:16px;
+    pointer-events:none;visibility:hidden;
+  }
+  .cv-security-modal.open{display:flex;pointer-events:auto;visibility:visible;}
+  .cv-security-modal-card{
+    width:100%;max-width:420px;border-radius:16px;border:1px solid var(--line-strong);
+    background:var(--panel);padding:22px 20px;box-shadow:0 24px 60px rgba(0,0,0,.5);
+  }
+  .cv-security-modal-card h3{margin:0 0 6px;font-family:var(--font-display);font-size:18px;}
+  .cv-security-modal-card .sec-sub{color:var(--muted);font-size:13px;margin:0 0 16px;line-height:1.45;}
+  .cv-security-modal-card .field{margin-bottom:12px;}
+  .cv-security-modal-card label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;}
+  .cv-security-modal-card input{
+    width:100%;box-sizing:border-box;padding:10px 12px;border-radius:10px;border:1px solid var(--line-strong);
+    background:var(--panel-2);color:var(--text);font:inherit;
+  }
+  .cv-security-modal-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
+  .cv-security-modal-actions .btn{flex:1 1 auto;min-width:120px;}
+  .cv-security-otp-step{display:none;}
+  .cv-security-otp-step.show{display:block;}
+  .cv-security-form-step.hide{display:none;}
+  .cv-security-success-banner{
+    position:fixed;top:calc(var(--topbar-h,56px) + 8px);left:50%;transform:translateX(-50%) translateY(-120%);
+    z-index:10060;min-width:min(420px,92vw);padding:12px 18px;border-radius:12px;
+    border:1px solid rgba(40,184,150,.55);background:rgba(8,22,18,.96);color:var(--emerald);
+    font-size:13px;font-weight:700;text-align:center;box-shadow:0 12px 36px rgba(0,0,0,.4);
+    transition:transform .28s ease,opacity .28s ease;opacity:0;pointer-events:none;
+  }
+  .cv-security-success-banner.show{transform:translateX(-50%) translateY(0);opacity:1;}
+  @media (max-width:640px){
+    .cv-nav-profile-name{display:none;}
+    .cv-nav-profile-btn{max-width:none;padding-inline-end:8px;}
+    .topbar-right{align-items:center;}
+  }
   #view-onboarding[data-onboard-context="profile-settings"] .onboard-head h1[data-i18n="onboardTitle"]{display:none;}
   #view-onboarding[data-onboard-context="profile-settings"] .onboard-head h1[data-i18n="upgradeTitle"]{display:block;}
   #view-onboarding[data-onboard-context="registration"] .onboard-head h1[data-i18n="upgradeTitle"]{display:none;}
@@ -1857,6 +1907,19 @@
   .doc-expiry-banner strong,.account-hold-banner strong{display:block;margin-bottom:4px;}
   .cv-sms-log{font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-top:6px;}
   #regHubFooter[data-profile-hub="1"] .btn-deploy{display:none!important;}
+  .cv-immutable-field,.cv-immutable-field:disabled{
+    cursor:not-allowed!important;opacity:.78;background:var(--panel-2)!important;
+    border-color:var(--line)!important;color:var(--muted)!important;
+  }
+  .cv-immutable-field:focus{outline:1px dashed var(--amber);outline-offset:2px;}
+  label.upload-slot.cv-mutable-slot{border-color:rgba(0,212,255,.35);}
+  .profile-mobile-otp-panel{margin-top:12px;padding:12px;border-radius:12px;border:1px dashed var(--line-strong);background:var(--panel-2);}
+  .profile-vault-id-banner{
+    display:none;margin-block:0 14px;padding:12px 14px;border-radius:12px;
+    border:1px solid var(--line-strong);background:var(--panel-2);font-size:13px;
+  }
+  #view-onboarding[data-onboard-context="profile-settings"] .profile-vault-id-banner{display:block;}
+  .profile-vault-id-banner .cv-immutable-field{margin-top:6px;}
 
 
 footer.site{border-block-start:1px solid var(--line);padding-block:26px;color:var(--muted-2);font-size:12px;text-align:center;}
@@ -1937,6 +2000,7 @@ footer.site{border-block-start:1px solid var(--line);padding-block:26px;color:va
   /* Closed overlays must never intercept taps (Huawei / old WebViews) */
   .cam-modal:not(.open),
   .verify-overlay:not(.active),
+  .cv-security-modal:not(.open),
   .lang-sheet:not(.open),
   .toast,
   .svg-defs,
@@ -1945,7 +2009,8 @@ footer.site{border-block-start:1px solid var(--line);padding-block:26px;color:va
     visibility:hidden !important;
   }
   .cam-modal:not(.open),
-  .verify-overlay:not(.active){
+  .verify-overlay:not(.active),
+  .cv-security-modal:not(.open){
     display:none !important;
     width:0 !important;
     height:0 !important;
@@ -2007,6 +2072,19 @@ footer.site{border-block-start:1px solid var(--line);padding-block:26px;color:va
           </div>
         </div>
         <select id="langSwitch" class="lang-select" aria-hidden="true" tabindex="-1"></select>
+      </div>
+      <div class="cv-nav-profile-wrap" id="navProfileTopbar">
+        <button type="button" class="cv-nav-profile-btn" id="navMyProfileTopbar" aria-haspopup="true" aria-expanded="false">
+          <span class="cv-nav-avatar" id="navProfileAvatar" aria-hidden="true">G</span>
+          <span class="cv-nav-profile-name" id="navProfileDisplayName" data-i18n="navGuestLabel">Guest</span>
+          <span class="cv-nav-profile-caret" aria-hidden="true">▾</span>
+        </button>
+        <div class="cv-nav-profile-menu" role="menu">
+          <button type="button" role="menuitem" data-i18n="upgradeTitle" onclick="openProfileSettingsFromNav(event)">Upgrade Your CircleVault</button>
+          <div class="cv-menu-divider" role="separator"></div>
+          <button type="button" role="menuitem" data-i18n="menuChangePassword" onclick="openChangePasswordModal(event)">Change Password</button>
+          <button type="button" role="menuitem" data-i18n="menuChangePin" onclick="openChangePinModal(event)">Change Transaction PIN</button>
+        </div>
       </div>
       <button id="themeToggle" class="theme-toggle" type="button" onclick="toggleTheme()" title="Switch to light mode" aria-label="Toggle light or dark theme">🌙</button>
     </div>
@@ -2249,6 +2327,12 @@ footer.site{border-block-start:1px solid var(--line);padding-block:26px;color:va
       <h2 id="dynamicStepTitle" data-i18n="hubTitle">CircleVault Registration — Main Hub</h2>
     </div>
 
+    <div class="profile-vault-id-banner" id="profileVaultIdBanner" role="note">
+      <strong data-i18n="lblVaultId">Vault ID</strong>
+      <input type="text" id="profileVaultIdInput" class="cv-immutable-field" readonly aria-readonly="true" tabindex="-1" value="—">
+      <p class="field-help" style="margin:6px 0 0;" data-i18n="immutableFieldHelp">Verified identity fields are locked. Use Edit on eligible cards to renew documents, update address, or change mobile.</p>
+    </div>
+
     <div class="reg-hub-view" id="regHubView">
       <div class="reg-hub-grid reg-hub-grid-6 reg-hub-grid-7">
         <div class="reg-hub-card" role="button" tabindex="0" data-open-reg-tab="1" onclick="openRegTab(1)"><h4 data-i18n="hubCard1Title">1. Jurisdiction</h4><p data-i18n="hubCard1Body">Region, compliance framework, and regulatory declarations.</p><p class="card-summary" data-card-summary="1"></p><span class="reg-status-badge pending" data-reg-badge-card="1" data-i18n="statusPending">Pending</span></div>
@@ -2354,7 +2438,11 @@ footer.site{border-block-start:1px solid var(--line);padding-block:26px;color:va
               <button class="btn btn-ghost btn-sm" type="button" onclick="simulateMobileLiveness()" style="margin-block-start:10px;">Simulate Mobile Complete (demo)</button>
             </div>
             <div class="form-block" style="margin-block-start:8px;">
-              <h4 class="form-block-title">Proof of Residence</h4>
+              <h4 class="form-block-title" data-i18n="lblResidentialAddress">Residential Address</h4>
+              <div class="field span-2"><label for="residentialAddressInput" data-i18n="lblNewAddress">New Address</label>
+                <textarea id="residentialAddressInput" rows="2" placeholder="Street, area, city, postal code"></textarea>
+              </div>
+              <h4 class="form-block-title" data-i18n="lblProofOfAddress">Proof of Address</h4>
               <label class="upload-slot" id="slotAddressProof">
                 <div class="icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none"><path d="M24 8 V30" stroke="url(#cvArcCyan)" stroke-width="2.5" stroke-linecap="round"/><path d="M16 16 L24 8 L32 16" stroke="url(#cvArcCyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="10" y="30" width="28" height="10" rx="2" stroke="url(#cvVaultGold)" stroke-width="2.5"/></svg></div>
                 <div class="label">Upload proof of address</div>
@@ -2471,6 +2559,15 @@ footer.site{border-block-start:1px solid var(--line);padding-block:26px;color:va
               </div>
               <div class="field span-2"><label>Primary Mobile (Vault Holder SIM) <span class="req">*</span></label>
                 <div class="otp-row"><select id="dialCodeSelect" style="max-width:210px;"></select><input type="tel" id="mobileInput" placeholder="300 1234567"></div>
+              </div>
+              <div class="field span-2 profile-mobile-otp-panel is-hidden" id="profileMobileOtpPanel">
+                <label data-i18n="lblMobileOtpVerify">Mobile Number Verification (OTP Required)</label>
+                <div class="otp-row">
+                  <input type="text" id="profileMobileOtp" maxlength="6" inputmode="numeric" autocomplete="one-time-code" data-i18n-placeholder="secOtpPlaceholder" placeholder="Enter 6-digit OTP">
+                  <button type="button" class="btn btn-ghost btn-sm" id="btnProfileMobileOtp" onclick="sendProfileMobileOtp(this)" data-i18n="secResendOtp">Send OTP</button>
+                  <span class="nok-otp-badge pending" id="profileMobileOtpBadge" data-i18n="statusPending">Pending</span>
+                </div>
+                <p class="field-help" data-i18n="profileMobileOtpHelp">Updating your registered mobile requires OTP verification to your new number.</p>
               </div>
             </div>
 
@@ -3554,6 +3651,33 @@ footer.site{border-block-start:1px solid var(--line);padding-block:26px;color:va
 
 <footer class="site" data-i18n="footerSite">The CircleVault Global — demo interface for illustration purposes. Rates, balances and identifiers shown are simulated.</footer>
 
+<div class="cv-security-success-banner" id="cvSecuritySuccessBanner" role="status" aria-live="polite" data-i18n="securityCredUpdated">Security credentials updated successfully!</div>
+
+<div class="cv-security-modal" id="cvSecurityModal" aria-hidden="true">
+  <div class="cv-security-modal-card" role="dialog" aria-modal="true" aria-labelledby="cvSecurityModalTitle">
+    <h3 id="cvSecurityModalTitle">Change Password</h3>
+    <p class="sec-sub" id="cvSecurityModalSub"></p>
+    <div class="cv-security-form-step" id="cvSecurityFormStep">
+      <div class="field"><label for="secCurrentCred" id="secCurrentCredLbl">Current Password</label><input type="password" id="secCurrentCred" autocomplete="current-password"></div>
+      <div class="field"><label for="secNewCred" id="secNewCredLbl">New Password</label><input type="password" id="secNewCred" autocomplete="new-password"></div>
+      <div class="field"><label for="secConfirmCred" id="secConfirmCredLbl">Confirm New Password</label><input type="password" id="secConfirmCred" autocomplete="new-password"></div>
+      <div class="cv-security-modal-actions">
+        <button type="button" class="btn btn-gold btn-sm" id="secSubmitBtn" onclick="submitSecurityCredential()" data-i18n="secContinue">Continue</button>
+        <button type="button" class="btn btn-ghost btn-sm" onclick="closeSecurityModal()" data-i18n="secCancel">Cancel</button>
+      </div>
+    </div>
+    <div class="cv-security-otp-step" id="cvSecurityOtpStep">
+      <p class="sec-sub" data-i18n="secOtpSub">A 6-digit code was sent via SMS/Email to your registered mobile.</p>
+      <div class="field"><label for="cvSecurityOtp" data-i18n="secOtpTitle">2-Step Verification</label><input type="text" id="cvSecurityOtp" maxlength="6" inputmode="numeric" autocomplete="one-time-code" data-i18n-placeholder="secOtpPlaceholder" placeholder="Enter 6-digit OTP"></div>
+      <div class="cv-security-modal-actions">
+        <button type="button" class="btn btn-gold btn-sm" onclick="verifySecurityOtp()" data-i18n="secVerifyUpdate">Verify &amp; Update</button>
+        <button type="button" class="btn btn-ghost btn-sm" onclick="resendSecurityOtp()" data-i18n="secResendOtp">Resend OTP</button>
+        <button type="button" class="btn btn-ghost btn-sm" onclick="closeSecurityModal()" data-i18n="secCancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="verify-overlay" id="verifyOverlay">
   <svg width="80" height="80" viewBox="0 0 100 100">
     <circle cx="50" cy="50" r="42" fill="none" stroke="var(--line-strong)" stroke-width="6"/>
@@ -3597,6 +3721,48 @@ footer.site{border-block-start:1px solid var(--line);padding-block:26px;color:va
 /* ---------------- i18n: Native Dictionary + Universal Bridge ---------------- */
 const I18N = {"en":{"badgeAmlCleared":"🟢 AML/CFT Cleared","badgeCreditRating":"🟢 Credit Rating: A+","badgeVerifiedIdentity":"🟢 Verified Arc Identity","brandTag":"Global Payments, Remittances & Yield Ecosystem","btnBackHome":"← Back","btnDownload":"Download","btnExit":"Exit","btnPrint":"Print","btnSave":"Save","colBalance":"Running Balance","colBeneficiary":"Beneficiary / Counterparty","colCredit":"Credit (CR)","colDate":"Date","colDebit":"Debit (DR)","colDeductions":"Deductions (Fee/Tax)","colRail":"Payout Rail / IBAN","colStatus":"Status & Compliance","colTxRef":"Transaction Ref & ISO Purpose","credEyebrow":"Vault Created","credProceed":"Proceed to Vault Dashboard","credTitle":"Your Official Vault Credential","dashOverview":"Overview","dashTransactions":"Transactions","dialCaption":"Arc Vault · Shield Network","footerSite":"The CircleVault Global — demo interface for illustration purposes. Rates, balances and identifiers shown are simulated.","heroBody":"The CircleVault Global enforces strict onboarding protocols. Choose your jurisdiction, complete instant passport or ID verification powered by Circle Arc identity rails, and every transfer, remittance and yield vault interaction stays fully aligned with global AML/CFT standards.","heroCta":"Open Your CircleVault Now","heroEyebrow":"Global Reach, Local Compliance","heroHeading":"Global Reach with Local Compliance","hubCard1Body":"Region, compliance framework, and regulatory declarations.","hubCard1Title":"1. Jurisdiction","hubCard2Body":"Government ID, document scan, and live biometric check.","hubCard2Title":"2. Identity KYC","hubCard3Body":"Occupation, income range, and bank statement proof.","hubCard3Title":"3. Source of Income / Funds","hubCard4Body":"Bank IBAN, Raast, wallets, Visa/MC cards — Telco AI OTP + 3DS bind.","hubCard4Title":"4. Settlement Banks & Wallets","hubCard5Body":"Nominee identity, live selfie, OTP, and dynamic affidavits.","hubCard5Title":"5. Next of Kin","hubCard6Body":"Terms, 6-digit transaction PIN, 2FA setup, and Vault ID deployment.","hubCard6Title":"6. Security Credentials","hubEmergencyBody":"Simultaneous demise protocol for surviving legal heirs to initiate vault recovery.","hubEmergencyBtn":"Open Emergency Vault Claim Portal","hubEmergencyTitle":"Successor Claim & Emergency Hub","hubEyebrow":"REGISTRATION HUB","hubTitle":"CircleVault Registration — Main Hub","langLabel":"Language","lblCity":"City / Area","lblCompliance":"Compliance Framework","lblCountryNationality":"Country of Nationality","lblCountryResidence":"Country of Residence","lblDob":"Date of Birth","lblDocExpiry":"Date of Expiry","lblDocId":"Document ID Number","lblDocIssue":"Date of Issue","lblFirstName":"First Name","lblLastName":"Last Name / Surname","lblLifetime":"Lifetime / No Expiry","lblRegDeclarations":"Regulatory Declarations","lblRegion":"State / Province / Region","ledgerMetricClosing":"Closing Balance","ledgerMetricCredits":"Total Credits (CR)","ledgerMetricDebits":"Total Debits (DR)","ledgerMetricDeductions":"Total Deductions","ledgerTitle":"Activity & Ledger","loginAccountId":"Account ID / Email","loginAccountPlaceholder":"Account ID, email, or 6-digit Vault ID","loginAdminOneClick":"Admin One-Click Login","loginBack":"← Back","loginDemoAdmin":"Demo Admin","loginDemoAuditor":"Auditor View","loginDemoPicker":"Open Demo Profile Picker","loginDemoPreset":"Demo Preset Accounts","loginDemoPresetOpt":"— Select preset (optional) —","loginDemoUser":"Demo User","loginEmailBtn":"Sync Email","loginEmailHelp":"Sync recovery email with your vault profile for ISO 20022 audit trail.","loginEmailSync":"Email Sync","loginEmailTitle":"Email Sync","loginForgotBtn":"Send Vault ID Reminder","loginForgotEmailLbl":"Registered email","loginForgotHelp":"Enter your registered email to receive your masked Vault ID (demo: any email shows format CV-ARC-••••••-XX-YYYY).","loginForgotId":"Forgot Vault ID?","loginForgotTitle":"Forgot Vault ID","loginOpenVaultCta":"Open Your CircleVault Now","loginOpenVaultHint":"New here? Start the registration pipeline to create your vault.","loginOr":"or","loginOtpBack":"← Back to Sign In","loginOtpEyebrow":"STEP 2 OF 2 — VERIFICATION","loginOtpLabel":"One-Time Passcode","loginOtpResend":"Resend Code (demo)","loginOtpSub":"A 6-digit one-time code was sent to your registered device. This is a simulated OTP for demo purposes — it's pre-filled below.","loginOtpTitle":"Confirm It's You","loginOtpVerifyBtn":"Verify & Sign In","loginPassword":"Password / Security PIN","loginPasswordPlaceholder":"Password or security PIN","loginPasswordReset":"Password Reset","loginPresetsHint":"Presets: Demo Admin → admin / admin · Demo User → demo / demo · Auditor View → auditor / auditor","loginResetBtn":"Reset Password","loginResetEmailLbl":"Registered email","loginResetHelp":"Verify registered email + mobile OTP to reset vault password (demo flow).","loginResetOtpLbl":"OTP","loginResetTitle":"Password Reset","loginSecureTag":"Secure Vault Access","loginSub":"Standard vault authentication. Sign in with your Account ID / email and password, or pick a demo preset.","loginSubmit":"Sign In","loginSyncEmailLbl":"Recovery email","loginTitle":"Sign In to Your Vault","loginTrustBadge":"Simulated Prototype Environment — For Ignyte Challenge Demo Purposes Only. No real funds, documents, or credentials are processed or transmitted.","navSignIn":"Sign In","onboardSub":"Six focused registration steps. Verified against issuing authorities — never shared without consent.","onboardTitle":"Open Your CircleVault","pctCompleted":"Completed","profileAccountId":"Account ID","profileActiveAccount":"Active Account","profileSignOut":"Sign Out / Reset","profileStatus":"Status","profileUsername":"Username","rateLabel":"USDC Reference Rate","statusPending":"Pending","step1Sub":"Select your region and compliance framework. Keep this short — deep identity is Step 2.","step1Title":"Jurisdiction & Regulatory Preferences","step2Sub":"Government ID, document scan, and live selfie — cross-checked against issuing authorities.","step2Title":"Deep AI Identity & Biometric Verification","subCredit":"Active Credit Line Available","subEscrow":"SME Trade Escrow (Locked)","subLiquid":"Liquid Cash (Spending & Remittances)","subRwa":"RWA Project Investments","subYield":"Yield Vault (USYC Earnings)","totalEquityLabel":"Total Vault Equity","trustAml":"AML / CFT Compliant","trustArc":"Circle Arc Identity Rails","trustUsdc":"USDC-Native Settlement","verifyingSub":"Cross-checking identity, compliance and issuing authority records.","verifyingTitle":"Generating your Vault…","profileTitle":"User Profile","upgradeTitle":"Upgrade Your CircleVault","upgradeSub":"Review and upgrade your vault credentials. Identity documents and security settings can be renewed here.","upgradeHubTitle":"Vault Profile & Verification Settings","profileMenuSettings":"Account & Verification Settings","navMyProfile":"My Profile","btnClose":"Close","accountHoldTitle":"Account ON HOLD / RESTRICTED","accountHoldBody":"Your identity document has expired. Profile access remains available, but all transfers and vault transactions are frozen until you upload a renewed document and expiry date.","docExpiryAlertTitle":"Document Expiry Notice","docExpiryAlertBody":"Your ID expires within 45 days. Weekly SMS reminders are being sent to your registered mobile until renewal is saved.","docExpirySmsLog":"Weekly SMS reminder sent to registered mobile.","profileViewMode":"View Mode","profileEditLocked":"This section is read-only. Only Identity Documents and Security Credentials can be upgraded.","profileSaved":"Profile settings saved.","profileEditDiscarded":"Unsaved changes discarded.","hubCard7Title":"7. Succession Vault","hubCard7Body":"Emergency successor claim portal for legal heirs (separate from registration).","regCompleteDashboard":"Registration complete — welcome to your vault dashboard."},"ur":{"badgeAmlCleared":"🟢 AML/CFT کلیئر","badgeCreditRating":"🟢 کریڈٹ ریٹنگ: A+","badgeVerifiedIdentity":"🟢 تصدیق شدہ آرک شناخت","brandTag":"عالمی ادائیگیاں، ترسیلات اور ییلڈ ایکو سسٹم","btnBackHome":"← واپس","btnDownload":"ڈاؤن لوڈ","btnExit":"خارج","btnPrint":"پرنٹ","btnSave":"محفوظ","colBalance":"رننگ بیلنس","colBeneficiary":"مستفید / فریق مقابل","colCredit":"کریڈٹ (CR)","colDate":"تاریخ","colDebit":"ڈیبٹ (DR)","colDeductions":"کٹوتیاں (فیس/ٹیکس)","colRail":"ادائیگی ریل / IBAN","colStatus":"حیثیت اور تعمیل","colTxRef":"لین دین حوالہ اور ISO مقصد","credEyebrow":"والٹ بنایا گیا","credProceed":"والٹ ڈیش بورڈ پر جائیں","credTitle":"آپ کا سرکاری والٹ کریڈنشل","dashOverview":"جائزہ","dashTransactions":"لین دین","dialCaption":"آرک والٹ · شیلڈ نیٹ ورک","footerSite":"دی سرکل والٹ گلوبل — صرف مظاہرے کے لیے۔ نرخ، بیلنس اور شناخت کنندہ نقلی ہیں۔","heroBody":"دی سرکل والٹ گلوبل سخت آن بورڈنگ پروٹوکول نافذ کرتا ہے۔ اپنا دائرہ اختیار منتخب کریں، سرکل آرک شناخت ریلز سے فوری پاسپورٹ یا شناختی تصدیق مکمل کریں، اور ہر منتقلی، ترسیل اور ییلڈ والٹ تعامل عالمی AML/CFT معیارات کے مطابق رہے۔","heroCta":"ابھی اپنا سرکل والٹ کھولیں","heroEyebrow":"عالمی رسائی، مقامی تعمیل","heroHeading":"مقامی تعمیل کے ساتھ عالمی رسائی","hubCard1Body":"علاقہ، تعمیل فریم ورک، اور ریگولیٹری اعلانات۔","hubCard1Title":"۱. دائرہ اختیار","hubCard2Body":"حکومتی شناختی دستاویز، اسکین، اور لائیو بائیو میٹرک چیک۔","hubCard2Title":"۲. شناخت KYC","hubCard3Body":"پیشہ، آمدنی کی حد، اور بینک اسٹیٹمنٹ ثبوت۔","hubCard3Title":"۳. آمدنی / فنڈز کا ذریعہ","hubCard4Body":"بینک IBAN، Raast، والیٹس، Visa/MC کارڈز — Telco AI OTP + 3DS بائنڈ۔","hubCard4Title":"۴. سیٹلمنٹ بینکس اور والیٹس","hubCard5Body":"نامزد شناخت، لائیو سیلفی، OTP، اور متحرک حلف نامے۔","hubCard5Title":"۵. قریبی رشتہ دار","hubCard6Body":"شرائط، ۶ ہندسوں کا لین دین PIN، 2FA، اور والٹ آئی ڈی تعیناتی۔","hubCard6Title":"۶. سیکیورٹی کریڈنشلز","hubEmergencyBody":"باقی قانونی ورثا کے لیے والٹ بازیابی شروع کرنے کا بیک وقت انتقال پروٹوکول۔","hubEmergencyBtn":"ایمرجنسی والٹ کلیم پورٹل کھولیں","hubEmergencyTitle":"جانشین کلیم اور ایمرجنسی ہب","hubEyebrow":"رجسٹریشن ہب","hubTitle":"سرکل والٹ رجسٹریشن — مین ہب","langLabel":"زبان","lblCity":"شہر / علاقہ","lblCompliance":"تعمیل فریم ورک","lblCountryNationality":"قومیت کا ملک","lblCountryResidence":"رہائش کا ملک","lblDob":"تاریخ پیدائش","lblDocExpiry":"میعاد ختم ہونے کی تاریخ","lblDocId":"دستاویز نمبر","lblDocIssue":"اجرا کی تاریخ","lblFirstName":"پہلا نام","lblLastName":"آخری نام / خاندانی نام","lblLifetime":"عمر بھر / بغیر میعاد","lblRegDeclarations":"ریگولیٹری اعلانات","lblRegion":"ریاست / صوبہ / علاقہ","ledgerMetricClosing":"کلوزنگ بیلنس","ledgerMetricCredits":"کل کریڈٹس (CR)","ledgerMetricDebits":"کل ڈیبٹس (DR)","ledgerMetricDeductions":"کل کٹوتیاں","ledgerTitle":"سرگرمی اور لیجر","loginAccountId":"اکاؤنٹ آئی ڈی / ای میل","loginAccountPlaceholder":"اکاؤنٹ آئی ڈی، ای میل، یا ۶ ہندسوں والا والٹ آئی ڈی","loginAdminOneClick":"ایڈمن ون کلک لاگ ان","loginBack":"← واپس","loginDemoAdmin":"ڈیمو ایڈمن","loginDemoAuditor":"آڈیٹر ویو","loginDemoPicker":"ڈیمو پروفائل منتخب کریں","loginDemoPreset":"ڈیمو پری سیٹ اکاؤنٹس","loginDemoPresetOpt":"— پری سیٹ منتخب کریں (اختیاری) —","loginDemoUser":"ڈیمو صارف","loginEmailBtn":"ای میل سنک","loginEmailHelp":"ISO 20022 آڈٹ ٹریل کے لیے ریکوری ای میل کو اپنے والٹ پروفائل سے سنک کریں۔","loginEmailSync":"ای میل سنک","loginEmailTitle":"ای میل سنک","loginForgotBtn":"والٹ آئی ڈی یاد دہانی بھیجیں","loginForgotEmailLbl":"رجسٹرڈ ای میل","loginForgotHelp":"ماسکڈ والٹ آئی ڈی حاصل کرنے کے لیے رجسٹرڈ ای میل درج کریں (ڈیمو: کوئی بھی ای میل فارمیٹ CV-ARC-••••••-XX-YYYY دکھاتا ہے)۔","loginForgotId":"والٹ آئی ڈی بھول گئے؟","loginForgotTitle":"والٹ آئی ڈی بھول گئے","loginOpenVaultCta":"ابھی اپنا سرکل والٹ کھولیں","loginOpenVaultHint":"نئے ہیں؟ والٹ بنانے کے لیے رجسٹریشن پائپ لائن شروع کریں۔","loginOr":"یا","loginOtpBack":"← سائن ان پر واپس","loginOtpEyebrow":"مرحلہ ۲ از ۲ — تصدیق","loginOtpLabel":"ایک بار کا پاس کوڈ","loginOtpResend":"کوڈ دوبارہ بھیجیں (ڈیمو)","loginOtpSub":"آپ کے رجسٹرڈ ڈیوائس پر ۶ ہندسوں کا OTP بھیجا گیا۔ یہ ڈیمو کے لیے نقلی OTP ہے — نیچے پہلے سے بھرا ہوا ہے۔","loginOtpTitle":"تصدیق کریں کہ یہ آپ ہیں","loginOtpVerifyBtn":"تصدیق کریں اور سائن ان","loginPassword":"پاس ورڈ / سیکیورٹی PIN","loginPasswordPlaceholder":"پاس ورڈ یا سیکیورٹی PIN","loginPasswordReset":"پاس ورڈ ری سیٹ","loginPresetsHint":"پری سیٹس: ڈیمو ایڈمن → admin / admin · ڈیمو صارف → demo / demo · آڈیٹر → auditor / auditor","loginResetBtn":"پاس ورڈ ری سیٹ","loginResetEmailLbl":"رجسٹرڈ ای میل","loginResetHelp":"والٹ پاس ورڈ ری سیٹ کے لیے رجسٹرڈ ای میل + موبائل OTP تصدیق کریں (ڈیمو فلو)۔","loginResetOtpLbl":"OTP","loginResetTitle":"پاس ورڈ ری سیٹ","loginSecureTag":"محفوظ والٹ رسائی","loginSub":"معیاری والٹ تصدیق۔ اپنے اکاؤنٹ آئی ڈی / ای میل اور پاس ورڈ سے سائن ان کریں، یا ڈیمو پری سیٹ منتخب کریں۔","loginSubmit":"سائن ان","loginSyncEmailLbl":"ریکوری ای میل","loginTitle":"اپنے والٹ میں سائن ان کریں","loginTrustBadge":"نقلی پروٹو ٹائپ ماحول — صرف Ignyte Challenge ڈیمو۔ کوئی حقیقی فنڈز، دستاویزات یا کریڈنشلز پر کارروائی نہیں ہوتی۔","navSignIn":"سائن ان","onboardSub":"چھ مرکوز رجسٹریشن مراحل۔ جاری کرنے والے حکام کے خلاف تصدیق — رضامندی کے بغیر کبھی شیئر نہیں۔","onboardTitle":"اپنا سرکل والٹ کھولیں","pctCompleted":"مکمل","profileAccountId":"اکاؤنٹ آئی ڈی","profileActiveAccount":"فعال اکاؤنٹ","profileSignOut":"سائن آؤٹ / ری سیٹ","profileStatus":"حیثیت","profileUsername":"صارف نام","rateLabel":"USDC ریفرنس ریٹ","statusPending":"زیر التوا","step1Sub":"اپنا علاقہ اور تعمیل فریم ورک منتخب کریں۔ مختصر رکھیں — گہری شناخت مرحلہ ۲ ہے۔","step1Title":"دائرہ اختیار اور ریگولیٹری ترجیحات","step2Sub":"حکومتی شناختی دستاویز، اسکین، اور لائیو سیلفی — جاری حکام سے ملاپ۔","step2Title":"گہری AI شناخت اور بائیو میٹرک تصدیق","subCredit":"فعال کریڈٹ لائن دستیاب","subEscrow":"SME تجارتی ایسکرو (مقفل)","subLiquid":"مائع نقد (اخراجات اور ترسیلات)","subRwa":"RWA پروجیکٹ سرمایہ کاری","subYield":"ییلڈ والٹ (USYC کمائی)","totalEquityLabel":"کل والٹ ایکوئٹی","trustAml":"AML / CFT تعمیل","trustArc":"سرکل آرک شناخت ریلز","trustUsdc":"USDC-نیٹو سیٹلمنٹ","verifyingSub":"شناخت، تعمیل اور جاری اتھارٹی ریکارڈز کی جانچ۔","verifyingTitle":"آپ کا والٹ تیار ہو رہا ہے…","profileTitle":"صارف پروفائل","upgradeTitle":"Upgrade Your CircleVault","upgradeSub":"Review and upgrade your vault credentials. Identity documents and security settings can be renewed here.","upgradeHubTitle":"Vault Profile & Verification Settings","profileMenuSettings":"Account & Verification Settings","navMyProfile":"My Profile","btnClose":"Close","accountHoldTitle":"Account ON HOLD / RESTRICTED","accountHoldBody":"Your identity document has expired. Profile access remains available, but all transfers and vault transactions are frozen until you upload a renewed document and expiry date.","docExpiryAlertTitle":"Document Expiry Notice","docExpiryAlertBody":"Your ID expires within 45 days. Weekly SMS reminders are being sent to your registered mobile until renewal is saved.","docExpirySmsLog":"Weekly SMS reminder sent to registered mobile.","profileViewMode":"View Mode","profileEditLocked":"This section is read-only. Only Identity Documents and Security Credentials can be upgraded.","profileSaved":"Profile settings saved.","profileEditDiscarded":"Unsaved changes discarded.","hubCard7Title":"7. Succession Vault","hubCard7Body":"Emergency successor claim portal for legal heirs (separate from registration).","regCompleteDashboard":"Registration complete — welcome to your vault dashboard."},"ar":{"badgeAmlCleared":"🟢 تمّت موافقة AML/CFT","badgeCreditRating":"🟢 التصنيف الائتماني: A+","badgeVerifiedIdentity":"🟢 هوية Arc موثّقة","brandTag":"المدفوعات العالمية والتحويلات وعائدات الاستثمار","btnBackHome":"← رجوع","btnDownload":"تنزيل","btnExit":"خروج","btnPrint":"طباعة","btnSave":"حفظ","colBalance":"الرصيد الجاري","colBeneficiary":"المستفيد / الطرف المقابل","colCredit":"دائن (CR)","colDate":"التاريخ","colDebit":"مدين (DR)","colDeductions":"الخصومات (رسوم/ضريبة)","colRail":"قناة الدفع / IBAN","colStatus":"الحالة والامتثال","colTxRef":"مرجع المعاملة وغرض ISO","credEyebrow":"تم إنشاء الخزنة","credProceed":"الانتقال إلى لوحة الخزنة","credTitle":"اعتمادك الرسمي للخزنة","dashOverview":"نظرة عامة","dashTransactions":"المعاملات","dialCaption":"Arc Vault · شبكة Shield","footerSite":"The CircleVault Global — واجهة تجريبية. الأسعار والأرصدة والمعرّفات محاكاة.","heroBody":"يفرض The CircleVault Global بروتوكولات إعداد صارمة. اختر ولايتك القضائية، وأكمل التحقق الفوري من جواز السفر أو الهوية عبر مسارات Circle Arc، وتبقى كل تحويل وتحويلات وتحامل خزنة العائد متوافقة مع معايير AML/CFT العالمية.","heroCta":"افتح CircleVault الآن","heroEyebrow":"وصول عالمي، امتثال محلي","heroHeading":"وصول عالمي مع امتثال محلي","hubCard1Body":"المنطقة وإطار الامتثال والإقرارات التنظيمية.","hubCard1Title":"١. الولاية القضائية","hubCard2Body":"هوية حكومية وفحص المستند والتحقق الحيوي المباشر.","hubCard2Title":"٢. هوية KYC","hubCard3Body":"المهنة ونطاق الدخل وإثبات كشف الحساب.","hubCard3Title":"٣. مصدر الدخل / الأموال","hubCard4Body":"IBAN البنكي وRaast والمحافظ وبطاقات Visa/MC — OTP Telco AI + ربط 3DS.","hubCard4Title":"٤. بنوك ومحافظ التسوية","hubCard5Body":"هوية المرشّح وصورة ذاتية مباشرة وOTP وإقرارات ديناميكية.","hubCard5Title":"٥. أقرب الأقارب","hubCard6Body":"الشروط ورقم PIN للمعاملات من 6 أرقام و2FA ونشر Vault ID.","hubCard6Title":"٦. بيانات اعتماد الأمان","hubEmergencyBody":"بروتوكول الوفاة المتزامنة ليبدأ الورثة الشرعيون استرداد الخزنة.","hubEmergencyBtn":"فتح بوابة مطالبة الطوارئ","hubEmergencyTitle":"مطالبة الخلف ومركز الطوارئ","hubEyebrow":"مركز التسجيل","hubTitle":"تسجيل CircleVault — المركز الرئيسي","langLabel":"اللغة","lblCity":"المدينة / المنطقة","lblCompliance":"إطار الامتثال","lblCountryNationality":"بلد الجنسية","lblCountryResidence":"بلد الإقامة","lblDob":"تاريخ الميلاد","lblDocExpiry":"تاريخ الانتهاء","lblDocId":"رقم الوثيقة","lblDocIssue":"تاريخ الإصدار","lblFirstName":"الاسم الأول","lblLastName":"اسم العائلة","lblLifetime":"مدى الحياة / بلا انتهاء","lblRegDeclarations":"الإقرارات التنظيمية","lblRegion":"الولاية / المحافظة / المنطقة","ledgerMetricClosing":"الرصيد الختامي","ledgerMetricCredits":"إجمالي الدائن (CR)","ledgerMetricDebits":"إجمالي المدين (DR)","ledgerMetricDeductions":"إجمالي الخصومات","ledgerTitle":"النشاط ودفتر الأستاذ","loginAccountId":"معرف الحساب / البريد","loginAccountPlaceholder":"معرف الحساب أو البريد أو Vault ID من 6 أرقام","loginAdminOneClick":"دخول المشرف بنقرة واحدة","loginBack":"← رجوع","loginDemoAdmin":"مشرف تجريبي","loginDemoAuditor":"عرض المدقق","loginDemoPicker":"فتح منتقي الملف التجريبي","loginDemoPreset":"حسابات تجريبية مسبقة","loginDemoPresetOpt":"— اختر إعداداً مسبقاً (اختياري) —","loginDemoUser":"مستخدم تجريبي","loginEmailBtn":"مزامنة البريد","loginEmailHelp":"زامن بريد الاسترداد مع ملف الخزنة لمسار تدقيق ISO 20022.","loginEmailSync":"مزامنة البريد","loginEmailTitle":"مزامنة البريد","loginForgotBtn":"إرسال تذكير Vault ID","loginForgotEmailLbl":"البريد المسجّل","loginForgotHelp":"أدخل بريدك المسجّل لاستلام Vault ID المقنّع (تجريبي: أي بريد يعرض الصيغة CV-ARC-••••••-XX-YYYY).","loginForgotId":"نسيت Vault ID؟","loginForgotTitle":"نسيت Vault ID","loginOpenVaultCta":"افتح CircleVault الآن","loginOpenVaultHint":"جديد هنا؟ ابدأ مسار التسجيل لإنشاء خزنتك.","loginOr":"أو","loginOtpBack":"← العودة لتسجيل الدخول","loginOtpEyebrow":"الخطوة ٢ من ٢ — التحقق","loginOtpLabel":"رمز لمرة واحدة","loginOtpResend":"إعادة إرسال الرمز (تجريبي)","loginOtpSub":"أُرسل رمز لمرة واحدة من 6 أرقام إلى جهازك المسجّل. OTP محاكى للعرض — مملوء مسبقاً أدناه.","loginOtpTitle":"أكد أنك أنت","loginOtpVerifyBtn":"تحقق وسجّل الدخول","loginPassword":"كلمة المرور / رمز الأمان","loginPasswordPlaceholder":"كلمة المرور أو رمز الأمان","loginPasswordReset":"إعادة تعيين كلمة المرور","loginPresetsHint":"إعدادات مسبقة: مشرف → admin / admin · مستخدم → demo / demo · مدقق → auditor / auditor","loginResetBtn":"إعادة تعيين كلمة المرور","loginResetEmailLbl":"البريد المسجّل","loginResetHelp":"تحقق من البريد المسجّل + OTP الجوال لإعادة تعيين كلمة مرور الخزنة (تدفق تجريبي).","loginResetOtpLbl":"OTP","loginResetTitle":"إعادة تعيين كلمة المرور","loginSecureTag":"وصول آمن للخزنة","loginSub":"مصادقة خزنة قياسية. سجّل الدخول بمعرف الحساب / البريد وكلمة المرور، أو اختر إعداداً تجريبياً مسبقاً.","loginSubmit":"تسجيل الدخول","loginSyncEmailLbl":"بريد الاسترداد","loginTitle":"تسجيل الدخول إلى خزنتك","loginTrustBadge":"بيئة نموذج محاكاة — لعرض Ignyte Challenge فقط. لا تُعالَج أموال أو مستندات أو بيانات اعتماد حقيقية.","navSignIn":"تسجيل الدخول","onboardSub":"ست خطوات تسجيل مركّزة. تُتحقق لدى السلطات المُصدرة — ولا تُشارك دون موافقة.","onboardTitle":"افتح CircleVault","pctCompleted":"مكتمل","profileAccountId":"معرف الحساب","profileActiveAccount":"حساب نشط","profileSignOut":"تسجيل الخروج / إعادة تعيين","profileStatus":"الحالة","profileUsername":"اسم المستخدم","rateLabel":"سعر مرجع USDC","statusPending":"قيد الانتظار","step1Sub":"اختر منطقتك وإطار الامتثال. اختصر — الهوية العميقة هي الخطوة ٢.","step1Title":"الولاية القضائية والتفضيلات التنظيمية","step2Sub":"هوية حكومية وفحص مستند وصورة ذاتية مباشرة — مع مطابقة السلطات المُصدرة.","step2Title":"تحقق عميق بالذكاء الاصطناعي للهوية والبصمة الحيوية","subCredit":"خط ائتمان نشط متاح","subEscrow":"ضمان تجاري للمنشآت الصغيرة (مقفل)","subLiquid":"نقد سائل (إنفاق وتحويلات)","subRwa":"استثمارات مشاريع RWA","subYield":"خزنة العائد (أرباح USYC)","totalEquityLabel":"إجمالي حقوق الخزنة","trustAml":"متوافق مع AML / CFT","trustArc":"مسارات هوية Circle Arc","trustUsdc":"تسوية أصلية بـ USDC","verifyingSub":"التحقق من الهوية والامتثال وسجلات السلطة المُصدرة.","verifyingTitle":"جارٍ إنشاء خزنتك…","profileTitle":"ملف المستخدم","upgradeTitle":"Upgrade Your CircleVault","upgradeSub":"Review and upgrade your vault credentials. Identity documents and security settings can be renewed here.","upgradeHubTitle":"Vault Profile & Verification Settings","profileMenuSettings":"Account & Verification Settings","navMyProfile":"My Profile","btnClose":"Close","accountHoldTitle":"Account ON HOLD / RESTRICTED","accountHoldBody":"Your identity document has expired. Profile access remains available, but all transfers and vault transactions are frozen until you upload a renewed document and expiry date.","docExpiryAlertTitle":"Document Expiry Notice","docExpiryAlertBody":"Your ID expires within 45 days. Weekly SMS reminders are being sent to your registered mobile until renewal is saved.","docExpirySmsLog":"Weekly SMS reminder sent to registered mobile.","profileViewMode":"View Mode","profileEditLocked":"This section is read-only. Only Identity Documents and Security Credentials can be upgraded.","profileSaved":"Profile settings saved.","profileEditDiscarded":"Unsaved changes discarded.","hubCard7Title":"7. Succession Vault","hubCard7Body":"Emergency successor claim portal for legal heirs (separate from registration).","regCompleteDashboard":"Registration complete — welcome to your vault dashboard."},"fa":{"badgeAmlCleared":"🟢 AML/CFT تأیید شد","badgeCreditRating":"🟢 رتبه اعتباری: A+","badgeVerifiedIdentity":"🟢 هویت Arc تأییدشده","brandTag":"پرداخت‌های جهانی، حواله و اکوسیستم بازده","btnBackHome":"← بازگشت","btnDownload":"دانلود","btnExit":"خروج","btnPrint":"چاپ","btnSave":"ذخیره","colBalance":"مانده جاری","colBeneficiary":"ذینفع / طرف مقابل","colCredit":"بستانکار (CR)","colDate":"تاریخ","colDebit":"بدهکار (DR)","colDeductions":"کسورات (کارمزد/مالیات)","colRail":"ریل پرداخت / IBAN","colStatus":"وضعیت و انطباق","colTxRef":"مرجع تراکنش و هدف ISO","credEyebrow":"گاوصندوق ایجاد شد","credProceed":"رفتن به داشبورد گاوصندوق","credTitle":"اعتبارنامه رسمی گاوصندوق شما","dashOverview":"نمای کلی","dashTransactions":"تراکنش‌ها","dialCaption":"Arc Vault · شبکه Shield","footerSite":"The CircleVault Global — رابط نمایشی. نرخ‌ها، موجودی‌ها و شناسه‌ها شبیه‌سازی شده‌اند.","heroBody":"The CircleVault Global پروتکل‌های سخت‌گیرانه پذیرش را اعمال می‌کند. حوزه قضایی خود را انتخاب کنید، تأیید فوری گذرنامه یا شناسه با ریل‌های هویت Circle Arc را کامل کنید، و هر انتقال، حواله و تعامل گاوصندوق بازده با استانداردهای جهانی AML/CFT هم‌راستا بماند.","heroCta":"اکنون CircleVault خود را باز کنید","heroEyebrow":"دسترسی جهانی، انطباق محلی","heroHeading":"دسترسی جهانی با انطباق محلی","hubCard1Body":"منطقه، چارچوب انطباق و اظهارنامه‌های نظارتی.","hubCard1Title":"۱. حوزه قضایی","hubCard2Body":"شناسه دولتی، اسکن سند و بررسی بیومتریک زنده.","hubCard2Title":"۲. هویت KYC","hubCard3Body":"شغل، بازه درآمد و مدرک صورت‌حساب بانکی.","hubCard3Title":"۳. منبع درآمد / وجوه","hubCard4Body":"IBAN بانکی، Raast، کیف‌پول‌ها، کارت‌های Visa/MC — OTP Telco AI + اتصال 3DS.","hubCard4Title":"۴. بانک‌ها و کیف‌پول‌های تسویه","hubCard5Body":"هویت نامزد، سلفی زنده، OTP و سوگندنامه‌های پویا.","hubCard5Title":"۵. نزدیک‌ترین خویشاوند","hubCard6Body":"شرایط، PIN تراکنش ۶ رقمی، 2FA و استقرار Vault ID.","hubCard6Title":"۶. اعتبارنامه‌های امنیتی","hubEmergencyBody":"پروتکل فوت همزمان برای آغاز بازیابی گاوصندوق توسط وراث قانونی.","hubEmergencyBtn":"باز کردن درگاه مطالبه اضطراری","hubEmergencyTitle":"مطالبه جانشین و هاب اضطراری","hubEyebrow":"هاب ثبت‌نام","hubTitle":"ثبت‌نام CircleVault — هاب اصلی","langLabel":"زبان","lblCity":"شهر / ناحیه","lblCompliance":"چارچوب انطباق","lblCountryNationality":"کشور تابعیت","lblCountryResidence":"کشور اقامت","lblDob":"تاریخ تولد","lblDocExpiry":"تاریخ انقضا","lblDocId":"شماره سند","lblDocIssue":"تاریخ صدور","lblFirstName":"نام","lblLastName":"نام خانوادگی","lblLifetime":"مادام‌العمر / بدون انقضا","lblRegDeclarations":"اظهارنامه‌های نظارتی","lblRegion":"ایالت / استان / منطقه","ledgerMetricClosing":"مانده پایانی","ledgerMetricCredits":"جمع بستانکار (CR)","ledgerMetricDebits":"جمع بدهکار (DR)","ledgerMetricDeductions":"جمع کسورات","ledgerTitle":"فعالیت و دفترکل","loginAccountId":"شناسه حساب / ایمیل","loginAccountPlaceholder":"شناسه حساب، ایمیل یا Vault ID شش‌رقمی","loginAdminOneClick":"ورود یک‌کلیکه ادمین","loginBack":"← بازگشت","loginDemoAdmin":"ادمین دمو","loginDemoAuditor":"نمای حسابرس","loginDemoPicker":"باز کردن انتخابگر پروفایل دمو","loginDemoPreset":"حساب‌های ازپیش‌تنظیم دمو","loginDemoPresetOpt":"— انتخاب ازپیش‌تنظیم (اختیاری) —","loginDemoUser":"کاربر دمو","loginEmailBtn":"همگام‌سازی ایمیل","loginEmailHelp":"ایمیل بازیابی را با پروفایل گاوصندوق برای ردپای حسابرسی ISO 20022 همگام کنید.","loginEmailSync":"همگام‌سازی ایمیل","loginEmailTitle":"همگام‌سازی ایمیل","loginForgotBtn":"ارسال یادآوری Vault ID","loginForgotEmailLbl":"ایمیل ثبت‌شده","loginForgotHelp":"ایمیل ثبت‌شده را وارد کنید تا Vault ID ماسک‌شده را دریافت کنید (دمو: هر ایمیل قالب CV-ARC-••••••-XX-YYYY را نشان می‌دهد).","loginForgotId":"Vault ID را فراموش کردید؟","loginForgotTitle":"فراموشی Vault ID","loginOpenVaultCta":"اکنون CircleVault را باز کنید","loginOpenVaultHint":"تازه‌واردید؟ برای ایجاد گاوصندوق، مسیر ثبت‌نام را شروع کنید.","loginOr":"یا","loginOtpBack":"← بازگشت به ورود","loginOtpEyebrow":"گام ۲ از ۲ — تأیید","loginOtpLabel":"رمز یک‌بارمصرف","loginOtpResend":"ارسال مجدد کد (دمو)","loginOtpSub":"یک رمز یک‌بارمصرف ۶ رقمی به دستگاه ثبت‌شده شما ارسال شد. OTP شبیه‌سازی‌شده برای دمو — از پیش پر شده در زیر.","loginOtpTitle":"تأیید کنید که شما هستید","loginOtpVerifyBtn":"تأیید و ورود","loginPassword":"رمز عبور / PIN امنیتی","loginPasswordPlaceholder":"رمز عبور یا PIN امنیتی","loginPasswordReset":"بازنشانی رمز عبور","loginPresetsHint":"ازپیش‌تنظیم‌ها: ادمین دمو → admin / admin · کاربر دمو → demo / demo · حسابرس → auditor / auditor","loginResetBtn":"بازنشانی رمز عبور","loginResetEmailLbl":"ایمیل ثبت‌شده","loginResetHelp":"ایمیل ثبت‌شده + OTP موبایل را برای بازنشانی رمز گاوصندوق تأیید کنید (جریان دمو).","loginResetOtpLbl":"OTP","loginResetTitle":"بازنشانی رمز عبور","loginSecureTag":"دسترسی امن به گاوصندوق","loginSub":"احراز هویت استاندارد گاوصندوق. با شناسه حساب / ایمیل و رمز وارد شوید یا یک ازپیش‌تنظیم دمو را انتخاب کنید.","loginSubmit":"ورود","loginSyncEmailLbl":"ایمیل بازیابی","loginTitle":"ورود به گاوصندوق","loginTrustBadge":"محیط نمونه شبیه‌سازی‌شده — فقط برای دمو Ignyte Challenge. هیچ وجوه، سند یا اعتبارنامه واقعی پردازش نمی‌شود.","navSignIn":"ورود","onboardSub":"شش گام متمرکز ثبت‌نام. در برابر مراجع صادرکننده تأیید می‌شود — هرگز بدون رضایت به‌اشتراک گذاشته نمی‌شود.","onboardTitle":"CircleVault خود را باز کنید","pctCompleted":"تکمیل‌شده","profileAccountId":"شناسه حساب","profileActiveAccount":"حساب فعال","profileSignOut":"خروج / بازنشانی","profileStatus":"وضعیت","profileUsername":"نام کاربری","rateLabel":"نرخ مرجع USDC","statusPending":"در انتظار","step1Sub":"منطقه و چارچوب انطباق را انتخاب کنید. کوتاه نگه دارید — هویت عمیق گام ۲ است.","step1Title":"حوزه قضایی و ترجیحات نظارتی","step2Sub":"شناسه دولتی، اسکن سند و سلفی زنده — تطبیق با مراجع صادرکننده.","step2Title":"تأیید عمیق هویت و بیومتریک با هوش مصنوعی","subCredit":"خط اعتباری فعال موجود","subEscrow":"اسکرو تجاری SME (قفل‌شده)","subLiquid":"نقدینگی (هزینه و حواله)","subRwa":"سرمایه‌گذاری پروژه‌های RWA","subYield":"گاوصندوق بازده (درآمد USYC)","totalEquityLabel":"کل حقوق گاوصندوق","trustAml":"سازگار با AML / CFT","trustArc":"ریل‌های هویت Circle Arc","trustUsdc":"تسویه بومی USDC","verifyingSub":"بررسی هویت، انطباق و سوابق مرجع صادرکننده.","verifyingTitle":"در حال ایجاد گاوصندوق شما…","profileTitle":"پروفایل کاربر","upgradeTitle":"Upgrade Your CircleVault","upgradeSub":"Review and upgrade your vault credentials. Identity documents and security settings can be renewed here.","upgradeHubTitle":"Vault Profile & Verification Settings","profileMenuSettings":"Account & Verification Settings","navMyProfile":"My Profile","btnClose":"Close","accountHoldTitle":"Account ON HOLD / RESTRICTED","accountHoldBody":"Your identity document has expired. Profile access remains available, but all transfers and vault transactions are frozen until you upload a renewed document and expiry date.","docExpiryAlertTitle":"Document Expiry Notice","docExpiryAlertBody":"Your ID expires within 45 days. Weekly SMS reminders are being sent to your registered mobile until renewal is saved.","docExpirySmsLog":"Weekly SMS reminder sent to registered mobile.","profileViewMode":"View Mode","profileEditLocked":"This section is read-only. Only Identity Documents and Security Credentials can be upgraded.","profileSaved":"Profile settings saved.","profileEditDiscarded":"Unsaved changes discarded.","hubCard7Title":"7. Succession Vault","hubCard7Body":"Emergency successor claim portal for legal heirs (separate from registration).","regCompleteDashboard":"Registration complete — welcome to your vault dashboard."},"de":{"badgeAmlCleared":"🟢 AML/CFT freigegeben","badgeCreditRating":"🟢 Bonität: A+","badgeVerifiedIdentity":"🟢 Verifizierte Arc-Identität","brandTag":"Globale Zahlungen, Überweisungen & Yield-Ökosystem","btnBackHome":"← Zurück","btnDownload":"Herunterladen","btnExit":"Beenden","btnPrint":"Drucken","btnSave":"Speichern","colBalance":"Laufender Saldo","colBeneficiary":"Begünstigter / Gegenpartei","colCredit":"Haben (CR)","colDate":"Datum","colDebit":"Soll (DR)","colDeductions":"Abzüge (Gebühr/Steuer)","colRail":"Auszahlungsschiene / IBAN","colStatus":"Status & Compliance","colTxRef":"Transaktionsref. & ISO-Zweck","credEyebrow":"Vault erstellt","credProceed":"Zum Vault-Dashboard","credTitle":"Ihre offizielle Vault-Berechtigung","dashOverview":"Übersicht","dashTransactions":"Transaktionen","dialCaption":"Arc Vault · Shield-Netzwerk","footerSite":"The CircleVault Global — Demo-Oberfläche. Kurse, Salden und Kennungen sind simuliert.","heroBody":"The CircleVault Global erzwingt strenge Onboarding-Protokolle. Wählen Sie Ihre Jurisdiktion, schließen Sie die sofortige Pass- oder Ausweisprüfung über Circle-Arc-Identitätsschienen ab — und jede Überweisung, Remittance und Yield-Vault-Interaktion bleibt an globale AML/CFT-Standards ausgerichtet.","heroCta":"CircleVault jetzt öffnen","heroEyebrow":"Globale Reichweite, lokale Compliance","heroHeading":"Globale Reichweite mit lokaler Compliance","hubCard1Body":"Region, Compliance-Rahmen und regulatorische Erklärungen.","hubCard1Title":"1. Jurisdiktion","hubCard2Body":"Amtlicher Ausweis, Dokumentenscan und Live-Biometrieprüfung.","hubCard2Title":"2. Identitäts-KYC","hubCard3Body":"Beruf, Einkommensspanne und Kontoauszugsnachweis.","hubCard3Title":"3. Einkommens-/Mittelherkunft","hubCard4Body":"Bank-IBAN, Raast, Wallets, Visa/MC-Karten — Telco-AI-OTP + 3DS-Bindung.","hubCard4Title":"4. Settlement-Banken & Wallets","hubCard5Body":"Nominierte Identität, Live-Selfie, OTP und dynamische Affidavits.","hubCard5Title":"5. Nächster Angehöriger","hubCard6Body":"Bedingungen, 6-stellige Transaktions-PIN, 2FA und Vault-ID-Bereitstellung.","hubCard6Title":"6. Sicherheits-Credentials","hubEmergencyBody":"Simultaner Todesfall-Protokoll, damit gesetzliche Erben die Vault-Wiederherstellung einleiten.","hubEmergencyBtn":"Notfall-Vault-Anspruchsportal öffnen","hubEmergencyTitle":"Nachfolgeanspruch & Notfall-Hub","hubEyebrow":"REGISTRIERUNGS-HUB","hubTitle":"CircleVault-Registrierung — Haupthub","langLabel":"Sprache","lblCity":"Stadt / Gebiet","lblCompliance":"Compliance-Rahmen","lblCountryNationality":"Staatsangehörigkeit","lblCountryResidence":"Wohnsitzland","lblDob":"Geburtsdatum","lblDocExpiry":"Ablaufdatum","lblDocId":"Dokumentennummer","lblDocIssue":"Ausstellungsdatum","lblFirstName":"Vorname","lblLastName":"Nachname","lblLifetime":"Lebenslang / ohne Ablauf","lblRegDeclarations":"Regulatorische Erklärungen","lblRegion":"Bundesland / Provinz / Region","ledgerMetricClosing":"Schlusssaldo","ledgerMetricCredits":"Summe Haben (CR)","ledgerMetricDebits":"Summe Soll (DR)","ledgerMetricDeductions":"Summe Abzüge","ledgerTitle":"Aktivität & Hauptbuch","loginAccountId":"Konto-ID / E-Mail","loginAccountPlaceholder":"Konto-ID, E-Mail oder 6-stellige Vault-ID","loginAdminOneClick":"Admin-Ein-Klick-Login","loginBack":"← Zurück","loginDemoAdmin":"Demo-Admin","loginDemoAuditor":"Auditor-Ansicht","loginDemoPicker":"Demo-Profilauswahl öffnen","loginDemoPreset":"Demo-Preset-Konten","loginDemoPresetOpt":"— Preset wählen (optional) —","loginDemoUser":"Demo-Benutzer","loginEmailBtn":"E-Mail synchronisieren","loginEmailHelp":"Synchronisieren Sie die Wiederherstellungs-E-Mail mit Ihrem Vault-Profil für den ISO-20022-Audit-Trail.","loginEmailSync":"E-Mail-Sync","loginEmailTitle":"E-Mail-Sync","loginForgotBtn":"Vault-ID-Erinnerung senden","loginForgotEmailLbl":"Registrierte E-Mail","loginForgotHelp":"Geben Sie Ihre registrierte E-Mail ein, um Ihre maskierte Vault-ID zu erhalten (Demo: jede E-Mail zeigt Format CV-ARC-••••••-XX-YYYY).","loginForgotId":"Vault-ID vergessen?","loginForgotTitle":"Vault-ID vergessen","loginOpenVaultCta":"CircleVault jetzt öffnen","loginOpenVaultHint":"Neu hier? Starten Sie die Registrierung, um Ihren Vault zu erstellen.","loginOr":"oder","loginOtpBack":"← Zurück zur Anmeldung","loginOtpEyebrow":"SCHRITT 2 VON 2 — VERIFIZIERUNG","loginOtpLabel":"Einmalcode","loginOtpResend":"Code erneut senden (Demo)","loginOtpSub":"Ein 6-stelliger Einmalcode wurde an Ihr registriertes Gerät gesendet. Simuliertes Demo-OTP — unten vorausgefüllt.","loginOtpTitle":"Bestätigen Sie Ihre Identität","loginOtpVerifyBtn":"Verifizieren & anmelden","loginPassword":"Passwort / Sicherheits-PIN","loginPasswordPlaceholder":"Passwort oder Sicherheits-PIN","loginPasswordReset":"Passwort zurücksetzen","loginPresetsHint":"Presets: Demo-Admin → admin / admin · Demo-Benutzer → demo / demo · Auditor → auditor / auditor","loginResetBtn":"Passwort zurücksetzen","loginResetEmailLbl":"Registrierte E-Mail","loginResetHelp":"Registrierte E-Mail + mobiles OTP prüfen, um das Vault-Passwort zurückzusetzen (Demo-Flow).","loginResetOtpLbl":"OTP","loginResetTitle":"Passwort zurücksetzen","loginSecureTag":"Sicherer Vault-Zugang","loginSub":"Standard-Vault-Authentifizierung. Melden Sie sich mit Konto-ID / E-Mail und Passwort an oder wählen Sie ein Demo-Preset.","loginSubmit":"Anmelden","loginSyncEmailLbl":"Wiederherstellungs-E-Mail","loginTitle":"In Ihrem Vault anmelden","loginTrustBadge":"Simulierte Prototyp-Umgebung — Nur für Ignyte-Challenge-Demo. Keine echten Gelder, Dokumente oder Credentials werden verarbeitet.","navSignIn":"Anmelden","onboardSub":"Sechs fokussierte Registrierungsschritte. Gegen ausstellende Behörden geprüft — nie ohne Einwilligung geteilt.","onboardTitle":"CircleVault öffnen","pctCompleted":"Abgeschlossen","profileAccountId":"Konto-ID","profileActiveAccount":"Aktives Konto","profileSignOut":"Abmelden / Zurücksetzen","profileStatus":"Status","profileUsername":"Benutzername","rateLabel":"USDC-Referenzkurs","statusPending":"Ausstehend","step1Sub":"Wählen Sie Region und Compliance-Rahmen. Kurz halten — tiefe Identität ist Schritt 2.","step1Title":"Jurisdiktion & regulatorische Präferenzen","step2Sub":"Amtlicher Ausweis, Dokumentenscan und Live-Selfie — Abgleich mit ausstellenden Behörden.","step2Title":"Tiefe KI-Identitäts- & Biometrieprüfung","subCredit":"Aktive Kreditlinie verfügbar","subEscrow":"KMU-Handels-Escrow (gesperrt)","subLiquid":"Liquides Bargeld (Ausgaben & Remittances)","subRwa":"RWA-Projektinvestitionen","subYield":"Yield-Vault (USYC-Erträge)","totalEquityLabel":"Gesamtes Vault-Eigenkapital","trustAml":"AML / CFT konform","trustArc":"Circle Arc Identitäts-Rails","trustUsdc":"USDC-native Abwicklung","verifyingSub":"Identität, Compliance und Register der ausstellenden Behörde werden geprüft.","verifyingTitle":"Ihr Vault wird erzeugt…","profileTitle":"Benutzerprofil","upgradeTitle":"Upgrade Your CircleVault","upgradeSub":"Review and upgrade your vault credentials. Identity documents and security settings can be renewed here.","upgradeHubTitle":"Vault Profile & Verification Settings","profileMenuSettings":"Account & Verification Settings","navMyProfile":"My Profile","btnClose":"Close","accountHoldTitle":"Account ON HOLD / RESTRICTED","accountHoldBody":"Your identity document has expired. Profile access remains available, but all transfers and vault transactions are frozen until you upload a renewed document and expiry date.","docExpiryAlertTitle":"Document Expiry Notice","docExpiryAlertBody":"Your ID expires within 45 days. Weekly SMS reminders are being sent to your registered mobile until renewal is saved.","docExpirySmsLog":"Weekly SMS reminder sent to registered mobile.","profileViewMode":"View Mode","profileEditLocked":"This section is read-only. Only Identity Documents and Security Credentials can be upgraded.","profileSaved":"Profile settings saved.","profileEditDiscarded":"Unsaved changes discarded.","hubCard7Title":"7. Succession Vault","hubCard7Body":"Emergency successor claim portal for legal heirs (separate from registration).","regCompleteDashboard":"Registration complete — welcome to your vault dashboard."},"fr":{"badgeAmlCleared":"🟢 AML/CFT validé","badgeCreditRating":"🟢 Notation de crédit : A+","badgeVerifiedIdentity":"🟢 Identité Arc vérifiée","brandTag":"Paiements mondiaux, transferts et écosystème de rendement","btnBackHome":"← Retour","btnDownload":"Télécharger","btnExit":"Quitter","btnPrint":"Imprimer","btnSave":"Enregistrer","colBalance":"Solde courant","colBeneficiary":"Bénéficiaire / Contrepartie","colCredit":"Crédit (CR)","colDate":"Date","colDebit":"Débit (DR)","colDeductions":"Déductions (frais/taxe)","colRail":"Rail de paiement / IBAN","colStatus":"Statut et conformité","colTxRef":"Réf. transaction et objet ISO","credEyebrow":"Coffre créé","credProceed":"Aller au tableau de bord","credTitle":"Votre justificatif officiel de coffre","dashOverview":"Aperçu","dashTransactions":"Transactions","dialCaption":"Arc Vault · Réseau Shield","footerSite":"The CircleVault Global — interface de démo. Taux, soldes et identifiants sont simulés.","heroBody":"The CircleVault Global applique des protocoles d’onboarding stricts. Choisissez votre juridiction, complétez la vérification instantanée de passeport ou d’identité via les rails Circle Arc, et chaque transfert, envoi de fonds et interaction de coffre de rendement reste aligné sur les normes AML/CFT mondiales.","heroCta":"Ouvrez votre CircleVault maintenant","heroEyebrow":"Portée mondiale, conformité locale","heroHeading":"Portée mondiale avec conformité locale","hubCard1Body":"Région, cadre de conformité et déclarations réglementaires.","hubCard1Title":"1. Juridiction","hubCard2Body":"Pièce d’identité, scan de document et contrôle biométrique en direct.","hubCard2Title":"2. Identité KYC","hubCard3Body":"Profession, tranche de revenus et preuve de relevé bancaire.","hubCard3Title":"3. Source de revenus / fonds","hubCard4Body":"IBAN bancaire, Raast, portefeuilles, cartes Visa/MC — OTP Telco AI + liaison 3DS.","hubCard4Title":"4. Banques et portefeuilles de règlement","hubCard5Body":"Identité du nominé, selfie en direct, OTP et affidavits dynamiques.","hubCard5Title":"5. Proche parent","hubCard6Body":"Conditions, PIN de transaction à 6 chiffres, 2FA et déploiement du Vault ID.","hubCard6Title":"6. Identifiants de sécurité","hubEmergencyBody":"Protocole de décès simultané pour que les héritiers légaux initient la récupération du coffre.","hubEmergencyBtn":"Ouvrir le portail de réclamation d’urgence","hubEmergencyTitle":"Réclamation successeur et hub d’urgence","hubEyebrow":"HUB D’INSCRIPTION","hubTitle":"Inscription CircleVault — Hub principal","langLabel":"Langue","lblCity":"Ville / quartier","lblCompliance":"Cadre de conformité","lblCountryNationality":"Pays de nationalité","lblCountryResidence":"Pays de résidence","lblDob":"Date de naissance","lblDocExpiry":"Date d’expiration","lblDocId":"Numéro de document","lblDocIssue":"Date d’émission","lblFirstName":"Prénom","lblLastName":"Nom de famille","lblLifetime":"À vie / sans expiration","lblRegDeclarations":"Déclarations réglementaires","lblRegion":"État / province / région","ledgerMetricClosing":"Solde de clôture","ledgerMetricCredits":"Total crédits (CR)","ledgerMetricDebits":"Total débits (DR)","ledgerMetricDeductions":"Total déductions","ledgerTitle":"Activité et grand livre","loginAccountId":"ID de compte / E-mail","loginAccountPlaceholder":"ID de compte, e-mail ou Vault ID à 6 chiffres","loginAdminOneClick":"Connexion admin en un clic","loginBack":"← Retour","loginDemoAdmin":"Admin démo","loginDemoAuditor":"Vue auditeur","loginDemoPicker":"Ouvrir le sélecteur de profil démo","loginDemoPreset":"Comptes prédéfinis démo","loginDemoPresetOpt":"— Sélectionner un préréglage (optionnel) —","loginDemoUser":"Utilisateur démo","loginEmailBtn":"Synchroniser l’e-mail","loginEmailHelp":"Synchronisez l’e-mail de récupération avec votre profil de coffre pour la piste d’audit ISO 20022.","loginEmailSync":"Sync e-mail","loginEmailTitle":"Sync e-mail","loginForgotBtn":"Envoyer un rappel de Vault ID","loginForgotEmailLbl":"E-mail enregistré","loginForgotHelp":"Entrez votre e-mail enregistré pour recevoir votre Vault ID masqué (démo : tout e-mail affiche le format CV-ARC-••••••-XX-YYYY).","loginForgotId":"Vault ID oublié ?","loginForgotTitle":"Vault ID oublié","loginOpenVaultCta":"Ouvrez votre CircleVault maintenant","loginOpenVaultHint":"Nouveau ici ? Démarrez le parcours d’inscription pour créer votre coffre.","loginOr":"ou","loginOtpBack":"← Retour à la connexion","loginOtpEyebrow":"ÉTAPE 2 SUR 2 — VÉRIFICATION","loginOtpLabel":"Code à usage unique","loginOtpResend":"Renvoyer le code (démo)","loginOtpSub":"Un code à usage unique à 6 chiffres a été envoyé à votre appareil enregistré. OTP simulé pour la démo — déjà prérempli ci-dessous.","loginOtpTitle":"Confirmez votre identité","loginOtpVerifyBtn":"Vérifier et se connecter","loginPassword":"Mot de passe / PIN de sécurité","loginPasswordPlaceholder":"Mot de passe ou PIN de sécurité","loginPasswordReset":"Réinitialisation du mot de passe","loginPresetsHint":"Préréglages : Admin démo → admin / admin · Utilisateur démo → demo / demo · Vue auditeur → auditor / auditor","loginResetBtn":"Réinitialiser le mot de passe","loginResetEmailLbl":"E-mail enregistré","loginResetHelp":"Vérifiez l’e-mail enregistré + OTP mobile pour réinitialiser le mot de passe du coffre (flux démo).","loginResetOtpLbl":"OTP","loginResetTitle":"Réinitialisation du mot de passe","loginSecureTag":"Accès sécurisé au coffre","loginSub":"Authentification standard du coffre. Connectez-vous avec votre ID / e-mail et mot de passe, ou choisissez un préréglage démo.","loginSubmit":"Connexion","loginSyncEmailLbl":"E-mail de récupération","loginTitle":"Connectez-vous à votre coffre","loginTrustBadge":"Environnement prototype simulé — Démo Ignyte Challenge uniquement. Aucun fonds, document ou identifiant réel n’est traité.","navSignIn":"Connexion","onboardSub":"Six étapes d’inscription ciblées. Vérifiées auprès des autorités émettrices — jamais partagées sans consentement.","onboardTitle":"Ouvrez votre CircleVault","pctCompleted":"Terminé","profileAccountId":"ID de compte","profileActiveAccount":"Compte actif","profileSignOut":"Déconnexion / Réinitialiser","profileStatus":"Statut","profileUsername":"Nom d’utilisateur","rateLabel":"Taux de référence USDC","statusPending":"En attente","step1Sub":"Sélectionnez votre région et cadre de conformité. Restez bref — l’identité approfondie est l’étape 2.","step1Title":"Juridiction et préférences réglementaires","step2Sub":"Pièce d’identité, scan de document et selfie en direct — croisés avec les autorités émettrices.","step2Title":"Vérification d’identité et biométrie IA approfondie","subCredit":"Ligne de crédit active disponible","subEscrow":"Séquestre commercial PME (verrouillé)","subLiquid":"Liquidités (dépenses et transferts)","subRwa":"Investissements projets RWA","subYield":"Coffre de rendement (USYC)","totalEquityLabel":"Capitaux propres totaux","trustAml":"Conforme AML / CFT","trustArc":"Rails d’identité Circle Arc","trustUsdc":"Règlement natif USDC","verifyingSub":"Vérification de l’identité, de la conformité et des registres de l’autorité émettrice.","verifyingTitle":"Génération de votre Vault…","profileTitle":"Profil utilisateur","upgradeTitle":"Upgrade Your CircleVault","upgradeSub":"Review and upgrade your vault credentials. Identity documents and security settings can be renewed here.","upgradeHubTitle":"Vault Profile & Verification Settings","profileMenuSettings":"Account & Verification Settings","navMyProfile":"My Profile","btnClose":"Close","accountHoldTitle":"Account ON HOLD / RESTRICTED","accountHoldBody":"Your identity document has expired. Profile access remains available, but all transfers and vault transactions are frozen until you upload a renewed document and expiry date.","docExpiryAlertTitle":"Document Expiry Notice","docExpiryAlertBody":"Your ID expires within 45 days. Weekly SMS reminders are being sent to your registered mobile until renewal is saved.","docExpirySmsLog":"Weekly SMS reminder sent to registered mobile.","profileViewMode":"View Mode","profileEditLocked":"This section is read-only. Only Identity Documents and Security Credentials can be upgraded.","profileSaved":"Profile settings saved.","profileEditDiscarded":"Unsaved changes discarded.","hubCard7Title":"7. Succession Vault","hubCard7Body":"Emergency successor claim portal for legal heirs (separate from registration).","regCompleteDashboard":"Registration complete — welcome to your vault dashboard."},"zh":{"badgeAmlCleared":"🟢 AML/CFT 已通过","badgeCreditRating":"🟢 信用评级：A+","badgeVerifiedIdentity":"🟢 已验证 Arc 身份","brandTag":"全球支付、汇款与收益生态","btnBackHome":"← 返回","btnDownload":"下载","btnExit":"退出","btnPrint":"打印","btnSave":"保存","colBalance":"滚动余额","colBeneficiary":"收款人 / 交易对手","colCredit":"贷方 (CR)","colDate":"日期","colDebit":"借方 (DR)","colDeductions":"扣减（费用/税费）","colRail":"支付通道 / IBAN","colStatus":"状态与合规","colTxRef":"交易参考与 ISO 用途","credEyebrow":"金库已创建","credProceed":"进入金库仪表板","credTitle":"您的正式金库凭证","dashOverview":"概览","dashTransactions":"交易","dialCaption":"Arc Vault · Shield 网络","footerSite":"The CircleVault Global — 演示界面。所示汇率、余额和标识符均为模拟。","heroBody":"The CircleVault Global 执行严格的入驻协议。选择您的司法辖区，完成由 Circle Arc 身份轨道驱动的即时护照或身份验证，使每笔转账、汇款与收益金库交互始终符合全球 AML/CFT 标准。","heroCta":"立即开通 CircleVault","heroEyebrow":"全球覆盖，本地合规","heroHeading":"全球覆盖与本地合规","hubCard1Body":"地区、合规框架与监管声明。","hubCard1Title":"1. 司法辖区","hubCard2Body":"政府证件、文档扫描与实时生物识别。","hubCard2Title":"2. 身份 KYC","hubCard3Body":"职业、收入区间与银行对账单证明。","hubCard3Title":"3. 收入 / 资金来源","hubCard4Body":"银行 IBAN、Raast、钱包、Visa/MC 卡 — Telco AI OTP + 3DS 绑定。","hubCard4Title":"4. 结算银行与钱包","hubCard5Body":"被提名人身份、实时自拍、OTP 与动态宣誓书。","hubCard5Title":"5. 近亲","hubCard6Body":"条款、6 位交易 PIN、2FA 与 Vault ID 部署。","hubCard6Title":"6. 安全凭证","hubEmergencyBody":"同时身故协议，供合法继承人启动金库恢复。","hubEmergencyBtn":"打开紧急金库申索门户","hubEmergencyTitle":"继承人申索与紧急中心","hubEyebrow":"注册中心","hubTitle":"CircleVault 注册 — 主中心","langLabel":"语言","lblCity":"城市 / 地区","lblCompliance":"合规框架","lblCountryNationality":"国籍国","lblCountryResidence":"居住国","lblDob":"出生日期","lblDocExpiry":"到期日","lblDocId":"证件号码","lblDocIssue":"签发日","lblFirstName":"名","lblLastName":"姓","lblLifetime":"终身 / 无到期","lblRegDeclarations":"监管声明","lblRegion":"州 / 省 / 地区","ledgerMetricClosing":"期末余额","ledgerMetricCredits":"贷方合计 (CR)","ledgerMetricDebits":"借方合计 (DR)","ledgerMetricDeductions":"扣减合计","ledgerTitle":"活动与账本","loginAccountId":"账户 ID / 邮箱","loginAccountPlaceholder":"账户 ID、邮箱或 6 位 Vault ID","loginAdminOneClick":"管理员一键登录","loginBack":"← 返回","loginDemoAdmin":"演示管理员","loginDemoAuditor":"审计视图","loginDemoPicker":"打开演示档案选择器","loginDemoPreset":"演示预设账户","loginDemoPresetOpt":"— 选择预设（可选）—","loginDemoUser":"演示用户","loginEmailBtn":"同步邮箱","loginEmailHelp":"将恢复邮箱与金库档案同步，以符合 ISO 20022 审计轨迹。","loginEmailSync":"邮箱同步","loginEmailTitle":"邮箱同步","loginForgotBtn":"发送 Vault ID 提醒","loginForgotEmailLbl":"注册邮箱","loginForgotHelp":"输入注册邮箱以接收掩码 Vault ID（演示：任意邮箱显示格式 CV-ARC-••••••-XX-YYYY）。","loginForgotId":"忘记 Vault ID？","loginForgotTitle":"忘记 Vault ID","loginOpenVaultCta":"立即开通 CircleVault","loginOpenVaultHint":"新用户？启动注册流程以创建金库。","loginOr":"或","loginOtpBack":"← 返回登录","loginOtpEyebrow":"第 2 / 2 步 — 验证","loginOtpLabel":"一次性验证码","loginOtpResend":"重新发送验证码（演示）","loginOtpSub":"已向注册设备发送 6 位一次性验证码。此为演示模拟 OTP — 已在下方预填。","loginOtpTitle":"确认是您本人","loginOtpVerifyBtn":"验证并登录","loginPassword":"密码 / 安全 PIN","loginPasswordPlaceholder":"密码或安全 PIN","loginPasswordReset":"重置密码","loginPresetsHint":"预设：演示管理员 → admin / admin · 演示用户 → demo / demo · 审计 → auditor / auditor","loginResetBtn":"重置密码","loginResetEmailLbl":"注册邮箱","loginResetHelp":"验证注册邮箱 + 手机 OTP 以重置金库密码（演示流程）。","loginResetOtpLbl":"OTP","loginResetTitle":"重置密码","loginSecureTag":"安全金库访问","loginSub":"标准金库认证。使用账户 ID / 邮箱与密码登录，或选择演示预设。","loginSubmit":"登录","loginSyncEmailLbl":"恢复邮箱","loginTitle":"登录您的金库","loginTrustBadge":"模拟原型环境 — 仅用于 Ignyte Challenge 演示。不处理真实资金、文档或凭证。","navSignIn":"登录","onboardSub":"六个聚焦注册步骤。对照签发机构核验 — 未经同意绝不共享。","onboardTitle":"开通您的 CircleVault","pctCompleted":"已完成","profileAccountId":"账户 ID","profileActiveAccount":"活动账户","profileSignOut":"退出 / 重置","profileStatus":"状态","profileUsername":"用户名","rateLabel":"USDC 参考汇率","statusPending":"待处理","step1Sub":"选择地区与合规框架。保持简短 — 深度身份在第 2 步。","step1Title":"司法辖区与监管偏好","step2Sub":"政府证件、文档扫描与实时自拍 — 与签发机构交叉核验。","step2Title":"深度 AI 身份与生物识别验证","subCredit":"可用授信额度","subEscrow":"中小企业贸易托管（锁定）","subLiquid":"流动现金（支出与汇款）","subRwa":"RWA 项目投资","subYield":"收益金库（USYC 收益）","totalEquityLabel":"金库总权益","trustAml":"符合 AML / CFT","trustArc":"Circle Arc 身份轨道","trustUsdc":"USDC 原生结算","verifyingSub":"正在核验身份、合规与签发机构记录。","verifyingTitle":"正在生成您的 Vault…","profileTitle":"用户资料","upgradeTitle":"Upgrade Your CircleVault","upgradeSub":"Review and upgrade your vault credentials. Identity documents and security settings can be renewed here.","upgradeHubTitle":"Vault Profile & Verification Settings","profileMenuSettings":"Account & Verification Settings","navMyProfile":"My Profile","btnClose":"Close","accountHoldTitle":"Account ON HOLD / RESTRICTED","accountHoldBody":"Your identity document has expired. Profile access remains available, but all transfers and vault transactions are frozen until you upload a renewed document and expiry date.","docExpiryAlertTitle":"Document Expiry Notice","docExpiryAlertBody":"Your ID expires within 45 days. Weekly SMS reminders are being sent to your registered mobile until renewal is saved.","docExpirySmsLog":"Weekly SMS reminder sent to registered mobile.","profileViewMode":"View Mode","profileEditLocked":"This section is read-only. Only Identity Documents and Security Credentials can be upgraded.","profileSaved":"Profile settings saved.","profileEditDiscarded":"Unsaved changes discarded.","hubCard7Title":"7. Succession Vault","hubCard7Body":"Emergency successor claim portal for legal heirs (separate from registration).","regCompleteDashboard":"Registration complete — welcome to your vault dashboard."},"ru":{"badgeAmlCleared":"🟢 AML/CFT пройден","badgeCreditRating":"🟢 Кредитный рейтинг: A+","badgeVerifiedIdentity":"🟢 Подтверждённая личность Arc","brandTag":"Глобальные платежи, переводы и экосистема доходности","btnBackHome":"← Назад","btnDownload":"Скачать","btnExit":"Выход","btnPrint":"Печать","btnSave":"Сохранить","colBalance":"Текущий баланс","colBeneficiary":"Бенефициар / контрагент","colCredit":"Кредит (CR)","colDate":"Дата","colDebit":"Дебет (DR)","colDeductions":"Удержания (комиссия/налог)","colRail":"Канал выплаты / IBAN","colStatus":"Статус и соответствие","colTxRef":"Реф. транзакции и цель ISO","credEyebrow":"Хранилище создано","credProceed":"К панели хранилища","credTitle":"Ваш официальный сертификат хранилища","dashOverview":"Обзор","dashTransactions":"Транзакции","dialCaption":"Arc Vault · Сеть Shield","footerSite":"The CircleVault Global — демо-интерфейс. Курсы, балансы и идентификаторы смоделированы.","heroBody":"The CircleVault Global применяет строгие протоколы онбординга. Выберите юрисдикцию, пройдите мгновенную проверку паспорта или ID на рельсах Circle Arc — и каждый перевод, ремиттанс и взаимодействие с доходным хранилищем остаются в рамках глобальных стандартов AML/CFT.","heroCta":"Откройте CircleVault сейчас","heroEyebrow":"Глобальный охват, локальное соответствие","heroHeading":"Глобальный охват с локальным соответствием","hubCard1Body":"Регион, рамки соответствия и регуляторные декларации.","hubCard1Title":"1. Юрисдикция","hubCard2Body":"Государственный ID, сканирование документа и живая биометрия.","hubCard2Title":"2. Идентичность KYC","hubCard3Body":"Профессия, диапазон дохода и выписка из банка.","hubCard3Title":"3. Источник дохода / средств","hubCard4Body":"Банковский IBAN, Raast, кошельки, карты Visa/MC — Telco AI OTP + привязка 3DS.","hubCard4Title":"4. Банки и кошельки расчётов","hubCard5Body":"Личность номината, живое селфи, OTP и динамические аффидевиты.","hubCard5Title":"5. Ближайший родственник","hubCard6Body":"Условия, 6-значный PIN транзакций, 2FA и развёртывание Vault ID.","hubCard6Title":"6. Учётные данные безопасности","hubEmergencyBody":"Протокол одновременной гибели для начала восстановления хранилища законными наследниками.","hubEmergencyBtn":"Открыть портал экстренного требования","hubEmergencyTitle":"Требование преемника и экстренный хаб","hubEyebrow":"ХАБ РЕГИСТРАЦИИ","hubTitle":"Регистрация CircleVault — главный хаб","langLabel":"Язык","lblCity":"Город / район","lblCompliance":"Рамки соответствия","lblCountryNationality":"Страна гражданства","lblCountryResidence":"Страна проживания","lblDob":"Дата рождения","lblDocExpiry":"Дата окончания","lblDocId":"Номер документа","lblDocIssue":"Дата выдачи","lblFirstName":"Имя","lblLastName":"Фамилия","lblLifetime":"Пожизненно / без срока","lblRegDeclarations":"Регуляторные декларации","lblRegion":"Штат / провинция / регион","ledgerMetricClosing":"Конечный баланс","ledgerMetricCredits":"Итого кредит (CR)","ledgerMetricDebits":"Итого дебет (DR)","ledgerMetricDeductions":"Итого удержания","ledgerTitle":"Активность и реестр","loginAccountId":"ID аккаунта / Email","loginAccountPlaceholder":"ID аккаунта, email или 6-значный Vault ID","loginAdminOneClick":"Вход админа в один клик","loginBack":"← Назад","loginDemoAdmin":"Демо-админ","loginDemoAuditor":"Вид аудитора","loginDemoPicker":"Открыть выбор демо-профиля","loginDemoPreset":"Демо-пресеты","loginDemoPresetOpt":"— Выберите пресет (необязательно) —","loginDemoUser":"Демо-пользователь","loginEmailBtn":"Синхронизировать email","loginEmailHelp":"Синхронизируйте recovery email с профилем хранилища для аудиторского следа ISO 20022.","loginEmailSync":"Синхронизация email","loginEmailTitle":"Синхронизация email","loginForgotBtn":"Отправить напоминание Vault ID","loginForgotEmailLbl":"Зарегистрированный email","loginForgotHelp":"Введите зарегистрированный email, чтобы получить маскированный Vault ID (демо: любой email показывает формат CV-ARC-••••••-XX-YYYY).","loginForgotId":"Забыли Vault ID?","loginForgotTitle":"Забыли Vault ID","loginOpenVaultCta":"Откройте CircleVault сейчас","loginOpenVaultHint":"Новичок? Начните регистрацию, чтобы создать хранилище.","loginOr":"или","loginOtpBack":"← Назад ко входу","loginOtpEyebrow":"ШАГ 2 ИЗ 2 — ПРОВЕРКА","loginOtpLabel":"Одноразовый код","loginOtpResend":"Отправить код снова (демо)","loginOtpSub":"6-значный одноразовый код отправлен на зарегистрированное устройство. Симулированный OTP для демо — уже заполнен ниже.","loginOtpTitle":"Подтвердите, что это вы","loginOtpVerifyBtn":"Проверить и войти","loginPassword":"Пароль / PIN безопасности","loginPasswordPlaceholder":"Пароль или PIN безопасности","loginPasswordReset":"Сброс пароля","loginPresetsHint":"Пресеты: Демо-админ → admin / admin · Демо-пользователь → demo / demo · Аудитор → auditor / auditor","loginResetBtn":"Сбросить пароль","loginResetEmailLbl":"Зарегистрированный email","loginResetHelp":"Подтвердите email + мобильный OTP для сброса пароля хранилища (демо-поток).","loginResetOtpLbl":"OTP","loginResetTitle":"Сброс пароля","loginSecureTag":"Безопасный доступ к хранилищу","loginSub":"Стандартная аутентификация хранилища. Войдите с ID / email и паролем или выберите демо-пресет.","loginSubmit":"Войти","loginSyncEmailLbl":"Recovery email","loginTitle":"Вход в хранилище","loginTrustBadge":"Симулированная прототипная среда — только для демо Ignyte Challenge. Реальные средства, документы и учётные данные не обрабатываются.","navSignIn":"Войти","onboardSub":"Шесть сфокусированных шагов регистрации. Проверка у выдающих органов — никогда без согласия.","onboardTitle":"Откройте CircleVault","pctCompleted":"Завершено","profileAccountId":"ID аккаунта","profileActiveAccount":"Активный аккаунт","profileSignOut":"Выйти / Сброс","profileStatus":"Статус","profileUsername":"Имя пользователя","rateLabel":"Справочный курс USDC","statusPending":"Ожидание","step1Sub":"Выберите регион и рамки соответствия. Кратко — глубокая идентичность на шаге 2.","step1Title":"Юрисдикция и регуляторные предпочтения","step2Sub":"Государственный ID, скан документа и живое селфи — сверка с выдающими органами.","step2Title":"Глубокая ИИ-проверка личности и биометрии","subCredit":"Доступная активная кредитная линия","subEscrow":"Торговый эскроу МСП (заблокирован)","subLiquid":"Ликвидные средства (расходы и переводы)","subRwa":"Инвестиции в проекты RWA","subYield":"Доходное хранилище (доход USYC)","totalEquityLabel":"Общий капитал хранилища","trustAml":"Соответствует AML / CFT","trustArc":"Идентификационные рельсы Circle Arc","trustUsdc":"Нативный расчёт USDC","verifyingSub":"Проверка личности, соответствия и записей выдающего органа.","verifyingTitle":"Создание вашего Vault…","profileTitle":"Профиль пользователя","upgradeTitle":"Upgrade Your CircleVault","upgradeSub":"Review and upgrade your vault credentials. Identity documents and security settings can be renewed here.","upgradeHubTitle":"Vault Profile & Verification Settings","profileMenuSettings":"Account & Verification Settings","navMyProfile":"My Profile","btnClose":"Close","accountHoldTitle":"Account ON HOLD / RESTRICTED","accountHoldBody":"Your identity document has expired. Profile access remains available, but all transfers and vault transactions are frozen until you upload a renewed document and expiry date.","docExpiryAlertTitle":"Document Expiry Notice","docExpiryAlertBody":"Your ID expires within 45 days. Weekly SMS reminders are being sent to your registered mobile until renewal is saved.","docExpirySmsLog":"Weekly SMS reminder sent to registered mobile.","profileViewMode":"View Mode","profileEditLocked":"This section is read-only. Only Identity Documents and Security Credentials can be upgraded.","profileSaved":"Profile settings saved.","profileEditDiscarded":"Unsaved changes discarded.","hubCard7Title":"7. Succession Vault","hubCard7Body":"Emergency successor claim portal for legal heirs (separate from registration).","regCompleteDashboard":"Registration complete — welcome to your vault dashboard."},"uz":{"badgeAmlCleared":"🟢 AML/CFT tekshiruvidan o‘tgan","badgeCreditRating":"🟢 Kredit reytingi: A+","badgeVerifiedIdentity":"🟢 Tasdiqlangan Arc shaxsi","brandTag":"Global to‘lovlar, pul o‘tkazmalari va daromad ekotizimi","btnBackHome":"← Orqaga","btnDownload":"Yuklab olish","btnExit":"Chiqish","btnPrint":"Chop etish","btnSave":"Saqlash","colBalance":"Joriy balans","colBeneficiary":"Foydalanuvchi / Kontragent","colCredit":"Kredit (CR)","colDate":"Sana","colDebit":"Debet (DR)","colDeductions":"Ushlab qolishlar (Komissiya/Soliq)","colRail":"To‘lov kanali / IBAN","colStatus":"Holat va muvofiqlik","colTxRef":"Tranzaksiya raqami va ISO maqsadi","credEyebrow":"Seyf yaratildi","credProceed":"Seyf paneliga o‘tish","credTitle":"Sizning rasmiy seyf hujjatingiz","dashOverview":"Umumiy ko‘rinish","dashTransactions":"Tranzaksiyalar","dialCaption":"Arc Vault · Shield tarmog‘i","footerSite":"The CircleVault Global — namoyish uchun interfeys. Kurslar, balanslar va identifikatorlar simulyatsiya qilingan.","heroBody":"The CircleVault Global qat'iy ro‘yxatdan o‘tish protokollarini qo‘llaydi. Yurisdiksiyangizni tanlang, Circle Arc shaxsni tasdiqlash tizimi orqali darhol pasport yoki shaxsni tasdiqlashni yakunlang — har bir o‘tkazma, pul jo‘natmasi va daromad seyfi bilan aloqa global AML/CFT standartlariga muvofiq bo‘lib qoladi.","heroCta":"CircleVault’ni hozir oching","heroEyebrow":"Global qamrov, mahalliy muvofiqlik","heroHeading":"Mahalliy muvofiqlik bilan global qamrov","hubCard1Body":"Hudud, muvofiqlik tizimi va tartibga solish deklaratsiyalari.","hubCard1Title":"1. Yurisdiksiya","hubCard2Body":"Davlat hujjati, hujjat skanerlash va jonli biometrik tekshiruv.","hubCard2Title":"2. Shaxsni tasdiqlash (KYC)","hubCard3Body":"Kasb, daromad darajasi va bank hisobvarag‘i tasdig‘i.","hubCard3Title":"3. Daromad / mablag‘ manbai","hubCard4Body":"Bank IBAN, Raast, hamyonlar, Visa/MC kartalari — Telco AI OTP + 3DS bog‘lash.","hubCard4Title":"4. Hisob-kitob banklari va hamyonlar","hubCard5Body":"Vorisning shaxsi, jonli selfi, OTP va dinamik affidavitlar.","hubCard5Title":"5. Eng yaqin qarindosh","hubCard6Body":"Shartlar, 6 xonali tranzaksiya PIN-kodi, 2FA sozlash va Vault ID joylashtirish.","hubCard6Title":"6. Xavfsizlik ma’lumotlari","hubEmergencyBody":"Vorislarning seyfni tiklashni boshlashi uchun bir vaqtda vafot etish protokoli.","hubEmergencyBtn":"Favqulodda seyf da’vo portalini ochish","hubEmergencyTitle":"Voris da’vosi va favqulodda markaz","hubEyebrow":"RO‘YXATDAN O‘TISH MARKAZI","hubTitle":"CircleVault ro‘yxatdan o‘tish — Asosiy markaz","langLabel":"Til","lblCity":"Shahar / hudud","lblCompliance":"Muvofiqlik tizimi","lblCountryNationality":"Millati (fuqaroligi)","lblCountryResidence":"Yashash mamlakati","lblDob":"Tug‘ilgan sana","lblDocExpiry":"Amal qilish muddati tugashi","lblDocId":"Hujjat raqami","lblDocIssue":"Berilgan sana","lblFirstName":"Ism","lblLastName":"Familiya","lblLifetime":"Muddatsiz","lblRegDeclarations":"Tartibga solish deklaratsiyalari","lblRegion":"Viloyat / hudud","ledgerMetricClosing":"Yakuniy balans","ledgerMetricCredits":"Jami kreditlar (CR)","ledgerMetricDebits":"Jami debetlar (DR)","ledgerMetricDeductions":"Jami ushlab qolishlar","ledgerTitle":"Faoliyat va bosh kitob","loginAccountId":"Hisob ID / Email","loginAccountPlaceholder":"Hisob ID, email yoki 6 xonali Vault ID","loginAdminOneClick":"Admin uchun bir bosishda kirish","loginBack":"← Orqaga","loginDemoAdmin":"Demo Admin","loginDemoAuditor":"Auditor ko‘rinishi","loginDemoPicker":"Demo profil tanlagichini ochish","loginDemoPreset":"Demo tayyor hisoblar","loginDemoPresetOpt":"— Tayyor variantni tanlang (ixtiyoriy) —","loginDemoUser":"Demo foydalanuvchi","loginEmailBtn":"Emailni sinxronlash","loginEmailHelp":"ISO 20022 audit izi uchun tiklash emailini seyf profilingiz bilan sinxronlang.","loginEmailSync":"Email sinxronizatsiyasi","loginEmailTitle":"Email sinxronizatsiyasi","loginForgotBtn":"Vault ID eslatmasini yuborish","loginForgotEmailLbl":"Ro‘yxatdan o‘tgan email","loginForgotHelp":"Niqoblangan Vault ID’ni olish uchun ro‘yxatdan o‘tgan emailingizni kiriting (demo: har qanday email CV-ARC-••••••-XX-YYYY formatini ko‘rsatadi).","loginForgotId":"Vault ID’ni unutdingizmi?","loginForgotTitle":"Vault ID’ni unutdingiz","loginOpenVaultCta":"CircleVault’ni hozir oching","loginOpenVaultHint":"Bu yerda yangimisiz? Seyfingizni yaratish uchun ro‘yxatdan o‘tishni boshlang.","loginOr":"yoki","loginOtpBack":"← Kirish sahifasiga qaytish","loginOtpEyebrow":"2-QADAM / 2 — TASDIQLASH","loginOtpLabel":"Bir martalik kod","loginOtpResend":"Kodni qayta yuborish (demo)","loginOtpSub":"Ro‘yxatdan o‘tgan qurilmangizga 6 xonali bir martalik kod yuborildi. Bu demo maqsadida simulyatsiya qilingan OTP — quyida oldindan to‘ldirilgan.","loginOtpTitle":"Siz ekanligingizni tasdiqlang","loginOtpVerifyBtn":"Tasdiqlash va kirish","loginPassword":"Parol / Xavfsizlik PIN-kodi","loginPasswordPlaceholder":"Parol yoki xavfsizlik PIN-kodi","loginPasswordReset":"Parolni tiklash","loginPresetsHint":"Tayyor variantlar: Demo Admin → admin / admin · Demo foydalanuvchi → demo / demo · Auditor → auditor / auditor","loginResetBtn":"Parolni tiklash","loginResetEmailLbl":"Ro‘yxatdan o‘tgan email","loginResetHelp":"Seyf parolini tiklash uchun ro‘yxatdan o‘tgan email + mobil OTP’ni tasdiqlang (demo jarayoni).","loginResetOtpLbl":"OTP","loginResetTitle":"Parolni tiklash","loginSecureTag":"Xavfsiz seyfga kirish","loginSub":"Standart seyf autentifikatsiyasi. Hisob ID / email va parol bilan kiring yoki demo variantini tanlang.","loginSubmit":"Kirish","loginSyncEmailLbl":"Tiklash emaili","loginTitle":"Seyfingizga kiring","loginTrustBadge":"Simulyatsiya qilingan prototip muhiti — faqat Ignyte Challenge demo maqsadlari uchun. Haqiqiy mablag‘lar, hujjatlar yoki hisob ma’lumotlari qayta ishlanmaydi yoki uzatilmaydi.","navSignIn":"Kirish","onboardSub":"Olti bosqichdan iborat ro‘yxatdan o‘tish. Beruvchi organlar oldida tasdiqlangan — roziliksiz hech qachon oshkor qilinmaydi.","onboardTitle":"CircleVault’ingizni oching","pctCompleted":"Bajarildi","profileAccountId":"Hisob ID","profileActiveAccount":"Faol hisob","profileSignOut":"Chiqish / Tiklash","profileStatus":"Holat","profileUsername":"Foydalanuvchi nomi","rateLabel":"USDC ma’lumotnoma kursi","statusPending":"Kutilmoqda","step1Sub":"Hudud va muvofiqlik tizimini tanlang. Qisqa qoldiring — chuqur shaxs tasdiqlash 2-bosqichda.","step1Title":"Yurisdiksiya va tartibga solish afzalliklari","step2Sub":"Davlat hujjati, hujjat skanerlash va jonli selfi — beruvchi organlar bilan o‘zaro tekshiriladi.","step2Title":"Chuqur AI shaxsni tasdiqlash va biometrik tekshiruv","subCredit":"Mavjud faol kredit liniyasi","subEscrow":"KO‘B savdo eskrosi (bloklangan)","subLiquid":"Likvid naqd pul (xarajatlar va o‘tkazmalar)","subRwa":"RWA loyihalariga investitsiyalar","subYield":"Daromad seyfi (USYC daromadi)","totalEquityLabel":"Jami seyf kapitali","trustAml":"AML / CFT’ga muvofiq","trustArc":"Circle Arc shaxs kanallari","trustUsdc":"USDC-native hisob-kitob","verifyingSub":"Shaxs, muvofiqlik va beruvchi organ yozuvlari o‘zaro tekshirilmoqda.","verifyingTitle":"Seyfingiz yaratilmoqda…","profileTitle":"Foydalanuvchi profili","upgradeTitle":"Upgrade Your CircleVault","upgradeSub":"Review and upgrade your vault credentials. Identity documents and security settings can be renewed here.","upgradeHubTitle":"Vault Profile & Verification Settings","profileMenuSettings":"Account & Verification Settings","navMyProfile":"My Profile","btnClose":"Close","accountHoldTitle":"Account ON HOLD / RESTRICTED","accountHoldBody":"Your identity document has expired. Profile access remains available, but all transfers and vault transactions are frozen until you upload a renewed document and expiry date.","docExpiryAlertTitle":"Document Expiry Notice","docExpiryAlertBody":"Your ID expires within 45 days. Weekly SMS reminders are being sent to your registered mobile until renewal is saved.","docExpirySmsLog":"Weekly SMS reminder sent to registered mobile.","profileViewMode":"View Mode","profileEditLocked":"This section is read-only. Only Identity Documents and Security Credentials can be upgraded.","profileSaved":"Profile settings saved.","profileEditDiscarded":"Unsaved changes discarded.","hubCard7Title":"7. Succession Vault","hubCard7Body":"Emergency successor claim portal for legal heirs (separate from registration).","regCompleteDashboard":"Registration complete — welcome to your vault dashboard."},"tr":{"badgeAmlCleared":"🟢 AML/CFT Cleared","badgeCreditRating":"🟢 Credit Rating: A+","badgeVerifiedIdentity":"🟢 Verified Arc Identity","brandTag":"Küresel ödemeler, havale ve getiri ekosistemi","btnBackHome":"← Geri","btnDownload":"İndir","btnExit":"Çıkış","btnPrint":"Yazdır","btnSave":"Kaydet","colBalance":"Çalışan bakiye","colBeneficiary":"Beneficiary / Counterparty","colCredit":"Alacak (CR)","colDate":"Tarih","colDebit":"Borç (DR)","colDeductions":"Deductions (Fee/Tax)","colRail":"Payout Rail / IBAN","colStatus":"Status & Compliance","colTxRef":"Transaction Ref & ISO Purpose","credEyebrow":"Vault Created","credProceed":"Kasa panosuna git","credTitle":"Resmi kasa kimlik bilginiz","dashOverview":"Genel bakış","dashTransactions":"İşlemler","dialCaption":"Arc Vault · Shield Ağı","footerSite":"The CircleVault Global — demo arayüz. Kurlar, bakiyeler ve kimlikler simüle edilmiştir.","heroBody":"The CircleVault Global sıkı onboarding protokolleri uygular. Yargı yetkinizi seçin, Circle Arc kimlik raylarıyla anında pasaport veya kimlik doğrulamasını tamamlayın; her transfer, havale ve getiri kasası etkileşimi küresel AML/CFT standartlarıyla uyumlu kalsın.","heroCta":"CircleVault’unuzu şimdi açın","heroEyebrow":"Küresel erişim, yerel uyum","heroHeading":"Yerel uyum ile küresel erişim","hubCard1Body":"Region, compliance framework, and regulatory declarations.","hubCard1Title":"1. Yargı yetkisi","hubCard2Body":"Government ID, document scan, and live biometric check.","hubCard2Title":"2. Kimlik KYC","hubCard3Body":"Occupation, income range, and bank statement proof.","hubCard3Title":"3. Gelir / fon kaynağı","hubCard4Body":"Bank IBAN, Raast, wallets, Visa/MC cards — Telco AI OTP + 3DS bind.","hubCard4Title":"4. Mutabakat bankaları ve cüzdanlar","hubCard5Body":"Nominee identity, live selfie, OTP, and dynamic affidavits.","hubCard5Title":"5. Yakın akraba","hubCard6Body":"Terms, 6-digit transaction PIN, 2FA setup, and Vault ID deployment.","hubCard6Title":"6. Güvenlik kimlik bilgileri","hubEmergencyBody":"Simultaneous demise protocol for surviving legal heirs to initiate vault recovery.","hubEmergencyBtn":"Open Emergency Vault Claim Portal","hubEmergencyTitle":"Successor Claim & Emergency Hub","hubEyebrow":"KAYIT HUB’I","hubTitle":"CircleVault Kayıt — Ana hub","langLabel":"Dil","lblCity":"City / Area","lblCompliance":"Compliance Framework","lblCountryNationality":"Country of Nationality","lblCountryResidence":"Country of Residence","lblDob":"Date of Birth","lblDocExpiry":"Date of Expiry","lblDocId":"Document ID Number","lblDocIssue":"Date of Issue","lblFirstName":"First Name","lblLastName":"Last Name / Surname","lblLifetime":"Lifetime / No Expiry","lblRegDeclarations":"Regulatory Declarations","lblRegion":"State / Province / Region","ledgerMetricClosing":"Closing Balance","ledgerMetricCredits":"Total Credits (CR)","ledgerMetricDebits":"Total Debits (DR)","ledgerMetricDeductions":"Total Deductions","ledgerTitle":"Aktivite ve defter","loginAccountId":"Hesap ID / E-posta","loginAccountPlaceholder":"Account ID, email, or 6-digit Vault ID","loginAdminOneClick":"Yönetici tek tıkla giriş","loginBack":"← Geri","loginDemoAdmin":"Demo Admin","loginDemoAuditor":"Auditor View","loginDemoPicker":"Demo profil seçiciyi aç","loginDemoPreset":"Demo hazır hesaplar","loginDemoPresetOpt":"— Select preset (optional) —","loginDemoUser":"Demo User","loginEmailBtn":"Sync Email","loginEmailHelp":"Sync recovery email with your vault profile for ISO 20022 audit trail.","loginEmailSync":"E-posta senkronu","loginEmailTitle":"Email Sync","loginForgotBtn":"Send Vault ID Reminder","loginForgotEmailLbl":"Registered email","loginForgotHelp":"Enter your registered email to receive your masked Vault ID (demo: any email shows format CV-ARC-••••••-XX-YYYY).","loginForgotId":"Vault ID unuttunuz mu?","loginForgotTitle":"Forgot Vault ID","loginOpenVaultCta":"Open Your CircleVault Now","loginOpenVaultHint":"New here? Start the registration pipeline to create your vault.","loginOr":"veya","loginOtpBack":"← Back to Sign In","loginOtpEyebrow":"STEP 2 OF 2 — VERIFICATION","loginOtpLabel":"One-Time Passcode","loginOtpResend":"Resend Code (demo)","loginOtpSub":"A 6-digit one-time code was sent to your registered device. This is a simulated OTP for demo purposes — it's pre-filled below.","loginOtpTitle":"Siz olduğunuzu onaylayın","loginOtpVerifyBtn":"Doğrula ve giriş yap","loginPassword":"Şifre / güvenlik PIN’i","loginPasswordPlaceholder":"Password or security PIN","loginPasswordReset":"Şifre sıfırlama","loginPresetsHint":"Presets: Demo Admin → admin / admin · Demo User → demo / demo · Auditor View → auditor / auditor","loginResetBtn":"Reset Password","loginResetEmailLbl":"Registered email","loginResetHelp":"Verify registered email + mobile OTP to reset vault password (demo flow).","loginResetOtpLbl":"OTP","loginResetTitle":"Password Reset","loginSecureTag":"Güvenli kasa erişimi","loginSub":"Standart kasa kimlik doğrulama. Hesap ID / e-posta ve şifre ile giriş yapın veya bir demo hazır ayarı seçin.","loginSubmit":"Giriş yap","loginSyncEmailLbl":"Recovery email","loginTitle":"Kasaya giriş yapın","loginTrustBadge":"Simulated Prototype Environment — For Ignyte Challenge Demo Purposes Only. No real funds, documents, or credentials are processed or transmitted.","navSignIn":"Giriş yap","onboardSub":"Six focused registration steps. Verified against issuing authorities — never shared without consent.","onboardTitle":"CircleVault’unuzu açın","pctCompleted":"Tamamlandı","profileAccountId":"Account ID","profileActiveAccount":"Active Account","profileSignOut":"Çıkış / Sıfırla","profileStatus":"Status","profileUsername":"Username","rateLabel":"USDC referans kuru","statusPending":"Beklemede","step1Sub":"Select your region and compliance framework. Keep this short — deep identity is Step 2.","step1Title":"Yargı yetkisi ve düzenleyici tercihler","step2Sub":"Government ID, document scan, and live selfie — cross-checked against issuing authorities.","step2Title":"Derin AI kimlik ve biyometrik doğrulama","subCredit":"Active Credit Line Available","subEscrow":"SME Trade Escrow (Locked)","subLiquid":"Liquid Cash (Spending & Remittances)","subRwa":"RWA Project Investments","subYield":"Yield Vault (USYC Earnings)","totalEquityLabel":"Toplam kasa özkaynağı","trustAml":"AML / CFT uyumlu","trustArc":"Circle Arc kimlik rayları","trustUsdc":"USDC-yerel mutabakat","verifyingSub":"Cross-checking identity, compliance and issuing authority records.","verifyingTitle":"Kasanız oluşturuluyor…","profileTitle":"Kullanıcı profili","upgradeTitle":"Upgrade Your CircleVault","upgradeSub":"Review and upgrade your vault credentials. Identity documents and security settings can be renewed here.","upgradeHubTitle":"Vault Profile & Verification Settings","profileMenuSettings":"Account & Verification Settings","navMyProfile":"My Profile","btnClose":"Close","accountHoldTitle":"Account ON HOLD / RESTRICTED","accountHoldBody":"Your identity document has expired. Profile access remains available, but all transfers and vault transactions are frozen until you upload a renewed document and expiry date.","docExpiryAlertTitle":"Document Expiry Notice","docExpiryAlertBody":"Your ID expires within 45 days. Weekly SMS reminders are being sent to your registered mobile until renewal is saved.","docExpirySmsLog":"Weekly SMS reminder sent to registered mobile.","profileViewMode":"View Mode","profileEditLocked":"This section is read-only. Only Identity Documents and Security Credentials can be upgraded.","profileSaved":"Profile settings saved.","profileEditDiscarded":"Unsaved changes discarded.","hubCard7Title":"7. Succession Vault","hubCard7Body":"Emergency successor claim portal for legal heirs (separate from registration).","regCompleteDashboard":"Registration complete — welcome to your vault dashboard."},"es":{"badgeAmlCleared":"🟢 AML/CFT despejado","badgeCreditRating":"🟢 Calificación crediticia: A+","badgeVerifiedIdentity":"🟢 Identidad Arc verificada","brandTag":"Pagos globales, remesas y ecosistema de rendimiento","btnBackHome":"← Volver","btnDownload":"Descargar","btnExit":"Salir","btnPrint":"Imprimir","btnSave":"Guardar","colBalance":"Saldo corriente","colBeneficiary":"Beneficiario / Contraparte","colCredit":"Crédito (CR)","colDate":"Fecha","colDebit":"Débito (DR)","colDeductions":"Deducciones (comisión/impuesto)","colRail":"Riel de pago / IBAN","colStatus":"Estado y cumplimiento","colTxRef":"Ref. de transacción y propósito ISO","credEyebrow":"Vault creado","credProceed":"Ir al panel del vault","credTitle":"Su credencial oficial del vault","dashOverview":"Resumen","dashTransactions":"Transacciones","dialCaption":"Arc Vault · Red Shield","footerSite":"The CircleVault Global — interfaz de demostración. Tasas, saldos e identificadores son simulados.","heroBody":"The CircleVault Global aplica protocolos estrictos de onboarding. Elija su jurisdicción, complete la verificación instantánea de pasaporte o ID impulsada por los rieles de identidad Circle Arc, y cada transferencia, remesa e interacción del vault de rendimiento permanece alineada con los estándares globales AML/CFT.","heroCta":"Abra su CircleVault ahora","heroEyebrow":"Alcance global, cumplimiento local","heroHeading":"Alcance global con cumplimiento local","hubCard1Body":"Región, marco de cumplimiento y declaraciones regulatorias.","hubCard1Title":"1. Jurisdicción","hubCard2Body":"ID gubernamental, escaneo de documento y verificación biométrica en vivo.","hubCard2Title":"2. Identidad KYC","hubCard3Body":"Ocupación, rango de ingresos y prueba de extracto bancario.","hubCard3Title":"3. Fuente de ingresos / fondos","hubCard4Body":"IBAN bancario, Raast, billeteras, tarjetas Visa/MC — OTP Telco AI + enlace 3DS.","hubCard4Title":"4. Bancos y billeteras de liquidación","hubCard5Body":"Identidad del nominado, selfie en vivo, OTP y affidavits dinámicos.","hubCard5Title":"5. Familiar más cercano","hubCard6Body":"Términos, PIN de transacción de 6 dígitos, 2FA y despliegue del Vault ID.","hubCard6Title":"6. Credenciales de seguridad","hubEmergencyBody":"Protocolo de deceso simultáneo para que los herederos legales inicien la recuperación del vault.","hubEmergencyBtn":"Abrir portal de reclamación de emergencia","hubEmergencyTitle":"Reclamación de sucesor y hub de emergencia","hubEyebrow":"HUB DE REGISTRO","hubTitle":"Registro CircleVault — Hub principal","langLabel":"Idioma","lblCity":"Ciudad / zona","lblCompliance":"Marco de cumplimiento","lblCountryNationality":"País de nacionalidad","lblCountryResidence":"País de residencia","lblDob":"Fecha de nacimiento","lblDocExpiry":"Fecha de vencimiento","lblDocId":"Número de documento","lblDocIssue":"Fecha de emisión","lblFirstName":"Nombre","lblLastName":"Apellido","lblLifetime":"Vitalicio / sin vencimiento","lblRegDeclarations":"Declaraciones regulatorias","lblRegion":"Estado / provincia / región","ledgerMetricClosing":"Saldo de cierre","ledgerMetricCredits":"Total créditos (CR)","ledgerMetricDebits":"Total débitos (DR)","ledgerMetricDeductions":"Total deducciones","ledgerTitle":"Actividad y libro mayor","loginAccountId":"ID de cuenta / Correo","loginAccountPlaceholder":"ID de cuenta, correo o Vault ID de 6 dígitos","loginAdminOneClick":"Login admin de un clic","loginBack":"← Volver","loginDemoAdmin":"Admin demo","loginDemoAuditor":"Vista auditor","loginDemoPicker":"Abrir selector de perfil demo","loginDemoPreset":"Cuentas preset de demo","loginDemoPresetOpt":"— Seleccionar preset (opcional) —","loginDemoUser":"Usuario demo","loginEmailBtn":"Sincronizar correo","loginEmailHelp":"Sincronice el correo de recuperación con su perfil de vault para la pista de auditoría ISO 20022.","loginEmailSync":"Sincronizar correo","loginEmailTitle":"Sincronizar correo","loginForgotBtn":"Enviar recordatorio de Vault ID","loginForgotEmailLbl":"Correo registrado","loginForgotHelp":"Ingrese su correo registrado para recibir su Vault ID enmascarado (demo: cualquier correo muestra el formato CV-ARC-••••••-XX-YYYY).","loginForgotId":"¿Olvidó el Vault ID?","loginForgotTitle":"Olvidé el Vault ID","loginOpenVaultCta":"Abra su CircleVault ahora","loginOpenVaultHint":"¿Nuevo aquí? Inicie el proceso de registro para crear su vault.","loginOr":"o","loginOtpBack":"← Volver a iniciar sesión","loginOtpEyebrow":"PASO 2 DE 2 — VERIFICACIÓN","loginOtpLabel":"Código de un solo uso","loginOtpResend":"Reenviar código (demo)","loginOtpSub":"Se envió un código de un solo uso de 6 dígitos a su dispositivo registrado. Este es un OTP simulado para la demo — ya está rellenado abajo.","loginOtpTitle":"Confirme que es usted","loginOtpVerifyBtn":"Verificar e iniciar sesión","loginPassword":"Contraseña / PIN de seguridad","loginPasswordPlaceholder":"Contraseña o PIN de seguridad","loginPasswordReset":"Restablecer contraseña","loginPresetsHint":"Presets: Admin demo → admin / admin · Usuario demo → demo / demo · Vista auditor → auditor / auditor","loginResetBtn":"Restablecer contraseña","loginResetEmailLbl":"Correo registrado","loginResetHelp":"Verifique el correo registrado + OTP móvil para restablecer la contraseña del vault (flujo demo).","loginResetOtpLbl":"OTP","loginResetTitle":"Restablecer contraseña","loginSecureTag":"Acceso seguro a la bóveda","loginSub":"Autenticación estándar del vault. Inicie sesión con su ID de cuenta / correo y contraseña, o elija un preset de demo.","loginSubmit":"Iniciar sesión","loginSyncEmailLbl":"Correo de recuperación","loginTitle":"Inicie sesión en su bóveda","loginTrustBadge":"Entorno prototipo simulado — Solo para demo del Ignyte Challenge. No se procesan ni transmiten fondos, documentos ni credenciales reales.","navSignIn":"Iniciar sesión","onboardSub":"Seis pasos de registro enfocados. Verificados ante autoridades emisoras — nunca compartidos sin consentimiento.","onboardTitle":"Abra su CircleVault","pctCompleted":"Completado","profileAccountId":"ID de cuenta","profileActiveAccount":"Cuenta activa","profileSignOut":"Cerrar sesión / Restablecer","profileStatus":"Estado","profileUsername":"Usuario","rateLabel":"Tipo de referencia USDC","statusPending":"Pendiente","step1Sub":"Seleccione su región y marco de cumplimiento. Manténgalo breve — la identidad profunda es el Paso 2.","step1Title":"Jurisdicción y preferencias regulatorias","step2Sub":"ID gubernamental, escaneo de documento y selfie en vivo — contrastados con autoridades emisoras.","step2Title":"Verificación profunda de identidad y biometría con IA","subCredit":"Línea de crédito activa disponible","subEscrow":"Escrow comercial SME (bloqueado)","subLiquid":"Efectivo líquido (gastos y remesas)","subRwa":"Inversiones en proyectos RWA","subYield":"Vault de rendimiento (USYC)","totalEquityLabel":"Patrimonio total de la bóveda","trustAml":"Cumple AML / CFT","trustArc":"Rieles de identidad Circle Arc","trustUsdc":"Liquidación nativa USDC","verifyingSub":"Verificando identidad, cumplimiento y registros de la autoridad emisora.","verifyingTitle":"Generando su Vault…","profileTitle":"Perfil de usuario","upgradeTitle":"Upgrade Your CircleVault","upgradeSub":"Review and upgrade your vault credentials. Identity documents and security settings can be renewed here.","upgradeHubTitle":"Vault Profile & Verification Settings","profileMenuSettings":"Account & Verification Settings","navMyProfile":"My Profile","btnClose":"Close","accountHoldTitle":"Account ON HOLD / RESTRICTED","accountHoldBody":"Your identity document has expired. Profile access remains available, but all transfers and vault transactions are frozen until you upload a renewed document and expiry date.","docExpiryAlertTitle":"Document Expiry Notice","docExpiryAlertBody":"Your ID expires within 45 days. Weekly SMS reminders are being sent to your registered mobile until renewal is saved.","docExpirySmsLog":"Weekly SMS reminder sent to registered mobile.","profileViewMode":"View Mode","profileEditLocked":"This section is read-only. Only Identity Documents and Security Credentials can be upgraded.","profileSaved":"Profile settings saved.","profileEditDiscarded":"Unsaved changes discarded.","hubCard7Title":"7. Succession Vault","hubCard7Body":"Emergency successor claim portal for legal heirs (separate from registration).","regCompleteDashboard":"Registration complete — welcome to your vault dashboard."},"ja":{"badgeAmlCleared":"🟢 AML/CFT Cleared","badgeCreditRating":"🟢 Credit Rating: A+","badgeVerifiedIdentity":"🟢 Verified Arc Identity","brandTag":"グローバル決済・送金・利回りエコシステム","btnBackHome":"← 戻る","btnDownload":"ダウンロード","btnExit":"終了","btnPrint":"印刷","btnSave":"保存","colBalance":"ランニング残高","colBeneficiary":"Beneficiary / Counterparty","colCredit":"貸方 (CR)","colDate":"日付","colDebit":"借方 (DR)","colDeductions":"Deductions (Fee/Tax)","colRail":"Payout Rail / IBAN","colStatus":"Status & Compliance","colTxRef":"Transaction Ref & ISO Purpose","credEyebrow":"Vault Created","credProceed":"ボールトダッシュボードへ","credTitle":"公式ボールト資格情報","dashOverview":"概要","dashTransactions":"取引","dialCaption":"Arc Vault · Shield ネットワーク","footerSite":"The CircleVault Global — デモ用インターフェース。レート、残高、識別子はシミュレーションです。","heroBody":"The CircleVault Global は厳格なオンボーディング手順を適用します。法域を選択し、Circle Arc アイデンティティレールによる即時の旅券または ID 確認を完了すれば、送金・レミッタンス・利回りボールトのやり取りはすべて世界の AML/CFT 基準に沿います。","heroCta":"今すぐ CircleVault を開く","heroEyebrow":"グローバルな到達、ローカルなコンプライアンス","heroHeading":"ローカルコンプライアンスによるグローバル到達","hubCard1Body":"Region, compliance framework, and regulatory declarations.","hubCard1Title":"1. 法域","hubCard2Body":"Government ID, document scan, and live biometric check.","hubCard2Title":"2. 本人確認 KYC","hubCard3Body":"Occupation, income range, and bank statement proof.","hubCard3Title":"3. 収入 / 資金源","hubCard4Body":"Bank IBAN, Raast, wallets, Visa/MC cards — Telco AI OTP + 3DS bind.","hubCard4Title":"4. 決済銀行とウォレット","hubCard5Body":"Nominee identity, live selfie, OTP, and dynamic affidavits.","hubCard5Title":"5. 近親者","hubCard6Body":"Terms, 6-digit transaction PIN, 2FA setup, and Vault ID deployment.","hubCard6Title":"6. セキュリティ資格情報","hubEmergencyBody":"Simultaneous demise protocol for surviving legal heirs to initiate vault recovery.","hubEmergencyBtn":"Open Emergency Vault Claim Portal","hubEmergencyTitle":"Successor Claim & Emergency Hub","hubEyebrow":"登録ハブ","hubTitle":"CircleVault 登録 — メインハブ","langLabel":"言語","lblCity":"City / Area","lblCompliance":"Compliance Framework","lblCountryNationality":"Country of Nationality","lblCountryResidence":"Country of Residence","lblDob":"Date of Birth","lblDocExpiry":"Date of Expiry","lblDocId":"Document ID Number","lblDocIssue":"Date of Issue","lblFirstName":"First Name","lblLastName":"Last Name / Surname","lblLifetime":"Lifetime / No Expiry","lblRegDeclarations":"Regulatory Declarations","lblRegion":"State / Province / Region","ledgerMetricClosing":"Closing Balance","ledgerMetricCredits":"Total Credits (CR)","ledgerMetricDebits":"Total Debits (DR)","ledgerMetricDeductions":"Total Deductions","ledgerTitle":"アクティビティと台帳","loginAccountId":"アカウント ID / メール","loginAccountPlaceholder":"Account ID, email, or 6-digit Vault ID","loginAdminOneClick":"管理者ワンクリックログイン","loginBack":"← 戻る","loginDemoAdmin":"Demo Admin","loginDemoAuditor":"Auditor View","loginDemoPicker":"デモプロフィール選択を開く","loginDemoPreset":"デモプリセットアカウント","loginDemoPresetOpt":"— Select preset (optional) —","loginDemoUser":"Demo User","loginEmailBtn":"Sync Email","loginEmailHelp":"Sync recovery email with your vault profile for ISO 20022 audit trail.","loginEmailSync":"メール同期","loginEmailTitle":"Email Sync","loginForgotBtn":"Send Vault ID Reminder","loginForgotEmailLbl":"Registered email","loginForgotHelp":"Enter your registered email to receive your masked Vault ID (demo: any email shows format CV-ARC-••••••-XX-YYYY).","loginForgotId":"Vault ID をお忘れですか？","loginForgotTitle":"Forgot Vault ID","loginOpenVaultCta":"Open Your CircleVault Now","loginOpenVaultHint":"New here? Start the registration pipeline to create your vault.","loginOr":"または","loginOtpBack":"← Back to Sign In","loginOtpEyebrow":"STEP 2 OF 2 — VERIFICATION","loginOtpLabel":"One-Time Passcode","loginOtpResend":"Resend Code (demo)","loginOtpSub":"A 6-digit one-time code was sent to your registered device. This is a simulated OTP for demo purposes — it's pre-filled below.","loginOtpTitle":"ご本人確認","loginOtpVerifyBtn":"確認してサインイン","loginPassword":"パスワード / セキュリティ PIN","loginPasswordPlaceholder":"Password or security PIN","loginPasswordReset":"パスワードリセット","loginPresetsHint":"Presets: Demo Admin → admin / admin · Demo User → demo / demo · Auditor View → auditor / auditor","loginResetBtn":"Reset Password","loginResetEmailLbl":"Registered email","loginResetHelp":"Verify registered email + mobile OTP to reset vault password (demo flow).","loginResetOtpLbl":"OTP","loginResetTitle":"Password Reset","loginSecureTag":"安全なボールトアクセス","loginSub":"標準のボールト認証。アカウント ID / メールとパスワードでサインインするか、デモプリセットを選択してください。","loginSubmit":"サインイン","loginSyncEmailLbl":"Recovery email","loginTitle":"ボールトにサインイン","loginTrustBadge":"Simulated Prototype Environment — For Ignyte Challenge Demo Purposes Only. No real funds, documents, or credentials are processed or transmitted.","navSignIn":"サインイン","onboardSub":"Six focused registration steps. Verified against issuing authorities — never shared without consent.","onboardTitle":"CircleVault を開く","pctCompleted":"完了","profileAccountId":"Account ID","profileActiveAccount":"Active Account","profileSignOut":"サインアウト / リセット","profileStatus":"Status","profileUsername":"Username","rateLabel":"USDC 参照レート","statusPending":"保留中","step1Sub":"Select your region and compliance framework. Keep this short — deep identity is Step 2.","step1Title":"法域と規制設定","step2Sub":"Government ID, document scan, and live selfie — cross-checked against issuing authorities.","step2Title":"高度な AI 本人確認と生体認証","subCredit":"Active Credit Line Available","subEscrow":"SME Trade Escrow (Locked)","subLiquid":"Liquid Cash (Spending & Remittances)","subRwa":"RWA Project Investments","subYield":"Yield Vault (USYC Earnings)","totalEquityLabel":"ボールト総資本","trustAml":"AML / CFT 準拠","trustArc":"Circle Arc アイデンティティレール","trustUsdc":"USDC ネイティブ決済","verifyingSub":"Cross-checking identity, compliance and issuing authority records.","verifyingTitle":"Vault を生成中…","profileTitle":"ユーザープロフィール","upgradeTitle":"Upgrade Your CircleVault","upgradeSub":"Review and upgrade your vault credentials. Identity documents and security settings can be renewed here.","upgradeHubTitle":"Vault Profile & Verification Settings","profileMenuSettings":"Account & Verification Settings","navMyProfile":"My Profile","btnClose":"Close","accountHoldTitle":"Account ON HOLD / RESTRICTED","accountHoldBody":"Your identity document has expired. Profile access remains available, but all transfers and vault transactions are frozen until you upload a renewed document and expiry date.","docExpiryAlertTitle":"Document Expiry Notice","docExpiryAlertBody":"Your ID expires within 45 days. Weekly SMS reminders are being sent to your registered mobile until renewal is saved.","docExpirySmsLog":"Weekly SMS reminder sent to registered mobile.","profileViewMode":"View Mode","profileEditLocked":"This section is read-only. Only Identity Documents and Security Credentials can be upgraded.","profileSaved":"Profile settings saved.","profileEditDiscarded":"Unsaved changes discarded.","hubCard7Title":"7. Succession Vault","hubCard7Body":"Emergency successor claim portal for legal heirs (separate from registration).","regCompleteDashboard":"Registration complete — welcome to your vault dashboard."},"it":{"badgeAmlCleared":"🟢 AML/CFT Cleared","badgeCreditRating":"🟢 Credit Rating: A+","badgeVerifiedIdentity":"🟢 Verified Arc Identity","brandTag":"Pagamenti globali, rimesse ed ecosistema di rendimento","btnBackHome":"← Indietro","btnDownload":"Scarica","btnExit":"Esci","btnPrint":"Stampa","btnSave":"Salva","colBalance":"Saldo corrente","colBeneficiary":"Beneficiary / Counterparty","colCredit":"Credito (CR)","colDate":"Data","colDebit":"Debito (DR)","colDeductions":"Deductions (Fee/Tax)","colRail":"Payout Rail / IBAN","colStatus":"Status & Compliance","colTxRef":"Transaction Ref & ISO Purpose","credEyebrow":"Vault Created","credProceed":"Vai alla dashboard del vault","credTitle":"La tua credenziale ufficiale del vault","dashOverview":"Panoramica","dashTransactions":"Transazioni","dialCaption":"Arc Vault · Rete Shield","footerSite":"The CircleVault Global — interfaccia demo. Tassi, saldi e identificatori sono simulati.","heroBody":"The CircleVault Global applica protocolli di onboarding rigorosi. Scegli la giurisdizione, completa la verifica istantanea di passaporto o ID sui binari Circle Arc, e ogni bonifico, rimessa e interazione del vault di rendimento resta allineata agli standard globali AML/CFT.","heroCta":"Apri ora il tuo CircleVault","heroEyebrow":"Portata globale, conformità locale","heroHeading":"Portata globale con conformità locale","hubCard1Body":"Region, compliance framework, and regulatory declarations.","hubCard1Title":"1. Giurisdizione","hubCard2Body":"Government ID, document scan, and live biometric check.","hubCard2Title":"2. Identità KYC","hubCard3Body":"Occupation, income range, and bank statement proof.","hubCard3Title":"3. Fonte di reddito / fondi","hubCard4Body":"Bank IBAN, Raast, wallets, Visa/MC cards — Telco AI OTP + 3DS bind.","hubCard4Title":"4. Banche e wallet di regolamento","hubCard5Body":"Nominee identity, live selfie, OTP, and dynamic affidavits.","hubCard5Title":"5. Parente più prossimo","hubCard6Body":"Terms, 6-digit transaction PIN, 2FA setup, and Vault ID deployment.","hubCard6Title":"6. Credenziali di sicurezza","hubEmergencyBody":"Simultaneous demise protocol for surviving legal heirs to initiate vault recovery.","hubEmergencyBtn":"Open Emergency Vault Claim Portal","hubEmergencyTitle":"Successor Claim & Emergency Hub","hubEyebrow":"HUB DI REGISTRAZIONE","hubTitle":"Registrazione CircleVault — Hub principale","langLabel":"Lingua","lblCity":"City / Area","lblCompliance":"Compliance Framework","lblCountryNationality":"Country of Nationality","lblCountryResidence":"Country of Residence","lblDob":"Date of Birth","lblDocExpiry":"Date of Expiry","lblDocId":"Document ID Number","lblDocIssue":"Date of Issue","lblFirstName":"First Name","lblLastName":"Last Name / Surname","lblLifetime":"Lifetime / No Expiry","lblRegDeclarations":"Regulatory Declarations","lblRegion":"State / Province / Region","ledgerMetricClosing":"Closing Balance","ledgerMetricCredits":"Total Credits (CR)","ledgerMetricDebits":"Total Debits (DR)","ledgerMetricDeductions":"Total Deductions","ledgerTitle":"Attività e libro mastro","loginAccountId":"ID account / Email","loginAccountPlaceholder":"Account ID, email, or 6-digit Vault ID","loginAdminOneClick":"Login admin con un clic","loginBack":"← Indietro","loginDemoAdmin":"Demo Admin","loginDemoAuditor":"Auditor View","loginDemoPicker":"Apri selettore profilo demo","loginDemoPreset":"Account preset demo","loginDemoPresetOpt":"— Select preset (optional) —","loginDemoUser":"Demo User","loginEmailBtn":"Sync Email","loginEmailHelp":"Sync recovery email with your vault profile for ISO 20022 audit trail.","loginEmailSync":"Sincronizza email","loginEmailTitle":"Email Sync","loginForgotBtn":"Send Vault ID Reminder","loginForgotEmailLbl":"Registered email","loginForgotHelp":"Enter your registered email to receive your masked Vault ID (demo: any email shows format CV-ARC-••••••-XX-YYYY).","loginForgotId":"Hai dimenticato il Vault ID?","loginForgotTitle":"Forgot Vault ID","loginOpenVaultCta":"Open Your CircleVault Now","loginOpenVaultHint":"New here? Start the registration pipeline to create your vault.","loginOr":"o","loginOtpBack":"← Back to Sign In","loginOtpEyebrow":"STEP 2 OF 2 — VERIFICATION","loginOtpLabel":"One-Time Passcode","loginOtpResend":"Resend Code (demo)","loginOtpSub":"A 6-digit one-time code was sent to your registered device. This is a simulated OTP for demo purposes — it's pre-filled below.","loginOtpTitle":"Conferma che sei tu","loginOtpVerifyBtn":"Verifica e accedi","loginPassword":"Password / PIN di sicurezza","loginPasswordPlaceholder":"Password or security PIN","loginPasswordReset":"Reimposta password","loginPresetsHint":"Presets: Demo Admin → admin / admin · Demo User → demo / demo · Auditor View → auditor / auditor","loginResetBtn":"Reset Password","loginResetEmailLbl":"Registered email","loginResetHelp":"Verify registered email + mobile OTP to reset vault password (demo flow).","loginResetOtpLbl":"OTP","loginResetTitle":"Password Reset","loginSecureTag":"Accesso sicuro al vault","loginSub":"Autenticazione standard del vault. Accedi con ID account / email e password, oppure scegli un preset demo.","loginSubmit":"Accedi","loginSyncEmailLbl":"Recovery email","loginTitle":"Accedi al tuo vault","loginTrustBadge":"Simulated Prototype Environment — For Ignyte Challenge Demo Purposes Only. No real funds, documents, or credentials are processed or transmitted.","navSignIn":"Accedi","onboardSub":"Six focused registration steps. Verified against issuing authorities — never shared without consent.","onboardTitle":"Apri il tuo CircleVault","pctCompleted":"Completato","profileAccountId":"Account ID","profileActiveAccount":"Active Account","profileSignOut":"Esci / Reimposta","profileStatus":"Status","profileUsername":"Username","rateLabel":"Tasso di riferimento USDC","statusPending":"In attesa","step1Sub":"Select your region and compliance framework. Keep this short — deep identity is Step 2.","step1Title":"Giurisdizione e preferenze normative","step2Sub":"Government ID, document scan, and live selfie — cross-checked against issuing authorities.","step2Title":"Verifica profonda di identità e biometria con IA","subCredit":"Active Credit Line Available","subEscrow":"SME Trade Escrow (Locked)","subLiquid":"Liquid Cash (Spending & Remittances)","subRwa":"RWA Project Investments","subYield":"Yield Vault (USYC Earnings)","totalEquityLabel":"Patrimonio totale del vault","trustAml":"Conforme AML / CFT","trustArc":"Binari di identità Circle Arc","trustUsdc":"Regolamento nativo USDC","verifyingSub":"Cross-checking identity, compliance and issuing authority records.","verifyingTitle":"Generazione del Vault…","profileTitle":"Profilo utente","upgradeTitle":"Upgrade Your CircleVault","upgradeSub":"Review and upgrade your vault credentials. Identity documents and security settings can be renewed here.","upgradeHubTitle":"Vault Profile & Verification Settings","profileMenuSettings":"Account & Verification Settings","navMyProfile":"My Profile","btnClose":"Close","accountHoldTitle":"Account ON HOLD / RESTRICTED","accountHoldBody":"Your identity document has expired. Profile access remains available, but all transfers and vault transactions are frozen until you upload a renewed document and expiry date.","docExpiryAlertTitle":"Document Expiry Notice","docExpiryAlertBody":"Your ID expires within 45 days. Weekly SMS reminders are being sent to your registered mobile until renewal is saved.","docExpirySmsLog":"Weekly SMS reminder sent to registered mobile.","profileViewMode":"View Mode","profileEditLocked":"This section is read-only. Only Identity Documents and Security Credentials can be upgraded.","profileSaved":"Profile settings saved.","profileEditDiscarded":"Unsaved changes discarded.","hubCard7Title":"7. Succession Vault","hubCard7Body":"Emergency successor claim portal for legal heirs (separate from registration).","regCompleteDashboard":"Registration complete — welcome to your vault dashboard."}};
 const NATIVE_I18N_LANGS = ["en","ur","ar","fa","de","fr","zh","ru","uz","tr","es","ja","it"];
+(function patchProfileNavI18n(){
+  var patch = {
+    profileMenuVaultSettings:'Upgrade Your CircleVault',
+    immutableFieldToast:'This field cannot be modified because your Vault is already verified and generated.',
+    immutableFieldHelp:'Verified identity fields are locked. Use Edit on eligible cards to renew documents, update address, or change mobile.',
+    lblVaultId:'Vault ID',
+    lblResidentialAddress:'Residential Address',
+    lblNewAddress:'New Address',
+    lblProofOfAddress:'Proof of Address',
+    lblMobileOtpVerify:'Mobile Number Verification (OTP Required)',
+    profileMobileOtpHelp:'Updating your registered mobile requires OTP verification to your new number.',
+    profileEditMutableOnly:'Edit mode — renew documents, update address, or change mobile only.',
+    menuChangePassword:'Change Password',
+    menuChangePin:'Change Transaction PIN',
+    securityModalPwTitle:'Change Password',
+    securityModalPinTitle:'Change Transaction PIN',
+    securityModalPwSub:'Enter your current password and choose a new one.',
+    securityModalPinSub:'Enter your current transaction PIN and choose a new 6-digit PIN.',
+    secCurrentPw:'Current Password',
+    secNewPw:'New Password',
+    secConfirmPw:'Confirm New Password',
+    secCurrentPin:'Current PIN',
+    secNewPin:'New PIN',
+    secConfirmPin:'Confirm New PIN',
+    secContinue:'Continue',
+    secCancel:'Cancel',
+    secOtpTitle:'2-Step Verification',
+    secOtpSub:'A 6-digit code was sent via SMS/Email to your registered mobile.',
+    secOtpPlaceholder:'Enter 6-digit OTP',
+    secVerifyUpdate:'Verify & Update',
+    secResendOtp:'Resend OTP',
+    securityCredUpdated:'Security credentials updated successfully!',
+    navGuestLabel:'Guest'
+  };
+  if(typeof I18N==='object'){
+    Object.keys(I18N).forEach(function(lang){
+      Object.keys(patch).forEach(function(k){
+        I18N[lang][k] = patch[k];
+      });
+    });
+  }
+})();
 const RTL_LANGS = ['ur','ar','fa'];
 
 /**
@@ -4048,6 +4214,7 @@ window.applyLang = applyLang;
 
 populateLanguages();
 bindNavProfileMenus();
+if(typeof refreshNavProfileDisplay === 'function') refreshNavProfileDisplay();
 if(typeof runDocExpiryEngine === 'function') runDocExpiryEngine();
 (function bindLangSwitch(){
   const sel = document.getElementById('langSwitch');
@@ -6211,7 +6378,12 @@ let accountCreationComplete = false;
 let onboardContext = 'registration'; /* registration | profile-settings */
 let regCardEditing = false;
 let regCardEditSnapshot = null;
-const PROFILE_UPGRADE_TABS = [2, 6]; /* Identity docs + Security credentials only */
+const PROFILE_UPGRADE_TABS = [2, 4]; /* Identity doc renewal + mobile update only */
+const ALWAYS_IMMUTABLE_PROFILE_FIELDS = ['firstName','lastName','docIdInput','profileVaultIdInput','dobInput','countrySelect','nationalitySelect','complianceFramework'];
+const SECURITY_CREDS_KEY = 'circlevault_security_creds_v1';
+let profileMobileOtpVerified = false;
+let profileMobileOtpSent = false;
+let profileMobileEditBaseline = '';
 const DOC_EXPIRY_ALERT_DAYS = 45;
 const DOC_EXPIRY_ENGINE_KEY = 'circlevault_doc_expiry_engine_v1';
 const REG_COMPLETE_KEY = 'circlevault_registration_complete_v1';
@@ -6229,6 +6401,112 @@ loadRegCompleteFlag();
 function isProfileSettingsContext(){
   return onboardContext === 'profile-settings';
 }
+function showImmutableFieldToast(){
+  showToast((typeof t === 'function' && t('immutableFieldToast')) || 'This field cannot be modified because your Vault is already verified and generated.');
+}
+window.showImmutableFieldToast = showImmutableFieldToast;
+
+function isAlwaysImmutableField(id){
+  return ALWAYS_IMMUTABLE_PROFILE_FIELDS.indexOf(id) !== -1;
+}
+
+function isMutableProfileField(el, tab, editing){
+  if(!editing || !el) return false;
+  var id = el.id || '';
+  if(tab === 2){
+    if(isAlwaysImmutableField(id)) return false;
+    if(/docExpiryInput|lifetimeExpiry|residentialAddressInput|docIssueInput/.test(id)) return true;
+    if(el.closest && (el.closest('#slotFront') || el.closest('#slotBack') || el.closest('#slotPhoto') || el.closest('#slotAddressProof'))) return true;
+    if(el.closest && el.closest('#docTiles')) return true;
+    return false;
+  }
+  if(tab === 4){
+    return /mobileInput|dialCodeSelect|profileMobileOtp/.test(id);
+  }
+  return false;
+}
+
+function bindProfileImmutableGuards(){
+  if(!isProfileSettingsContext()) return;
+  ALWAYS_IMMUTABLE_PROFILE_FIELDS.forEach(function(id){
+    var el = document.getElementById(id);
+    if(!el || el.dataset.immutableBound === '1') return;
+    el.dataset.immutableBound = '1';
+    el.classList.add('cv-immutable-field');
+    if(el.tagName === 'SELECT') el.disabled = true;
+    else { el.readOnly = true; el.setAttribute('aria-readonly','true'); }
+    var block = function(e){
+      if(!isProfileSettingsContext()) return;
+      if(isAlwaysImmutableField(id)){
+        e.preventDefault();
+        showImmutableFieldToast();
+        try{ el.blur(); }catch(_b){}
+        return;
+      }
+    };
+    el.addEventListener('mousedown', block);
+    el.addEventListener('focus', block);
+    el.addEventListener('keydown', function(e){
+      if(!isProfileSettingsContext()) return;
+      if(isAlwaysImmutableField(id) && e.key !== 'Tab'){ e.preventDefault(); showImmutableFieldToast(); }
+    });
+  });
+  paintProfileVaultIdDisplay();
+}
+window.bindProfileImmutableGuards = bindProfileImmutableGuards;
+
+function paintProfileVaultIdDisplay(){
+  var inp = document.getElementById('profileVaultIdInput');
+  if(!inp) return;
+  var vaultId = (generatedVaultParts && generatedVaultParts.full) ||
+    fieldVal('credVaultId') ||
+    (document.getElementById('dashVaultId') && document.getElementById('dashVaultId').textContent) ||
+    '—';
+  if(vaultId && vaultId.indexOf('·') !== -1) vaultId = vaultId.split('·')[0].trim();
+  inp.value = vaultId || '—';
+}
+window.paintProfileVaultIdDisplay = paintProfileVaultIdDisplay;
+
+function syncProfileMobileOtpPanel(editing){
+  var panel = document.getElementById('profileMobileOtpPanel');
+  if(!panel) return;
+  var show = isProfileSettingsContext() && activeRegTab === 4 && editing;
+  panel.classList.toggle('is-hidden', !show);
+  if(!show){
+    profileMobileOtpVerified = false;
+    profileMobileOtpSent = false;
+    var badge = document.getElementById('profileMobileOtpBadge');
+    if(badge){ badge.className = 'nok-otp-badge pending'; badge.textContent = (typeof t === 'function' && t('statusPending')) || 'Pending'; }
+    var otp = document.getElementById('profileMobileOtp');
+    if(otp) otp.value = '';
+  }
+}
+
+function sendProfileMobileOtp(btn){
+  var mobile = fieldVal('mobileInput');
+  if(!mobile || mobile.replace(/\D/g,'').length < 7){ showToast('Enter a valid mobile number first.'); return; }
+  profileMobileOtpSent = true;
+  profileMobileOtpVerified = false;
+  if(btn){ btn.disabled = true; btn.textContent = 'Sent'; setTimeout(function(){ btn.disabled = false; btn.textContent = (typeof t === 'function' && t('secResendOtp')) || 'Resend OTP'; }, 1800); }
+  showToast('OTP sent to ' + mobile + ' (demo).');
+}
+window.sendProfileMobileOtp = sendProfileMobileOtp;
+
+function verifyProfileMobileOtp(){
+  var otp = (document.getElementById('profileMobileOtp') && document.getElementById('profileMobileOtp').value || '').trim();
+  if(!profileMobileOtpSent){ showToast('Send OTP first.'); return false; }
+  if(!/^\d{6}$/.test(otp)){ showToast('Enter a valid 6-digit OTP.'); return false; }
+  profileMobileOtpVerified = true;
+  var badge = document.getElementById('profileMobileOtpBadge');
+  if(badge){ badge.className = 'nok-otp-badge verified'; badge.textContent = 'Verified'; }
+  return true;
+}
+
+function mobileChangedSinceEditStart(){
+  var cur = (fieldVal('dialCodeSelect') + fieldVal('mobileInput')).replace(/\s/g,'');
+  return profileMobileEditBaseline && cur !== profileMobileEditBaseline;
+}
+
 function isRegTabProfileEditable(tab){
   return PROFILE_UPGRADE_TABS.indexOf(Number(tab)) !== -1;
 }
@@ -6251,6 +6529,10 @@ function setOnboardContext(ctx){
   if(hubFoot) hubFoot.setAttribute('data-profile-hub', isProfileSettingsContext() ? '1' : '0');
   if(typeof updateDynamicHeader === 'function') updateDynamicHeader();
   if(typeof refreshHubCardSummaries === 'function') refreshHubCardSummaries();
+  if(isProfileSettingsContext()){
+    paintProfileVaultIdDisplay();
+    bindProfileImmutableGuards();
+  }
   if(typeof updateDOMTranslations === 'function') try{ updateDOMTranslations(document.getElementById('view-onboarding')); }catch(_i){}
 }
 window.setOnboardContext = setOnboardContext;
@@ -6281,6 +6563,194 @@ function openProfileSettingsFromNav(ev){
 }
 window.openProfileSettingsFromNav = openProfileSettingsFromNav;
 
+function getVaultDisplayName(){
+  var fn = fieldVal('firstName');
+  var ln = fieldVal('lastName');
+  var name = (fn + ' ' + ln).trim();
+  if(name) return name;
+  var acc = (typeof global !== 'undefined' && global.__cvActiveDummy) ? global.__cvActiveDummy : null;
+  if(acc){
+    if(acc.holderName) return acc.holderName;
+    if(acc.firstName) return (acc.firstName + ' ' + (acc.lastName || '')).trim();
+  }
+  return accountCreationComplete ? 'Vault User' : ((typeof t === 'function' && t('navGuestLabel')) || 'Guest');
+}
+function getVaultAvatarInitials(name){
+  var parts = String(name || 'G').trim().split(/\s+/).filter(Boolean);
+  if(parts.length >= 2) return (parts[0].charAt(0) + parts[1].charAt(0)).toUpperCase();
+  return String(parts[0] || 'G').slice(0, 2).toUpperCase();
+}
+function refreshNavProfileDisplay(){
+  var nameEl = document.getElementById('navProfileDisplayName');
+  var avEl = document.getElementById('navProfileAvatar');
+  var name = getVaultDisplayName();
+  if(nameEl) nameEl.textContent = name;
+  if(avEl) avEl.textContent = getVaultAvatarInitials(name);
+  if(typeof refreshUserProfilePopover === 'function') try{ refreshUserProfilePopover(); }catch(_r){}
+}
+window.refreshNavProfileDisplay = refreshNavProfileDisplay;
+
+var __cvSecurityModalKind = null;
+var __cvSecurityOtpSent = false;
+
+function getSecurityCreds(){
+  try{
+    var raw = localStorage.getItem(SECURITY_CREDS_KEY);
+    if(raw) return JSON.parse(raw) || {};
+  }catch(_e){}
+  return {};
+}
+function saveSecurityCreds(creds){
+  try{ localStorage.setItem(SECURITY_CREDS_KEY, JSON.stringify(creds || {})); }catch(_e){}
+}
+
+function requireRegisteredForSecurity(){
+  if(!accountCreationComplete){
+    showToast('Complete vault registration first.');
+    if(typeof startRegistration === 'function') startRegistration();
+    return false;
+  }
+  return true;
+}
+
+function openChangePasswordModal(ev){
+  if(ev){ try{ ev.preventDefault(); ev.stopPropagation(); }catch(_e){} }
+  closeNavProfileMenus();
+  if(!requireRegisteredForSecurity()) return;
+  __cvSecurityModalKind = 'password';
+  __cvSecurityOtpSent = false;
+  var modal = document.getElementById('cvSecurityModal');
+  var title = document.getElementById('cvSecurityModalTitle');
+  var sub = document.getElementById('cvSecurityModalSub');
+  var curLbl = document.getElementById('secCurrentCredLbl');
+  var newLbl = document.getElementById('secNewCredLbl');
+  var confLbl = document.getElementById('secConfirmCredLbl');
+  var cur = document.getElementById('secCurrentCred');
+  var neu = document.getElementById('secNewCred');
+  var conf = document.getElementById('secConfirmCred');
+  if(title) title.textContent = (typeof t === 'function' && t('securityModalPwTitle')) || 'Change Password';
+  if(sub) sub.textContent = (typeof t === 'function' && t('securityModalPwSub')) || '';
+  if(curLbl) curLbl.textContent = (typeof t === 'function' && t('secCurrentPw')) || 'Current Password';
+  if(newLbl) newLbl.textContent = (typeof t === 'function' && t('secNewPw')) || 'New Password';
+  if(confLbl) confLbl.textContent = (typeof t === 'function' && t('secConfirmPw')) || 'Confirm New Password';
+  if(cur){ cur.type = 'password'; cur.value = ''; cur.maxLength = 128; cur.inputMode = 'text'; }
+  if(neu){ neu.type = 'password'; neu.value = ''; neu.maxLength = 128; neu.inputMode = 'text'; }
+  if(conf){ conf.type = 'password'; conf.value = ''; conf.maxLength = 128; conf.inputMode = 'text'; }
+  document.getElementById('cvSecurityFormStep')?.classList.remove('hide');
+  document.getElementById('cvSecurityOtpStep')?.classList.remove('show');
+  var otp = document.getElementById('cvSecurityOtp');
+  if(otp) otp.value = '';
+  if(modal){ modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); }
+}
+window.openChangePasswordModal = openChangePasswordModal;
+
+function openChangePinModal(ev){
+  if(ev){ try{ ev.preventDefault(); ev.stopPropagation(); }catch(_e){} }
+  closeNavProfileMenus();
+  if(!requireRegisteredForSecurity()) return;
+  __cvSecurityModalKind = 'pin';
+  __cvSecurityOtpSent = false;
+  var modal = document.getElementById('cvSecurityModal');
+  var title = document.getElementById('cvSecurityModalTitle');
+  var sub = document.getElementById('cvSecurityModalSub');
+  var curLbl = document.getElementById('secCurrentCredLbl');
+  var newLbl = document.getElementById('secNewCredLbl');
+  var confLbl = document.getElementById('secConfirmCredLbl');
+  var cur = document.getElementById('secCurrentCred');
+  var neu = document.getElementById('secNewCred');
+  var conf = document.getElementById('secConfirmCred');
+  if(title) title.textContent = (typeof t === 'function' && t('securityModalPinTitle')) || 'Change Transaction PIN';
+  if(sub) sub.textContent = (typeof t === 'function' && t('securityModalPinSub')) || '';
+  if(curLbl) curLbl.textContent = (typeof t === 'function' && t('secCurrentPin')) || 'Current PIN';
+  if(newLbl) newLbl.textContent = (typeof t === 'function' && t('secNewPin')) || 'New PIN';
+  if(confLbl) confLbl.textContent = (typeof t === 'function' && t('secConfirmPin')) || 'Confirm New PIN';
+  if(cur){ cur.type = 'password'; cur.value = ''; cur.maxLength = 6; cur.inputMode = 'numeric'; }
+  if(neu){ neu.type = 'password'; neu.value = ''; neu.maxLength = 6; neu.inputMode = 'numeric'; }
+  if(conf){ conf.type = 'password'; conf.value = ''; conf.maxLength = 6; conf.inputMode = 'numeric'; }
+  document.getElementById('cvSecurityFormStep')?.classList.remove('hide');
+  document.getElementById('cvSecurityOtpStep')?.classList.remove('show');
+  var otp = document.getElementById('cvSecurityOtp');
+  if(otp) otp.value = '';
+  if(modal){ modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); }
+}
+window.openChangePinModal = openChangePinModal;
+
+function closeSecurityModal(){
+  var modal = document.getElementById('cvSecurityModal');
+  if(modal){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }
+  __cvSecurityModalKind = null;
+  __cvSecurityOtpSent = false;
+}
+window.closeSecurityModal = closeSecurityModal;
+
+function submitSecurityCredential(){
+  var kind = __cvSecurityModalKind;
+  if(!kind) return;
+  var cur = (document.getElementById('secCurrentCred')?.value || '').trim();
+  var neu = (document.getElementById('secNewCred')?.value || '').trim();
+  var conf = (document.getElementById('secConfirmCred')?.value || '').trim();
+  var stored = getSecurityCreds();
+  if(kind === 'password'){
+    if(cur.length < 4){ showToast('Enter your current password.'); return; }
+    if(stored.password && stored.password !== cur && !isCvDevMode()){ showToast('Current password does not match.'); return; }
+    if(neu.length < 8){ showToast('New password must be at least 8 characters.'); return; }
+    if(neu !== conf){ showToast('New passwords do not match.'); return; }
+  } else {
+    if(!/^\d{6}$/.test(cur)){ showToast('Enter your current 6-digit PIN.'); return; }
+    if(stored.pin && stored.pin !== cur && !isCvDevMode()){ showToast('Current PIN does not match.'); return; }
+    if(!/^\d{6}$/.test(neu)){ showToast('New PIN must be 6 digits.'); return; }
+    if(neu !== conf){ showToast('New PINs do not match.'); return; }
+  }
+  __cvSecurityPending = { kind: kind, value: neu };
+  __cvSecurityOtpSent = true;
+  document.getElementById('cvSecurityFormStep')?.classList.add('hide');
+  document.getElementById('cvSecurityOtpStep')?.classList.add('show');
+  showToast('OTP sent via SMS/Email (demo). Enter any 6 digits.');
+}
+window.submitSecurityCredential = submitSecurityCredential;
+
+function resendSecurityOtp(){
+  __cvSecurityOtpSent = true;
+  showToast('OTP resent to registered mobile/email (demo).');
+}
+window.resendSecurityOtp = resendSecurityOtp;
+
+function showSecuritySuccessBanner(){
+  var banner = document.getElementById('cvSecuritySuccessBanner');
+  if(!banner) return;
+  if(typeof t === 'function') banner.textContent = t('securityCredUpdated') || banner.textContent;
+  banner.classList.add('show');
+  clearTimeout(showSecuritySuccessBanner._timer);
+  showSecuritySuccessBanner._timer = setTimeout(function(){ banner.classList.remove('show'); }, 4200);
+}
+
+function verifySecurityOtp(){
+  var otp = (document.getElementById('cvSecurityOtp')?.value || '').trim();
+  if(!/^\d{6}$/.test(otp)){ showToast('Enter a valid 6-digit OTP.'); return; }
+  if(!__cvSecurityOtpSent){ showToast('Request OTP first.'); return; }
+  var pending = __cvSecurityPending || {};
+  var creds = getSecurityCreds();
+  if(pending.kind === 'password'){
+    creds.password = pending.value;
+    var lp = document.querySelector('#regActivationView #loginPassword') || document.getElementById('loginPassword');
+    var mp = document.getElementById('masterPassword');
+    if(lp) lp.value = pending.value;
+    if(mp) mp.value = pending.value;
+  } else if(pending.kind === 'pin'){
+    creds.pin = pending.value;
+    var tx = document.getElementById('txPin');
+    var txc = document.getElementById('txPinConfirm');
+    if(tx) tx.value = pending.value;
+    if(txc) txc.value = pending.value;
+  }
+  saveSecurityCreds(creds);
+  persistDraftSnapshot();
+  closeSecurityModal();
+  showSecuritySuccessBanner();
+  __cvSecurityPending = null;
+}
+window.verifySecurityOtp = verifySecurityOtp;
+
 function openSuccessionCard(ev){
   if(ev){ try{ ev.preventDefault(); ev.stopPropagation(); }catch(_e){} }
   if(typeof openVaultClaimModal === 'function') openVaultClaimModal();
@@ -6296,7 +6766,7 @@ function closeNavProfileMenus(){
 }
 
 function bindNavProfileMenus(){
-  ['navProfileLanding','navProfileDashboard'].forEach(function(id){
+  ['navProfileTopbar','navProfileLanding','navProfileDashboard'].forEach(function(id){
     var wrap = document.getElementById(id);
     if(!wrap || wrap.dataset.boundProfileNav === '1') return;
     wrap.dataset.boundProfileNav = '1';
@@ -6316,6 +6786,14 @@ function bindNavProfileMenus(){
     document.addEventListener('click', function(e){
       if(e.target.closest && e.target.closest('.cv-nav-profile-wrap')) return;
       closeNavProfileMenus();
+    });
+  }
+  if(!window.__cvSecurityModalDocClose){
+    window.__cvSecurityModalDocClose = true;
+    document.addEventListener('click', function(e){
+      var modal = document.getElementById('cvSecurityModal');
+      if(!modal || !modal.classList.contains('open')) return;
+      if(e.target === modal) closeSecurityModal();
     });
   }
 }
@@ -6366,6 +6844,8 @@ function maybeSendWeeklyExpirySms(status){
   st.smsCount = (st.smsCount || 0) + 1;
   var msg = '[SMS Demo] Weekly reminder to ' + getRegisteredMobile() + ': ID document ';
   msg += status.phase === 'expired' ? 'EXPIRED — renew immediately.' : ('expires in ' + status.daysLeft + ' days.');
+  var email = fieldVal('activationEmail') || fieldVal('emailInput') || 'registered email';
+  msg += ' | [Email Demo] Same notice sent to ' + email + '.';
   st.lastSmsMessage = msg;
   st.log = st.log || [];
   st.log.unshift({ at: new Date().toISOString(), message: msg });
@@ -6456,36 +6936,48 @@ function applyProfileFieldLockPolicy(tab, editing){
   if(!isProfileSettingsContext()) return;
   var panel = document.getElementById('regTab-' + tab);
   if(!panel) return;
-  var editable = isRegTabProfileEditable(tab) && editing;
+  var canEdit = isRegTabProfileEditable(tab) && editing;
   panel.querySelectorAll('input,select,textarea,button').forEach(function(el){
     if(el.closest('.footer-nav-actions') || el.id === 'btnEdit' || el.id === 'btnSaveEdit' || el.id === 'btnCloseRegStep') return;
-    if(tab === 2 && editable){
-      var id = el.id || '';
-      var allow = /docExpiry|docIssue|docId|slotFront|slotBack|slotPhoto|lifetimeExpiry|docTiles|cam/i.test(id) ||
-        el.closest('#docTiles') || el.closest('.doc-tiles') || el.classList.contains('upload-slot') ||
-        el.closest('.upload-slot');
-      if(el.type === 'file' || el.classList.contains('upload-slot') || allow) {
-        el.disabled = false; el.readOnly = false; return;
-      }
+    var id = el.id || '';
+    if(isAlwaysImmutableField(id)){
+      if(el.tagName === 'SELECT') el.disabled = true;
+      else { el.disabled = false; el.readOnly = true; }
+      el.classList.add('cv-immutable-field');
+      return;
     }
-    if(tab === 6 && editable){
-      var id6 = el.id || '';
-      if(/txPin|masterPassword|loginPassword|amlCompliance|cred2fa/i.test(id6)) {
-        el.disabled = false; el.readOnly = false; return;
-      }
+    if(canEdit && isMutableProfileField(el, tab, true)){
+      el.disabled = false;
+      if(el.tagName !== 'SELECT') el.readOnly = false;
+      if(el.closest('.upload-slot')) el.closest('.upload-slot').classList.add('cv-mutable-slot');
+      return;
     }
-    if(el.tagName === 'BUTTON'){ el.disabled = !editable; return; }
+    if(el.tagName === 'BUTTON'){
+      if(tab === 2 && editing && /runLiveness|toggleMobileLiveness|simulateMobileLiveness|cam/i.test(el.getAttribute('onclick') || '')) {
+        el.disabled = true;
+        return;
+      }
+      if(tab === 4 && editing && el.id === 'btnProfileMobileOtp'){ el.disabled = false; return; }
+      el.disabled = !canEdit;
+      return;
+    }
     if(el.type === 'hidden') return;
-    el.disabled = !editable;
-    if(el.tagName !== 'SELECT') el.readOnly = !editable;
+    if(el.type === 'file'){
+      el.disabled = !canEdit || !isMutableProfileField(el, tab, canEdit);
+      return;
+    }
+    el.disabled = !canEdit;
+    if(el.tagName !== 'SELECT') el.readOnly = !canEdit;
   });
+  syncProfileMobileOtpPanel(canEdit && tab === 4);
+  bindProfileImmutableGuards();
 }
 
 function refreshHubCardSummaries(){
   if(!isProfileSettingsContext() && !accountCreationComplete) return;
   var map = {
-    1: [fieldVal('firstName'), fieldVal('lastName'), fieldVal('cityInput')].filter(Boolean).join(' · ') || '—',
-    2: [fieldVal('docIdInput'), docExpiryValue === 'LIFETIME' ? 'Lifetime' : docExpiryValue].filter(Boolean).join(' · ') || '—',
+    1: [fieldVal('firstName'), fieldVal('lastName')].filter(Boolean).join(' · ') || '—',
+    2: [fieldVal('docIdInput'), docExpiryValue === 'LIFETIME' ? 'Lifetime' : docExpiryValue, fieldVal('residentialAddressInput')].filter(Boolean).join(' · ') || '—',
     3: [fieldVal('empStatus'), fieldVal('incomeRange')].filter(Boolean).join(' · ') || '—',
     4: [fieldVal('settleBankName'), fieldVal('settleIban')].filter(Boolean).join(' · ') || '—',
     5: [fieldVal('nokFullName'), fieldVal('nokRelationship')].filter(Boolean).join(' · ') || '—',
@@ -6509,9 +7001,12 @@ function enterRegCardEditMode(){
     return;
   }
   regCardEditSnapshot = captureRegPanelSnapshot(activeRegTab);
+  profileMobileEditBaseline = (fieldVal('dialCodeSelect') + fieldVal('mobileInput')).replace(/\s/g,'');
+  profileMobileOtpVerified = false;
+  profileMobileOtpSent = false;
   setRegPanelViewMode(false);
   applyProfileFieldLockPolicy(activeRegTab, true);
-  showToast('Edit mode — update allowed fields only.');
+  showToast((typeof t === 'function' && t('profileEditMutableOnly')) || 'Edit mode — renew documents, update address, or change mobile only.');
 }
 
 function saveRegCardEditMode(){
@@ -6522,10 +7017,20 @@ function saveRegCardEditMode(){
       if(st.phase === 'ok' || (exp && exp > new Date())) pauseExpiryAlertsAfterRenewal();
       runDocExpiryEngine();
     }
+    if(activeRegTab === 4){
+      if(mobileChangedSinceEditStart()){
+        if(!verifyProfileMobileOtp()){
+          showToast('Verify OTP before saving mobile number changes.');
+          return;
+        }
+      }
+    }
     persistDraftSnapshot();
     setRegPanelViewMode(true);
     applyProfileFieldLockPolicy(activeRegTab, false);
+    syncProfileMobileOtpPanel(false);
     refreshHubCardSummaries();
+    refreshNavProfileDisplay();
     showToast((typeof t === 'function' && t('profileSaved')) || 'Saved.');
     regCardEditSnapshot = null;
     return;
@@ -6948,7 +7453,7 @@ function syncEditButtonState(){
   if(!editBtn) return;
   if(isProfileSettingsContext && isProfileSettingsContext()){
     editBtn.disabled = !isRegTabProfileEditable(activeRegTab);
-    editBtn.title = editBtn.disabled ? 'Read-only section in profile settings' : 'Edit upgradable credentials';
+    editBtn.title = editBtn.disabled ? ((typeof t === 'function' && t('profileEditLocked')) || 'Read-only section in profile settings') : ((typeof t === 'function' && t('profileEditMutableOnly')) || 'Edit upgradable credentials');
     return;
   }
   if(accountCreationComplete){
@@ -7038,6 +7543,9 @@ function openRegTab(tabNumber){
   if(isProfileSettingsContext && isProfileSettingsContext()){
     setRegPanelViewMode(true);
     applyProfileFieldLockPolicy(n, false);
+    bindProfileImmutableGuards();
+    paintProfileVaultIdDisplay();
+    syncProfileMobileOtpPanel(false);
   }
   if(typeof forceRegNavButtonsActive === 'function') forceRegNavButtonsActive();
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -7476,6 +7984,12 @@ function activateVaultAccount(){
   accountCreationComplete = true;
   persistRegCompleteFlag();
   syncEditButtonState();
+  var creds = getSecurityCreds();
+  var pwEl = document.querySelector('#regActivationView #loginPassword');
+  var pinEl = document.getElementById('txPin');
+  if(pwEl && pwEl.value) creds.password = pwEl.value;
+  if(pinEl && pinEl.value) creds.pin = pinEl.value;
+  saveSecurityCreds(creds);
   persistDraftSnapshot();
   showToast('Vault activated — login uses Vault ID digits + password only.');
   deployVault();
@@ -9409,6 +9923,8 @@ function submitVault(){
     if(dashVault) dashVault.textContent = vaultId + ' · 0x'+hex.slice(0,3).toUpperCase()+'...'+hex.slice(3,7).toUpperCase();
     persistRegCompleteFlag();
     if(typeof runDocExpiryEngine === 'function') runDocExpiryEngine();
+    if(typeof refreshNavProfileDisplay === 'function') refreshNavProfileDisplay();
+    if(typeof bindProfileImmutableGuards === 'function') bindProfileImmutableGuards();
     showToast((typeof t === 'function' && t('regCompleteDashboard')) || 'Registration complete — welcome to your vault dashboard.');
     goTo('dashboard');
     paintCredentialSettlement(resolveActiveSettlementCredentials());
@@ -9465,6 +9981,11 @@ function closeDashFlow(){
 }
 
 function openDashFlow(flowKey){
+  if(typeof isVaultTransactionsFrozen === 'function' && isVaultTransactionsFrozen()){
+    showToast((typeof t === 'function' && t('accountHoldTitle')) || 'Account ON HOLD / RESTRICTED — renew identity document to restore transactions.');
+    if(typeof openProfileSettings === 'function') openProfileSettings();
+    return;
+  }
   var key = flowKey || '';
   switchDashTab('transactions');
   var anyOpen = false;
@@ -12181,7 +12702,9 @@ window.removeAffidavitSlot = removeAffidavitSlot;
         '<div class="cv-sw-row"><span class="cv-sw-k" data-i18n="profileUsername">Username</span><span class="cv-sw-v" id="cvProfileUsername">—</span></div>',
         '<div class="cv-sw-row"><span class="cv-sw-k" data-i18n="profileAccountId">Account ID</span><span class="cv-sw-v" id="cvProfileVaultId">CV-ARC-896586-PK-2026</span></div>',
         '<div class="cv-sw-row"><span class="cv-sw-k" data-i18n="profileStatus">Status</span><span class="cv-sw-v"><span class="cv-sw-status" id="cvProfileStatus">Active</span></span></div>',
-        '<button type="button" class="btn btn-ghost btn-sm" id="cvProfileOpenSettings" data-i18n="profileMenuSettings">Account & Verification Settings</button>',
+        '<button type="button" class="btn btn-ghost btn-sm" id="cvProfileOpenSettings" data-i18n="upgradeTitle">Upgrade Your CircleVault</button>',
+        '<button type="button" class="btn btn-ghost btn-sm" id="cvProfileChangePassword" data-i18n="menuChangePassword">Change Password</button>',
+        '<button type="button" class="btn btn-ghost btn-sm" id="cvProfileChangePin" data-i18n="menuChangePin">Change Transaction PIN</button>',
         '<div class="cv-menu-divider" style="height:1px;background:var(--line);margin:8px 0;"></div>',
         '<button type="button" class="btn btn-ghost btn-sm cv-sw-signout" id="cvProfileSignOut" data-i18n="profileSignOut">Sign Out / Reset</button>'
       ].join('');
@@ -12208,6 +12731,22 @@ window.removeAffidavitSlot = removeAffidavitSlot;
       settingsBtn.addEventListener('click', function () {
         closeMenu();
         if (typeof openProfileSettings === 'function') openProfileSettings();
+      });
+    }
+    var pwBtn = document.getElementById('cvProfileChangePassword');
+    if (pwBtn && !pwBtn.__cvBound) {
+      pwBtn.__cvBound = true;
+      pwBtn.addEventListener('click', function () {
+        closeMenu();
+        if (typeof openChangePasswordModal === 'function') openChangePasswordModal();
+      });
+    }
+    var pinBtn = document.getElementById('cvProfileChangePin');
+    if (pinBtn && !pinBtn.__cvBound) {
+      pinBtn.__cvBound = true;
+      pinBtn.addEventListener('click', function () {
+        closeMenu();
+        if (typeof openChangePinModal === 'function') openChangePinModal();
       });
     }
     var signOutBtn = document.getElementById('cvProfileSignOut');
