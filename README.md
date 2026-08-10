@@ -6,7 +6,7 @@ CircleVault Global is an integrated multi-tiered digital banking, remittance, an
 * **Track 1:** Best Cross-Border Payments & Remittances Experience (UAE → Global)
 
 ## Live Demo & Resources
-* **Live Demo URL:** [https://circlevault-global.vercel.app](https://circlevault-global.vercel.app)
+* **Live Demo URL:** [https://circlevault-global-three.vercel.app](https://circlevault-global-three.vercel.app)
 
 ## Circle Tools & Architecture Integration
 * **USDC:** Core settlement rail for fast, transparent, low-cost remittances.
